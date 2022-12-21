@@ -1,0 +1,10 @@
+{
+  "itemGroup.msd.msd_blocks": "站台装饰",
+  "block.msd.railing_stair": "楼梯栏杆",
+  "block.msd.railing_stair_end": "楼梯栏杆尾部",
+  "block.msd.railing_stair_end_mirror": "楼梯栏杆尾部(镜像)",
+  "block.msd.railing_stair_flat": "楼梯栏杆(平地)",
+  "block.msd.railing_stair_mirror": "楼梯栏杆(镜像)",
+  "block.msd.railing_stair_start": "楼梯栏杆头部",
+  "block.msd.railing_stair_start_mirror": "楼梯栏杆头部(镜像)"
+}

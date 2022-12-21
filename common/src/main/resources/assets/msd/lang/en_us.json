@@ -1,0 +1,10 @@
+{
+  "itemGroup.msd.msd_blocks": "Station Decoration",
+  "block.msd.railing_stair": "Railing Stair",
+  "block.msd.railing_stair_end": "Railing Stair Tail",
+  "block.msd.railing_stair_end_mirror": "Railing Stair Tail(Mirror)",
+  "block.msd.railing_stair_flat": "Railing Stair(Flat)",
+  "block.msd.railing_stair_mirror": "Railing Stair(Mirror)",
+  "block.msd.railing_stair_start": "Railing Stair Head",
+  "block.msd.railing_stair_start_mirror": "Railing Stair Head(Mirror)"
+}
