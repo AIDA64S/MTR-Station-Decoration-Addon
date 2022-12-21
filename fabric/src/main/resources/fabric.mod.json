@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "msd",
+  "version": "${version}",
+  "name": "MTR Station Decoration Addon",
+  "description": "A Station Decoration Addon for the Minecraft Transit Railway Mod",
+  "authors": [
+    "MTR Lovers"
+  ],
+  "license": "MIT",
+  "icon": "icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "top.mcmtr.MainFabric"
+    ],
+    "client": [
+      "top.mcmtr.MainFabricClient"
+    ]
+  },
+  "mixins": [
+    "msd.mixins.json"
+  ],
+  "depends": {
+    "fabric": "*",
+    "minecraft": "*",
+    "mtr": "*"
+  }
+}
