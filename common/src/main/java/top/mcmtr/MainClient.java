@@ -2,6 +2,7 @@ package top.mcmtr;
 
 import mtr.RegistryClient;
 import net.minecraft.client.renderer.RenderType;
+import top.mcmtr.render.RenderPIDS;
 
 public class MainClient {
     public static void init() {
@@ -12,5 +13,7 @@ public class MainClient {
         RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.RAILING_STAIR_MIRROR.get());
         RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.RAILING_STAIR_START.get());
         RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.RAILING_STAIR_START_MIRROR.get());
+
+        RegistryClient.registerTileEntityRenderer(MSDBlockEntityTypes.YAMANOTE_PIDS_TILE_ENTITY.get(), dispatcher -> new RenderPIDS<>(dispatcher, 3, 1F, 15F, 7, 6F, 30, true, true, 0x00FF00, 0xFF0000));
     }
 }

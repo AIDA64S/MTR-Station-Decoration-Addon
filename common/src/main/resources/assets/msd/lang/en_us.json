@@ -6,5 +6,6 @@
   "block.msd.railing_stair_flat": "Railing Stair(Flat)",
   "block.msd.railing_stair_mirror": "Railing Stair(Mirror)",
   "block.msd.railing_stair_start": "Railing Stair Head",
-  "block.msd.railing_stair_start_mirror": "Railing Stair Head(Mirror)"
+  "block.msd.railing_stair_start_mirror": "Railing Stair Head(Mirror)",
+  "block.msd.yamanote_pids": "Yamanote Line Sytle PIDS"
 }

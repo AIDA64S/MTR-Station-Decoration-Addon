@@ -4,6 +4,7 @@ import mtr.CreativeModeTabs;
 import mtr.RegistryObject;
 import mtr.mappings.BlockEntityMapper;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
@@ -13,6 +14,8 @@ public class Main {
     public static final String MOD_ID = "msd";
 
     public static void init(
+            BiConsumer<String, RegistryObject<Item>> registerItem,
+            BiConsumer<String, RegistryObject<Block>> registerBlock,
             RegisterBlockItem registerBlockItem,
             BiConsumer<String, RegistryObject<? extends BlockEntityType<? extends BlockEntityMapper>>> registerBlockEntityType,
             BiConsumer<String, SoundEvent> registerSoundEvent
@@ -24,6 +27,9 @@ public class Main {
         registerBlockItem.accept("railing_stair_mirror", MSDBlocks.RAILING_STAIR_MIRROR, MSDItems.MSD_BLOCKS);
         registerBlockItem.accept("railing_stair_start", MSDBlocks.RAILING_STAIR_START, MSDItems.MSD_BLOCKS);
         registerBlockItem.accept("railing_stair_start_mirror", MSDBlocks.RAILING_STAIR_START_MIRROR, MSDItems.MSD_BLOCKS);
+        registerBlockItem.accept("yamanote_pids", MSDBlocks.YAMANOTE_PIDS, MSDItems.MSD_BLOCKS);
+
+        registerBlockEntityType.accept("yamanote_pids", MSDBlockEntityTypes.YAMANOTE_PIDS_TILE_ENTITY);
     }
 
     @FunctionalInterface

@@ -14,5 +14,5 @@ public interface MSDBlocks {
     RegistryObject<Block> RAILING_STAIR_MIRROR = new RegistryObject<>(() -> new BlockRailingStairMirror(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
     RegistryObject<Block> RAILING_STAIR_START = new RegistryObject<>(() -> new BlockRailingStairStart(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
     RegistryObject<Block> RAILING_STAIR_START_MIRROR = new RegistryObject<>(() -> new BlockRailingStairStartMirror(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
-
+    RegistryObject<Block> YAMANOTE_PIDS =new RegistryObject<>(BlockYamanotePIDS::new);
 }

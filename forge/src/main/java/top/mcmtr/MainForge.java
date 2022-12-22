@@ -3,6 +3,7 @@ package top.mcmtr;
 import mtr.CreativeModeTabs;
 import mtr.Registry;
 import mtr.RegistryObject;
+import mtr.item.ItemWithCreativeTabBase;
 import mtr.mappings.BlockEntityMapper;
 import mtr.mappings.DeferredRegisterHolder;
 import mtr.mappings.RegistryUtilities;
@@ -23,7 +24,7 @@ public class MainForge {
     private static final DeferredRegisterHolder<BlockEntityType<?>> BLOCK_ENTITY_TYPES = new DeferredRegisterHolder<>(Main.MOD_ID, ForgeUtilities.registryGetBlockEntityType());
     private static final DeferredRegisterHolder<SoundEvent> SOUND_EVENTS = new DeferredRegisterHolder<>(Main.MOD_ID, ForgeUtilities.registryGetSoundEvent());
     static {
-        Main.init(MainForge::registerBlock, MainForge::registerBlockEntityType, MainForge::registerSoundEvent);
+        Main.init(MainForge::registerItem,MainForge::registerBlock,MainForge::registerBlock, MainForge::registerBlockEntityType, MainForge::registerSoundEvent);
     }
 
     public MainForge() {
@@ -36,6 +37,18 @@ public class MainForge {
         SOUND_EVENTS.register();
 
         eventBus.register(MTRForgeRegistry.class);
+    }
+
+    private static void registerItem(String path, RegistryObject<Item> item) {
+        ITEMS.register(path, () -> {
+            final Item itemObject = item.get();
+            if (itemObject instanceof ItemWithCreativeTabBase) {
+                Registry.registerCreativeModeTab(((ItemWithCreativeTabBase) itemObject).creativeModeTab.resourceLocation, itemObject);
+            } else if (itemObject instanceof ItemWithCreativeTabBase.ItemPlaceOnWater) {
+                Registry.registerCreativeModeTab(((ItemWithCreativeTabBase.ItemPlaceOnWater) itemObject).creativeModeTab.resourceLocation, itemObject);
+            }
+            return itemObject;
+        });
     }
 
     private static void registerBlock(String path, RegistryObject<Block> block) {
