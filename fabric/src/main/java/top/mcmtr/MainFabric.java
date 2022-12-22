@@ -1,7 +1,6 @@
 package top.mcmtr;
 
 import mtr.CreativeModeTabs;
-import mtr.MTR;
 import mtr.RegistryObject;
 import mtr.item.ItemWithCreativeTabBase;
 import mtr.mappings.BlockEntityMapper;
@@ -23,7 +22,7 @@ public class MainFabric implements ModInitializer {
     }
     private static void registerItem(String path, RegistryObject<Item> item) {
         final Item itemObject = item.get();
-        Registry.register(RegistryUtilities.registryGetItem(), new ResourceLocation(MTR.MOD_ID, path), itemObject);
+        Registry.register(RegistryUtilities.registryGetItem(), new ResourceLocation(Main.MOD_ID, path), itemObject);
         if (itemObject instanceof ItemWithCreativeTabBase) {
             FabricRegistryUtilities.registerCreativeModeTab(((ItemWithCreativeTabBase) itemObject).creativeModeTab.get(), itemObject);
         } else if (itemObject instanceof ItemWithCreativeTabBase.ItemPlaceOnWater) {
@@ -31,7 +30,7 @@ public class MainFabric implements ModInitializer {
         }
     }
     private static void registerBlock(String path, RegistryObject<Block> block) {
-        Registry.register(RegistryUtilities.registryGetBlock(), new ResourceLocation(MTR.MOD_ID, path), block.get());
+        Registry.register(RegistryUtilities.registryGetBlock(), new ResourceLocation(Main.MOD_ID, path), block.get());
     }
     private static void registerBlock(String path, RegistryObject<Block> block, CreativeModeTabs.Wrapper creativeModeTab) {
         registerBlock(path, block);

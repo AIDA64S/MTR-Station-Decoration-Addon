@@ -1,14 +1,18 @@
 package top.mcmtr;
 
 import mtr.CreativeModeTabs;
+import mtr.Registry;
 import mtr.RegistryObject;
 import mtr.mappings.BlockEntityMapper;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import top.mcmtr.packet.MSDPacketTrainDataGuiServer;
 
 import java.util.function.BiConsumer;
+
+import static top.mcmtr.packet.MSDPacket.PACKET_YAMANOTE_SIGN_TYPES;
 
 public class Main {
     public static final String MOD_ID = "msd";
@@ -28,8 +32,39 @@ public class Main {
         registerBlockItem.accept("railing_stair_start", MSDBlocks.RAILING_STAIR_START, MSDItems.MSD_BLOCKS);
         registerBlockItem.accept("railing_stair_start_mirror", MSDBlocks.RAILING_STAIR_START_MIRROR, MSDItems.MSD_BLOCKS);
         registerBlockItem.accept("yamanote_pids", MSDBlocks.YAMANOTE_PIDS, MSDItems.MSD_BLOCKS);
+        registerBlockItem.accept("yamanote_railway_sign_2_even", MSDBlocks.YAMANOTE_RAILWAY_SIGN_2_EVEN, MSDItems.MSD_BLOCKS);
+        registerBlockItem.accept("yamanote_railway_sign_2_odd", MSDBlocks.YAMANOTE_RAILWAY_SIGN_2_ODD, MSDItems.MSD_BLOCKS);
+        registerBlockItem.accept("yamanote_railway_sign_3_even", MSDBlocks.YAMANOTE_RAILWAY_SIGN_3_EVEN, MSDItems.MSD_BLOCKS);
+        registerBlockItem.accept("yamanote_railway_sign_3_odd", MSDBlocks.YAMANOTE_RAILWAY_SIGN_3_ODD, MSDItems.MSD_BLOCKS);
+        registerBlockItem.accept("yamanote_railway_sign_4_even", MSDBlocks.YAMANOTE_RAILWAY_SIGN_4_EVEN, MSDItems.MSD_BLOCKS);
+        registerBlockItem.accept("yamanote_railway_sign_4_odd", MSDBlocks.YAMANOTE_RAILWAY_SIGN_4_ODD, MSDItems.MSD_BLOCKS);
+        registerBlockItem.accept("yamanote_railway_sign_5_even", MSDBlocks.YAMANOTE_RAILWAY_SIGN_5_EVEN, MSDItems.MSD_BLOCKS);
+        registerBlockItem.accept("yamanote_railway_sign_5_odd", MSDBlocks.YAMANOTE_RAILWAY_SIGN_5_ODD, MSDItems.MSD_BLOCKS);
+        registerBlockItem.accept("yamanote_railway_sign_6_even", MSDBlocks.YAMANOTE_RAILWAY_SIGN_6_EVEN, MSDItems.MSD_BLOCKS);
+        registerBlockItem.accept("yamanote_railway_sign_6_odd", MSDBlocks.YAMANOTE_RAILWAY_SIGN_6_ODD, MSDItems.MSD_BLOCKS);
+        registerBlockItem.accept("yamanote_railway_sign_7_even", MSDBlocks.YAMANOTE_RAILWAY_SIGN_7_EVEN, MSDItems.MSD_BLOCKS);
+        registerBlockItem.accept("yamanote_railway_sign_7_odd", MSDBlocks.YAMANOTE_RAILWAY_SIGN_7_ODD, MSDItems.MSD_BLOCKS);
+
+        registerBlock.accept("yamanote_railway_sign_middle", MSDBlocks.YAMANOTE_RAILWAY_SIGN_MIDDLE);
 
         registerBlockEntityType.accept("yamanote_pids", MSDBlockEntityTypes.YAMANOTE_PIDS_TILE_ENTITY);
+        registerBlockEntityType.accept("yamanote_railway_sign_2_even", MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_2_EVEN_TILE_ENTITY);
+        registerBlockEntityType.accept("yamanote_railway_sign_2_odd", MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_2_ODD_TILE_ENTITY);
+        registerBlockEntityType.accept("yamanote_railway_sign_3_even", MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_3_EVEN_TILE_ENTITY);
+        registerBlockEntityType.accept("yamanote_railway_sign_3_odd", MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_3_ODD_TILE_ENTITY);
+        registerBlockEntityType.accept("yamanote_railway_sign_4_even", MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_4_EVEN_TILE_ENTITY);
+        registerBlockEntityType.accept("yamanote_railway_sign_4_odd", MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_4_ODD_TILE_ENTITY);
+        registerBlockEntityType.accept("yamanote_railway_sign_5_even", MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_5_EVEN_TILE_ENTITY);
+        registerBlockEntityType.accept("yamanote_railway_sign_5_odd", MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_5_ODD_TILE_ENTITY);
+        registerBlockEntityType.accept("yamanote_railway_sign_6_even", MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_6_EVEN_TILE_ENTITY);
+        registerBlockEntityType.accept("yamanote_railway_sign_6_odd", MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_6_ODD_TILE_ENTITY);
+        registerBlockEntityType.accept("yamanote_railway_sign_7_even", MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_7_EVEN_TILE_ENTITY);
+        registerBlockEntityType.accept("yamanote_railway_sign_7_odd", MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_7_ODD_TILE_ENTITY);
+
+        Registry.registerNetworkReceiver(PACKET_YAMANOTE_SIGN_TYPES, MSDPacketTrainDataGuiServer::receiveSignIdsC2S);
+
+
+
     }
 
     @FunctionalInterface

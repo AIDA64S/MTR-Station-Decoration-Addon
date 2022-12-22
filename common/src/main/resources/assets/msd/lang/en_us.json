@@ -7,5 +7,10 @@
   "block.msd.railing_stair_mirror": "Railing Stair(Mirror)",
   "block.msd.railing_stair_start": "Railing Stair Head",
   "block.msd.railing_stair_start_mirror": "Railing Stair Head(Mirror)",
-  "block.msd.yamanote_pids": "Yamanote Line Sytle PIDS"
+  "block.msd.yamanote_pids": "Yamanote Line Sytle PID",
+  "gui.msd.arrival_sec": "Due",
+  "tooltip.msd.yamanote_railway_sign_length": "Length: %s",
+  "tooltip.msd.yamanote_railway_sign_odd": "Orientation: Odd",
+  "tooltip.msd.yamanote_railway_sign_even": "Orientation: Even",
+  "block.msd.yamanote_railway_sign": "Yamanote Style Railway Sign",
 }
