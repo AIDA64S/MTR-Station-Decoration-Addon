@@ -15,36 +15,39 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import top.mcmtr.mappings.FabricRegistryUtilities;
 
-public class MainFabric implements ModInitializer {
+public class MSDMainFabric implements ModInitializer {
     @Override
     public void onInitialize() {
-        Main.init(MainFabric::registerItem,MainFabric::registerBlock,MainFabric::registerBlock, MainFabric::registerBlockEntityType, MainFabric::registerSoundEvent);
+        MSDMain.init(MSDMainFabric::registerItem, MSDMainFabric::registerBlock, MSDMainFabric::registerBlock, MSDMainFabric::registerBlockEntityType, MSDMainFabric::registerSoundEvent);
     }
+
     private static void registerItem(String path, RegistryObject<Item> item) {
         final Item itemObject = item.get();
-        Registry.register(RegistryUtilities.registryGetItem(), new ResourceLocation(Main.MOD_ID, path), itemObject);
+        Registry.register(RegistryUtilities.registryGetItem(), new ResourceLocation(MSDMain.MOD_ID, path), itemObject);
         if (itemObject instanceof ItemWithCreativeTabBase) {
             FabricRegistryUtilities.registerCreativeModeTab(((ItemWithCreativeTabBase) itemObject).creativeModeTab.get(), itemObject);
         } else if (itemObject instanceof ItemWithCreativeTabBase.ItemPlaceOnWater) {
             FabricRegistryUtilities.registerCreativeModeTab(((ItemWithCreativeTabBase.ItemPlaceOnWater) itemObject).creativeModeTab.get(), itemObject);
         }
     }
+
     private static void registerBlock(String path, RegistryObject<Block> block) {
-        Registry.register(RegistryUtilities.registryGetBlock(), new ResourceLocation(Main.MOD_ID, path), block.get());
+        Registry.register(RegistryUtilities.registryGetBlock(), new ResourceLocation(MSDMain.MOD_ID, path), block.get());
     }
+
     private static void registerBlock(String path, RegistryObject<Block> block, CreativeModeTabs.Wrapper creativeModeTab) {
         registerBlock(path, block);
         final BlockItem blockItem = new BlockItem(block.get(), RegistryUtilities.createItemProperties(creativeModeTab::get));
-        Registry.register(RegistryUtilities.registryGetItem(), new ResourceLocation(Main.MOD_ID, path), blockItem);
+        Registry.register(RegistryUtilities.registryGetItem(), new ResourceLocation(MSDMain.MOD_ID, path), blockItem);
         FabricRegistryUtilities.registerCreativeModeTab(creativeModeTab.get(), blockItem);
     }
 
     private static void registerBlockEntityType(String path, RegistryObject<? extends BlockEntityType<? extends BlockEntityMapper>> blockEntityType) {
-        Registry.register(RegistryUtilities.registryGetBlockEntityType(), new ResourceLocation(Main.MOD_ID, path), blockEntityType.get());
+        Registry.register(RegistryUtilities.registryGetBlockEntityType(), new ResourceLocation(MSDMain.MOD_ID, path), blockEntityType.get());
     }
 
     private static void registerSoundEvent(String path, SoundEvent soundEvent) {
-        Registry.register(RegistryUtilities.registryGetSoundEvent(), new ResourceLocation(Main.MOD_ID, path), soundEvent);
+        Registry.register(RegistryUtilities.registryGetSoundEvent(), new ResourceLocation(MSDMain.MOD_ID, path), soundEvent);
     }
 
 }

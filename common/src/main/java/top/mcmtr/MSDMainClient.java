@@ -8,7 +8,7 @@ import top.mcmtr.packet.MSDPacketTrainDataGuiClient;
 import top.mcmtr.render.RenderPIDS;
 import top.mcmtr.render.RenderYamanoteRailwaySign;
 
-public class MainClient {
+public class MSDMainClient {
     public static void init() {
         RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.RAILING_STAIR.get());
         RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.RAILING_STAIR_END.get());

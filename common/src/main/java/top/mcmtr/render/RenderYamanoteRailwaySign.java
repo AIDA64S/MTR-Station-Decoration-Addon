@@ -50,7 +50,7 @@ public class RenderYamanoteRailwaySign<T extends BlockYamanoteRailwaySign.TileEn
         }
         final BlockPos pos = entity.getBlockPos();
         final BlockState state = world.getBlockState(pos);
-        if(!(state.getBlock() instanceof BlockYamanoteRailwaySign)) {
+        if (!(state.getBlock() instanceof BlockYamanoteRailwaySign)) {
             return;
         }
         final BlockYamanoteRailwaySign block = (BlockYamanoteRailwaySign) state.getBlock();
@@ -112,7 +112,7 @@ public class RenderYamanoteRailwaySign<T extends BlockYamanoteRailwaySign.TileEn
             return;
         }
         final CustomResources.CustomSign sign = getSign(signId);
-        if(sign == null) {
+        if (sign == null) {
             return;
         }
         final float signSize = (sign.small ? BlockYamanoteRailwaySign.SMALL_SIGN_PERCENTAGE : 1) * size;
@@ -132,7 +132,8 @@ public class RenderYamanoteRailwaySign<T extends BlockYamanoteRailwaySign.TileEn
             }
             final Map<String, List<String>> exits = station.getGeneratedExits();
             final List<String> selectedExitsSorted = selectedIds.stream().map(Station::deserializeExit).filter(exits::containsKey).sorted(String::compareTo).collect(Collectors.toList());
-            matrices.pushPose();;
+            matrices.pushPose();
+            ;
             matrices.translate(x + margin + (flipCustomText ? signSize : 0), y + margin, 0);
             final float maxWidth = ((flipCustomText ? maxWidthLeft : maxWidthRight) + 1) * size - margin * 2;
             final float exitWidth = signSize * selectedExitsSorted.size();
@@ -163,7 +164,7 @@ public class RenderYamanoteRailwaySign<T extends BlockYamanoteRailwaySign.TileEn
             final float height = size - margin * 2;
             final List<ClientCache.DynamicResource> resourceLocationDataList = new ArrayList<>();
             float totalTextWidth = 0;
-            for (final ClientCache.ColorNameTuple route : selectedIdsSorted){
+            for (final ClientCache.ColorNameTuple route : selectedIdsSorted) {
                 final ClientCache.DynamicResource resourceLocationData = ClientData.DATA_CACHE.getRouteSquare(route.color, route.name, flipCustomText ? HorizontalAlignment.RIGHT : HorizontalAlignment.LEFT);
                 resourceLocationDataList.add(resourceLocationData);
                 totalTextWidth += height * resourceLocationData.width / resourceLocationData.height + margin / 2F;
@@ -260,7 +261,7 @@ public class RenderYamanoteRailwaySign<T extends BlockYamanoteRailwaySign.TileEn
     public static float getMaxWidth(String[] signIds, int index, boolean right) {
         float maxWidthLeft = 0;
         for (int i = index + (right ? 1 : -1); right ? i < signIds.length : i >= 0; i += (right ? 1 : -1)) {
-            if(signIds[i] != null) {
+            if (signIds[i] != null) {
                 final CustomResources.CustomSign sign = RenderYamanoteRailwaySign.getSign(signIds[i]);
                 if (sign != null && sign.hasCustomText() && right == sign.flipCustomText) {
                     maxWidthLeft /= 2;
@@ -271,6 +272,7 @@ public class RenderYamanoteRailwaySign<T extends BlockYamanoteRailwaySign.TileEn
         }
         return maxWidthLeft;
     }
+
     @FunctionalInterface
     public interface DrawTexture {
         void drawTexture(ResourceLocation textureId, float x, float y, float size, boolean flipTexture);

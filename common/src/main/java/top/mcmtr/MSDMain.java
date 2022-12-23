@@ -14,7 +14,7 @@ import java.util.function.BiConsumer;
 
 import static top.mcmtr.packet.MSDPacket.PACKET_YAMANOTE_SIGN_TYPES;
 
-public class Main {
+public class MSDMain {
     public static final String MOD_ID = "msd";
 
     public static void init(
@@ -62,9 +62,6 @@ public class Main {
         registerBlockEntityType.accept("yamanote_railway_sign_7_odd", MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_7_ODD_TILE_ENTITY);
 
         Registry.registerNetworkReceiver(PACKET_YAMANOTE_SIGN_TYPES, MSDPacketTrainDataGuiServer::receiveSignIdsC2S);
-
-
-
     }
 
     @FunctionalInterface

@@ -12,10 +12,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "top.mcmtr.MainFabric"
+      "top.mcmtr.MSDMainFabric"
     ],
     "client": [
-      "top.mcmtr.MainFabricClient"
+      "top.mcmtr.MSDMainFabricClient"
     ]
   },
   "mixins": [

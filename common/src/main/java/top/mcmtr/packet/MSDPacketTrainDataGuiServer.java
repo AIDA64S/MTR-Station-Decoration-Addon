@@ -57,6 +57,7 @@ public class MSDPacketTrainDataGuiServer extends PacketTrainDataGuiServer {
             }
         });
     }
+
     @SafeVarargs
     private static <T extends BlockEntityMapper> void setTileEntityDataAndWriteUpdate(ServerPlayer player, Consumer<T> setData, T... entities) {
         final RailwayData railwayData = RailwayData.getInstance(player.level);

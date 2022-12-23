@@ -18,18 +18,19 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import top.mcmtr.mappings.ForgeUtilities;
 
-public class MainForge {
-    private static final DeferredRegisterHolder<Item> ITEMS = new DeferredRegisterHolder<>(Main.MOD_ID, ForgeUtilities.registryGetItem());
-    private static final DeferredRegisterHolder<Block> BLOCKS = new DeferredRegisterHolder<>(Main.MOD_ID, ForgeUtilities.registryGetBlock());
-    private static final DeferredRegisterHolder<BlockEntityType<?>> BLOCK_ENTITY_TYPES = new DeferredRegisterHolder<>(Main.MOD_ID, ForgeUtilities.registryGetBlockEntityType());
-    private static final DeferredRegisterHolder<SoundEvent> SOUND_EVENTS = new DeferredRegisterHolder<>(Main.MOD_ID, ForgeUtilities.registryGetSoundEvent());
+public class MSDMainForge {
+    private static final DeferredRegisterHolder<Item> ITEMS = new DeferredRegisterHolder<>(MSDMain.MOD_ID, ForgeUtilities.registryGetItem());
+    private static final DeferredRegisterHolder<Block> BLOCKS = new DeferredRegisterHolder<>(MSDMain.MOD_ID, ForgeUtilities.registryGetBlock());
+    private static final DeferredRegisterHolder<BlockEntityType<?>> BLOCK_ENTITY_TYPES = new DeferredRegisterHolder<>(MSDMain.MOD_ID, ForgeUtilities.registryGetBlockEntityType());
+    private static final DeferredRegisterHolder<SoundEvent> SOUND_EVENTS = new DeferredRegisterHolder<>(MSDMain.MOD_ID, ForgeUtilities.registryGetSoundEvent());
+
     static {
-        Main.init(MainForge::registerItem,MainForge::registerBlock,MainForge::registerBlock, MainForge::registerBlockEntityType, MainForge::registerSoundEvent);
+        MSDMain.init(MSDMainForge::registerItem, MSDMainForge::registerBlock, MSDMainForge::registerBlock, MSDMainForge::registerBlockEntityType, MSDMainForge::registerSoundEvent);
     }
 
-    public MainForge() {
+    public MSDMainForge() {
         final IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        ForgeUtilities.registerModEventBus(Main.MOD_ID, eventBus);
+        ForgeUtilities.registerModEventBus(MSDMain.MOD_ID, eventBus);
 
         ITEMS.register();
         BLOCKS.register();
@@ -75,7 +76,7 @@ public class MainForge {
     private static class MTRForgeRegistry {
         @SubscribeEvent
         public static void onClientSetupEvent(FMLClientSetupEvent event) {
-            MainClient.init();
+            MSDMainClient.init();
         }
     }
 }

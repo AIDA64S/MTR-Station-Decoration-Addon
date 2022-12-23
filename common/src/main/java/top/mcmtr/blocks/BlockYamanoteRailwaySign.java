@@ -178,8 +178,8 @@ public class BlockYamanoteRailwaySign extends BlockDirectionalMapper implements 
     public static class TileEntityRailwaySign extends BlockEntityClientSerializableMapper {
         private final Set<Long> selectedIds;
         private final String[] signIds;
-        private static final String KEY_SELECTED_IDS = "selected_ids";
-        private static final String KEY_SIGN_LENGTH = "sign_length";
+        private static final String KEY_SELECTED_IDS = "selected_yamanote_ids";
+        private static final String KEY_SIGN_LENGTH = "sign_yamanote_length";
 
         public TileEntityRailwaySign(int length, boolean isOdd, BlockPos pos, BlockState state) {
             super(getType(length, isOdd), pos, state);

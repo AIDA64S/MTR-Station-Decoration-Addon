@@ -52,6 +52,7 @@ public class YamanoteRailwaySignScreen extends ScreenMapper implements IGui {
     private static final int SIGN_SIZE = 32;
     private static final int SIGN_BUTTON_SIZE = 16;
     private static final int BUTTON_Y_START = SIGN_SIZE + SQUARE_SIZE + SQUARE_SIZE / 2;
+
     public YamanoteRailwaySignScreen(BlockPos signPos) {
         super(Text.literal(""));
         editingIndex = -1;
@@ -164,7 +165,7 @@ public class YamanoteRailwaySignScreen extends ScreenMapper implements IGui {
             }
             for (int i = 0; i < signIds.length; i++) {
                 if (signIds[i] != null) {
-                    RenderYamanoteRailwaySign.drawSign(matrices, null, null, font, signPos, signIds[i], (width - SIGN_SIZE * length) / 2F + i * SIGN_SIZE, 0, SIGN_SIZE, RenderYamanoteRailwaySign.getMaxWidth(signIds, i, false), RenderYamanoteRailwaySign.getMaxWidth(signIds, i, true), selectedIds, Direction.UP,0, (textureId, x, y, size, flipTexture) -> {
+                    RenderYamanoteRailwaySign.drawSign(matrices, null, null, font, signPos, signIds[i], (width - SIGN_SIZE * length) / 2F + i * SIGN_SIZE, 0, SIGN_SIZE, RenderYamanoteRailwaySign.getMaxWidth(signIds, i, false), RenderYamanoteRailwaySign.getMaxWidth(signIds, i, true), selectedIds, Direction.UP, 0, (textureId, x, y, size, flipTexture) -> {
                         UtilitiesClient.beginDrawingTexture(textureId);
                         blit(matrices, (int) x, (int) y, 0, 0, (int) size, (int) size, (int) (flipTexture ? -size : size), (int) size);
                     });
@@ -212,7 +213,7 @@ public class YamanoteRailwaySignScreen extends ScreenMapper implements IGui {
         for (Button button : buttonsEdit) {
             button.active = true;
         }
-        for(Button button : buttonsSelection) {
+        for (Button button : buttonsSelection) {
             button.visible = false;
         }
         editingIndex = -1;
