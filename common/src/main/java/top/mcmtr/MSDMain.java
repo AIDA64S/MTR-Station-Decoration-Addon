@@ -32,6 +32,10 @@ public class MSDMain {
         registerBlockItem.accept("railing_stair_start", MSDBlocks.RAILING_STAIR_START, MSDItems.MSD_BLOCKS);
         registerBlockItem.accept("railing_stair_start_mirror", MSDBlocks.RAILING_STAIR_START_MIRROR, MSDItems.MSD_BLOCKS);
         registerBlockItem.accept("yamanote_pids", MSDBlocks.YAMANOTE_PIDS, MSDItems.MSD_BLOCKS);
+        registerBlockItem.accept("yamanote_4_pids", MSDBlocks.YAMANOTE_4_PIDS, MSDItems.MSD_BLOCKS);
+        registerBlockItem.accept("yamanote_5_pids", MSDBlocks.YAMANOTE_5_PIDS, MSDItems.MSD_BLOCKS);
+        registerBlockItem.accept("yamanote_6_pids", MSDBlocks.YAMANOTE_6_PIDS, MSDItems.MSD_BLOCKS);
+        registerBlockItem.accept("yamanote_7_pids", MSDBlocks.YAMANOTE_7_PIDS, MSDItems.MSD_BLOCKS);
         registerBlockItem.accept("yamanote_railway_sign_2_even", MSDBlocks.YAMANOTE_RAILWAY_SIGN_2_EVEN, MSDItems.MSD_BLOCKS);
         registerBlockItem.accept("yamanote_railway_sign_2_odd", MSDBlocks.YAMANOTE_RAILWAY_SIGN_2_ODD, MSDItems.MSD_BLOCKS);
         registerBlockItem.accept("yamanote_railway_sign_3_even", MSDBlocks.YAMANOTE_RAILWAY_SIGN_3_EVEN, MSDItems.MSD_BLOCKS);
@@ -44,10 +48,17 @@ public class MSDMain {
         registerBlockItem.accept("yamanote_railway_sign_6_odd", MSDBlocks.YAMANOTE_RAILWAY_SIGN_6_ODD, MSDItems.MSD_BLOCKS);
         registerBlockItem.accept("yamanote_railway_sign_7_even", MSDBlocks.YAMANOTE_RAILWAY_SIGN_7_EVEN, MSDItems.MSD_BLOCKS);
         registerBlockItem.accept("yamanote_railway_sign_7_odd", MSDBlocks.YAMANOTE_RAILWAY_SIGN_7_ODD, MSDItems.MSD_BLOCKS);
+        registerBlockItem.accept("yamanote_railway_sign_pole", MSDBlocks.YAMANOTE_RAILWAY_SIGN_POLE, MSDItems.MSD_BLOCKS);
+        registerBlockItem.accept("yamanote_railway_sign_double_pole", MSDBlocks.YAMANOTE_RAILWAY_SIGN_DOUBLE_POLE, MSDItems.MSD_BLOCKS);
+        registerBlockItem.accept("railway_sign_double_pole", MSDBlocks.RAILWAY_SIGN_DOUBLE_POLE, MSDItems.MSD_BLOCKS);
 
         registerBlock.accept("yamanote_railway_sign_middle", MSDBlocks.YAMANOTE_RAILWAY_SIGN_MIDDLE);
 
         registerBlockEntityType.accept("yamanote_pids", MSDBlockEntityTypes.YAMANOTE_PIDS_TILE_ENTITY);
+        registerBlockEntityType.accept("yamanote_4_pids", MSDBlockEntityTypes.YAMANOTE_4_PIDS_TILE_ENTITY);
+        registerBlockEntityType.accept("yamanote_5_pids", MSDBlockEntityTypes.YAMANOTE_5_PIDS_TILE_ENTITY);
+        registerBlockEntityType.accept("yamanote_6_pids", MSDBlockEntityTypes.YAMANOTE_6_PIDS_TILE_ENTITY);
+        registerBlockEntityType.accept("yamanote_7_pids", MSDBlockEntityTypes.YAMANOTE_7_PIDS_TILE_ENTITY);
         registerBlockEntityType.accept("yamanote_railway_sign_2_even", MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_2_EVEN_TILE_ENTITY);
         registerBlockEntityType.accept("yamanote_railway_sign_2_odd", MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_2_ODD_TILE_ENTITY);
         registerBlockEntityType.accept("yamanote_railway_sign_3_even", MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_3_EVEN_TILE_ENTITY);

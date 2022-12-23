@@ -12,5 +12,12 @@
   "tooltip.msd.yamanote_railway_sign_length": "长度：%s",
   "tooltip.msd.yamanote_railway_sign_odd": "摆放模式：单数",
   "tooltip.msd.yamanote_railway_sign_even": "摆放模式：双数",
-  "block.msd.yamanote_railway_sign": "山手线风格指示牌"
+  "block.msd.yamanote_railway_sign": "山手线风格指示牌",
+  "tooltip.msd.yamanote_4_pids_length": "长度：4",
+  "tooltip.msd.yamanote_5_pids_length": "长度：5",
+  "tooltip.msd.yamanote_6_pids_length": "长度：6",
+  "tooltip.msd.yamanote_7_pids_length": "长度：7",
+  "block.msd.yamanote_railway_sign_pole": "山手线风格指示牌柱",
+  "block.msd.yamanote_railway_sign_double_pole": "山手线风格指示牌柱(双层)",
+  "block.msd.railway_sign_double_pole": "指示牌柱(双层)"
 }

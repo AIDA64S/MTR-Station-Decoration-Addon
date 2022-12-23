@@ -32,6 +32,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class RenderYamanoteRailwaySign<T extends BlockYamanoteRailwaySign.TileEntityRailwaySign> extends BlockEntityRendererMapper<T> implements IBlock, IGui, IDrawing {
+    public static final int ARGB_SP_GREEN = 2241843;
 
     public RenderYamanoteRailwaySign(BlockEntityRenderDispatcher dispatcher) {
         super(dispatcher);
@@ -86,7 +87,7 @@ public class RenderYamanoteRailwaySign<T extends BlockYamanoteRailwaySign.TileEn
         UtilitiesClient.rotateZDegrees(matrices, 180);
         matrices.translate(block.getXStart() / 16F - 0.5, 0, -0.0625 - SMALL_OFFSET * 2);
         if (renderBackground) {
-            final int newBackgroundColor = backgroundColor | ARGB_BLACK;
+            final int newBackgroundColor = backgroundColor | ARGB_SP_GREEN;
             RenderTrains.scheduleRender(new ResourceLocation("mtr:textures/block/white.png"), false, RenderTrains.QueuedRenderLayer.LIGHT, (matricesNew, vertexConsumer) -> {
                 storedMatrixTransformations.transform(matricesNew);
                 IDrawing.drawTexture(matricesNew, vertexConsumer, 0, 0, SMALL_OFFSET, 0.5F * (signIds.length), 0.5F, SMALL_OFFSET, facing, newBackgroundColor, MAX_LIGHT_GLOWING);
@@ -95,7 +96,7 @@ public class RenderYamanoteRailwaySign<T extends BlockYamanoteRailwaySign.TileEn
         }
         for (int i = 0; i < signIds.length; i++) {
             if (signIds[i] != null) {
-                drawSign(matrices, vertexConsumers, storedMatrixTransformations, Minecraft.getInstance().font, pos, signIds[i], 0.5F * i, 0, 0.5F, getMaxWidth(signIds, i, false), getMaxWidth(signIds, i, true), entity.getSelectedIds(), facing, backgroundColor | ARGB_BLACK, (textureId, x, y, size, flipTexture) -> {
+                drawSign(matrices, vertexConsumers, storedMatrixTransformations, Minecraft.getInstance().font, pos, signIds[i], 0.5F * i, 0, 0.5F, getMaxWidth(signIds, i, false), getMaxWidth(signIds, i, true), entity.getSelectedIds(), facing, backgroundColor | ARGB_SP_GREEN, (textureId, x, y, size, flipTexture) -> {
                     RenderTrains.scheduleRender(new ResourceLocation(textureId.toString()), true, RenderTrains.QueuedRenderLayer.LIGHT_TRANSLUCENT, (matricesNew, vertexConsumer) -> {
                         storedMatrixTransformations.transform(matricesNew);
                         IDrawing.drawTexture(matricesNew, vertexConsumer, x, y, size, size, flipTexture ? 1 : 0, 0, flipTexture ? 0 : 1, 1, facing, -1, MAX_LIGHT_GLOWING);

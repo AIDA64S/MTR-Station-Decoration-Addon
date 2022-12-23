@@ -19,12 +19,12 @@ public class BlockYamanotePIDS extends BlockPIDSBase {
 
     @Override
     public BlockEntityMapper createBlockEntity(BlockPos pos, BlockState state) {
-        return new TileEntityNorthernLinePIDS(pos, state);
+        return new TileEntityPIDS(pos, state);
     }
 
-    public static class TileEntityNorthernLinePIDS extends TileEntityBlockPIDSBase {
+    public static class TileEntityPIDS extends TileEntityBlockPIDSBase {
 
-        public TileEntityNorthernLinePIDS(BlockPos pos, BlockState state) {
+        public TileEntityPIDS(BlockPos pos, BlockState state) {
             super(MSDBlockEntityTypes.YAMANOTE_PIDS_TILE_ENTITY.get(), pos, state);
         }
 

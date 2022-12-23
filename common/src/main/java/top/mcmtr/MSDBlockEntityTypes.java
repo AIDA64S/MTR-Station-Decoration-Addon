@@ -3,11 +3,14 @@ package top.mcmtr;
 import mtr.RegistryObject;
 import mtr.mappings.RegistryUtilities;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import top.mcmtr.blocks.BlockYamanotePIDS;
-import top.mcmtr.blocks.BlockYamanoteRailwaySign;
+import top.mcmtr.blocks.*;
 
 public interface MSDBlockEntityTypes {
-    RegistryObject<BlockEntityType<BlockYamanotePIDS.TileEntityNorthernLinePIDS>> YAMANOTE_PIDS_TILE_ENTITY = new RegistryObject<>(()-> RegistryUtilities.getBlockEntityType(BlockYamanotePIDS.TileEntityNorthernLinePIDS::new, MSDBlocks.YAMANOTE_PIDS.get()));
+    RegistryObject<BlockEntityType<BlockYamanotePIDS.TileEntityPIDS>> YAMANOTE_PIDS_TILE_ENTITY = new RegistryObject<>(()-> RegistryUtilities.getBlockEntityType(BlockYamanotePIDS.TileEntityPIDS::new, MSDBlocks.YAMANOTE_PIDS.get()));
+    RegistryObject<BlockEntityType<BlockYamanote4PIDS.TileEntityPIDS>> YAMANOTE_4_PIDS_TILE_ENTITY = new RegistryObject<>(() -> RegistryUtilities.getBlockEntityType(BlockYamanote4PIDS.TileEntityPIDS::new, MSDBlocks.YAMANOTE_4_PIDS.get()));
+    RegistryObject<BlockEntityType<BlockYamanote5PIDS.TileEntityPIDS>> YAMANOTE_5_PIDS_TILE_ENTITY = new RegistryObject<>(() -> RegistryUtilities.getBlockEntityType(BlockYamanote5PIDS.TileEntityPIDS::new, MSDBlocks.YAMANOTE_5_PIDS.get()));
+    RegistryObject<BlockEntityType<BlockYamanote6PIDS.TileEntityPIDS>> YAMANOTE_6_PIDS_TILE_ENTITY = new RegistryObject<>(() -> RegistryUtilities.getBlockEntityType(BlockYamanote6PIDS.TileEntityPIDS::new, MSDBlocks.YAMANOTE_6_PIDS.get()));
+    RegistryObject<BlockEntityType<BlockYamanote7PIDS.TileEntityPIDS>> YAMANOTE_7_PIDS_TILE_ENTITY = new RegistryObject<>(() -> RegistryUtilities.getBlockEntityType(BlockYamanote7PIDS.TileEntityPIDS::new, MSDBlocks.YAMANOTE_7_PIDS.get()));
     RegistryObject<BlockEntityType<BlockYamanoteRailwaySign.TileEntityRailwaySign>> YAMANOTE_RAILWAY_SIGN_2_EVEN_TILE_ENTITY = new RegistryObject<>(() -> RegistryUtilities.getBlockEntityType((pos, state) -> new BlockYamanoteRailwaySign.TileEntityRailwaySign(2, false, pos, state), MSDBlocks.YAMANOTE_RAILWAY_SIGN_2_EVEN.get()));
     RegistryObject<BlockEntityType<BlockYamanoteRailwaySign.TileEntityRailwaySign>> YAMANOTE_RAILWAY_SIGN_2_ODD_TILE_ENTITY = new RegistryObject<>(() -> RegistryUtilities.getBlockEntityType((pos, state) -> new BlockYamanoteRailwaySign.TileEntityRailwaySign(2, true, pos, state), MSDBlocks.YAMANOTE_RAILWAY_SIGN_2_ODD.get()));
     RegistryObject<BlockEntityType<BlockYamanoteRailwaySign.TileEntityRailwaySign>> YAMANOTE_RAILWAY_SIGN_3_EVEN_TILE_ENTITY = new RegistryObject<>(() -> RegistryUtilities.getBlockEntityType((pos, state) -> new BlockYamanoteRailwaySign.TileEntityRailwaySign(3, false, pos, state), MSDBlocks.YAMANOTE_RAILWAY_SIGN_3_EVEN.get()));

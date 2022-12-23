@@ -15,6 +15,10 @@ public interface MSDBlocks {
     RegistryObject<Block> RAILING_STAIR_START = new RegistryObject<>(() -> new BlockRailingStairStart(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
     RegistryObject<Block> RAILING_STAIR_START_MIRROR = new RegistryObject<>(() -> new BlockRailingStairStartMirror(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
     RegistryObject<Block> YAMANOTE_PIDS =new RegistryObject<>(BlockYamanotePIDS::new);
+    RegistryObject<Block> YAMANOTE_4_PIDS = new RegistryObject<>(BlockYamanote4PIDS::new);
+    RegistryObject<Block> YAMANOTE_5_PIDS = new RegistryObject<>(BlockYamanote5PIDS::new);
+    RegistryObject<Block> YAMANOTE_6_PIDS = new RegistryObject<>(BlockYamanote6PIDS::new);
+    RegistryObject<Block> YAMANOTE_7_PIDS = new RegistryObject<>(BlockYamanote7PIDS::new);
     RegistryObject<Block> YAMANOTE_RAILWAY_SIGN_2_EVEN = new RegistryObject<>(() -> new BlockYamanoteRailwaySign(2, false));
     RegistryObject<Block> YAMANOTE_RAILWAY_SIGN_2_ODD = new RegistryObject<>(() -> new BlockYamanoteRailwaySign(2, true));
     RegistryObject<Block> YAMANOTE_RAILWAY_SIGN_3_EVEN = new RegistryObject<>(() -> new BlockYamanoteRailwaySign(3, false));
@@ -28,4 +32,7 @@ public interface MSDBlocks {
     RegistryObject<Block> YAMANOTE_RAILWAY_SIGN_7_EVEN = new RegistryObject<>(() -> new BlockYamanoteRailwaySign(7, false));
     RegistryObject<Block> YAMANOTE_RAILWAY_SIGN_7_ODD = new RegistryObject<>(() -> new BlockYamanoteRailwaySign(7, true));
     RegistryObject<Block> YAMANOTE_RAILWAY_SIGN_MIDDLE = new RegistryObject<>(() -> new BlockYamanoteRailwaySign(0, false));
+    RegistryObject<Block> YAMANOTE_RAILWAY_SIGN_POLE = new RegistryObject<>(() -> new BlockYamanoteRailwaySignPole(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
+    RegistryObject<Block> YAMANOTE_RAILWAY_SIGN_DOUBLE_POLE = new RegistryObject<>(() -> new BlockYamanoteRailwaySignDoublePole(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
+    RegistryObject<Block> RAILWAY_SIGN_DOUBLE_POLE = new RegistryObject<>(() -> new BlockRailwaySignDoublePole(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(1.0F)));
 }
