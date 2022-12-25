@@ -17,6 +17,10 @@ public class MSDMainClient {
         RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.RAILING_STAIR_MIRROR.get());
         RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.RAILING_STAIR_START.get());
         RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.RAILING_STAIR_START_MIRROR.get());
+        RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.ELECTRIC_POLE.get());
+        RegistryClient.registerBlockRenderType(RenderType.translucent(), MSDBlocks.ELEVATOR_SHAFT_TRANSPARENT.get());
+        RegistryClient.registerBlockRenderType(RenderType.translucent(), MSDBlocks.SURVEILLANCE_CAMERAS.get());
+        RegistryClient.registerBlockRenderType(RenderType.translucent(), MSDBlocks.SURVEILLANCE_CAMERAS_WALL.get());
 
         RegistryClient.registerTileEntityRenderer(MSDBlockEntityTypes.YAMANOTE_PIDS_TILE_ENTITY.get(), dispatcher -> new RenderPIDS<>(dispatcher, 3, 1F, 15F, 7, 6F, 30, true, true, 0x00FF00, 0xFF0000));
         RegistryClient.registerTileEntityRenderer(MSDBlockEntityTypes.YAMANOTE_4_PIDS_TILE_ENTITY.get(), dispatcher -> new RenderPIDS<>(dispatcher, 3, 0F, 15F, 7, 6F, 32, true, true, 0x00FF00, 0xFF0000));

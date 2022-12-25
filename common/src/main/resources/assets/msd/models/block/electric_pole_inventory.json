@@ -1,0 +1,50 @@
+{
+  "parent": "block/sandstone_wall_inventory",
+  "display": {
+    "gui": {
+      "rotation": [ 30, 135, 0 ],
+      "translation": [ 0, 0, 0],
+      "scale":[ 0.625, 0.625, 0.625 ]
+    },
+    "fixed": {
+      "rotation": [ 0, 90, 0 ],
+      "translation": [ 0, 0, 0 ],
+      "scale": [ 0.5, 0.5, 0.5 ]
+    }
+  },
+  "credit": "Made with Blockbench",
+  "texture_size": [32, 32],
+  "ambientocclusion": false,
+  "textures": {
+    "0": "msd:block/electric_pole_inventory",
+    "particle": "msd:block/electric_pole_inventory"
+  },
+  "elements": [
+    {
+      "from": [4, 0, 4],
+      "to": [12, 16, 12],
+      "faces": {
+        "north": {"uv": [0, 7, 4, 15], "texture": "#0"},
+        "east": {"uv": [0, 7, 4, 15], "texture": "#0"},
+        "south": {"uv": [0, 7, 4, 15], "texture": "#0"},
+        "west": {"uv": [0, 7, 4, 15], "texture": "#0"},
+        "up": {"uv": [0, 7, 4, 11], "texture": "#0"},
+        "down": {"uv": [0, 7, 4, 11], "texture": "#0"}
+      },
+      "__comment": "Center post"
+    },
+    {
+      "from": [6, 0, 0],
+      "to": [10, 14, 16],
+      "faces": {
+        "north": {"uv": [10, 0, 12, 7], "texture": "#0"},
+        "east": {"uv": [0, 0, 8, 7], "texture": "#0"},
+        "south": {"uv": [10, 0, 12, 7], "texture": "#0"},
+        "west": {"uv": [0, 0, 8, 7], "texture": "#0"},
+        "up": {"uv": [8, 0, 10, 8], "texture": "#0"},
+        "down": {"uv": [8, 0, 10, 8], "texture": "#0"}
+      },
+      "__comment": "Full wall"
+    }
+  ]
+}

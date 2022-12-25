@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "msd:block/surveillance_cameras_wall"
+    },
+    "facing=east": {
+      "model": "msd:block/surveillance_cameras_wall",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "msd:block/surveillance_cameras_wall",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "msd:block/surveillance_cameras_wall",
+      "y": 270
+    }
+  }
+}

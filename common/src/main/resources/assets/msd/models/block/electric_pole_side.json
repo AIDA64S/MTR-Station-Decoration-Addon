@@ -1,0 +1,24 @@
+{
+  "parent": "block/sandstone_wall_side",
+  "credit": "Made with Blockbench",
+  "texture_size": [32, 32],
+  "textures": {
+    "0": "msd:block/electric_pole_side",
+    "particle": "msd:block/electric_pole_side"
+  },
+  "elements": [
+    {
+      "from": [6, 0, 0],
+      "to": [10, 14, 8],
+      "faces": {
+        "north": {"uv": [12, 0, 16, 14], "texture": "#0"},
+        "east": {"uv": [0, 0, 8, 14], "texture": "#0"},
+        "south": {"uv": [12, 0, 16, 14], "texture": "#0"},
+        "west": {"uv": [0, 0, 8, 14], "texture": "#0"},
+        "up": {"uv": [8, 0, 12, 8], "texture": "#0"},
+        "down": {"uv": [8, 0, 12, 8], "texture": "#0"}
+      },
+      "__comment": "wall"
+    }
+  ]
+}
