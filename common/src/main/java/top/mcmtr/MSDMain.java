@@ -52,13 +52,8 @@ public class MSDMain {
         registerBlockItem.accept("yamanote_railway_sign_double_pole", MSDBlocks.YAMANOTE_RAILWAY_SIGN_DOUBLE_POLE, MSDItems.MSD_BLOCKS);
         registerBlockItem.accept("railway_sign_double_pole", MSDBlocks.RAILWAY_SIGN_DOUBLE_POLE, MSDItems.MSD_BLOCKS);
         registerBlockItem.accept("electric_pole", MSDBlocks.ELECTRIC_POLE, MSDItems.MSD_BLOCKS);
-        registerBlockItem.accept("elevator_shaft_corner", MSDBlocks.ELEVATOR_SHAFT_CORNER, MSDItems.MSD_BLOCKS);
-        registerBlockItem.accept("elevator_shaft_panel", MSDBlocks.ELEVATOR_SHAFT_PANEL, MSDItems.MSD_BLOCKS);
-        registerBlockItem.accept("elevator_shaft_side", MSDBlocks.ELEVATOR_SHAFT_SIDE, MSDItems.MSD_BLOCKS);
-        registerBlockItem.accept("elevator_shaft_transparent", MSDBlocks.ELEVATOR_SHAFT_TRANSPARENT, MSDItems.MSD_BLOCKS);
         registerBlockItem.accept("surveillance_cameras", MSDBlocks.SURVEILLANCE_CAMERAS, MSDItems.MSD_BLOCKS);
         registerBlockItem.accept("surveillance_cameras_wall", MSDBlocks.SURVEILLANCE_CAMERAS_WALL, MSDItems.MSD_BLOCKS);
-
 
         registerBlock.accept("yamanote_railway_sign_middle", MSDBlocks.YAMANOTE_RAILWAY_SIGN_MIDDLE);
 

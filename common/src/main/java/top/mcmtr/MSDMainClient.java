@@ -1,6 +1,7 @@
 package top.mcmtr;
 
 import mtr.RegistryClient;
+import mtr.data.PIDSType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import top.mcmtr.packet.MSDPacket;
@@ -10,23 +11,15 @@ import top.mcmtr.render.RenderYamanoteRailwaySign;
 
 public class MSDMainClient {
     public static void init() {
-        RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.RAILING_STAIR.get());
-        RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.RAILING_STAIR_END.get());
-        RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.RAILING_STAIR_END_MIRROR.get());
-        RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.RAILING_STAIR_FLAT.get());
-        RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.RAILING_STAIR_MIRROR.get());
-        RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.RAILING_STAIR_START.get());
-        RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.RAILING_STAIR_START_MIRROR.get());
         RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.ELECTRIC_POLE.get());
-        RegistryClient.registerBlockRenderType(RenderType.translucent(), MSDBlocks.ELEVATOR_SHAFT_TRANSPARENT.get());
         RegistryClient.registerBlockRenderType(RenderType.translucent(), MSDBlocks.SURVEILLANCE_CAMERAS.get());
         RegistryClient.registerBlockRenderType(RenderType.translucent(), MSDBlocks.SURVEILLANCE_CAMERAS_WALL.get());
 
-        RegistryClient.registerTileEntityRenderer(MSDBlockEntityTypes.YAMANOTE_PIDS_TILE_ENTITY.get(), dispatcher -> new RenderPIDS<>(dispatcher, 3, 1F, 15F, 7, 6F, 30, true, true, 0x00FF00, 0xFF0000));
-        RegistryClient.registerTileEntityRenderer(MSDBlockEntityTypes.YAMANOTE_4_PIDS_TILE_ENTITY.get(), dispatcher -> new RenderPIDS<>(dispatcher, 3, 0F, 15F, 7, 6F, 32, true, true, 0x00FF00, 0xFF0000));
-        RegistryClient.registerTileEntityRenderer(MSDBlockEntityTypes.YAMANOTE_5_PIDS_TILE_ENTITY.get(), dispatcher -> new RenderPIDS<>(dispatcher, 3, -4F, 15F, 7, 6F, 36, true, true, 0x00FF00, 0xFF0000));
-        RegistryClient.registerTileEntityRenderer(MSDBlockEntityTypes.YAMANOTE_6_PIDS_TILE_ENTITY.get(), dispatcher -> new RenderPIDS<>(dispatcher, 3, -8F, 15F, 7, 6F, 40, true, true, 0x00FF00, 0xFF0000));
-        RegistryClient.registerTileEntityRenderer(MSDBlockEntityTypes.YAMANOTE_7_PIDS_TILE_ENTITY.get(), dispatcher -> new RenderPIDS<>(dispatcher, 3, -12F, 15F, 7, 6F, 44, true, true, 0x00FF00, 0xFF0000));
+        RegistryClient.registerTileEntityRenderer(MSDBlockEntityTypes.YAMANOTE_PIDS_TILE_ENTITY.get(), dispatcher -> new RenderPIDS<>(dispatcher, 3, 1F, 15F, 7, 6F, 30, true, true, PIDSType.PIDS, 0x00FF00, 0xFF0000));
+        RegistryClient.registerTileEntityRenderer(MSDBlockEntityTypes.YAMANOTE_4_PIDS_TILE_ENTITY.get(), dispatcher -> new RenderPIDS<>(dispatcher, 3, 0F, 15F, 7, 6F, 32, true, true, PIDSType.PIDS, 0x00FF00, 0xFF0000));
+        RegistryClient.registerTileEntityRenderer(MSDBlockEntityTypes.YAMANOTE_5_PIDS_TILE_ENTITY.get(), dispatcher -> new RenderPIDS<>(dispatcher, 3, -4F, 15F, 7, 6F, 40, true, true, PIDSType.PIDS, 0x00FF00, 0xFF0000));
+        RegistryClient.registerTileEntityRenderer(MSDBlockEntityTypes.YAMANOTE_6_PIDS_TILE_ENTITY.get(), dispatcher -> new RenderPIDS<>(dispatcher, 3, -8F, 15F, 7, 6F, 48, true, true, PIDSType.PIDS, 0x00FF00, 0xFF0000));
+        RegistryClient.registerTileEntityRenderer(MSDBlockEntityTypes.YAMANOTE_7_PIDS_TILE_ENTITY.get(), dispatcher -> new RenderPIDS<>(dispatcher, 3, -12F, 15F, 7, 6F, 56, true, true, PIDSType.PIDS, 0x00FF00, 0xFF0000));
         RegistryClient.registerTileEntityRenderer(MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_2_EVEN_TILE_ENTITY.get(), RenderYamanoteRailwaySign::new);
         RegistryClient.registerTileEntityRenderer(MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_2_ODD_TILE_ENTITY.get(), RenderYamanoteRailwaySign::new);
         RegistryClient.registerTileEntityRenderer(MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_3_EVEN_TILE_ENTITY.get(), RenderYamanoteRailwaySign::new);
