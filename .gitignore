@@ -8,7 +8,7 @@ out/
 output/
 bin/
 libs/
-checkout/
+checkouts/
 fabric/src/main/java/top/mcmtr/mappings/
 forge/src/main/java/top/mcmtr/mappings/
 
