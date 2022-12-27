@@ -8,6 +8,9 @@ out/
 output/
 bin/
 libs/
+checkout/
+fabric/src/main/java/top/mcmtr/mappings/
+forge/src/main/java/top/mcmtr/mappings/
 
 .classpath
 .project
