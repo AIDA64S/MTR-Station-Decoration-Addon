@@ -14,6 +14,7 @@ public class BlockYamanoteRailwaySignDoublePole extends BlockYamanoteRailwaySign
     public BlockYamanoteRailwaySignDoublePole(Properties settings) {
         super(settings);
     }
+
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter blockGetter, BlockPos pos, CollisionContext collisionContext) {
         final Direction facing = IBlock.getStatePropertySafe(state, FACING);

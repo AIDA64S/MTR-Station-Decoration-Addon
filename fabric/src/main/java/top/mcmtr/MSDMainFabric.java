@@ -9,6 +9,8 @@ import net.fabricmc.api.ModInitializer;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -18,7 +20,7 @@ import top.mcmtr.mappings.FabricRegistryUtilities;
 public class MSDMainFabric implements ModInitializer {
     @Override
     public void onInitialize() {
-        MSDMain.init(MSDMainFabric::registerItem, MSDMainFabric::registerBlock, MSDMainFabric::registerBlock, MSDMainFabric::registerBlockEntityType, MSDMainFabric::registerSoundEvent);
+        MSDMain.init(MSDMainFabric::registerItem, MSDMainFabric::registerBlock, MSDMainFabric::registerBlock, MSDMainFabric::registerBlockEntityType, MSDMainFabric::registerEntityType, MSDMainFabric::registerSoundEvent);
     }
 
     private static void registerItem(String path, RegistryObject<Item> item) {
@@ -48,6 +50,10 @@ public class MSDMainFabric implements ModInitializer {
 
     private static void registerSoundEvent(String path, SoundEvent soundEvent) {
         Registry.register(RegistryUtilities.registryGetSoundEvent(), new ResourceLocation(MSDMain.MOD_ID, path), soundEvent);
+    }
+
+    private static void registerEntityType(String path, RegistryObject<? extends EntityType<? extends Entity>> entityType) {
+        Registry.register(RegistryUtilities.registryGetEntityType(), new ResourceLocation(MSDMain.MOD_ID, path), entityType.get());
     }
 
 }

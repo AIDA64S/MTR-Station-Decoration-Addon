@@ -31,15 +31,20 @@ subprojects {
     loom {
         silentMojangMappingsLicense()
     }
+    configurations {
+        shadowCommon
+    }
 
     dependencies {
         minecraft "com.mojang:minecraft:${minecraft_version}"
         mappings loom.officialMojangMappings()
         implementation files("../checkouts/mtr-common.jar")
         implementation "com.github.jonafanho:Minecraft-Mod-API-Tools:${minecraft_mod_api_tools_version}"
+        implementation "org.msgpack:msgpack-core:${rootProject.messagepack_version}"
         implementation 'org.codehaus.groovy:groovy-json:3.0.9'
         testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
         testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+        shadowCommon "org.msgpack:msgpack-core:${rootProject.messagepack_version}"
     }
 }
 

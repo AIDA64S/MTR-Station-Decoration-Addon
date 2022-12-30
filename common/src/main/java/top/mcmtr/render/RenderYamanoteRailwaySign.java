@@ -134,7 +134,6 @@ public class RenderYamanoteRailwaySign<T extends BlockYamanoteRailwaySign.TileEn
             final Map<String, List<String>> exits = station.getGeneratedExits();
             final List<String> selectedExitsSorted = selectedIds.stream().map(Station::deserializeExit).filter(exits::containsKey).sorted(String::compareTo).collect(Collectors.toList());
             matrices.pushPose();
-            ;
             matrices.translate(x + margin + (flipCustomText ? signSize : 0), y + margin, 0);
             final float maxWidth = ((flipCustomText ? maxWidthLeft : maxWidthRight) + 1) * size - margin * 2;
             final float exitWidth = signSize * selectedExitsSorted.size();

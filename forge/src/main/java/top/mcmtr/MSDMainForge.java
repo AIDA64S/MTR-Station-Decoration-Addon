@@ -8,12 +8,17 @@ import mtr.mappings.BlockEntityMapper;
 import mtr.mappings.DeferredRegisterHolder;
 import mtr.mappings.RegistryUtilities;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import top.mcmtr.mappings.ForgeUtilities;
@@ -23,9 +28,10 @@ public class MSDMainForge {
     private static final DeferredRegisterHolder<Block> BLOCKS = new DeferredRegisterHolder<>(MSDMain.MOD_ID, ForgeUtilities.registryGetBlock());
     private static final DeferredRegisterHolder<BlockEntityType<?>> BLOCK_ENTITY_TYPES = new DeferredRegisterHolder<>(MSDMain.MOD_ID, ForgeUtilities.registryGetBlockEntityType());
     private static final DeferredRegisterHolder<SoundEvent> SOUND_EVENTS = new DeferredRegisterHolder<>(MSDMain.MOD_ID, ForgeUtilities.registryGetSoundEvent());
+    private static final DeferredRegisterHolder<EntityType<?>> ENTITY_TYPES = new DeferredRegisterHolder<>(MSDMain.MOD_ID, ForgeUtilities.registryGetEntityType());
 
     static {
-        MSDMain.init(MSDMainForge::registerItem, MSDMainForge::registerBlock, MSDMainForge::registerBlock, MSDMainForge::registerBlockEntityType, MSDMainForge::registerSoundEvent);
+        MSDMain.init(MSDMainForge::registerItem, MSDMainForge::registerBlock, MSDMainForge::registerBlock, MSDMainForge::registerBlockEntityType, MSDMainForge::registerEntityType, MSDMainForge::registerSoundEvent);
     }
 
     public MSDMainForge() {
@@ -38,6 +44,11 @@ public class MSDMainForge {
         SOUND_EVENTS.register();
 
         eventBus.register(MTRForgeRegistry.class);
+        eventBus.register(ForgeUtilities.RegisterCreativeTabs.class);
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
+            MinecraftForge.EVENT_BUS.register(ForgeUtilities.Events.class);
+            eventBus.register(ForgeUtilities.ClientsideEvents.class);
+        });
     }
 
     private static void registerItem(String path, RegistryObject<Item> item) {
@@ -78,5 +89,9 @@ public class MSDMainForge {
         public static void onClientSetupEvent(FMLClientSetupEvent event) {
             MSDMainClient.init();
         }
+    }
+
+    private static void registerEntityType(String path, RegistryObject<? extends EntityType<? extends Entity>> entityType) {
+        ENTITY_TYPES.register(path, entityType::get);
     }
 }

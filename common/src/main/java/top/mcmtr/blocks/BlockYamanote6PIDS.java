@@ -19,7 +19,7 @@ import top.mcmtr.MSDBlockEntityTypes;
 
 import java.util.List;
 
-public class BlockYamanote6PIDS  extends BlockPIDSBase {
+public class BlockYamanote6PIDS extends BlockPIDSBase {
     @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
         VoxelShape shape1 = IBlock.getVoxelShapeByDirection(7, 8, 0, 9, 16, 25, IBlock.getStatePropertySafe(blockState, FACING));

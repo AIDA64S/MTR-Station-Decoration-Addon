@@ -17,6 +17,7 @@ public class BlockSurveillanceCamerasWall extends Block {
     public BlockSurveillanceCamerasWall(Properties properties) {
         super(properties);
     }
+
     @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
         VoxelShape shape1 = IBlock.getVoxelShapeByDirection(6.5, 6.5, 0, 9.5, 9.5, 2, IBlock.getStatePropertySafe(blockState, FACING));
