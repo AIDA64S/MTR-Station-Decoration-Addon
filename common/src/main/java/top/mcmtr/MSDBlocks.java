@@ -38,4 +38,7 @@ public interface MSDBlocks {
     RegistryObject<Block> ELECTRIC_POLE = new RegistryObject<>(() -> new BlockElectricPole(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(2.0F)));
     RegistryObject<Block> SURVEILLANCE_CAMERAS = new RegistryObject<>(() -> new BlockSurveillanceCameras(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
     RegistryObject<Block> SURVEILLANCE_CAMERAS_WALL = new RegistryObject<>(() -> new BlockSurveillanceCamerasWall(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
+    RegistryObject<Block> CATENARY_NODE = new RegistryObject<>(() -> new BlockCatenaryNode(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
+    RegistryObject<Block> CATENARY_RACK = new RegistryObject<>(() -> new BlockCatenaryRack(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
+    RegistryObject<Block> ELECTRIC_NODE = new RegistryObject<>(() -> new BlockCatenaryNode(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
 }
