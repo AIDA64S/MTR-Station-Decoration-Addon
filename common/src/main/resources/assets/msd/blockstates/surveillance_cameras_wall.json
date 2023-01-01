@@ -14,6 +14,12 @@
     "facing=west": {
       "model": "msd:block/surveillance_cameras_wall",
       "y": 270
+    },
+    "facing=up": {
+      "model": "msd:block/surveillance_cameras_wall"
+    },
+    "facing=down": {
+      "model": "msd:block/surveillance_cameras_wall"
     }
   }
 }
