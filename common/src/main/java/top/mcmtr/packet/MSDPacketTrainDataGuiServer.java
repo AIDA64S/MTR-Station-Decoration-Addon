@@ -3,8 +3,6 @@ package top.mcmtr.packet;
 import io.netty.buffer.Unpooled;
 import mtr.Registry;
 import mtr.block.BlockRouteSignBase;
-import mtr.data.RailwayData;
-import mtr.data.RailwayDataLoggingModule;
 import mtr.data.SerializedDataBase;
 import mtr.mappings.BlockEntityMapper;
 import mtr.packet.PacketTrainDataGuiServer;
@@ -13,16 +11,26 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import top.mcmtr.MSDKeys;
 import top.mcmtr.blocks.BlockYamanoteRailwaySign;
+import top.mcmtr.data.Catenary;
+import top.mcmtr.data.CatenaryData;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Consumer;
 
-import static top.mcmtr.packet.MSDPacket.PACKET_OPEN_YAMANOTE_RAILWAY_SIGN_SCREEN;
+import static top.mcmtr.packet.MSDPacket.*;
 
 public class MSDPacketTrainDataGuiServer extends PacketTrainDataGuiServer {
+    public static void versionMSDCheckS2C(ServerPlayer player) {
+        final FriendlyByteBuf packet = new FriendlyByteBuf(Unpooled.buffer());
+        packet.writeUtf(MSDKeys.MOD_VERSION.split("-hotfix-")[0]);
+        Registry.sendToPlayer(player, PACKET_MSD_VERSION_CHECK, packet);
+    }
+
     public static void openYamanoteRailwaySignScreenS2C(ServerPlayer player, BlockPos signPos) {
         final FriendlyByteBuf packet = new FriendlyByteBuf(Unpooled.buffer());
         packet.writeBlockPos(signPos);
@@ -60,8 +68,8 @@ public class MSDPacketTrainDataGuiServer extends PacketTrainDataGuiServer {
 
     @SafeVarargs
     private static <T extends BlockEntityMapper> void setTileEntityDataAndWriteUpdate(ServerPlayer player, Consumer<T> setData, T... entities) {
-        final RailwayData railwayData = RailwayData.getInstance(player.level);
-        if (railwayData != null && entities.length > 0) {
+        final CatenaryData catenaryData = CatenaryData.getInstance(player.level);
+        if (catenaryData != null && entities.length > 0) {
             final CompoundTag compoundTagOld = new CompoundTag();
             entities[0].writeCompoundTag(compoundTagOld);
             BlockPos blockPos = null;
@@ -76,7 +84,28 @@ public class MSDPacketTrainDataGuiServer extends PacketTrainDataGuiServer {
             }
             final CompoundTag compoundTagNew = new CompoundTag();
             entities[0].writeCompoundTag(compoundTagNew);
-            railwayData.railwayDataLoggingModule.addEvent(player, entities[0].getClass(), RailwayDataLoggingModule.getData(compoundTagOld), RailwayDataLoggingModule.getData(compoundTagNew), blockPos);
         }
+    }
+
+    public static void createCatenaryS2C(Level world, BlockPos pos1, BlockPos pos2, Catenary catenary1, Catenary catenary2) {
+        final FriendlyByteBuf packet = new FriendlyByteBuf(Unpooled.buffer());
+        packet.writeBlockPos(pos1);
+        packet.writeBlockPos(pos2);
+        catenary1.writePacket(packet);
+        catenary2.writePacket(packet);
+        world.players().forEach(worldPlayer -> Registry.sendToPlayer((ServerPlayer) worldPlayer, PACKET_CREATE_CATENARY, packet));
+    }
+
+    public static void removeCatenaryNodeS2C(Level world, BlockPos pos) {
+        final FriendlyByteBuf packet = new FriendlyByteBuf(Unpooled.buffer());
+        packet.writeBlockPos(pos);
+        world.players().forEach(worldPlayer -> Registry.sendToPlayer((ServerPlayer) worldPlayer, PACKET_REMOVE_CATENARY_NODE, packet));
+    }
+
+    public static void removeCatenaryConnectionS2C(Level world, BlockPos pos1, BlockPos pos2) {
+        final FriendlyByteBuf packet = new FriendlyByteBuf(Unpooled.buffer());
+        packet.writeBlockPos(pos1);
+        packet.writeBlockPos(pos2);
+        world.players().forEach(worldPlayer -> Registry.sendToPlayer((ServerPlayer) worldPlayer, PACKET_REMOVE_CATENARY, packet));
     }
 }

@@ -30,6 +30,9 @@ subprojects {
 
     loom {
         silentMojangMappingsLicense()
+        mixin {
+            defaultRefmapName.set("msd-refmap.json")
+        }
     }
     configurations {
         shadowCommon

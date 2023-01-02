@@ -10,6 +10,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import top.mcmtr.data.CatenaryData;
 import top.mcmtr.packet.MSDPacketTrainDataGuiServer;
 
 import java.util.function.BiConsumer;
@@ -27,6 +28,10 @@ public class MSDMain {
             BiConsumer<String, RegistryObject<? extends EntityType<? extends Entity>>> registerEntityType,
             BiConsumer<String, SoundEvent> registerSoundEvent
     ) {
+        registerItem.accept("catenary_connector", MSDItems.CATENARY_CONNECTOR);
+        registerItem.accept("electric_connector", MSDItems.ELECTRIC_CONNECTOR);
+        registerItem.accept("catenary_remover", MSDItems.CATENARY_REMOVER);
+
         registerBlockItem.accept("railing_stair", MSDBlocks.RAILING_STAIR, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("railing_stair_end", MSDBlocks.RAILING_STAIR_END, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("railing_stair_end_mirror", MSDBlocks.RAILING_STAIR_END_MIRROR, MSDCreativeModeTabs.MSD_BLOCKS);
@@ -57,6 +62,17 @@ public class MSDMain {
         registerBlockItem.accept("electric_pole", MSDBlocks.ELECTRIC_POLE, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("surveillance_cameras", MSDBlocks.SURVEILLANCE_CAMERAS, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("surveillance_cameras_wall", MSDBlocks.SURVEILLANCE_CAMERAS_WALL, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("catenary_node", MSDBlocks.CATENARY_NODE, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("electric_node", MSDBlocks.ELECTRIC_NODE, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("catenary_pole", MSDBlocks.CATENARY_POLE, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("catenary_rack_pole", MSDBlocks.CATENARY_RACK_POLE, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("catenary_rack_pole_both_side", MSDBlocks.CATENARY_RACK_POLE_BOTH_SIDE, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("catenary_rack_1", MSDBlocks.CATENARY_RACK_1, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("catenary_rack_2", MSDBlocks.CATENARY_RACK_2, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("catenary_rack_side", MSDBlocks.CATENARY_RACK_SIDE, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("catenary_rack_both_side", MSDBlocks.CATENARY_RACK_BOTH_SIDE, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("electric_pole_top_side", MSDBlocks.ELECTRIC_POLE_TOP_SIDE, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("electric_pole_top_both_side", MSDBlocks.ELECTRIC_POLE_TOP_BOTH_SIDE, MSDCreativeModeTabs.MSD_BLOCKS);
 
         registerBlock.accept("yamanote_railway_sign_middle", MSDBlocks.YAMANOTE_RAILWAY_SIGN_MIDDLE);
 
@@ -79,6 +95,25 @@ public class MSDMain {
         registerBlockEntityType.accept("yamanote_railway_sign_7_odd", MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_7_ODD_TILE_ENTITY);
 
         Registry.registerNetworkReceiver(PACKET_YAMANOTE_SIGN_TYPES, MSDPacketTrainDataGuiServer::receiveSignIdsC2S);
+
+        Registry.registerTickEvent(minecraftServer -> {
+            minecraftServer.getAllLevels().forEach(serverLevel -> {
+                final CatenaryData catenaryData = CatenaryData.getInstance(serverLevel);
+                if (catenaryData != null) {
+                    catenaryData.simulateCatenaries();
+                }
+            });
+        });
+        Registry.registerPlayerJoinEvent(player -> {
+            MSDPacketTrainDataGuiServer.versionMSDCheckS2C(player);
+            final CatenaryData catenaryData = CatenaryData.getInstance(player.getLevel());
+        });
+        Registry.registerPlayerQuitEvent(player -> {
+            final CatenaryData catenaryData = CatenaryData.getInstance(player.getLevel());
+            if (catenaryData != null) {
+                catenaryData.disconnectPlayer(player);
+            }
+        });
     }
 
     @FunctionalInterface

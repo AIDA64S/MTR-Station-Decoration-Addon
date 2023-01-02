@@ -104,5 +104,10 @@
 				"down": {"uv": [0, 0, 1, 0.5], "rotation": 90, "texture": "#0"}
 			}
 		}
-	]
+	],
+	"display": {
+		"gui": {
+			"rotation": [0, 90, 0]
+		}
+	}
 }

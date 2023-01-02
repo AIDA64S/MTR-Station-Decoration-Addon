@@ -102,5 +102,15 @@
 				"down": {"uv": [0, 0, 1.5, 16], "texture": "#0"}
 			}
 		}
-	]
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [6.5, 0, 0]
+		},
+		"gui": {
+			"rotation": [0, 90, 0],
+			"translation": [0, -1.5, 0],
+			"scale": [1, 0.39, 1]
+		}
+	}
 }

@@ -119,5 +119,12 @@
 				"west": {"uv": [1, 0, 0, 9], "texture": "#0"}
 			}
 		}
-	]
+	],
+	"display": {
+		"gui": {
+			"rotation": [0, 90, 0],
+			"translation": [0, -4, 0],
+			"scale": [1, 0.5, 1]
+		}
+	}
 }
