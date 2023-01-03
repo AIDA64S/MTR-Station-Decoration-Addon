@@ -7,6 +7,10 @@ architectury {
     fabric()
 }
 
+loom {
+    accessWidenerPath = project(":common").loom.accessWidenerPath
+}
+
 configurations {
     common
     shadowCommon
@@ -32,6 +36,7 @@ processResources {
 }
 
 shadowJar {
+    exclude "architectury.common.json"
     configurations = [project.configurations.shadowCommon]
     classifier "dev-shadow"
 }

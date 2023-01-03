@@ -3,6 +3,10 @@ dependencies {
     modApi "${rootProject.architectury_id}:architectury:${rootProject.architectury_version}"
 }
 
+loom {
+    accessWidenerPath = file("src/main/resources/msd.accesswidener")
+}
+
 architectury {
     common()
 }

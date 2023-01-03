@@ -20,7 +20,8 @@
     ]
   },
   "mixins": [
-    "msd.mixins.json"
+    "msd.mixins.json",
+    "msd-common.mixins.json"
   ],
   "depends": {
     "fabric": "*",
