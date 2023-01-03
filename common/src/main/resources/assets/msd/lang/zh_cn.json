@@ -10,7 +10,7 @@
   "block.msd.railing_stair_mirror": "楼梯栏杆(镜像)",
   "block.msd.railing_stair_start": "楼梯栏杆头部",
   "block.msd.railing_stair_start_mirror": "楼梯栏杆头部(镜像)",
-  "block.msd.yamanote_pids": "山手线风格乘客资讯显示屏",
+  "block.msd.yuuni_pids": "Yuuni乘客资讯显示屏",
   "block.msd.yamanote_railway_sign": "山手线风格指示牌",
   "block.msd.yamanote_railway_sign_pole": "山手线风格指示牌柱",
   "block.msd.yamanote_railway_sign_double_pole": "山手线风格指示牌柱(双层)",
@@ -38,5 +38,6 @@
   "tooltip.msd.yamanote_railway_sign_even": "摆放模式：双数",
   "gui.msd.mismatched_versions": "请更新MTR Station Decoration模组，然后重试。",
   "gui.msd.mismatched_versions_server_version": "服务器版本：%s",
-  "gui.msd.mismatched_versions_your_version": "您当前的版本是：%s"
+  "gui.msd.mismatched_versions_your_version": "您当前的版本是：%s",
+  "gui.msd.pid_terminal": "终点站"
 }

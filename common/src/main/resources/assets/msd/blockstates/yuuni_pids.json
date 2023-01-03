@@ -1,18 +1,18 @@
 {
   "variants": {
     "facing=north": {
-      "model": "msd:block/yamanote_pids"
+      "model": "msd:block/yuuni_pids"
     },
     "facing=east": {
-      "model": "msd:block/yamanote_pids",
+      "model": "msd:block/yuuni_pids",
       "y": 90
     },
     "facing=south": {
-      "model": "msd:block/yamanote_pids",
+      "model": "msd:block/yuuni_pids",
       "y": 180
     },
     "facing=west": {
-      "model": "msd:block/yamanote_pids",
+      "model": "msd:block/yuuni_pids",
       "y": 270
     }
   }

@@ -192,12 +192,13 @@ public class RenderPIDS<T extends BlockEntityMapper> extends BlockEntityRenderer
                     }
                     matrices.pushPose();
                     matrices.translate(destinationStart, 0, 0);
-                    final String destinationString2;
+                    String destinationString2 = "";
+                    final Component terminalStation = Text.translatable("gui.msd.pid_terminal", destinationString2);
                     if (currentSchedule.currentStationIndex == route.platformIds.size() - 1) {
-                        if (isCJK) {
-                            destinationString2 = "终点站";
+                        if(isCJK){
+                            destinationString2 = terminalStation.getString();
                         } else {
-                            destinationString2 = "Terminating Here";
+                            destinationString2 = "Terminating Here    ";
                         }
                     } else {
                         destinationString2 = destinationString;

@@ -6,7 +6,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import top.mcmtr.blocks.*;
 
 public interface MSDBlockEntityTypes {
-    RegistryObject<BlockEntityType<BlockYamanotePIDS.TileEntityPIDS>> YAMANOTE_PIDS_TILE_ENTITY = new RegistryObject<>(() -> RegistryUtilities.getBlockEntityType(BlockYamanotePIDS.TileEntityPIDS::new, MSDBlocks.YAMANOTE_PIDS.get()));
+    RegistryObject<BlockEntityType<BlockYamanotePIDS.TileEntityPIDS>> YUUNI_PIDS_TILE_ENTITY = new RegistryObject<>(() -> RegistryUtilities.getBlockEntityType(BlockYamanotePIDS.TileEntityPIDS::new, MSDBlocks.YUUNI_PIDS.get()));
     RegistryObject<BlockEntityType<BlockYamanote4PIDS.TileEntityPIDS>> YAMANOTE_4_PIDS_TILE_ENTITY = new RegistryObject<>(() -> RegistryUtilities.getBlockEntityType(BlockYamanote4PIDS.TileEntityPIDS::new, MSDBlocks.YAMANOTE_4_PIDS.get()));
     RegistryObject<BlockEntityType<BlockYamanote5PIDS.TileEntityPIDS>> YAMANOTE_5_PIDS_TILE_ENTITY = new RegistryObject<>(() -> RegistryUtilities.getBlockEntityType(BlockYamanote5PIDS.TileEntityPIDS::new, MSDBlocks.YAMANOTE_5_PIDS.get()));
     RegistryObject<BlockEntityType<BlockYamanote6PIDS.TileEntityPIDS>> YAMANOTE_6_PIDS_TILE_ENTITY = new RegistryObject<>(() -> RegistryUtilities.getBlockEntityType(BlockYamanote6PIDS.TileEntityPIDS::new, MSDBlocks.YAMANOTE_6_PIDS.get()));

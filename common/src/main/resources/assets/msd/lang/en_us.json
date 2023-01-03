@@ -10,7 +10,7 @@
   "block.msd.railing_stair_mirror": "Railing Stair(Mirror)",
   "block.msd.railing_stair_start": "Railing Stair Head",
   "block.msd.railing_stair_start_mirror": "Railing Stair Head(Mirror)",
-  "block.msd.yamanote_pids": "Yamanote Line Sytle PID",
+  "block.msd.yuuni_pids": "Yuuni PID",
   "block.msd.yamanote_railway_sign": "Yamanote Style Railway Sign",
   "block.msd.yamanote_railway_sign_pole": "Yamanote Style Railway Sign Pole",
   "block.msd.yamanote_railway_sign_double_pole": "Yamanote Style Railway Sign Pole(double)",
@@ -38,5 +38,6 @@
   "tooltip.msd.yamanote_railway_sign_even": "Orientation: Even",
   "gui.msd.mismatched_versions": "Please update the MTR Station Decoration mod and try again.",
   "gui.msd.mismatched_versions_server_version": "Server Version: %s",
-  "gui.msd.mismatched_versions_your_version": "Your Version: %s"
+  "gui.msd.mismatched_versions_your_version": "Your Version: %s",
+  "gui.msd.pid_terminal": "Terminating Here    "
 }

@@ -39,7 +39,7 @@ public class MSDMain {
         registerBlockItem.accept("railing_stair_mirror", MSDBlocks.RAILING_STAIR_MIRROR, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("railing_stair_start", MSDBlocks.RAILING_STAIR_START, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("railing_stair_start_mirror", MSDBlocks.RAILING_STAIR_START_MIRROR, MSDCreativeModeTabs.MSD_BLOCKS);
-        registerBlockItem.accept("yamanote_pids", MSDBlocks.YAMANOTE_PIDS, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("yuuni_pids", MSDBlocks.YUUNI_PIDS, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("yamanote_4_pids", MSDBlocks.YAMANOTE_4_PIDS, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("yamanote_5_pids", MSDBlocks.YAMANOTE_5_PIDS, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("yamanote_6_pids", MSDBlocks.YAMANOTE_6_PIDS, MSDCreativeModeTabs.MSD_BLOCKS);
@@ -76,7 +76,7 @@ public class MSDMain {
 
         registerBlock.accept("yamanote_railway_sign_middle", MSDBlocks.YAMANOTE_RAILWAY_SIGN_MIDDLE);
 
-        registerBlockEntityType.accept("yamanote_pids", MSDBlockEntityTypes.YAMANOTE_PIDS_TILE_ENTITY);
+        registerBlockEntityType.accept("yuuni_pids", MSDBlockEntityTypes.YUUNI_PIDS_TILE_ENTITY);
         registerBlockEntityType.accept("yamanote_4_pids", MSDBlockEntityTypes.YAMANOTE_4_PIDS_TILE_ENTITY);
         registerBlockEntityType.accept("yamanote_5_pids", MSDBlockEntityTypes.YAMANOTE_5_PIDS_TILE_ENTITY);
         registerBlockEntityType.accept("yamanote_6_pids", MSDBlockEntityTypes.YAMANOTE_6_PIDS_TILE_ENTITY);
