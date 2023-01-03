@@ -1,4 +1,4 @@
-package top.mcmtr;
+package top.mcmtr.forge;
 
 import mtr.CreativeModeTabs;
 import mtr.Registry;
@@ -19,10 +19,14 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import top.mcmtr.MSDMain;
+import top.mcmtr.MSDMainClient;
 import top.mcmtr.mappings.ForgeUtilities;
 
+@Mod(MSDMain.MOD_ID)
 public class MSDMainForge {
     private static final DeferredRegisterHolder<Item> ITEMS = new DeferredRegisterHolder<>(MSDMain.MOD_ID, ForgeUtilities.registryGetItem());
     private static final DeferredRegisterHolder<Block> BLOCKS = new DeferredRegisterHolder<>(MSDMain.MOD_ID, ForgeUtilities.registryGetBlock());
