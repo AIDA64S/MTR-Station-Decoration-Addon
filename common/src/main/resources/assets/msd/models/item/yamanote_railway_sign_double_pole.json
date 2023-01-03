@@ -1,6 +1,6 @@
 {
 	"parent": "item/generated",
 	"textures": {
-		"layer0": "mtr:item/railway_sign_pole"
+		"layer0": "msd:item/yamanote_railway_sign_double_pole"
 	}
 }

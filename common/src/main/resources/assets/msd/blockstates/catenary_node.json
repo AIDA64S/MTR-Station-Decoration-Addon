@@ -2,35 +2,35 @@
   "variants": {
     "facing=north,is_connected=true": {
       "model": "msd:block/catenary_rack_node",
-      "y": 0
+      "y": 180
     },
     "facing=north,is_connected=false": {
       "model": "msd:block/catenary_rack_node",
-      "y": 0
+      "y": 180
     },
     "facing=east,is_connected=true": {
       "model": "msd:block/catenary_rack_node",
-      "y": 90
+      "y": 270
     },
     "facing=east,is_connected=false": {
       "model": "msd:block/catenary_rack_node",
-      "y": 90
+      "y": 270
     },
     "facing=south,is_connected=true": {
       "model": "msd:block/catenary_rack_node",
-      "y": 180
+      "y": 0
     },
     "facing=south,is_connected=false": {
       "model": "msd:block/catenary_rack_node",
-      "y": 180
+      "y": 0
     },
     "facing=west,is_connected=true": {
       "model": "msd:block/catenary_rack_node",
-      "y": 270
+      "y": 90
     },
     "facing=west,is_connected=false": {
       "model": "msd:block/catenary_rack_node",
-      "y": 270
+      "y": 90
     },
     "facing=up,is_connected=true": {
       "model": "msd:block/catenary_rack_node"
