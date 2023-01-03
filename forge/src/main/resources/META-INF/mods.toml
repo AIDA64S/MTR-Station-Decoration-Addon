@@ -6,7 +6,7 @@ license = "MIT"
 modId = "msd"
 version = "${version}"
 displayName = "MTR Station Decoration Addon"
-authors = "MTR Lovers,Santorsia#3166"
+authors = "MTR Lovers, Santorsia#3166"
 description = "A Station Decoration Addon for the Minecraft Transit Railway Mod"
 logoFile = "icon.png"
 

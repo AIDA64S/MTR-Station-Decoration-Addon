@@ -2,11 +2,6 @@ plugins {
     id "com.github.johnrengelman.shadow"
 }
 
-architectury {
-    platformSetupLoomIde()
-    forge()
-}
-
 loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
     forge {
@@ -15,6 +10,11 @@ loom {
         mixinConfig "msd-common.mixins.json"
         mixinConfig "msd.mixins.json"
     }
+}
+
+architectury {
+    platformSetupLoomIde()
+    forge()
 }
 
 configurations {
@@ -44,6 +44,7 @@ processResources {
 shadowJar {
     exclude "fabric.mod.json"
     exclude "architectury.common.json"
+
     configurations = [project.configurations.shadowCommon]
     classifier "dev-shadow"
 }

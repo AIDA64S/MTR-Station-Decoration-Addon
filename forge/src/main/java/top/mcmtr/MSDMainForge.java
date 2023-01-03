@@ -1,4 +1,4 @@
-package top.mcmtr.forge;
+package top.mcmtr;
 
 import mtr.CreativeModeTabs;
 import mtr.Registry;
@@ -22,8 +22,6 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import top.mcmtr.MSDMain;
-import top.mcmtr.MSDMainClient;
 import top.mcmtr.mappings.ForgeUtilities;
 
 @Mod(MSDMain.MOD_ID)
@@ -48,11 +46,6 @@ public class MSDMainForge {
         SOUND_EVENTS.register();
 
         eventBus.register(MTRForgeRegistry.class);
-        eventBus.register(ForgeUtilities.RegisterCreativeTabs.class);
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-            MinecraftForge.EVENT_BUS.register(ForgeUtilities.Events.class);
-            eventBus.register(ForgeUtilities.ClientsideEvents.class);
-        });
     }
 
     private static void registerItem(String path, RegistryObject<Item> item) {

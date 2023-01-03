@@ -32,10 +32,6 @@ subprojects {
         silentMojangMappingsLicense()
     }
 
-    configurations {
-        shadowCommon
-    }
-
     dependencies {
         minecraft "com.mojang:minecraft:${minecraft_version}"
         mappings loom.officialMojangMappings()
@@ -45,7 +41,6 @@ subprojects {
         implementation 'org.codehaus.groovy:groovy-json:3.0.9'
         testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
         testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
-        shadowCommon "org.msgpack:msgpack-core:${rootProject.messagepack_version}"
     }
 }
 
