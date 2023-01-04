@@ -80,8 +80,8 @@ public class RenderTrainsMixin {
                     IDrawing.drawTexture(matrices, vertexConsumer, (float) x1, (float) y1 + 0.4375F + (float) base, (float) z1, (float) x2, (float) y2 + 0.4375F + (float) base, (float) z2, (float) x2, (float) y2, (float) z2, (float) x1, (float) y1, (float) z1, 0.0F, 0.0F, 1.0F, 1.0F, Direction.UP, -1, 0);
                     IDrawing.drawTexture(matrices, vertexConsumer, (float) x2, (float) y2 + 0.4375F + (float) base, (float) z2, (float) x1, (float) y1 + 0.4375F + (float) base, (float) z1, (float) x1, (float) y1, (float) z1, (float) x2, (float) y2, (float) z2, 0.0F, 1.0F, 1.0F, 0.0F, Direction.UP, -1, 0);
                 }
-                //IDrawing.drawTexture(matrices, vertexConsumer, (float) (x1 - sinX), (float) y1, (float) (z1 + sinZ), (float) (x2 - sinX), (float) y2, (float) (z2 + sinZ), (float) (x2 + sinX), (float) y2, (float) (z2 - sinZ), (float) (x1 + sinX), (float) y1, (float) (z1 - sinZ), 0.0F, 0.0F, 1.0F, 0.03125F, Direction.UP, -1, 0);
-                //IDrawing.drawTexture(matrices, vertexConsumer, (float) (x2 - sinX), (float) y2, (float) (z2 + sinZ), (float) (x1 - sinX), (float) y1, (float) (z1 + sinZ), (float) (x1 + sinX), (float) y1, (float) (z1 - sinZ), (float) (x2 + sinX), (float) y2, (float) (z2 - sinZ), 0.0F, 0.03125F, 1.0F, 0.0F, Direction.UP, -1, 0);
+                IDrawing.drawTexture(matrices, vertexConsumer, (float) (x1 - sinX), (float) y1, (float) (z1 + sinZ), (float) (x2 - sinX), (float) y2, (float) (z2 + sinZ), (float) (x2 + sinX), (float) y2, (float) (z2 - sinZ), (float) (x1 + sinX), (float) y1, (float) (z1 - sinZ), 0.0F, 0.0F, 1.0F, 0.03125F, Direction.UP, -1, 0);
+                IDrawing.drawTexture(matrices, vertexConsumer, (float) (x2 - sinX), (float) y2, (float) (z2 + sinZ), (float) (x1 - sinX), (float) y1, (float) (z1 + sinZ), (float) (x1 + sinX), (float) y1, (float) (z1 - sinZ), (float) (x2 + sinX), (float) y2, (float) (z2 - sinZ), 0.0F, 0.03125F, 1.0F, 0.0F, Direction.UP, -1, 0);
             });
         });
     }

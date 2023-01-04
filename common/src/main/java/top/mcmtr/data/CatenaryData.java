@@ -156,10 +156,13 @@ public class CatenaryData extends PersistentStateMapper {
 
     public static boolean addCatenary(Map<BlockPos, Map<BlockPos, Catenary>> catenaries, BlockPos posStart, BlockPos posEnd, Catenary catenary) {
         try {
+            if (posStart.getX() == posEnd.getX() && posStart.getY() == posEnd.getY() && posStart.getZ() == posEnd.getZ()) {
+                return false;
+            }
             if (!catenaries.containsKey(posStart)) {
                 catenaries.put(posStart, new HashMap<>());
             } else {
-                if(catenaries.get(posStart).containsKey(posEnd)){
+                if (catenaries.get(posStart).containsKey(posEnd)) {
                     return false;
                 }
             }
