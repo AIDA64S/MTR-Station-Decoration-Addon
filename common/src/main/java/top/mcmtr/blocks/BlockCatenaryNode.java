@@ -26,7 +26,7 @@ public class BlockCatenaryNode extends Block {
 
     public BlockCatenaryNode(Properties properties) {
         super(properties);
-        this.registerDefaultState((this.stateDefinition.any()).setValue(FACING, Direction.UP));
+        this.registerDefaultState((this.stateDefinition.any()).setValue(FACING, Direction.UP).setValue(IS_CONNECTED, false));
     }
 
     @Override

@@ -142,8 +142,8 @@ public class CatenaryData extends PersistentStateMapper {
         playerLastUpdatedPositions.remove(player);
     }
 
-    public void addCatenary(BlockPos posStart, BlockPos posEnd, Catenary catenary) {
-        addCatenary(catenaries, posStart, posEnd, catenary);
+    public boolean addCatenary(BlockPos posStart, BlockPos posEnd, Catenary catenary) {
+        return addCatenary(catenaries, posStart, posEnd, catenary);
     }
 
     public void removeCatenaryNode(BlockPos pos) {
@@ -154,15 +154,20 @@ public class CatenaryData extends PersistentStateMapper {
         removeCatenaryConnection(world, catenaries, pos1, pos2);
     }
 
-    public static void addCatenary(Map<BlockPos, Map<BlockPos, Catenary>> catenaries, BlockPos posStart, BlockPos posEnd, Catenary catenary) {
+    public static boolean addCatenary(Map<BlockPos, Map<BlockPos, Catenary>> catenaries, BlockPos posStart, BlockPos posEnd, Catenary catenary) {
         try {
             if (!catenaries.containsKey(posStart)) {
                 catenaries.put(posStart, new HashMap<>());
+            } else {
+                if(catenaries.get(posStart).containsKey(posEnd)){
+                    return false;
+                }
             }
             catenaries.get(posStart).put(posEnd, catenary);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return true;
     }
 
     public static void removeCatenaryNode(Level world, Map<BlockPos, Map<BlockPos, Catenary>> catenaries, BlockPos pos) {

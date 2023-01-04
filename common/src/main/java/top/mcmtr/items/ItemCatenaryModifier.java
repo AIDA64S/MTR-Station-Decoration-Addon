@@ -27,7 +27,10 @@ public class ItemCatenaryModifier extends ItemMSDNodeModifierBase {
     protected void onConnect(Level world, ItemStack stack, BlockState stateStart, BlockState stateEnd, BlockPos posStart, BlockPos posEnd, CatenaryData catenaryData) {
         final Catenary catenary1 = new Catenary(posStart, posEnd, catenaryType);
         final Catenary catenary2 = new Catenary(posEnd, posStart, catenaryType);
-        catenaryData.addCatenary(posStart, posEnd, catenary1);
+        if(!catenaryData.addCatenary(posStart, posEnd, catenary1)){
+            return;
+        }
+        catenaryData.addCatenary(posEnd, posStart, catenary2);
         world.setBlockAndUpdate(posStart, stateStart.setValue(BlockCatenaryNode.IS_CONNECTED, true));
         world.setBlockAndUpdate(posEnd, stateEnd.setValue(BlockCatenaryNode.IS_CONNECTED, true));
         MSDPacketTrainDataGuiServer.createCatenaryS2C(world, posStart, posEnd, catenary1, catenary2);
