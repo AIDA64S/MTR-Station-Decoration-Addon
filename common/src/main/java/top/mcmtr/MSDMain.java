@@ -62,19 +62,28 @@ public class MSDMain {
         registerBlockItem.accept("electric_pole", MSDBlocks.ELECTRIC_POLE, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("surveillance_cameras", MSDBlocks.SURVEILLANCE_CAMERAS, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("surveillance_cameras_wall", MSDBlocks.SURVEILLANCE_CAMERAS_WALL, MSDCreativeModeTabs.MSD_BLOCKS);
-        registerBlockItem.accept("catenary_node", MSDBlocks.CATENARY_NODE, MSDCreativeModeTabs.MSD_BLOCKS);
-        registerBlockItem.accept("electric_node", MSDBlocks.ELECTRIC_NODE, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("catenary_pole", MSDBlocks.CATENARY_POLE, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("catenary_node", MSDBlocks.CATENARY_NODE, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("catenary_node_style_2", MSDBlocks.CATENARY_NODE_STYLE_2, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("catenary_rack_pole", MSDBlocks.CATENARY_RACK_POLE, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("catenary_rack_pole_both_side", MSDBlocks.CATENARY_RACK_POLE_BOTH_SIDE, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("catenary_rack_1", MSDBlocks.CATENARY_RACK_1, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("catenary_rack_2", MSDBlocks.CATENARY_RACK_2, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("catenary_rack_side", MSDBlocks.CATENARY_RACK_SIDE, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("catenary_rack_both_side", MSDBlocks.CATENARY_RACK_BOTH_SIDE, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("short_catenary_node", MSDBlocks.SHORT_CATENARY_NODE, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("short_catenary_node_style_2", MSDBlocks.SHORT_CATENARY_NODE_STYLE_2, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("short_catenary_rack_pole", MSDBlocks.SHORT_CATENARY_RACK_POLE, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("short_catenary_rack_pole_both_side", MSDBlocks.SHORT_CATENARY_RACK_POLE_BOTH_SIDE, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("short_catenary_rack", MSDBlocks.SHORT_CATENARY_RACK, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("short_catenary_rack_side", MSDBlocks.SHORT_CATENARY_RACK_SIDE, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("short_catenary_rack_both_side", MSDBlocks.SHORT_CATENARY_RACK_BOTH_SIDE, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("electric_node", MSDBlocks.ELECTRIC_NODE, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("electric_pole_top_side", MSDBlocks.ELECTRIC_POLE_TOP_SIDE, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("electric_pole_top_both_side", MSDBlocks.ELECTRIC_POLE_TOP_BOTH_SIDE, MSDCreativeModeTabs.MSD_BLOCKS);
 
         registerBlock.accept("yamanote_railway_sign_middle", MSDBlocks.YAMANOTE_RAILWAY_SIGN_MIDDLE);
+        registerBlock.accept("electric_pole_top_long", MSDBlocks.ELECTRIC_POLE_TOP_LONG);
 
         registerBlockEntityType.accept("yuuni_pids", MSDBlockEntityTypes.YUUNI_PIDS_TILE_ENTITY);
         registerBlockEntityType.accept("yamanote_4_pids", MSDBlockEntityTypes.YAMANOTE_4_PIDS_TILE_ENTITY);

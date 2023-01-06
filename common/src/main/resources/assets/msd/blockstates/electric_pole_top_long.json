@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "msd:block/electric_pole_top_long",
+      "y": 0
+    },
+    "facing=east": {
+      "model": "msd:block/electric_pole_top_long",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "msd:block/electric_pole_top_long",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "msd:block/electric_pole_top_long",
+      "y": 270
+    },
+    "facing=up": {
+      "model": "msd:block/electric_pole_top_long",
+      "y": 0
+    },
+    "facing=down": {
+      "model": "msd:block/electric_pole_top_long",
+      "y": 0
+    }
+  }
+}

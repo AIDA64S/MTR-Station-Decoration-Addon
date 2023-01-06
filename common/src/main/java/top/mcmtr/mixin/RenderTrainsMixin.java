@@ -48,8 +48,8 @@ public class RenderTrainsMixin {
                 renderedCatenaryMap.put(catenaryProduct, true);
             }
             if (catenary.catenaryType == CatenaryType.ELECTRIC) {
-                catenary.render((x1, y1, z1, x2, y2, z2, count, i, base, sinX, sinZ) ->
-                        IDrawing.drawLine(matrices, vertexConsumers, (float) x1, (float) y1 + 0.5F, (float) z1, (float) x2, (float) y2 + 0.5F, (float) z2, 0, 0, 0)
+                catenary.render((x1, y1, z1, x2, y2, z2, count, i, base, sinX, sinZ, increment) ->
+                        IDrawing.drawLine(matrices, vertexConsumers, (float) x1, (float) y1 + 1F, (float) z1, (float) x2, (float) y2 + 1F, (float) z2, 0, 0, 0)
                 );
             } else {
                 renderCatenaryStandard(catenary);
@@ -64,21 +64,26 @@ public class RenderTrainsMixin {
 
     private static void renderCatenaryStandard(Catenary catenary, String texture) {
         final int maxCatenaryDistance = UtilitiesClient.getRenderDistance() * 16;
-        catenary.render((x1, y1, z1, x2, y2, z2, count, i, base, sinX, sinZ) -> {
+        catenary.render((x1, y1, z1, x2, y2, z2, count, i, base, sinX, sinZ, increment) -> {
             final BlockPos pos3 = new BlockPos(x1, y1, z1);
             if (RenderTrains.shouldNotRender(pos3, maxCatenaryDistance, null)) {
                 return;
             }
             RenderTrains.scheduleRender(new ResourceLocation(texture), false, RenderTrains.QueuedRenderLayer.EXTERIOR, (matrices, vertexConsumer) -> {
-                if (i < 3) {
-                    IDrawing.drawTexture(matrices, vertexConsumer, (float) x1, (float) y1 + 0.4375F + (float) base, (float) z1, (float) x2, (float) y2 + 0.4375F + (float) (base * 0.6), (float) z2, (float) x2, (float) y2, (float) z2, (float) x1, (float) y1, (float) z1, 0.0F, 0.0F, 1.0F, 1.0F, Direction.UP, -1, 0);
-                    IDrawing.drawTexture(matrices, vertexConsumer, (float) x2, (float) y2 + 0.4375F + (float) (base * 0.6), (float) z2, (float) x1, (float) y1 + 0.4375F + (float) base, (float) z1, (float) x1, (float) y1, (float) z1, (float) x2, (float) y2, (float) z2, 0.0F, 1.0F, 1.0F, 0.0F, Direction.UP, -1, 0);
-                } else if (i > count - 4) {
-                    IDrawing.drawTexture(matrices, vertexConsumer, (float) x1, (float) y1 + 0.4375F + (float) base, (float) z1, (float) x2, (float) y2 + 0.4375F + (float) (base / 0.6), (float) z2, (float) x2, (float) y2, (float) z2, (float) x1, (float) y1, (float) z1, 0.0F, 0.0F, 1.0F, 1.0F, Direction.UP, -1, 0);
-                    IDrawing.drawTexture(matrices, vertexConsumer, (float) x2, (float) y2 + 0.4375F + (float) (base / 0.6), (float) z2, (float) x1, (float) y1 + 0.4375F + (float) base, (float) z1, (float) x1, (float) y1, (float) z1, (float) x2, (float) y2, (float) z2, 0.0F, 1.0F, 1.0F, 0.0F, Direction.UP, -1, 0);
+                if (count < 8) {
+                    IDrawing.drawTexture(matrices, vertexConsumer, (float) x1, (float) y1 + 0.65F + (float) base, (float) z1, (float) x2, (float) y2 + 0.65F + (float) base, (float) z2, (float) x2, (float) y2, (float) z2, (float) x1, (float) y1, (float) z1, 0.0F, 0.0F, 1.0F, 1.0F, Direction.UP, -1, 0);
+                    IDrawing.drawTexture(matrices, vertexConsumer, (float) x2, (float) y2 + 0.65F + (float) base, (float) z2, (float) x1, (float) y1 + 0.65F + (float) base, (float) z1, (float) x1, (float) y1, (float) z1, (float) x2, (float) y2, (float) z2, 0.0F, 1.0F, 1.0F, 0.0F, Direction.UP, -1, 0);
                 } else {
-                    IDrawing.drawTexture(matrices, vertexConsumer, (float) x1, (float) y1 + 0.4375F + (float) base, (float) z1, (float) x2, (float) y2 + 0.4375F + (float) base, (float) z2, (float) x2, (float) y2, (float) z2, (float) x1, (float) y1, (float) z1, 0.0F, 0.0F, 1.0F, 1.0F, Direction.UP, -1, 0);
-                    IDrawing.drawTexture(matrices, vertexConsumer, (float) x2, (float) y2 + 0.4375F + (float) base, (float) z2, (float) x1, (float) y1 + 0.4375F + (float) base, (float) z1, (float) x1, (float) y1, (float) z1, (float) x2, (float) y2, (float) z2, 0.0F, 1.0F, 1.0F, 0.0F, Direction.UP, -1, 0);
+                    if (i < (count / 2 - increment)) {
+                        IDrawing.drawTexture(matrices, vertexConsumer, (float) x1, (float) y1 + 0.65F + (float) base, (float) z1, (float) x2, (float) y2 + 0.65F + (float) (base * 0.5), (float) z2, (float) x2, (float) y2, (float) z2, (float) x1, (float) y1, (float) z1, 0.0F, 0.0F, 1.0F, 1.0F, Direction.UP, -1, 0);
+                        IDrawing.drawTexture(matrices, vertexConsumer, (float) x2, (float) y2 + 0.65F + (float) (base * 0.5), (float) z2, (float) x1, (float) y1 + 0.65F + (float) base, (float) z1, (float) x1, (float) y1, (float) z1, (float) x2, (float) y2, (float) z2, 0.0F, 1.0F, 1.0F, 0.0F, Direction.UP, -1, 0);
+                    } else if (i >= (count / 2)) {
+                        IDrawing.drawTexture(matrices, vertexConsumer, (float) x1, (float) y1 + 0.65F + (float) base, (float) z1, (float) x2, (float) y2 + 0.65F + (float) (base / 0.5), (float) z2, (float) x2, (float) y2, (float) z2, (float) x1, (float) y1, (float) z1, 0.0F, 0.0F, 1.0F, 1.0F, Direction.UP, -1, 0);
+                        IDrawing.drawTexture(matrices, vertexConsumer, (float) x2, (float) y2 + 0.65F + (float) (base / 0.5), (float) z2, (float) x1, (float) y1 + 0.65F + (float) base, (float) z1, (float) x1, (float) y1, (float) z1, (float) x2, (float) y2, (float) z2, 0.0F, 1.0F, 1.0F, 0.0F, Direction.UP, -1, 0);
+                    } else {
+                        IDrawing.drawTexture(matrices, vertexConsumer, (float) x1, (float) y1 + 0.65F + (float) base, (float) z1, (float) x2, (float) y2 + 0.65F + (float) base, (float) z2, (float) x2, (float) y2, (float) z2, (float) x1, (float) y1, (float) z1, 0.0F, 0.0F, 1.0F, 1.0F, Direction.UP, -1, 0);
+                        IDrawing.drawTexture(matrices, vertexConsumer, (float) x2, (float) y2 + 0.65F + (float) base, (float) z2, (float) x1, (float) y1 + 0.65F + (float) base, (float) z1, (float) x1, (float) y1, (float) z1, (float) x2, (float) y2, (float) z2, 0.0F, 1.0F, 1.0F, 0.0F, Direction.UP, -1, 0);
+                    }
                 }
                 IDrawing.drawTexture(matrices, vertexConsumer, (float) (x1 - sinX), (float) y1, (float) (z1 + sinZ), (float) (x2 - sinX), (float) y2, (float) (z2 + sinZ), (float) (x2 + sinX), (float) y2, (float) (z2 - sinZ), (float) (x1 + sinX), (float) y1, (float) (z1 - sinZ), 0.0F, 0.0F, 1.0F, 0.03125F, Direction.UP, -1, 0);
                 IDrawing.drawTexture(matrices, vertexConsumer, (float) (x2 - sinX), (float) y2, (float) (z2 + sinZ), (float) (x1 - sinX), (float) y1, (float) (z1 + sinZ), (float) (x1 + sinX), (float) y1, (float) (z1 - sinZ), (float) (x2 + sinX), (float) y2, (float) (z2 - sinZ), 0.0F, 0.03125F, 1.0F, 0.0F, Direction.UP, -1, 0);

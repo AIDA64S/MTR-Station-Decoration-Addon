@@ -20,6 +20,7 @@
   "block.msd.surveillance_cameras": "监控摄像头",
   "block.msd.surveillance_cameras_wall": "监控摄像头(墙上)",
   "block.msd.catenary_node": "接触网节点",
+  "block.msd.catenary_node_style_2": "接触网节点(风格2)",
   "block.msd.electric_node": "电线节点",
   "block.msd.catenary_pole": "柱子",
   "block.msd.catenary_rack_pole": "接触网架(柱子)",
@@ -40,5 +41,12 @@
   "gui.msd.mismatched_versions": "请更新MTR Station Decoration模组，然后重试。",
   "gui.msd.mismatched_versions_server_version": "服务器版本：%s",
   "gui.msd.mismatched_versions_your_version": "您当前的版本是：%s",
-  "gui.msd.pid_terminal": "终点站"
+  "gui.msd.pid_terminal": "终点站",
+  "block.msd.short_catenary_node": "短接触网架",
+  "block.msd.short_catenary_node_style_2": "短接触网架(风格2)",
+  "block.msd.short_catenary_rack_pole": "短接触网架(柱子)",
+  "block.msd.short_catenary_rack_pole_both_side": "短接触网架(柱子 & 两侧)",
+  "block.msd.short_catenary_rack": "短接触网架(组件)",
+  "block.msd.short_catenary_rack_side": "短接触网架(顶部)",
+  "block.msd.short_catenary_rack_both_side": "短接触网架(顶部 & 两侧)"
 }

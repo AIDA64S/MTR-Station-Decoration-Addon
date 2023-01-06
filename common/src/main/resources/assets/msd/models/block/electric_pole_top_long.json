@@ -1,0 +1,22 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [64, 64],
+	"textures": {
+		"0": "msd:block/catenary_rack",
+		"particle": "msd:block/catenary_rack"
+	},
+	"elements": [
+		{
+			"from": [7.5, 15, 0],
+			"to": [8.5, 16, 9],
+			"faces": {
+				"north": {"uv": [10.75, 14, 15.5, 14.25], "texture": "#0", "cullface": "up"},
+				"east": {"uv": [10.75, 14, 15.5, 14.25], "texture": "#0", "cullface": "up"},
+				"south": {"uv": [10.75, 14, 15.5, 14.25], "texture": "#0", "cullface": "up"},
+				"west": {"uv": [10.75, 14, 15.5, 14.25], "texture": "#0", "cullface": "up"},
+				"up": {"uv": [10.75, 14, 15.5, 14.25], "texture": "#0", "cullface": "up"},
+				"down": {"uv": [10.75, 14, 15.5, 14.25], "texture": "#0", "cullface": "up"}
+			}
+		}
+	]
+}

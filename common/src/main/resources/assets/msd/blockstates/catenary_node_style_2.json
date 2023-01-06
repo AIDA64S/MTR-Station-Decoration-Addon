@@ -1,0 +1,48 @@
+{
+  "variants": {
+    "facing=north,is_connected=true": {
+      "model": "msd:block/catenary_rack_node_style_2",
+      "y": 180
+    },
+    "facing=north,is_connected=false": {
+      "model": "msd:block/catenary_rack_node_style_2",
+      "y": 180
+    },
+    "facing=east,is_connected=true": {
+      "model": "msd:block/catenary_rack_node_style_2",
+      "y": 270
+    },
+    "facing=east,is_connected=false": {
+      "model": "msd:block/catenary_rack_node_style_2",
+      "y": 270
+    },
+    "facing=south,is_connected=true": {
+      "model": "msd:block/catenary_rack_node_style_2",
+      "y": 0
+    },
+    "facing=south,is_connected=false": {
+      "model": "msd:block/catenary_rack_node_style_2",
+      "y": 0
+    },
+    "facing=west,is_connected=true": {
+      "model": "msd:block/catenary_rack_node_style_2",
+      "y": 90
+    },
+    "facing=west,is_connected=false": {
+      "model": "msd:block/catenary_rack_node_style_2",
+      "y": 90
+    },
+    "facing=up,is_connected=true": {
+      "model": "msd:block/catenary_rack_node_style_2"
+    },
+    "facing=up,is_connected=false": {
+      "model": "msd:block/catenary_rack_node_style_2"
+    },
+    "facing=down,is_connected=true": {
+      "model": "msd:block/catenary_rack_node_style_2"
+    },
+    "facing=down,is_connected=false": {
+      "model": "msd:block/catenary_rack_node_style_2"
+    }
+  }
+}
