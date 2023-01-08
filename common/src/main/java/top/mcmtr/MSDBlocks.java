@@ -35,10 +35,11 @@ public interface MSDBlocks {
     RegistryObject<Block> YAMANOTE_RAILWAY_SIGN_POLE = new RegistryObject<>(() -> new BlockYamanoteRailwaySignPole(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
     RegistryObject<Block> YAMANOTE_RAILWAY_SIGN_DOUBLE_POLE = new RegistryObject<>(() -> new BlockYamanoteRailwaySignDoublePole(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
     RegistryObject<Block> RAILWAY_SIGN_DOUBLE_POLE = new RegistryObject<>(() -> new BlockRailwaySignDoublePole(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(1.0F)));
-    RegistryObject<Block> ELECTRIC_POLE = new RegistryObject<>(() -> new BlockElectricPole(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(2.0F)));
     RegistryObject<Block> SURVEILLANCE_CAMERAS = new RegistryObject<>(() -> new BlockSurveillanceCameras(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
     RegistryObject<Block> SURVEILLANCE_CAMERAS_WALL = new RegistryObject<>(() -> new BlockSurveillanceCamerasWall(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
     RegistryObject<Block> CATENARY_POLE = new RegistryObject<>(() -> new BlockCatenaryPole(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
+    RegistryObject<Block> CATENARY_POLE_TOP_MIDDLE = new RegistryObject<>(() -> new BlockCatenaryPoleTopMiddle(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
+    RegistryObject<Block> CATENARY_POLE_TOP_SIDE = new RegistryObject<>(() -> new BlockCatenaryPoleTopSide(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
     RegistryObject<Block> CATENARY_NODE = new RegistryObject<>(() -> new BlockCatenaryNode(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
     RegistryObject<Block> CATENARY_NODE_STYLE_2 = new RegistryObject<>(() -> new BlockCatenaryNode(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
     RegistryObject<Block> CATENARY_RACK_POLE = new RegistryObject<>(() -> new BlockCatenaryPole(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
@@ -56,6 +57,8 @@ public interface MSDBlocks {
     RegistryObject<Block> SHORT_CATENARY_RACK_BOTH_SIDE = new RegistryObject<>(() -> new BlockCatenaryRackPoleTop(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
     RegistryObject<Block> ELECTRIC_NODE = new RegistryObject<>(() -> new BlockCatenaryNode(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
     RegistryObject<Block> ELECTRIC_POLE_TOP_SIDE = new RegistryObject<>(() -> new BlockElectricPoleTop(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
-    RegistryObject<Block> ELECTRIC_POLE_TOP_BOTH_SIDE = new RegistryObject<>(() -> new BlockElectricPoleTop(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
-    RegistryObject<Block> ELECTRIC_POLE_TOP_LONG = new RegistryObject<>(() -> new BlockElectricPoleTop(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
+    RegistryObject<Block> ELECTRIC_POLE_TOP_BOTH_SIDE = new RegistryObject<>(() -> new BlockElectricPoleTopBothSide(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
+    RegistryObject<Block> ELECTRIC_POLE_SIDE = new RegistryObject<>(() -> new BlockElectricPoleSide(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
+    RegistryObject<Block> ELECTRIC_POLE_ANOTHER_SIDE = new RegistryObject<>(() -> new BlockElectricPoleSide(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
+
 }

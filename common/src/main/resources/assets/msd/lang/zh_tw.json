@@ -31,6 +31,10 @@
   "block.msd.electric_pole_top_both_side": "電綫杆(頂部 & 兩側)",
   "block.msd.catenary_rack_1": "接觸網架(組件1)",
   "block.msd.catenary_rack_2": "接觸網架(組件2)",
+  "block.msd.catenary_pole_top_side": "柱子",
+  "block.msd.catenary_pole_top_middle": "柱子",
+  "block.msd.electric_pole_side": "電綫杆(側面)",
+  "block.msd.electric_pole_another_side": "電綫杆(另一側)",
   "tooltip.msd.yamanote_4_pids_length": "長度：4",
   "tooltip.msd.yamanote_5_pids_length": "長度: 5",
   "tooltip.msd.yamanote_6_pids_length": "長度: 6",
@@ -42,11 +46,14 @@
   "gui.msd.mismatched_versions_server_version": "伺服器版本：%s",
   "gui.msd.mismatched_versions_your_version": "您當前的版本是：%s",
   "gui.msd.pid_terminal": "終止於此",
-  "block.msd.short_catenary_node": "短接觸網架节点",
+  "block.msd.short_catenary_node": "短接觸網节点",
   "block.msd.short_catenary_node_style_2": "短接觸網架节点(Style 2)",
   "block.msd.short_catenary_rack_pole": "短接觸網架(柱子)",
   "block.msd.short_catenary_rack_pole_both_side": "短接觸網架(柱子 & 兩側)",
   "block.msd.short_catenary_rack": "短接觸網架(组件)",
   "block.msd.short_catenary_rack_side": "短接觸網架(頂部)",
-  "block.msd.short_catenary_rack_both_side": "短接觸網架(頂部 & 兩側)"
+  "block.msd.short_catenary_rack_both_side": "短接觸網架(頂部 & 兩側)",
+  "tooltip.msd.electric_pole_top": "電線節點可放置在橫桿下",
+  "tooltip.msd.catenary_pole_top_side": "與桿子的連接處",
+  "tooltip.msd.catenary_pole_top_middle": "中間部位"
 }

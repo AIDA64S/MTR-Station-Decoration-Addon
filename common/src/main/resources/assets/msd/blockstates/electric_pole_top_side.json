@@ -1,28 +1,36 @@
 {
   "variants": {
-    "facing=north": {
+    "facing=north,is_long=false": {
       "model": "msd:block/electric_pole_top_side",
       "y": 0
     },
-    "facing=east": {
+    "facing=east,is_long=false": {
       "model": "msd:block/electric_pole_top_side",
       "y": 90
     },
-    "facing=south": {
+    "facing=south,is_long=false": {
       "model": "msd:block/electric_pole_top_side",
       "y": 180
     },
-    "facing=west": {
+    "facing=west,is_long=false": {
       "model": "msd:block/electric_pole_top_side",
       "y": 270
     },
-    "facing=up": {
-      "model": "msd:block/electric_pole_top_side",
+    "facing=north,is_long=true": {
+      "model": "msd:block/electric_pole_top_long",
       "y": 0
     },
-    "facing=down": {
-      "model": "msd:block/electric_pole_top_side",
-      "y": 0
+    "facing=east,is_long=true": {
+      "model": "msd:block/electric_pole_top_long",
+      "y": 90
+    },
+    "facing=south,is_long=true": {
+      "model": "msd:block/electric_pole_top_long",
+      "y": 180
+    },
+    "facing=west,is_long=true": {
+      "model": "msd:block/electric_pole_top_long",
+      "y": 270
     }
   }
 }

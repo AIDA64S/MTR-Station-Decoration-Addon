@@ -59,10 +59,11 @@ public class MSDMain {
         registerBlockItem.accept("yamanote_railway_sign_pole", MSDBlocks.YAMANOTE_RAILWAY_SIGN_POLE, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("yamanote_railway_sign_double_pole", MSDBlocks.YAMANOTE_RAILWAY_SIGN_DOUBLE_POLE, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("railway_sign_double_pole", MSDBlocks.RAILWAY_SIGN_DOUBLE_POLE, MSDCreativeModeTabs.MSD_BLOCKS);
-        registerBlockItem.accept("electric_pole", MSDBlocks.ELECTRIC_POLE, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("surveillance_cameras", MSDBlocks.SURVEILLANCE_CAMERAS, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("surveillance_cameras_wall", MSDBlocks.SURVEILLANCE_CAMERAS_WALL, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("catenary_pole", MSDBlocks.CATENARY_POLE, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("catenary_pole_top_side", MSDBlocks.CATENARY_POLE_TOP_SIDE, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("catenary_pole_top_middle", MSDBlocks.CATENARY_POLE_TOP_MIDDLE, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("catenary_node", MSDBlocks.CATENARY_NODE, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("catenary_node_style_2", MSDBlocks.CATENARY_NODE_STYLE_2, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("catenary_rack_pole", MSDBlocks.CATENARY_RACK_POLE, MSDCreativeModeTabs.MSD_BLOCKS);
@@ -81,9 +82,10 @@ public class MSDMain {
         registerBlockItem.accept("electric_node", MSDBlocks.ELECTRIC_NODE, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("electric_pole_top_side", MSDBlocks.ELECTRIC_POLE_TOP_SIDE, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("electric_pole_top_both_side", MSDBlocks.ELECTRIC_POLE_TOP_BOTH_SIDE, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("electric_pole_side", MSDBlocks.ELECTRIC_POLE_SIDE, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("electric_pole_another_side", MSDBlocks.ELECTRIC_POLE_ANOTHER_SIDE, MSDCreativeModeTabs.MSD_BLOCKS);
 
         registerBlock.accept("yamanote_railway_sign_middle", MSDBlocks.YAMANOTE_RAILWAY_SIGN_MIDDLE);
-        registerBlock.accept("electric_pole_top_long", MSDBlocks.ELECTRIC_POLE_TOP_LONG);
 
         registerBlockEntityType.accept("yuuni_pids", MSDBlockEntityTypes.YUUNI_PIDS_TILE_ENTITY);
         registerBlockEntityType.accept("yamanote_4_pids", MSDBlockEntityTypes.YAMANOTE_4_PIDS_TILE_ENTITY);

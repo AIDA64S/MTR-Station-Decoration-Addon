@@ -49,7 +49,7 @@ public class RenderTrainsMixin {
             }
             if (catenary.catenaryType == CatenaryType.ELECTRIC) {
                 catenary.render((x1, y1, z1, x2, y2, z2, count, i, base, sinX, sinZ, increment) ->
-                        IDrawing.drawLine(matrices, vertexConsumers, (float) x1, (float) y1 + 1F, (float) z1, (float) x2, (float) y2 + 1F, (float) z2, 0, 0, 0)
+                        IDrawing.drawLine(matrices, vertexConsumers, (float) x1, (float) y1 + 0.8125F, (float) z1, (float) x2, (float) y2 + 0.8125F, (float) z2, 0, 0, 0)
                 );
             } else {
                 renderCatenaryStandard(catenary);

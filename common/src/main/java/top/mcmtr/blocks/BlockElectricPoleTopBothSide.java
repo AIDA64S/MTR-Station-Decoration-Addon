@@ -27,10 +27,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.List;
 
-public class BlockElectricPoleTop extends HorizontalDirectionalBlock {
+public class BlockElectricPoleTopBothSide extends HorizontalDirectionalBlock {
     public static final BooleanProperty IS_LONG = BooleanProperty.create("is_long");
 
-    public BlockElectricPoleTop(Properties properties) {
+    public BlockElectricPoleTopBothSide(Properties properties) {
         super(properties);
         registerDefaultState(defaultBlockState().setValue(FACING, Direction.NORTH).setValue(IS_LONG, false));
     }
@@ -42,7 +42,7 @@ public class BlockElectricPoleTop extends HorizontalDirectionalBlock {
 
     @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
-        return IBlock.getVoxelShapeByDirection(7.5, 0, 0, 8.5, 1, 9, IBlock.getStatePropertySafe(blockState, FACING));
+        return IBlock.getVoxelShapeByDirection(7.5, 0, 0, 8.5, 1, 16, IBlock.getStatePropertySafe(blockState, FACING));
     }
 
     @Override
@@ -75,6 +75,7 @@ public class BlockElectricPoleTop extends HorizontalDirectionalBlock {
         if (!level.isClientSide) {
             final Direction direction = IBlock.getStatePropertySafe(blockState, FACING);
             level.setBlock(blockPos.relative(direction), defaultBlockState().setValue(FACING, direction.getOpposite()).setValue(IS_LONG, true), 3);
+            level.setBlock(blockPos.relative(direction.getOpposite()), defaultBlockState().setValue(FACING, direction).setValue(IS_LONG, true), 3);
             level.updateNeighborsAt(blockPos, Blocks.AIR);
             blockState.updateNeighbourShapes(level, blockPos, 3);
         }

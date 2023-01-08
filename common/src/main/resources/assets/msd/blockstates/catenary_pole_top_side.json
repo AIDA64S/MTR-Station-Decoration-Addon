@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "msd:block/catenary_pole_top_side",
+      "y": 0
+    },
+    "facing=east": {
+      "model": "msd:block/catenary_pole_top_side",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "msd:block/catenary_pole_top_side",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "msd:block/catenary_pole_top_side",
+      "y": 270
+    }
+  }
+}
