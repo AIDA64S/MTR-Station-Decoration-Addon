@@ -5,7 +5,7 @@ import mtr.Keys;
 import mtr.RegistryClient;
 import mtr.mappings.Text;
 import mtr.mappings.UtilitiesClient;
-import mtr.packet.PacketTrainDataGuiClient;
+import mtr.packet.PacketTrainDataBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.core.BlockPos;
@@ -20,7 +20,7 @@ import java.util.Set;
 
 import static top.mcmtr.packet.MSDPacket.PACKET_YAMANOTE_SIGN_TYPES;
 
-public class MSDPacketTrainDataGuiClient extends PacketTrainDataGuiClient {
+public class MSDPacketTrainDataGuiClient extends PacketTrainDataBase {
     public static void openMSDVersionCheckS2C(Minecraft minecraftClient, FriendlyByteBuf packet) {
         final String version = packet.readUtf();
         minecraftClient.execute(() -> {
@@ -62,7 +62,7 @@ public class MSDPacketTrainDataGuiClient extends PacketTrainDataGuiClient {
         });
     }
 
-    public static void sendSignIdsC2S(BlockPos signPos, Set<Long> selectedIds, String[] signIds) {
+    public static void sendMSDSignIdsC2S(BlockPos signPos, Set<Long> selectedIds, String[] signIds) {
         final FriendlyByteBuf packet = new FriendlyByteBuf(Unpooled.buffer());
         packet.writeBlockPos(signPos);
         packet.writeInt(selectedIds.size());

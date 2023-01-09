@@ -7,7 +7,7 @@ import mtr.data.RailwayData;
 import mtr.data.RailwayDataLoggingModule;
 import mtr.data.SerializedDataBase;
 import mtr.mappings.BlockEntityMapper;
-import mtr.packet.PacketTrainDataGuiServer;
+import mtr.packet.PacketTrainDataBase;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -25,7 +25,7 @@ import java.util.function.Consumer;
 
 import static top.mcmtr.packet.MSDPacket.*;
 
-public class MSDPacketTrainDataGuiServer extends PacketTrainDataGuiServer {
+public class MSDPacketTrainDataGuiServer extends PacketTrainDataBase {
     public static void versionMSDCheckS2C(ServerPlayer player) {
         final FriendlyByteBuf packet = new FriendlyByteBuf(Unpooled.buffer());
         packet.writeUtf(MSDKeys.MOD_VERSION.split("-hotfix-")[0]);
@@ -38,7 +38,7 @@ public class MSDPacketTrainDataGuiServer extends PacketTrainDataGuiServer {
         Registry.sendToPlayer(player, PACKET_OPEN_YAMANOTE_RAILWAY_SIGN_SCREEN, packet);
     }
 
-    public static void receiveSignIdsC2S(MinecraftServer minecraftServer, ServerPlayer player, FriendlyByteBuf packet) {
+    public static void receiveMSDSignIdsC2S(MinecraftServer minecraftServer, ServerPlayer player, FriendlyByteBuf packet) {
         final BlockPos signPos = packet.readBlockPos();
         final int selectedIdsLength = packet.readInt();
         final Set<Long> selectedIds = new HashSet<>();

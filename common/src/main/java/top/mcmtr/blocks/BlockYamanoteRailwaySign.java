@@ -26,7 +26,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -178,8 +177,8 @@ public class BlockYamanoteRailwaySign extends BlockDirectionalMapper implements 
     public static class TileEntityRailwaySign extends BlockEntityClientSerializableMapper {
         private final Set<Long> selectedIds;
         private final String[] signIds;
-        private static final String KEY_SELECTED_IDS = "selected_yamanote_ids";
-        private static final String KEY_SIGN_LENGTH = "sign_yamanote_length";
+        private static final String KEY_SELECTED_IDS = "yamanote_selected_ids";
+        private static final String KEY_SIGN_LENGTH = "yamanote_sign_length";
 
         public TileEntityRailwaySign(int length, boolean isOdd, BlockPos pos, BlockState state) {
             super(getType(length, isOdd), pos, state);
@@ -203,10 +202,6 @@ public class BlockYamanoteRailwaySign extends BlockDirectionalMapper implements 
             for (int i = 0; i < signIds.length; i++) {
                 compoundTag.putString(KEY_SIGN_LENGTH + i, signIds[i] == null ? "" : signIds[i]);
             }
-        }
-
-        public AABB getRenderBoundingBox() {
-            return new AABB(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
         }
 
         public void setData(Set<Long> selectedIds, String[] signTypes) {

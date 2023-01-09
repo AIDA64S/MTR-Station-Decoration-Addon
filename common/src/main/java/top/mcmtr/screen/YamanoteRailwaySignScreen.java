@@ -198,7 +198,7 @@ public class YamanoteRailwaySignScreen extends ScreenMapper implements IGui {
 
     @Override
     public void onClose() {
-        MSDPacketTrainDataGuiClient.sendSignIdsC2S(signPos, selectedIds, signIds);
+        MSDPacketTrainDataGuiClient.sendMSDSignIdsC2S(signPos, selectedIds, signIds);
         super.onClose();
     }
 
