@@ -14,9 +14,11 @@ import top.mcmtr.render.RenderYamanoteRailwaySign;
 public class MSDMainClient {
     public static void init() {
         RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.YUUNI_PIDS.get());
-
         RegistryClient.registerBlockRenderType(RenderType.translucent(), MSDBlocks.SURVEILLANCE_CAMERAS.get());
         RegistryClient.registerBlockRenderType(RenderType.translucent(), MSDBlocks.SURVEILLANCE_CAMERAS_WALL.get());
+        RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.HALL_SEAT_SIDE.get());
+        RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.HALL_SEAT_MIDDLE.get());
+        RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.HALL_SEAT_SIDE_MIRROR.get());
         RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.CATENARY_POLE.get());
         RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.CATENARY_POLE_TOP_MIDDLE.get());
         RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.CATENARY_POLE_TOP_SIDE.get());

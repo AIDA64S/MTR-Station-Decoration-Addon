@@ -2,8 +2,10 @@ package top.mcmtr.blocks;
 
 import mtr.block.IBlock;
 import mtr.mappings.Text;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -25,7 +27,7 @@ public class BlockCatenaryPoleTopSide extends HorizontalDirectionalBlock {
 
     @Override
     public void appendHoverText(ItemStack itemStack, BlockGetter blockGetter, List<Component> list, TooltipFlag tooltipFlag) {
-        list.add(Text.translatable("tooltip.msd.catenary_pole_top_side"));
+        list.add(Text.translatable("tooltip.msd.catenary_pole_top_side").setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
     }
 
     @Override

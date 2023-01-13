@@ -61,6 +61,9 @@ public class MSDMain {
         registerBlockItem.accept("railway_sign_double_pole", MSDBlocks.RAILWAY_SIGN_DOUBLE_POLE, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("surveillance_cameras", MSDBlocks.SURVEILLANCE_CAMERAS, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("surveillance_cameras_wall", MSDBlocks.SURVEILLANCE_CAMERAS_WALL, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("hall_seat_side", MSDBlocks.HALL_SEAT_SIDE, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("hall_seat_middle", MSDBlocks.HALL_SEAT_MIDDLE, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("hall_seat_side_mirror", MSDBlocks.HALL_SEAT_SIDE_MIRROR, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("catenary_pole", MSDBlocks.CATENARY_POLE, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("catenary_pole_top_side", MSDBlocks.CATENARY_POLE_TOP_SIDE, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("catenary_pole_top_middle", MSDBlocks.CATENARY_POLE_TOP_MIDDLE, MSDCreativeModeTabs.MSD_BLOCKS);

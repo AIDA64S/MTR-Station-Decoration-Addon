@@ -37,6 +37,9 @@ public interface MSDBlocks {
     RegistryObject<Block> RAILWAY_SIGN_DOUBLE_POLE = new RegistryObject<>(() -> new BlockRailwaySignDoublePole(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(1.0F)));
     RegistryObject<Block> SURVEILLANCE_CAMERAS = new RegistryObject<>(() -> new BlockSurveillanceCameras(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
     RegistryObject<Block> SURVEILLANCE_CAMERAS_WALL = new RegistryObject<>(() -> new BlockSurveillanceCamerasWall(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
+    RegistryObject<Block> HALL_SEAT_SIDE = new RegistryObject<>(() -> new BlockHallSeat(BlockHallSeat.SeatLocation.SIDE));
+    RegistryObject<Block> HALL_SEAT_MIDDLE = new RegistryObject<>(() -> new BlockHallSeat(BlockHallSeat.SeatLocation.MIDDLE));
+    RegistryObject<Block> HALL_SEAT_SIDE_MIRROR = new RegistryObject<>(() -> new BlockHallSeat(BlockHallSeat.SeatLocation.SIDE_MIRROR));
     RegistryObject<Block> CATENARY_POLE = new RegistryObject<>(() -> new BlockCatenaryPole(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
     RegistryObject<Block> CATENARY_POLE_TOP_MIDDLE = new RegistryObject<>(() -> new BlockCatenaryPoleTopMiddle(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
     RegistryObject<Block> CATENARY_POLE_TOP_SIDE = new RegistryObject<>(() -> new BlockCatenaryPoleTopSide(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
