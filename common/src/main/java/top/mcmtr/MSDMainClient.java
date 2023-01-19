@@ -67,9 +67,16 @@ public class MSDMainClient {
         RegistryClient.registerNetworkReceiver(MSDPacket.PACKET_REMOVE_CATENARY_NODE, packet -> MSDPacketTrainDataGuiClient.removeCatenaryNodeS2C(Minecraft.getInstance(), packet));
         RegistryClient.registerNetworkReceiver(MSDPacket.PACKET_CREATE_CATENARY, packet -> MSDPacketTrainDataGuiClient.createCatenaryS2C(Minecraft.getInstance(), packet));
         RegistryClient.registerNetworkReceiver(MSDPacket.PACKET_REMOVE_CATENARY, packet -> MSDPacketTrainDataGuiClient.removeCatenaryConnectionS2C(Minecraft.getInstance(), packet));
+        RegistryClient.registerNetworkReceiver(MSDPacket.PACKET_WRITE_RIGID_CATENARY, packet -> MSDClientData.writeRigidCatenaries(Minecraft.getInstance(), packet));
+        RegistryClient.registerNetworkReceiver(MSDPacket.PACKET_REMOVE_RIGID_CATENARY_NODE, packet -> MSDPacketTrainDataGuiClient.removeRigidCatenaryNodeS2C(Minecraft.getInstance(), packet));
+        RegistryClient.registerNetworkReceiver(MSDPacket.PACKET_CREATE_RIGID_CATENARY, packet -> MSDPacketTrainDataGuiClient.createRigidCatenaryS2C(Minecraft.getInstance(), packet));
+        RegistryClient.registerNetworkReceiver(MSDPacket.PACKET_REMOVE_RIGID_CATENARY, packet -> MSDPacketTrainDataGuiClient.removeRigidCatenaryConnectionS2C(Minecraft.getInstance(), packet));
 
         RegistryClient.registerItemModelPredicate(MSDMain.MOD_ID + ":selected", MSDItems.CATENARY_REMOVER.get(), ItemMSDBlockClickingBase.TAG_POS);
         RegistryClient.registerItemModelPredicate(MSDMain.MOD_ID + ":selected", MSDItems.ELECTRIC_CONNECTOR.get(), ItemMSDBlockClickingBase.TAG_POS);
         RegistryClient.registerItemModelPredicate(MSDMain.MOD_ID + ":selected", MSDItems.CATENARY_CONNECTOR.get(), ItemMSDBlockClickingBase.TAG_POS);
+        RegistryClient.registerItemModelPredicate(MSDMain.MOD_ID + ":selected", MSDItems.RIGID_CATENARY_CONNECTOR.get(), ItemMSDBlockClickingBase.TAG_POS);
+        RegistryClient.registerItemModelPredicate(MSDMain.MOD_ID + ":selected", MSDItems.RIGID_CATENARY_REMOVER.get(), ItemMSDBlockClickingBase.TAG_POS);
+        RegistryClient.registerItemModelPredicate(MSDMain.MOD_ID + ":selected", MSDItems.RIGID_SOFT_CATENARY_CONNECTOR.get(), ItemMSDBlockClickingBase.TAG_POS);
     }
 }

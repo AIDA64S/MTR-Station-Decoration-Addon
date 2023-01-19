@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "msd:item/rigid_soft_catenary_connector",
+    "layer1": "msd:item/catenary_selected"
+  }
+}

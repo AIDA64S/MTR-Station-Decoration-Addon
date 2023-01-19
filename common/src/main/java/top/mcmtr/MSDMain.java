@@ -11,6 +11,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import top.mcmtr.data.CatenaryData;
+import top.mcmtr.data.RigidCatenaryData;
 import top.mcmtr.packet.MSDPacketTrainDataGuiServer;
 
 import java.util.function.BiConsumer;
@@ -31,6 +32,9 @@ public class MSDMain {
         registerItem.accept("catenary_connector", MSDItems.CATENARY_CONNECTOR);
         registerItem.accept("electric_connector", MSDItems.ELECTRIC_CONNECTOR);
         registerItem.accept("catenary_remover", MSDItems.CATENARY_REMOVER);
+        registerItem.accept("rigid_catenary_connector", MSDItems.RIGID_CATENARY_CONNECTOR);
+        registerItem.accept("rigid_catenary_remover", MSDItems.RIGID_CATENARY_REMOVER);
+        registerItem.accept("rigid_soft_catenary_connector", MSDItems.RIGID_SOFT_CATENARY_CONNECTOR);
 
         registerBlockItem.accept("railing_stair", MSDBlocks.RAILING_STAIR, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("railing_stair_end", MSDBlocks.RAILING_STAIR_END, MSDCreativeModeTabs.MSD_BLOCKS);
@@ -87,6 +91,7 @@ public class MSDMain {
         registerBlockItem.accept("electric_pole_top_both_side", MSDBlocks.ELECTRIC_POLE_TOP_BOTH_SIDE, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("electric_pole_side", MSDBlocks.ELECTRIC_POLE_SIDE, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("electric_pole_another_side", MSDBlocks.ELECTRIC_POLE_ANOTHER_SIDE, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("rigid_catenary_node", MSDBlocks.RIGID_CATENARY_NODE, MSDCreativeModeTabs.MSD_BLOCKS);
 
         registerBlock.accept("yamanote_railway_sign_middle", MSDBlocks.YAMANOTE_RAILWAY_SIGN_MIDDLE);
 
@@ -113,19 +118,28 @@ public class MSDMain {
         Registry.registerTickEvent(minecraftServer -> {
             minecraftServer.getAllLevels().forEach(serverLevel -> {
                 final CatenaryData catenaryData = CatenaryData.getInstance(serverLevel);
+                final RigidCatenaryData rigidCatenaryData = RigidCatenaryData.getInstance(serverLevel);
                 if (catenaryData != null) {
                     catenaryData.simulateCatenaries();
+                }
+                if (rigidCatenaryData != null) {
+                    rigidCatenaryData.simulateRigidCatenaries();
                 }
             });
         });
         Registry.registerPlayerJoinEvent(player -> {
             MSDPacketTrainDataGuiServer.versionMSDCheckS2C(player);
             final CatenaryData catenaryData = CatenaryData.getInstance(player.getLevel());
+            final RigidCatenaryData rigidCatenaryData = RigidCatenaryData.getInstance(player.getLevel());
         });
         Registry.registerPlayerQuitEvent(player -> {
             final CatenaryData catenaryData = CatenaryData.getInstance(player.getLevel());
+            final RigidCatenaryData rigidCatenaryData = RigidCatenaryData.getInstance(player.getLevel());
             if (catenaryData != null) {
                 catenaryData.disconnectPlayer(player);
+            }
+            if (rigidCatenaryData != null) {
+                rigidCatenaryData.disconnectPlayer(player);
             }
         });
     }

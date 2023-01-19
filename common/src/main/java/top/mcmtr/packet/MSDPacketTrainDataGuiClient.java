@@ -14,6 +14,8 @@ import top.mcmtr.MSDKeys;
 import top.mcmtr.client.MSDClientData;
 import top.mcmtr.data.Catenary;
 import top.mcmtr.data.CatenaryData;
+import top.mcmtr.data.RigidCatenary;
+import top.mcmtr.data.RigidCatenaryData;
 import top.mcmtr.screen.YamanoteRailwaySignScreen;
 
 import java.util.Set;
@@ -94,5 +96,27 @@ public class MSDPacketTrainDataGuiClient extends PacketTrainDataBase {
         final BlockPos pos1 = packet.readBlockPos();
         final BlockPos pos2 = packet.readBlockPos();
         minecraftClient.execute(() -> CatenaryData.removeCatenaryConnection(null, MSDClientData.CATENARIES, pos1, pos2));
+    }
+
+    public static void createRigidCatenaryS2C(Minecraft minecraftClient, FriendlyByteBuf packet) {
+        final BlockPos pos1 = packet.readBlockPos();
+        final BlockPos pos2 = packet.readBlockPos();
+        final RigidCatenary catenary1 = new RigidCatenary(packet);
+        final RigidCatenary catenary2 = new RigidCatenary(packet);
+        minecraftClient.execute(() -> {
+            RigidCatenaryData.addRigidCatenary(MSDClientData.RIGID_CATENARIES, pos1, pos2, catenary1);
+            RigidCatenaryData.addRigidCatenary(MSDClientData.RIGID_CATENARIES, pos2, pos1, catenary2);
+        });
+    }
+
+    public static void removeRigidCatenaryNodeS2C(Minecraft minecraftClient, FriendlyByteBuf packet) {
+        final BlockPos pos = packet.readBlockPos();
+        minecraftClient.execute(() -> RigidCatenaryData.removeRigidCatenaryNode(null, MSDClientData.RIGID_CATENARIES, pos));
+    }
+
+    public static void removeRigidCatenaryConnectionS2C(Minecraft minecraftClient, FriendlyByteBuf packet) {
+        final BlockPos pos1 = packet.readBlockPos();
+        final BlockPos pos2 = packet.readBlockPos();
+        minecraftClient.execute(() -> RigidCatenaryData.removeRigidCatenaryConnection(null, MSDClientData.RIGID_CATENARIES, pos1, pos2));
     }
 }

@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import top.mcmtr.MSDKeys;
 import top.mcmtr.blocks.BlockYamanoteRailwaySign;
 import top.mcmtr.data.Catenary;
+import top.mcmtr.data.RigidCatenary;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -109,5 +110,27 @@ public class MSDPacketTrainDataGuiServer extends PacketTrainDataBase {
         packet.writeBlockPos(pos1);
         packet.writeBlockPos(pos2);
         world.players().forEach(worldPlayer -> Registry.sendToPlayer((ServerPlayer) worldPlayer, PACKET_REMOVE_CATENARY, packet));
+    }
+
+    public static void createRigidCatenaryS2C(Level world, BlockPos pos1, BlockPos pos2, RigidCatenary catenary1, RigidCatenary catenary2) {
+        final FriendlyByteBuf packet = new FriendlyByteBuf(Unpooled.buffer());
+        packet.writeBlockPos(pos1);
+        packet.writeBlockPos(pos2);
+        catenary1.writePacket(packet);
+        catenary2.writePacket(packet);
+        world.players().forEach(worldPlayer -> Registry.sendToPlayer((ServerPlayer) worldPlayer, PACKET_CREATE_RIGID_CATENARY, packet));
+    }
+
+    public static void removeRigidCatenaryNodeS2C(Level world, BlockPos pos) {
+        final FriendlyByteBuf packet = new FriendlyByteBuf(Unpooled.buffer());
+        packet.writeBlockPos(pos);
+        world.players().forEach(worldPlayer -> Registry.sendToPlayer((ServerPlayer) worldPlayer, PACKET_REMOVE_RIGID_CATENARY_NODE, packet));
+    }
+
+    public static void removeRigidCatenaryConnectionS2C(Level world, BlockPos pos1, BlockPos pos2) {
+        final FriendlyByteBuf packet = new FriendlyByteBuf(Unpooled.buffer());
+        packet.writeBlockPos(pos1);
+        packet.writeBlockPos(pos2);
+        world.players().forEach(worldPlayer -> Registry.sendToPlayer((ServerPlayer) worldPlayer, PACKET_REMOVE_RIGID_CATENARY, packet));
     }
 }
