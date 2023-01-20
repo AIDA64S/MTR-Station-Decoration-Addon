@@ -1,16 +1,12 @@
 package top.mcmtr.packet;
 
 import io.netty.buffer.Unpooled;
-import mtr.Keys;
 import mtr.RegistryClient;
-import mtr.mappings.Text;
 import mtr.mappings.UtilitiesClient;
 import mtr.packet.PacketTrainDataBase;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import top.mcmtr.MSDKeys;
 import top.mcmtr.client.MSDClientData;
 import top.mcmtr.data.Catenary;
 import top.mcmtr.data.CatenaryData;
@@ -23,38 +19,6 @@ import java.util.Set;
 import static top.mcmtr.packet.MSDPacket.PACKET_YAMANOTE_SIGN_TYPES;
 
 public class MSDPacketTrainDataGuiClient extends PacketTrainDataBase {
-    public static void openMSDVersionCheckS2C(Minecraft minecraftClient, FriendlyByteBuf packet) {
-        final String version = packet.readUtf();
-        minecraftClient.execute(() -> {
-            if (!MSDKeys.MOD_VERSION.split("-hotfix-")[0].equals(version)) {
-                final ClientPacketListener connection = minecraftClient.getConnection();
-                if (connection != null) {
-                    final int widthDifference1 = minecraftClient.font.width(Text.translatable("gui.msd.mismatched_versions_your_version")) - minecraftClient.font.width(Text.translatable("gui.msd.mismatched_versions_server_version"));
-                    final int widthDifference2 = minecraftClient.font.width(MSDKeys.MOD_VERSION) - minecraftClient.font.width(version);
-                    final int spaceWidth = minecraftClient.font.width(" ");
-                    final StringBuilder text = new StringBuilder();
-                    for (int i = 0; i < -widthDifference1 / spaceWidth; i++) {
-                        text.append(" ");
-                    }
-                    text.append(Text.translatable("gui.msd.mismatched_versions_your_version", Keys.MOD_VERSION).getString());
-                    for (int i = 0; i < -widthDifference2 / spaceWidth; i++) {
-                        text.append(" ");
-                    }
-                    text.append("\n");
-                    for (int i = 0; i < widthDifference1 / spaceWidth; i++) {
-                        text.append(" ");
-                    }
-                    text.append(Text.translatable("gui.msd.mismatched_versions_server_version", version).getString());
-                    for (int i = 0; i < widthDifference2 / spaceWidth; i++) {
-                        text.append(" ");
-                    }
-                    text.append("\n\n");
-                    connection.getConnection().disconnect(Text.literal(text.toString()).append(Text.translatable("gui.msd.mismatched_versions")));
-                }
-            }
-        });
-    }
-
     public static void openYamanoteRailwaySignScreenS2C(Minecraft minecraftClient, FriendlyByteBuf packet) {
         final BlockPos pos = packet.readBlockPos();
         minecraftClient.execute(() -> {

@@ -128,7 +128,6 @@ public class MSDMain {
             });
         });
         Registry.registerPlayerJoinEvent(player -> {
-            MSDPacketTrainDataGuiServer.versionMSDCheckS2C(player);
             final CatenaryData catenaryData = CatenaryData.getInstance(player.getLevel());
             final RigidCatenaryData rigidCatenaryData = RigidCatenaryData.getInstance(player.getLevel());
         });

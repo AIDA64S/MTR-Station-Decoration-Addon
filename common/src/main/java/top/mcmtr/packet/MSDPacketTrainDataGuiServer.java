@@ -15,7 +15,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import top.mcmtr.MSDKeys;
 import top.mcmtr.blocks.BlockYamanoteRailwaySign;
 import top.mcmtr.data.Catenary;
 import top.mcmtr.data.RigidCatenary;
@@ -27,12 +26,6 @@ import java.util.function.Consumer;
 import static top.mcmtr.packet.MSDPacket.*;
 
 public class MSDPacketTrainDataGuiServer extends PacketTrainDataBase {
-    public static void versionMSDCheckS2C(ServerPlayer player) {
-        final FriendlyByteBuf packet = new FriendlyByteBuf(Unpooled.buffer());
-        packet.writeUtf(MSDKeys.MOD_VERSION.split("-hotfix-")[0]);
-        Registry.sendToPlayer(player, PACKET_MSD_VERSION_CHECK, packet);
-    }
-
     public static void openYamanoteRailwaySignScreenS2C(ServerPlayer player, BlockPos signPos) {
         final FriendlyByteBuf packet = new FriendlyByteBuf(Unpooled.buffer());
         packet.writeBlockPos(signPos);
