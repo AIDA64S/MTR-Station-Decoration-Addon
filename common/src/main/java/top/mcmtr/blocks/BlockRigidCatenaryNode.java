@@ -1,6 +1,5 @@
 package top.mcmtr.blocks;
 
-import mtr.block.BlockNode;
 import mtr.block.IBlock;
 import mtr.data.RailAngle;
 import mtr.mappings.BlockDirectionalMapper;

@@ -29,15 +29,6 @@ public abstract class ItemMSDNodeModifierBase extends ItemMSDBlockClickingBase {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag tooltipFlag) {
-        final CompoundTag compoundTag = stack.getOrCreateTag();
-        final long posLong = compoundTag.getLong(TAG_POS);
-        if (posLong != 0) {
-            tooltip.add(Text.translatable("tooltip.msd.selected_block", BlockPos.of(posLong).toShortString()).setStyle(Style.EMPTY.withColor(ChatFormatting.GOLD)));
-        }
-    }
-
-    @Override
     protected void onStartClick(UseOnContext context, CompoundTag compoundTag) {
     }
 

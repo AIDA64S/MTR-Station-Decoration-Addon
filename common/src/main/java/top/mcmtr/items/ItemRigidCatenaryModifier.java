@@ -39,7 +39,7 @@ public class ItemRigidCatenaryModifier extends ItemMSDOriginNodeModifierBase {
             world.setBlockAndUpdate(posEnd, stateEnd.setValue(BlockRigidCatenaryNode.IS_CONNECTED, true));
             MSDPacketTrainDataGuiServer.createRigidCatenaryS2C(world, posStart, posEnd, catenary1, catenary2);
         } else if (player != null) {
-            player.displayClientMessage(Text.translatable(goodRadius ? "gui.mtr.invalid_orientation" : "gui.mtr.radius_too_small"), true);
+            player.displayClientMessage(Text.translatable(goodRadius ? "gui.msd.invalid_orientation" : "gui.msd.radius_too_small"), true);
         }
     }
 
