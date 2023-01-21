@@ -311,24 +311,28 @@ public class RigidCatenary extends SerializedDataBase {
         return Math.abs(tEnd2 - tStart2) + Math.abs(tEnd1 - tStart1);
     }
 
-    public void render(RenderRigidCatenary callback, float offsetRadius1, float offsetRadius2, float offsetRadius3, float offsetRadius4) {
-        renderSegment(h1, k1, r1, tStart1, tEnd1, 0, offsetRadius1, offsetRadius2, offsetRadius3, offsetRadius4, reverseT1, isStraight1, callback);
-        renderSegment(h2, k2, r2, tStart2, tEnd2, Math.abs(tEnd1 - tStart1), offsetRadius1, offsetRadius2, offsetRadius3, offsetRadius4, reverseT2, isStraight2, callback);
+    public void render(RenderRigidCatenary callback) {
+        renderSegment(h1, k1, r1, tStart1, tEnd1, 0, reverseT1, isStraight1, callback);
+        renderSegment(h2, k2, r2, tStart2, tEnd2, Math.abs(tEnd1 - tStart1), reverseT2, isStraight2, callback);
     }
 
-    private void renderSegment(double h, double k, double r, double tStart, double tEnd, double rawValueOffset, float offsetRadius1, float offsetRadius2, float offsetRadius3, float offsetRadius4, boolean reverseT, boolean isStraight, RenderRigidCatenary callback) {
+    private void renderSegment(double h, double k, double r, double tStart, double tEnd, double rawValueOffset, boolean reverseT, boolean isStraight, RenderRigidCatenary callback) {
         final double count = Math.abs(tEnd - tStart);
         final double increment = count / Math.round(count);
         for (double i = 0; i < count - 0.1; i += increment) {
             final double t1 = (reverseT ? -1 : 1) * i + tStart;
             final double t2 = (reverseT ? -1 : 1) * (i + increment) + tStart;
-            final Vec3 corner1 = getPositionXZ(h, k, r, t1, offsetRadius1, isStraight);
-            final Vec3 corner2 = getPositionXZ(h, k, r, t1, offsetRadius2, isStraight);
-            final Vec3 corner3 = getPositionXZ(h, k, r, t2, offsetRadius4, isStraight);
-            final Vec3 corner4 = getPositionXZ(h, k, r, t2, offsetRadius3, isStraight);
+            final Vec3 corner1 = getPositionXZ(h, k, r, t1, -0.015625F, isStraight);
+            final Vec3 corner2 = getPositionXZ(h, k, r, t1, 0.015625F, isStraight);
+            final Vec3 corner3 = getPositionXZ(h, k, r, t2, 0.015625F, isStraight);
+            final Vec3 corner4 = getPositionXZ(h, k, r, t2, -0.015625F, isStraight);
+            final Vec3 corner5 = getPositionXZ(h, k, r, t1, -0.09375F, isStraight);
+            final Vec3 corner6 = getPositionXZ(h, k, r, t1, 0.09375F, isStraight);
+            final Vec3 corner7 = getPositionXZ(h, k, r, t2, 0.09375F, isStraight);
+            final Vec3 corner8 = getPositionXZ(h, k, r, t2, -0.09375F, isStraight);
             final double y1 = getPositionY(i + rawValueOffset);
             final double y2 = getPositionY(i + increment + rawValueOffset);
-            callback.renderRigidCatenary(corner1.x, corner1.z, corner2.x, corner2.z, corner3.x, corner3.z, corner4.x, corner4.z, y1, y2);
+            callback.renderRigidCatenary(corner1.x, corner1.z, corner2.x, corner2.z, corner3.x, corner3.z, corner4.x, corner4.z, corner5.x, corner5.z, corner6.x, corner6.z, corner7.x, corner7.z, corner8.x, corner8.z, y1, y2);
         }
     }
 
@@ -400,6 +404,6 @@ public class RigidCatenary extends SerializedDataBase {
 
     @FunctionalInterface
     public interface RenderRigidCatenary {
-        void renderRigidCatenary(double x1, double z1, double x2, double z2, double x3, double z3, double x4, double z4, double y1, double y2);
+        void renderRigidCatenary(double x1, double z1, double x2, double z2, double x3, double z3, double x4, double z4, double xs1, double zs1, double xs2, double zs2, double xs3, double zs3, double xs4, double zs4, double y1, double y2);
     }
 }

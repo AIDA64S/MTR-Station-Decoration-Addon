@@ -124,49 +124,24 @@ public class RenderTrainsMixin {
 
     private static void renderRigidCatenaryStandard(Level world, RigidCatenary rigidCatenary, String texture) {
         final int maxCatenaryDistance = UtilitiesClient.getRenderDistance() * 16;
-        rigidCatenary.render((x1, z1, x2, z2, x3, z3, x4, z4, y1, y2) -> {
+        rigidCatenary.render((x1, z1, x2, z2, x3, z3, x4, z4, x5, z5, x6, z6, x7, z7, x8, z8, y1, y2) -> {
             final BlockPos pos3 = new BlockPos(x1, y1, z1);
             if (RenderTrains.shouldNotRender(pos3, maxCatenaryDistance, null)) {
                 return;
             }
+            final int light2 = LightTexture.pack(world.getBrightness(LightLayer.BLOCK, pos3), world.getBrightness(LightLayer.SKY, pos3));
             RenderTrains.scheduleRender(new ResourceLocation(texture), false, RenderTrains.QueuedRenderLayer.EXTERIOR, (matrices, vertexConsumer) -> {
                 IDrawing.drawTexture(matrices, vertexConsumer, (float) x1, (float) y1, (float) z1, (float) x2, (float) y1, (float) z2, (float) x3, (float) y2, (float) z3, (float) x4, (float) y2, (float) z4, 0.0F, 0.0F, 1.0F, 0.03125F, Direction.UP, -1, 0);
                 IDrawing.drawTexture(matrices, vertexConsumer, (float) x3, (float) y2, (float) z3, (float) x2, (float) y1, (float) z2, (float) x1, (float) y1, (float) z1, (float) x4, (float) y2, (float) z4, 0.0F, 0.03125F, 1.0F, 0.0F, Direction.UP, -1, 0);
+                IDrawing.drawTexture(matrices, vertexConsumer, (float) x1, (float) y1, (float) z1, (float) x5, (float) y1 + 0.125F, (float) z5, (float) x8, (float) y2 + 0.125F, (float) z8, (float) x4, (float) y2, (float) z4, 0.0F, 0.5F, 1.0F, 1.0F, Direction.UP, -1, light2);
+                IDrawing.drawTexture(matrices, vertexConsumer, (float) x8, (float) y2 + 0.125F, (float) z8, (float) x5, (float) y1 + 0.125F, (float) z5, (float) x1, (float) y1, (float) z1, (float) x4, (float) y2, (float) z4, 0.0F, 1.0F, 1.0F, 0.5F, Direction.UP, -1, light2);
+                IDrawing.drawTexture(matrices, vertexConsumer, (float) x2, (float) y1, (float) z2, (float) x6, (float) y1 + 0.125F, (float) z6, (float) x7, (float) y2 + 0.125F, (float) z7, (float) x3, (float) y2, (float) z3, 0.0F, 0.5F, 1.0F, 1.0F, Direction.UP, -1, light2);
+                IDrawing.drawTexture(matrices, vertexConsumer, (float) x7, (float) y2 + 0.125F, (float) z7, (float) x6, (float) y1 + 0.125F, (float) z6, (float) x2, (float) y1, (float) z2, (float) x3, (float) y2, (float) z3, 0.0F, 1.0F, 1.0F, 0.5F, Direction.UP, -1, light2);
+                IDrawing.drawTexture(matrices, vertexConsumer, (float) x5, (float) y1 + 0.125F, (float) z5, (float) x6, (float) y1 + 0.125F, (float) z6, (float) x7, (float) y2 + 0.125F, (float) z7, (float) x8, (float) y2 + 0.125F, (float) z8, 0.0F, 0.5F, 1.0F, 1.0F, Direction.UP, -1, light2);
+                IDrawing.drawTexture(matrices, vertexConsumer, (float) x7, (float) y2 + 0.125F, (float) z7, (float) x6, (float) y1 + 0.125F, (float) z6, (float) x5, (float) y1 + 0.125F, (float) z5, (float) x8, (float) y2 + 0.125F, (float) z8, 0.0F, 1.0F, 1.0F, 0.5F, Direction.UP, -1, light2);
+
             });
-        }, -0.015625F, 0.015625F, -0.015625F, 0.015625F);
-        rigidCatenary.render((x1, z1, x2, z2, x3, z3, x4, z4, y1, y2) -> {
-            final BlockPos pos3 = new BlockPos(x1, y1, z1);
-            if (RenderTrains.shouldNotRender(pos3, maxCatenaryDistance, null)) {
-                return;
-            }
-            final int light2 = LightTexture.pack(world.getBrightness(LightLayer.BLOCK, pos3), world.getBrightness(LightLayer.SKY, pos3));
-            RenderTrains.scheduleRender(new ResourceLocation(texture), false, RenderTrains.QueuedRenderLayer.EXTERIOR, (matrices, vertexConsumer) -> {
-                IDrawing.drawTexture(matrices, vertexConsumer, (float) x1, (float) y1, (float) z1, (float) x2, (float) y1 + 0.125F, (float) z2, (float) x3, (float) y2 + 0.125F, (float) z3, (float) x4, (float) y2, (float) z4, 0.0F, 0.5F, 1.0F, 1.0F, Direction.UP, -1, light2);
-                IDrawing.drawTexture(matrices, vertexConsumer, (float) x3, (float) y2 + 0.125F, (float) z3, (float) x2, (float) y1 + 0.125F, (float) z2, (float) x1, (float) y1, (float) z1, (float) x4, (float) y2, (float) z4, 0.0F, 1.0F, 1.0F, 0.5F, Direction.UP, -1, light2);
-            });
-        }, -0.015625F, -0.09375F, -0.015625F, -0.09375F);
-        rigidCatenary.render((x1, z1, x2, z2, x3, z3, x4, z4, y1, y2) -> {
-            final BlockPos pos3 = new BlockPos(x1, y1, z1);
-            if (RenderTrains.shouldNotRender(pos3, maxCatenaryDistance, null)) {
-                return;
-            }
-            final int light2 = LightTexture.pack(world.getBrightness(LightLayer.BLOCK, pos3), world.getBrightness(LightLayer.SKY, pos3));
-            RenderTrains.scheduleRender(new ResourceLocation(texture), false, RenderTrains.QueuedRenderLayer.EXTERIOR, (matrices, vertexConsumer) -> {
-                IDrawing.drawTexture(matrices, vertexConsumer, (float) x1, (float) y1, (float) z1, (float) x2, (float) y1 + 0.125F, (float) z2, (float) x3, (float) y2 + 0.125F, (float) z3, (float) x4, (float) y2, (float) z4, 0.0F, 0.5F, 1.0F, 1.0F, Direction.UP, -1, light2);
-                IDrawing.drawTexture(matrices, vertexConsumer, (float) x3, (float) y2 + 0.125F, (float) z3, (float) x2, (float) y1 + 0.125F, (float) z2, (float) x1, (float) y1, (float) z1, (float) x4, (float) y2, (float) z4, 0.0F, 1.0F, 1.0F, 0.5F, Direction.UP, -1, light2);
-            });
-        }, 0.015625F, 0.09375F, 0.015625F, 0.09375F);
-        rigidCatenary.render((x1, z1, x2, z2, x3, z3, x4, z4, y1, y2) -> {
-            final BlockPos pos3 = new BlockPos(x1, y1, z1);
-            if (RenderTrains.shouldNotRender(pos3, maxCatenaryDistance, null)) {
-                return;
-            }
-            final int light2 = LightTexture.pack(world.getBrightness(LightLayer.BLOCK, pos3), world.getBrightness(LightLayer.SKY, pos3));
-            RenderTrains.scheduleRender(new ResourceLocation(texture), false, RenderTrains.QueuedRenderLayer.EXTERIOR, (matrices, vertexConsumer) -> {
-                IDrawing.drawTexture(matrices, vertexConsumer, (float) x1, (float) y1 + 0.125F, (float) z1, (float) x2, (float) y1 + 0.125F, (float) z2, (float) x3, (float) y2 + 0.125F, (float) z3, (float) x4, (float) y2 + 0.125F, (float) z4, 0.0F, 0.5F, 1.0F, 1.0F, Direction.UP, -1, light2);
-                IDrawing.drawTexture(matrices, vertexConsumer, (float) x3, (float) y2 + 0.125F, (float) z3, (float) x2, (float) y1 + 0.125F, (float) z2, (float) x1, (float) y1 + 0.125F, (float) z1, (float) x4, (float) y2 + 0.125F, (float) z4, 0.0F, 1.0F, 1.0F, 0.5F, Direction.UP, -1, light2);
-            });
-        }, -0.09375F, 0.09375F, -0.09375F, 0.09375F);
+        });
     }
 
     private static void renderRigidSoftCatenaryStandard(Catenary catenary, String texture) {
