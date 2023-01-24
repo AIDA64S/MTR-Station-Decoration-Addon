@@ -102,20 +102,20 @@ public class Catenary extends SerializedDataBase {
     private void renderSegment(int xStart, int yStart, int zStart, int xEnd, int yEnd, int zEnd, CatenaryType catenaryType, RenderCatenary callback) {
         final double count = getLength();
         final double increment = count / Math.round(count / 2);
-        final double increment2 = increment - 0.5F;
+        final double increment2 = increment - 0.5;
         double base = 0.6;
         final double sinX = getSin(zStart, zEnd, 0.015625, count);
         final double sinZ = getSin(xStart, xEnd, 0.015625, count);
         if (count < 8) {
             for (double i = 0; i < count - 0.1; i += increment) {
-                final Vec3 corner1 = new Vec3(getPositionXZ(i, xStart, xEnd) + 0.5F, getPositionY(i, yStart, yEnd, catenaryType), getPositionXZ(i, zStart, zEnd) + 0.5F);
-                final Vec3 corner2 = new Vec3(getPositionXZ(i + increment, xStart, xEnd) + 0.5F, getPositionY(i + increment, yStart, yEnd, catenaryType), getPositionXZ(i + increment, zStart, zEnd) + 0.5F);
+                final Vec3 corner1 = new Vec3(getPositionXZ(i, xStart, xEnd) + 0.5, getPositionY(i, yStart, yEnd, catenaryType), getPositionXZ(i, zStart, zEnd) + 0.5);
+                final Vec3 corner2 = new Vec3(getPositionXZ(i + increment, xStart, xEnd) + 0.5, getPositionY(i + increment, yStart, yEnd, catenaryType), getPositionXZ(i + increment, zStart, zEnd) + 0.5);
                 callback.renderCatenary(corner1.x, corner1.y, corner1.z, corner2.x, corner2.y, corner2.z, count, i, base, sinX, sinZ, increment2);
             }
         } else {
             for (double i = 0; i < count - 0.1; i += increment) {
-                final Vec3 corner1 = new Vec3(getPositionXZ(i, xStart, xEnd) + 0.5F, getPositionY(i, yStart, yEnd, catenaryType), getPositionXZ(i, zStart, zEnd) + 0.5F);
-                final Vec3 corner2 = new Vec3(getPositionXZ(i + increment, xStart, xEnd) + 0.5F, getPositionY(i + increment, yStart, yEnd, catenaryType), getPositionXZ(i + increment, zStart, zEnd) + 0.5F);
+                final Vec3 corner1 = new Vec3(getPositionXZ(i, xStart, xEnd) + 0.5, getPositionY(i, yStart, yEnd, catenaryType), getPositionXZ(i, zStart, zEnd) + 0.5);
+                final Vec3 corner2 = new Vec3(getPositionXZ(i + increment, xStart, xEnd) + 0.5, getPositionY(i + increment, yStart, yEnd, catenaryType), getPositionXZ(i + increment, zStart, zEnd) + 0.5);
                 callback.renderCatenary(corner1.x, corner1.y, corner1.z, corner2.x, corner2.y, corner2.z, count, i, base, sinX, sinZ, increment2);
                 if (i < (count / 2 - increment2)) {
                     base *= 0.5;
