@@ -102,7 +102,7 @@ public class Catenary extends SerializedDataBase {
     private void renderSegment(int xStart, int yStart, int zStart, int xEnd, int yEnd, int zEnd, CatenaryType catenaryType, RenderCatenary callback) {
         final double count = getLength();
         final double increment = count / Math.round(count / 2);
-        final double increment2 = increment - 0.1F;
+        final double increment2 = increment - 0.5F;
         double base = 0.6;
         final double sinX = getSin(zStart, zEnd, 0.015625, count);
         final double sinZ = getSin(xStart, xEnd, 0.015625, count);
