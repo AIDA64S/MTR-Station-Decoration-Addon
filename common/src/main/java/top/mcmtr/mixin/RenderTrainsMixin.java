@@ -2,6 +2,7 @@ package top.mcmtr.mixin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import mtr.client.IDrawing;
+import mtr.data.RailwayData;
 import mtr.entity.EntitySeat;
 import mtr.mappings.UtilitiesClient;
 import mtr.path.PathData;
@@ -38,7 +39,7 @@ public class RenderTrainsMixin {
         final Map<UUID, Boolean> renderedCatenaryMap = new HashMap<>();
         matrices.pushPose();
         MSDClientData.CATENARIES.forEach((startPos, catenaryMap) -> catenaryMap.forEach((endPos, catenary) -> {
-            if (!CatenaryData.isBetween(player2.getX(), startPos.getX(), endPos.getX(), maxCatenaryDistance2) || !CatenaryData.isBetween(player2.getZ(), startPos.getZ(), endPos.getZ(), maxCatenaryDistance2)) {
+            if (!RailwayData.isBetween(player2.getX(), startPos.getX(), endPos.getX(), maxCatenaryDistance2) || !RailwayData.isBetween(player2.getZ(), startPos.getZ(), endPos.getZ(), maxCatenaryDistance2)) {
                 return;
             }
             final UUID catenaryProduct = PathData.getRailProduct(startPos, endPos);
@@ -63,7 +64,7 @@ public class RenderTrainsMixin {
         matrices.pushPose();
         final Map<UUID, Boolean> renderedRigidCatenaryMap = new HashMap<>();
         MSDClientData.RIGID_CATENARIES.forEach((startPos, rigidCatenaryMap) -> rigidCatenaryMap.forEach((endPos, rigidCatenary) -> {
-            if (!RigidCatenaryData.isBetween(player2.getX(), startPos.getX(), endPos.getX(), maxCatenaryDistance2) || !RigidCatenaryData.isBetween(player2.getZ(), startPos.getZ(), endPos.getZ(), maxCatenaryDistance2)) {
+            if (!RailwayData.isBetween(player2.getX(), startPos.getX(), endPos.getX(), maxCatenaryDistance2) || !RailwayData.isBetween(player2.getZ(), startPos.getZ(), endPos.getZ(), maxCatenaryDistance2)) {
                 return;
             }
             final UUID rigidCatenaryProduct = PathData.getRailProduct(startPos, endPos);

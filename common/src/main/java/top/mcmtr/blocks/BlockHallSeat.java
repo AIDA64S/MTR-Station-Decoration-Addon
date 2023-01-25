@@ -67,6 +67,6 @@ public class BlockHallSeat extends Block {
     public enum SeatLocation {
         SIDE,
         MIDDLE,
-        SIDE_MIRROR;
+        SIDE_MIRROR
     }
 }

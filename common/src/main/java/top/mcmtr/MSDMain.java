@@ -92,6 +92,7 @@ public class MSDMain {
         registerBlockItem.accept("electric_pole_another_side", MSDBlocks.ELECTRIC_POLE_ANOTHER_SIDE, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("electric_node", MSDBlocks.ELECTRIC_NODE, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("rigid_catenary_node", MSDBlocks.RIGID_CATENARY_NODE, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("laptop", MSDBlocks.LAPTOP, MSDCreativeModeTabs.MSD_BLOCKS);
 
         registerBlock.accept("yamanote_railway_sign_middle", MSDBlocks.YAMANOTE_RAILWAY_SIGN_MIDDLE);
 
@@ -115,18 +116,16 @@ public class MSDMain {
 
         Registry.registerNetworkReceiver(PACKET_YAMANOTE_SIGN_TYPES, MSDPacketTrainDataGuiServer::receiveMSDSignIdsC2S);
 
-        Registry.registerTickEvent(minecraftServer -> {
-            minecraftServer.getAllLevels().forEach(serverLevel -> {
-                final CatenaryData catenaryData = CatenaryData.getInstance(serverLevel);
-                final RigidCatenaryData rigidCatenaryData = RigidCatenaryData.getInstance(serverLevel);
-                if (catenaryData != null) {
-                    catenaryData.simulateCatenaries();
-                }
-                if (rigidCatenaryData != null) {
-                    rigidCatenaryData.simulateRigidCatenaries();
-                }
-            });
-        });
+        Registry.registerTickEvent(minecraftServer -> minecraftServer.getAllLevels().forEach(serverLevel -> {
+            final CatenaryData catenaryData = CatenaryData.getInstance(serverLevel);
+            final RigidCatenaryData rigidCatenaryData = RigidCatenaryData.getInstance(serverLevel);
+            if (catenaryData != null) {
+                catenaryData.simulateCatenaries();
+            }
+            if (rigidCatenaryData != null) {
+                rigidCatenaryData.simulateRigidCatenaries();
+            }
+        }));
         Registry.registerPlayerJoinEvent(player -> {
             final CatenaryData catenaryData = CatenaryData.getInstance(player.getLevel());
             final RigidCatenaryData rigidCatenaryData = RigidCatenaryData.getInstance(player.getLevel());

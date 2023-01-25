@@ -1,10 +1,7 @@
 package top.mcmtr.data;
 
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 import io.netty.buffer.Unpooled;
 import mtr.Registry;
-import mtr.data.MessagePackHelper;
 import mtr.data.SerializedDataBase;
 import mtr.mappings.PersistentStateMapper;
 import net.minecraft.core.BlockPos;
@@ -20,7 +17,6 @@ import net.minecraft.world.level.storage.LevelResource;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.msgpack.core.MessagePacker;
-import org.msgpack.core.MessageUnpacker;
 import org.msgpack.value.Value;
 import top.mcmtr.blocks.BlockCatenaryNode;
 import top.mcmtr.blocks.BlockRigidCatenaryNode;
@@ -203,10 +199,6 @@ public class CatenaryData extends PersistentStateMapper {
         return world.getChunkSource().getChunkNow(pos.getX() / 16, pos.getZ() / 16) != null && world.hasChunk(pos.getX() / 16, pos.getZ() / 16);
     }
 
-    public static String prettyPrint(JsonElement jsonElement) {
-        return new GsonBuilder().setPrettyPrinting().create().toJson(jsonElement);
-    }
-
     public static CatenaryData getInstance(Level world) {
         return getInstance(world, () -> new CatenaryData(world), NAME);
     }
@@ -227,30 +219,12 @@ public class CatenaryData extends PersistentStateMapper {
         catenariesNodesToRemove.forEach(pos -> removeCatenaryNode(null, catenaries, pos));
     }
 
-    public static Map<String, Value> readMessagePackSKMap(MessageUnpacker messageUnpacker) throws IOException {
-        final int size = messageUnpacker.unpackMapHeader();
-        final HashMap<String, Value> result = new HashMap<>(size);
-        for (int i = 0; i < size; ++i) {
-            result.put(messageUnpacker.unpackString(), messageUnpacker.unpackValue());
-        }
-        return result;
-    }
-
-    public static boolean isBetween(double value, double value1, double value2, double padding) {
-        return value >= Math.min(value1, value2) - padding && value <= Math.max(value1, value2) + padding;
-    }
-
     @Deprecated
     private static class CatenaryEntry extends SerializedDataBase {
         public final BlockPos pos;
         public final Map<BlockPos, Catenary> connections;
         private static final String KEY_NODE_POS = "catenary_node_pos";
         private static final String KEY_CATENARY_CONNECTIONS = "catenary_connections";
-
-        public CatenaryEntry(BlockPos pos, Map<BlockPos, Catenary> connections) {
-            this.pos = pos;
-            this.connections = connections;
-        }
 
         public CatenaryEntry(CompoundTag compoundTag) {
             this.pos = BlockPos.of(compoundTag.getLong(KEY_NODE_POS));
@@ -259,16 +233,6 @@ public class CatenaryData extends PersistentStateMapper {
             for (final String keyConnection : tagConnections.getAllKeys()) {
                 connections.put(BlockPos.of(tagConnections.getCompound(keyConnection).getLong(KEY_NODE_POS)), new Catenary(tagConnections.getCompound(keyConnection)));
             }
-        }
-
-        public CatenaryEntry(Map<String, Value> map) {
-            final MessagePackHelper messagePackHelper = new MessagePackHelper(map);
-            pos = BlockPos.of(messagePackHelper.getLong(KEY_NODE_POS));
-            connections = new HashMap<>();
-            messagePackHelper.iterateArrayValue(KEY_CATENARY_CONNECTIONS, value -> {
-                final Map<String, Value> mapSK = CatenaryData.castMessagePackValueToSKMap(value);
-                connections.put(BlockPos.of(new MessagePackHelper(mapSK).getLong(KEY_NODE_POS)), new Catenary(mapSK));
-            });
         }
 
         @Override
@@ -290,7 +254,6 @@ public class CatenaryData extends PersistentStateMapper {
 
         @Override
         public void writePacket(FriendlyByteBuf packet) {
-
         }
     }
 }

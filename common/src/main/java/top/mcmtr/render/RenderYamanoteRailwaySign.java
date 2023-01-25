@@ -51,10 +51,9 @@ public class RenderYamanoteRailwaySign<T extends BlockYamanoteRailwaySign.TileEn
         }
         final BlockPos pos = entity.getBlockPos();
         final BlockState state = world.getBlockState(pos);
-        if (!(state.getBlock() instanceof BlockYamanoteRailwaySign)) {
+        if (!(state.getBlock() instanceof final BlockYamanoteRailwaySign block)) {
             return;
         }
-        final BlockYamanoteRailwaySign block = (BlockYamanoteRailwaySign) state.getBlock();
         if (entity.getSignIds().length != block.length) {
             return;
         }
@@ -96,13 +95,11 @@ public class RenderYamanoteRailwaySign<T extends BlockYamanoteRailwaySign.TileEn
         }
         for (int i = 0; i < signIds.length; i++) {
             if (signIds[i] != null) {
-                drawSign(matrices, vertexConsumers, storedMatrixTransformations, Minecraft.getInstance().font, pos, signIds[i], 0.5F * i, 0, 0.5F, getMaxWidth(signIds, i, false), getMaxWidth(signIds, i, true), entity.getSelectedIds(), facing, backgroundColor | ARGB_SP_GREEN, (textureId, x, y, size, flipTexture) -> {
-                    RenderTrains.scheduleRender(new ResourceLocation(textureId.toString()), true, RenderTrains.QueuedRenderLayer.LIGHT_TRANSLUCENT, (matricesNew, vertexConsumer) -> {
-                        storedMatrixTransformations.transform(matricesNew);
-                        IDrawing.drawTexture(matricesNew, vertexConsumer, x, y, size, size, flipTexture ? 1 : 0, 0, flipTexture ? 0 : 1, 1, facing, -1, MAX_LIGHT_GLOWING);
-                        matricesNew.popPose();
-                    });
-                });
+                drawSign(matrices, vertexConsumers, storedMatrixTransformations, Minecraft.getInstance().font, pos, signIds[i], 0.5F * i, 0, 0.5F, getMaxWidth(signIds, i, false), getMaxWidth(signIds, i, true), entity.getSelectedIds(), facing, backgroundColor | ARGB_SP_GREEN, (textureId, x, y, size, flipTexture) -> RenderTrains.scheduleRender(new ResourceLocation(textureId.toString()), true, RenderTrains.QueuedRenderLayer.LIGHT_TRANSLUCENT, (matricesNew, vertexConsumer) -> {
+                    storedMatrixTransformations.transform(matricesNew);
+                    IDrawing.drawTexture(matricesNew, vertexConsumer, x, y, size, size, flipTexture ? 1 : 0, 0, flipTexture ? 0 : 1, 1, facing, -1, MAX_LIGHT_GLOWING);
+                    matricesNew.popPose();
+                }));
             }
         }
         matrices.popPose();
@@ -126,16 +123,17 @@ public class RenderYamanoteRailwaySign<T extends BlockYamanoteRailwaySign.TileEn
         final boolean isPlatform = signId.equals(BlockRailwaySign.SignType.PLATFORM.toString()) || signId.equals(BlockRailwaySign.SignType.PLATFORM_FLIPPED.toString());
         final boolean isStation = signId.equals(BlockRailwaySign.SignType.STATION.toString()) || signId.equals(BlockRailwaySign.SignType.STATION_FLIPPED.toString());
         final MultiBufferSource.BufferSource immediate = RenderTrains.shouldNotRender(pos, RenderTrains.maxTrainRenderDistance / 2, null) ? null : MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
+        float maxDefaultWidth = ((flipCustomText ? maxWidthLeft : maxWidthRight) + 1) * size - margin * 2;
         if (vertexConsumers != null && isExit) {
             final Station station = RailwayData.getStation(ClientData.STATIONS, ClientData.DATA_CACHE, pos);
             if (station == null) {
                 return;
             }
             final Map<String, List<String>> exits = station.getGeneratedExits();
-            final List<String> selectedExitsSorted = selectedIds.stream().map(Station::deserializeExit).filter(exits::containsKey).sorted(String::compareTo).collect(Collectors.toList());
+            final List<String> selectedExitsSorted = selectedIds.stream().map(Station::deserializeExit).filter(exits::containsKey).sorted(String::compareTo).toList();
             matrices.pushPose();
             matrices.translate(x + margin + (flipCustomText ? signSize : 0), y + margin, 0);
-            final float maxWidth = ((flipCustomText ? maxWidthLeft : maxWidthRight) + 1) * size - margin * 2;
+            final float maxWidth = maxDefaultWidth;
             final float exitWidth = signSize * selectedExitsSorted.size();
             matrices.scale(Math.min(1, maxWidth / exitWidth), 1, 1);
             for (int i = 0; i < selectedExitsSorted.size(); i++) {
@@ -159,8 +157,8 @@ public class RenderYamanoteRailwaySign<T extends BlockYamanoteRailwaySign.TileEn
                 return;
             }
             final Map<Integer, ClientCache.ColorNameTuple> routesInStation = ClientData.DATA_CACHE.getAllRoutesIncludingConnectingStations(station);
-            final List<ClientCache.ColorNameTuple> selectedIdsSorted = selectedIds.stream().filter(selectedId -> RailwayData.isBetween(selectedId, Integer.MIN_VALUE, Integer.MAX_VALUE)).map(Math::toIntExact).filter(routesInStation::containsKey).map(routesInStation::get).sorted(Comparator.comparingInt(route -> route.color)).collect(Collectors.toList());
-            final float maxWidth = Math.max(0, ((flipCustomText ? maxWidthLeft : maxWidthRight) + 1) * size - margin * 2);
+            final List<ClientCache.ColorNameTuple> selectedIdsSorted = selectedIds.stream().filter(selectedId -> RailwayData.isBetween(selectedId, Integer.MIN_VALUE, Integer.MAX_VALUE)).map(Math::toIntExact).filter(routesInStation::containsKey).map(routesInStation::get).sorted(Comparator.comparingInt(route -> route.color)).toList();
+            final float maxWidth = Math.max(0, maxDefaultWidth);
             final float height = size - margin * 2;
             final List<ClientCache.DynamicResource> resourceLocationDataList = new ArrayList<>();
             float totalTextWidth = 0;
@@ -196,7 +194,7 @@ public class RenderYamanoteRailwaySign<T extends BlockYamanoteRailwaySign.TileEn
             }
             final Map<Long, Platform> platformPositions = ClientData.DATA_CACHE.requestStationIdToPlatforms(station.id);
             if (platformPositions != null) {
-                final List<Long> selectedIdsSorted = selectedIds.stream().filter(platformPositions::containsKey).sorted(Comparator.comparing(platformPositions::get)).collect(Collectors.toList());
+                final List<Long> selectedIdsSorted = selectedIds.stream().filter(platformPositions::containsKey).sorted(Comparator.comparing(platformPositions::get)).toList();
                 final int selectedCount = selectedIdsSorted.size();
 
                 final float extraMargin = margin - margin / selectedCount;

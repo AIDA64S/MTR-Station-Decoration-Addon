@@ -2,19 +2,11 @@ package top.mcmtr.items;
 
 import mtr.CreativeModeTabs;
 import mtr.item.ItemWithCreativeTabBase;
-import mtr.mappings.Text;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.Level;
 
-import java.util.List;
 import java.util.function.Function;
 
 public abstract class ItemMSDBlockClickingBase extends ItemWithCreativeTabBase {
@@ -43,15 +35,6 @@ public abstract class ItemMSDBlockClickingBase extends ItemWithCreativeTabBase {
             }
         } else {
             return super.useOn(context);
-        }
-    }
-
-    @Override
-    public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag tooltipFlag) {
-        final CompoundTag compoundTag = stack.getOrCreateTag();
-        final long posLong = compoundTag.getLong(TAG_POS);
-        if (posLong != 0) {
-            tooltip.add(Text.translatable("tooltip.msd.selected_block", BlockPos.of(posLong).toShortString()).setStyle(Style.EMPTY.withColor(ChatFormatting.GOLD)));
         }
     }
 

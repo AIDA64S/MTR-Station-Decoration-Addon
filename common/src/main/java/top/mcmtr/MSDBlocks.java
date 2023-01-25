@@ -35,8 +35,8 @@ public interface MSDBlocks {
     RegistryObject<Block> YAMANOTE_RAILWAY_SIGN_POLE = new RegistryObject<>(() -> new BlockYamanoteRailwaySignPole(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
     RegistryObject<Block> YAMANOTE_RAILWAY_SIGN_DOUBLE_POLE = new RegistryObject<>(() -> new BlockYamanoteRailwaySignDoublePole(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
     RegistryObject<Block> RAILWAY_SIGN_DOUBLE_POLE = new RegistryObject<>(() -> new BlockRailwaySignDoublePole(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(1.0F)));
-    RegistryObject<Block> SURVEILLANCE_CAMERAS = new RegistryObject<>(() -> new BlockSurveillanceCameras(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
-    RegistryObject<Block> SURVEILLANCE_CAMERAS_WALL = new RegistryObject<>(() -> new BlockSurveillanceCamerasWall(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
+    RegistryObject<Block> SURVEILLANCE_CAMERAS = new RegistryObject<>(() -> new BlockSurveillanceCameras(BlockSurveillanceCameras.CameraType.CEILING, BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
+    RegistryObject<Block> SURVEILLANCE_CAMERAS_WALL = new RegistryObject<>(() -> new BlockSurveillanceCameras(BlockSurveillanceCameras.CameraType.WALL, BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
     RegistryObject<Block> HALL_SEAT_SIDE = new RegistryObject<>(() -> new BlockHallSeat(BlockHallSeat.SeatLocation.SIDE));
     RegistryObject<Block> HALL_SEAT_MIDDLE = new RegistryObject<>(() -> new BlockHallSeat(BlockHallSeat.SeatLocation.MIDDLE));
     RegistryObject<Block> HALL_SEAT_SIDE_MIRROR = new RegistryObject<>(() -> new BlockHallSeat(BlockHallSeat.SeatLocation.SIDE_MIRROR));
@@ -64,4 +64,5 @@ public interface MSDBlocks {
     RegistryObject<Block> ELECTRIC_POLE_ANOTHER_SIDE = new RegistryObject<>(() -> new BlockElectricPoleSide(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
     RegistryObject<Block> ELECTRIC_NODE = new RegistryObject<>(() -> new BlockCatenaryNode(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
     RegistryObject<Block> RIGID_CATENARY_NODE = new RegistryObject<>(() -> new BlockRigidCatenaryNode(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
+    RegistryObject<Block> LAPTOP = new RegistryObject<>(() -> new BlockLaptop(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
 }

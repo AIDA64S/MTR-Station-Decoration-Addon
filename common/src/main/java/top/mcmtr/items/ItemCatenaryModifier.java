@@ -1,9 +1,12 @@
 package top.mcmtr.items;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import top.mcmtr.MSDCreativeModeTabs;
 import top.mcmtr.blocks.BlockCatenaryNode;
 import top.mcmtr.blocks.BlockRigidCatenaryNode;
 import top.mcmtr.data.Catenary;
@@ -11,21 +14,52 @@ import top.mcmtr.data.CatenaryData;
 import top.mcmtr.data.CatenaryType;
 import top.mcmtr.packet.MSDPacketTrainDataGuiServer;
 
-public class ItemCatenaryModifier extends ItemMSDNodeModifierBase {
+public class ItemCatenaryModifier extends ItemMSDBlockClickingBase {
     private final CatenaryType catenaryType;
+    private final boolean isConnector;
 
     public ItemCatenaryModifier() {
-        super(false);
+        super(MSDCreativeModeTabs.MSD_BLOCKS, properties -> properties.stacksTo(1));
         this.catenaryType = null;
+        this.isConnector = false;
     }
 
     public ItemCatenaryModifier(boolean isConnector, CatenaryType catenaryType) {
-        super(isConnector);
+        super(MSDCreativeModeTabs.MSD_BLOCKS, properties -> properties.stacksTo(1));
         this.catenaryType = catenaryType;
+        this.isConnector = isConnector;
     }
 
     @Override
-    protected void onConnect(Level world, ItemStack stack, BlockState stateStart, BlockState stateEnd, BlockPos posStart, BlockPos posEnd, CatenaryData catenaryData) {
+    protected void onStartClick(UseOnContext context, CompoundTag compoundTag) {
+    }
+
+    @Override
+    protected void onEndClick(UseOnContext context, BlockPos posEnd, CompoundTag compoundTag) {
+        final Level world = context.getLevel();
+        final CatenaryData catenaryData = CatenaryData.getInstance(world);
+        final BlockPos posStart = context.getClickedPos();
+        final BlockState stateStart = world.getBlockState(posStart);
+        final BlockState stateEnd = world.getBlockState(posEnd);
+        if (catenaryData != null && (stateEnd.getBlock() instanceof BlockCatenaryNode || stateEnd.getBlock() instanceof BlockRigidCatenaryNode)) {
+            if (isConnector) {
+                if (!posStart.equals(posEnd)) {
+                    onConnect(world, stateStart, stateEnd, posStart, posEnd, catenaryData);
+                }
+            } else {
+                onRemove(world, posStart, posEnd, catenaryData);
+            }
+        }
+    }
+
+    @Override
+    protected boolean clickCondition(UseOnContext context) {
+        final Level world = context.getLevel();
+        final Block blockStart = world.getBlockState(context.getClickedPos()).getBlock();
+        return blockStart instanceof BlockCatenaryNode || blockStart instanceof BlockRigidCatenaryNode;
+    }
+
+    private void onConnect(Level world, BlockState stateStart, BlockState stateEnd, BlockPos posStart, BlockPos posEnd, CatenaryData catenaryData) {
         final Catenary catenary1 = new Catenary(posStart, posEnd, catenaryType);
         final Catenary catenary2 = new Catenary(posEnd, posStart, catenaryType);
         if (!catenaryData.addCatenary(posStart, posEnd, catenary1)) {
@@ -45,8 +79,7 @@ public class ItemCatenaryModifier extends ItemMSDNodeModifierBase {
         MSDPacketTrainDataGuiServer.createCatenaryS2C(world, posStart, posEnd, catenary1, catenary2);
     }
 
-    @Override
-    protected void onRemove(Level world, BlockPos posStart, BlockPos posEnd, CatenaryData catenaryData) {
+    private void onRemove(Level world, BlockPos posStart, BlockPos posEnd, CatenaryData catenaryData) {
         catenaryData.removeCatenaryConnection(posStart, posEnd);
         MSDPacketTrainDataGuiServer.removeCatenaryConnectionS2C(world, posStart, posEnd);
     }

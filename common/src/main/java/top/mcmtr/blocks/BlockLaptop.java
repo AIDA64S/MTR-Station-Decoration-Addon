@@ -13,25 +13,30 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING;
 
-public class BlockSurveillanceCamerasWall extends Block {
-    public BlockSurveillanceCamerasWall(Properties properties) {
+public class BlockLaptop extends Block {
+    public BlockLaptop(Properties properties) {
         super(properties);
     }
 
     @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
-        VoxelShape shape1 = IBlock.getVoxelShapeByDirection(6.5, 6.5, 0, 9.5, 9.5, 2, IBlock.getStatePropertySafe(blockState, FACING));
-        VoxelShape shape2 = IBlock.getVoxelShapeByDirection(6.5, 7.5, 2, 9.5, 12.5, 11, IBlock.getStatePropertySafe(blockState, FACING));
+        VoxelShape shape1 = IBlock.getVoxelShapeByDirection(1, 0, 2.65, 15, 1, 14, IBlock.getStatePropertySafe(blockState, FACING));
+        VoxelShape shape2 = IBlock.getVoxelShapeByDirection(1, 1, 2.65, 15, 10.775, 3.85, IBlock.getStatePropertySafe(blockState, FACING));
         return Shapes.or(shape1, shape2);
     }
 
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
-        return this.defaultBlockState().setValue(FACING, blockPlaceContext.getHorizontalDirection());
+    public VoxelShape getOcclusionShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
+        return Shapes.empty();
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING);
+    }
+
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
+        return this.defaultBlockState().setValue(FACING, blockPlaceContext.getHorizontalDirection());
     }
 }

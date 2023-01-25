@@ -46,6 +46,7 @@
   "block.msd.short_catenary_rack_both_side": "短接觸網架(兩側)",
   "block.msd.hall_seat": "大廳座椅",
   "block.msd.rigid_catenary_node": "剛性接觸網节点",
+  "block.msd.laptop": "筆記本電腦",
   "tooltip.msd.yamanote_4_pids_length": "長度：4",
   "tooltip.msd.yamanote_5_pids_length": "長度: 5",
   "tooltip.msd.yamanote_6_pids_length": "長度: 6",

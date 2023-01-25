@@ -185,6 +185,6 @@ public class Catenary extends SerializedDataBase {
 
     @FunctionalInterface
     public interface RenderCatenary {
-        void renderCatenary(double x1, double y1, double z1, double x2, double y2, double z2, double count, double i, double base, double sinX, double sinY, double incre);
+        void renderCatenary(double x1, double y1, double z1, double x2, double y2, double z2, double count, double i, double base, double sinX, double sinY, double increment);
     }
 }

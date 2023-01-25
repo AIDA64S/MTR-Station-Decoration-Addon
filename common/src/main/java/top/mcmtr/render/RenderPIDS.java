@@ -241,14 +241,14 @@ public class RenderPIDS<T extends BlockEntityMapper> extends BlockEntityRenderer
         }
         final Set<Long> platformIds;
         switch (renderType) {
-            case ARRIVAL_PROJECTOR:
+            case ARRIVAL_PROJECTOR -> {
                 if (entity instanceof BlockArrivalProjectorBase.TileEntityArrivalProjectorBase) {
                     platformIds = ((BlockArrivalProjectorBase.TileEntityArrivalProjectorBase) entity).getPlatformIds();
                 } else {
                     platformIds = new HashSet<>();
                 }
-                break;
-            case PIDS:
+            }
+            case PIDS -> {
                 final Set<Long> tempPlatformIds;
                 if (entity instanceof BlockPIDSBase.TileEntityBlockPIDSBase) {
                     tempPlatformIds = ((BlockPIDSBase.TileEntityBlockPIDSBase) entity).getPlatformIds();
@@ -256,9 +256,8 @@ public class RenderPIDS<T extends BlockEntityMapper> extends BlockEntityRenderer
                     tempPlatformIds = new HashSet<>();
                 }
                 platformIds = tempPlatformIds.isEmpty() ? Collections.singleton(entity instanceof BlockPIDSBase.TileEntityBlockPIDSBase ? ((BlockPIDSBase.TileEntityBlockPIDSBase) entity).getPlatformId(ClientData.PLATFORMS, ClientData.DATA_CACHE) : 0) : tempPlatformIds;
-                break;
-            default:
-                platformIds = new HashSet<>();
+            }
+            default -> platformIds = new HashSet<>();
         }
         schedules = new HashSet<>();
         platforms.values().forEach(platform -> {
