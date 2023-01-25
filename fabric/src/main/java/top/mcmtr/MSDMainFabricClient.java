@@ -6,5 +6,6 @@ public class MSDMainFabricClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         MSDMainClient.init();
+        MSDMainClient.registerItemModelPredicates();
     }
 }

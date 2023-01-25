@@ -85,6 +85,7 @@ public class MSDMainForge {
         @SubscribeEvent
         public static void onClientSetupEvent(FMLClientSetupEvent event) {
             MSDMainClient.init();
+            event.enqueueWork(MSDMainClient::registerItemModelPredicates);
         }
     }
 
