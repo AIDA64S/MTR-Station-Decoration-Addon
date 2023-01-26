@@ -24,7 +24,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: 17.0.6+10
+          java-version: 17
       - name: Make gradle wrapper executable
         run: chmod +x ./gradlew
       - name: Setup ${{ matrix.minecraft }} ${{ matrix.loader }}
