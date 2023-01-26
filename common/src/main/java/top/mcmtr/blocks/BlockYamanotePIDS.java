@@ -25,7 +25,6 @@ public class BlockYamanotePIDS extends BlockPIDSBase {
     }
 
     public static class TileEntityPIDS extends TileEntityBlockPIDSBase {
-
         public TileEntityPIDS(BlockPos pos, BlockState state) {
             super(MSDBlockEntityTypes.YUUNI_PIDS_TILE_ENTITY.get(), pos, state);
         }
@@ -35,5 +34,4 @@ public class BlockYamanotePIDS extends BlockPIDSBase {
             return 3;
         }
     }
-
 }

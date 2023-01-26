@@ -25,18 +25,13 @@ public class BlockYamanoteRailwaySignPole extends BlockPoleCheckBase {
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter blockGetter, BlockPos pos, CollisionContext collisionContext) {
         final Direction facing = IBlock.getStatePropertySafe(state, FACING);
-        switch (IBlock.getStatePropertySafe(state, TYPE)) {
-            case 0:
-                return IBlock.getVoxelShapeByDirection(14, 0, 7.5, 15, 16, 8.5, facing);
-            case 1:
-                return IBlock.getVoxelShapeByDirection(10, 0, 7.5, 11, 16, 8.5, facing);
-            case 2:
-                return IBlock.getVoxelShapeByDirection(6, 0, 7.5, 7, 16, 8.5, facing);
-            case 3:
-                return IBlock.getVoxelShapeByDirection(2, 0, 7.5, 3, 16, 8.5, facing);
-            default:
-                return Shapes.block();
-        }
+        return switch (IBlock.getStatePropertySafe(state, TYPE)) {
+            case 0 -> IBlock.getVoxelShapeByDirection(14, 0, 7.5, 15, 16, 8.5, facing);
+            case 1 -> IBlock.getVoxelShapeByDirection(10, 0, 7.5, 11, 16, 8.5, facing);
+            case 2 -> IBlock.getVoxelShapeByDirection(6, 0, 7.5, 7, 16, 8.5, facing);
+            case 3 -> IBlock.getVoxelShapeByDirection(2, 0, 7.5, 3, 16, 8.5, facing);
+            default -> Shapes.block();
+        };
     }
 
     @Override

@@ -13,5 +13,4 @@ public interface MSDItems {
     RegistryObject<Item> RIGID_CATENARY_CONNECTOR = new RegistryObject<>(() -> new ItemRigidCatenaryModifier(true, CatenaryType.RIGID_CATENARY));
     RegistryObject<Item> RIGID_CATENARY_REMOVER = new RegistryObject<>(ItemRigidCatenaryModifier::new);
     RegistryObject<Item> RIGID_SOFT_CATENARY_CONNECTOR = new RegistryObject<>(() -> new ItemCatenaryModifier(true, CatenaryType.RIGID_SOFT_CATENARY));
-
 }

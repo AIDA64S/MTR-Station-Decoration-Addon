@@ -55,5 +55,4 @@ public class MSDMainFabric implements ModInitializer {
     private static void registerEntityType(String path, RegistryObject<? extends EntityType<? extends Entity>> entityType) {
         Registry.register(RegistryUtilities.registryGetEntityType(), new ResourceLocation(MSDMain.MOD_ID, path), entityType.get());
     }
-
 }

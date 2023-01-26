@@ -34,7 +34,7 @@ public class BlockRigidCatenaryNode extends BlockDirectionalMapper {
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
         final int quadrant = RailAngle.getQuadrant(blockPlaceContext.getRotation(), true);
-        return defaultBlockState().setValue(FACING, quadrant % 8 >= 4).setValue(IS_45, quadrant % 4 >= 2).setValue(IS_22_5, quadrant % 2 >= 1).setValue(IS_CONNECTED, false);
+        return defaultBlockState().setValue(FACING, quadrant % 8 >= 4).setValue(IS_45, quadrant % 4 >= 2).setValue(IS_22_5, quadrant % 2 == 1).setValue(IS_CONNECTED, false);
     }
 
     @Override

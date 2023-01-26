@@ -21,7 +21,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import top.mcmtr.client.MSDClientData;
-import top.mcmtr.data.*;
+import top.mcmtr.data.Catenary;
+import top.mcmtr.data.CatenaryType;
+import top.mcmtr.data.RigidCatenary;
 
 import java.util.HashMap;
 import java.util.Map;

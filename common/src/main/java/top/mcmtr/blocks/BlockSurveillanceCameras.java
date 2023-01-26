@@ -14,7 +14,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING;
 
 public class BlockSurveillanceCameras extends Block {
-    private CameraType cameraType;
+    private final CameraType cameraType;
 
     public BlockSurveillanceCameras(CameraType cameraType, Properties properties) {
         super(properties);

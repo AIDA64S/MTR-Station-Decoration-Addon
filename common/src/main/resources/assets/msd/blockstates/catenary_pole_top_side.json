@@ -15,6 +15,14 @@
     "facing=west": {
       "model": "msd:block/catenary_pole_top_side",
       "y": 270
+    },
+    "facing=up": {
+      "model": "msd:block/catenary_pole_top_side",
+      "y": 0
+    },
+    "facing=down": {
+      "model": "msd:block/catenary_pole_top_side",
+      "y": 0
     }
   }
 }

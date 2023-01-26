@@ -51,9 +51,10 @@ public class RenderYamanoteRailwaySign<T extends BlockYamanoteRailwaySign.TileEn
         }
         final BlockPos pos = entity.getBlockPos();
         final BlockState state = world.getBlockState(pos);
-        if (!(state.getBlock() instanceof final BlockYamanoteRailwaySign block)) {
+        if (!(state.getBlock() instanceof BlockYamanoteRailwaySign)) {
             return;
         }
+        final BlockYamanoteRailwaySign block = (BlockYamanoteRailwaySign) state.getBlock();
         if (entity.getSignIds().length != block.length) {
             return;
         }
@@ -275,6 +276,4 @@ public class RenderYamanoteRailwaySign<T extends BlockYamanoteRailwaySign.TileEn
     public interface DrawTexture {
         void drawTexture(ResourceLocation textureId, float x, float y, float size, boolean flipTexture);
     }
-
-
 }
