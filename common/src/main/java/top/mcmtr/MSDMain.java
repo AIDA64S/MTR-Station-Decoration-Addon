@@ -35,6 +35,7 @@ public class MSDMain {
         registerItem.accept("rigid_catenary_connector", MSDItems.RIGID_CATENARY_CONNECTOR);
         registerItem.accept("rigid_catenary_remover", MSDItems.RIGID_CATENARY_REMOVER);
         registerItem.accept("rigid_soft_catenary_connector", MSDItems.RIGID_SOFT_CATENARY_CONNECTOR);
+        registerItem.accept("model_change_stick", MSDItems.MODEL_CHANGE_STICK);
 
         registerBlockItem.accept("railing_stair", MSDBlocks.RAILING_STAIR, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("railing_stair_end", MSDBlocks.RAILING_STAIR_END, MSDCreativeModeTabs.MSD_BLOCKS);
@@ -93,6 +94,7 @@ public class MSDMain {
         registerBlockItem.accept("electric_node", MSDBlocks.ELECTRIC_NODE, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("rigid_catenary_node", MSDBlocks.RIGID_CATENARY_NODE, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("laptop", MSDBlocks.LAPTOP, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("decoration_book", MSDBlocks.DECORATION_BOOK, MSDCreativeModeTabs.MSD_BLOCKS);
 
         registerBlock.accept("yamanote_railway_sign_middle", MSDBlocks.YAMANOTE_RAILWAY_SIGN_MIDDLE);
 

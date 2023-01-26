@@ -6,6 +6,7 @@
   "item.msd.rigid_catenary_connector": "Rigid Catenary Connector",
   "item.msd.rigid_catenary_remover": "Rigid Catenary Remover",
   "item.msd.rigid_soft_catenary_connector": "Catenary Connector(Rigid-Soft)",
+  "item.msd.model_change_stick": "Model Switching Stick",
   "block.msd.railing_stair": "Railing Stair",
   "block.msd.railing_stair_end": "Railing Stair Tail",
   "block.msd.railing_stair_end_mirror": "Railing Stair Tail(Mirror)",
@@ -47,6 +48,7 @@
   "block.msd.hall_seat": "Hall Seat",
   "block.msd.rigid_catenary_node": "Rigid Catenary Node",
   "block.msd.laptop": "Laptop",
+  "block.msd.decoration_book": "Book",
   "tooltip.msd.yamanote_4_pids_length": "Length: 4",
   "tooltip.msd.yamanote_5_pids_length": "Length: 5",
   "tooltip.msd.yamanote_6_pids_length": "Length: 6",
@@ -62,6 +64,7 @@
   "tooltip.msd.hall_seat_location_side_mirror": "side(mirror)",
   "tooltip.msd.rigid_catenary": "Can only be used for rigid catenary nodes",
   "tooltip.msd.catenary_rack_top": "placed under the Gantry",
+  "tooltip.msd.model_count": "Models Count: %s",
   "gui.msd.pid_terminal": "Terminating Here    ",
   "gui.msd.invalid_orientation": "Could not connect Rigid Catenary; invalid orientation",
   "gui.msd.radius_too_small": "Could not connect Rigid Catenary; radius must be at least 2"

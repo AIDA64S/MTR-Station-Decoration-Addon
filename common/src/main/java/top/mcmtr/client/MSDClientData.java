@@ -31,11 +31,11 @@ public class MSDClientData {
     public static void writeRigidCatenaries(Minecraft client, FriendlyByteBuf packet) {
         final Map<BlockPos, Map<BlockPos, RigidCatenary>> rigidCatenariesTemp = new HashMap<>();
         final int rigidCatenariesCount = packet.readInt();
-        for (int i = 0; i < rigidCatenariesCount; i++){
+        for (int i = 0; i < rigidCatenariesCount; i++) {
             final BlockPos startPos = packet.readBlockPos();
             final Map<BlockPos, RigidCatenary> rigidCatenaryMap = new HashMap<>();
             final int rigidCatenaryCount = packet.readInt();
-            for (int j = 0; j < rigidCatenaryCount; j++){
+            for (int j = 0; j < rigidCatenaryCount; j++) {
                 rigidCatenaryMap.put(packet.readBlockPos(), new RigidCatenary(packet));
             }
             rigidCatenariesTemp.put(startPos, rigidCatenaryMap);

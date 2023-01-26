@@ -85,7 +85,7 @@ public class ItemRigidCatenaryModifier extends ItemMSDBlockClickingBase {
         final boolean goodRadius = catenary1.goodRadius() && catenary2.goodRadius();
         final boolean isValid = catenary1.isValid() && catenary2.isValid();
         if (goodRadius && isValid) {
-            if(!rigidCatenaryData.addRigidCatenary(posStart, posEnd, catenary1)){
+            if (!rigidCatenaryData.addRigidCatenary(posStart, posEnd, catenary1)) {
                 return;
             }
             rigidCatenaryData.addRigidCatenary(posEnd, posStart, catenary2);

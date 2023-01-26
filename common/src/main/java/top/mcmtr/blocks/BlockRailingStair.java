@@ -1,7 +1,6 @@
 package top.mcmtr.blocks;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
@@ -34,7 +33,7 @@ public class BlockRailingStair extends Block {
 
     @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
-        switch (blockState.getValue(FACING)){
+        switch (blockState.getValue(FACING)) {
             case NORTH:
                 return DIRECTION_NORTH;
             case EAST:
@@ -48,7 +47,7 @@ public class BlockRailingStair extends Block {
 
     @Override
     public VoxelShape getCollisionShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
-        switch (blockState.getValue(FACING)){
+        switch (blockState.getValue(FACING)) {
             case NORTH:
                 return DIRECTION_NORTH_COLLISION;
             case EAST:

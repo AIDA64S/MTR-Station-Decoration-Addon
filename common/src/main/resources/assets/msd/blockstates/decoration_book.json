@@ -1,0 +1,36 @@
+{
+  "variants": {
+    "facing=north,type=0": {
+      "model": "msd:block/book_1",
+      "y": 0
+    },
+    "facing=east,type=0": {
+      "model": "msd:block/book_1",
+      "y": 90
+    },
+    "facing=south,type=0": {
+      "model": "msd:block/book_1",
+      "y": 180
+    },
+    "facing=west,type=0": {
+      "model": "msd:block/book_1",
+      "y": 270
+    },
+    "facing=north,type=1": {
+      "model": "msd:block/book_2",
+      "y": 0
+    },
+    "facing=east,type=1": {
+      "model": "msd:block/book_2",
+      "y": 90
+    },
+    "facing=south,type=1": {
+      "model": "msd:block/book_2",
+      "y": 180
+    },
+    "facing=west,type=1": {
+      "model": "msd:block/book_2",
+      "y": 270
+    }
+  }
+}

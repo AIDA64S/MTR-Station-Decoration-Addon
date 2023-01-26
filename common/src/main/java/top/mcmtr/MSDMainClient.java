@@ -44,6 +44,7 @@ public class MSDMainClient {
         RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.ELECTRIC_NODE.get());
         RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.RIGID_CATENARY_NODE.get());
         RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.LAPTOP.get());
+        RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.DECORATION_BOOK.get());
 
         RegistryClient.registerTileEntityRenderer(MSDBlockEntityTypes.YUUNI_PIDS_TILE_ENTITY.get(), dispatcher -> new RenderPIDS<>(dispatcher, 2, 2.5F, 7.5F, 6, 6.5F, 27, true, false, PIDSType.PIDS, 0xFF9900, 0x33CC00, 1.25F, true));
         RegistryClient.registerTileEntityRenderer(MSDBlockEntityTypes.YAMANOTE_4_PIDS_TILE_ENTITY.get(), dispatcher -> new RenderPIDS<>(dispatcher, 3, 0F, 15F, 7, 6F, 32, true, true, PIDSType.PIDS, 0x00FF00, 0xFF0000));
@@ -74,7 +75,7 @@ public class MSDMainClient {
         RegistryClient.registerNetworkReceiver(MSDPacket.PACKET_REMOVE_RIGID_CATENARY, packet -> MSDPacketTrainDataGuiClient.removeRigidCatenaryConnectionS2C(Minecraft.getInstance(), packet));
     }
 
-    public static void registerItemModelPredicates(){
+    public static void registerItemModelPredicates() {
         RegistryClient.registerItemModelPredicate(MSDMain.MOD_ID + ":selected", MSDItems.CATENARY_REMOVER.get(), ItemMSDBlockClickingBase.TAG_POS);
         RegistryClient.registerItemModelPredicate(MSDMain.MOD_ID + ":selected", MSDItems.ELECTRIC_CONNECTOR.get(), ItemMSDBlockClickingBase.TAG_POS);
         RegistryClient.registerItemModelPredicate(MSDMain.MOD_ID + ":selected", MSDItems.CATENARY_CONNECTOR.get(), ItemMSDBlockClickingBase.TAG_POS);
