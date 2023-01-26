@@ -141,12 +141,16 @@ public class BlockYamanoteRailwaySign extends BlockDirectionalMapper implements 
     }
 
     public int getXStart() {
-        return switch (length % 4) {
-            default -> isOdd ? 8 : 16;
-            case 1 -> isOdd ? 4 : 12;
-            case 2 -> isOdd ? 16 : 8;
-            case 3 -> isOdd ? 12 : 4;
-        };
+        switch (length % 4) {
+            case 1:
+                return isOdd ? 4 : 12;
+            case 2:
+                return isOdd ? 16 : 8;
+            case 3:
+                return isOdd ? 12 : 4;
+            default:
+                return isOdd ? 8 : 16;
+        }
     }
 
     private int getMiddleLength() {
@@ -219,21 +223,22 @@ public class BlockYamanoteRailwaySign extends BlockDirectionalMapper implements 
         }
 
         private static BlockEntityType<?> getType(int length, boolean isOdd) {
-            return switch (length) {
-                case 2 ->
-                        isOdd ? MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_2_ODD_TILE_ENTITY.get() : MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_2_EVEN_TILE_ENTITY.get();
-                case 3 ->
-                        isOdd ? MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_3_ODD_TILE_ENTITY.get() : MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_3_EVEN_TILE_ENTITY.get();
-                case 4 ->
-                        isOdd ? MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_4_ODD_TILE_ENTITY.get() : MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_4_EVEN_TILE_ENTITY.get();
-                case 5 ->
-                        isOdd ? MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_5_ODD_TILE_ENTITY.get() : MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_5_EVEN_TILE_ENTITY.get();
-                case 6 ->
-                        isOdd ? MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_6_ODD_TILE_ENTITY.get() : MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_6_EVEN_TILE_ENTITY.get();
-                case 7 ->
-                        isOdd ? MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_7_ODD_TILE_ENTITY.get() : MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_7_EVEN_TILE_ENTITY.get();
-                default -> null;
-            };
+            switch (length) {
+                case 2:
+                    return isOdd ? MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_2_ODD_TILE_ENTITY.get() : MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_2_EVEN_TILE_ENTITY.get();
+                case 3:
+                    return isOdd ? MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_3_ODD_TILE_ENTITY.get() : MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_3_EVEN_TILE_ENTITY.get();
+                case 4:
+                    return isOdd ? MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_4_ODD_TILE_ENTITY.get() : MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_4_EVEN_TILE_ENTITY.get();
+                case 5:
+                    return isOdd ? MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_5_ODD_TILE_ENTITY.get() : MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_5_EVEN_TILE_ENTITY.get();
+                case 6:
+                    return isOdd ? MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_6_ODD_TILE_ENTITY.get() : MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_6_EVEN_TILE_ENTITY.get();
+                case 7:
+                    return isOdd ? MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_7_ODD_TILE_ENTITY.get() : MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_7_EVEN_TILE_ENTITY.get();
+                default:
+                    return null;
+            }
         }
     }
 }

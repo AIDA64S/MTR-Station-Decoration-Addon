@@ -34,27 +34,29 @@ public class BlockRailingStair extends Block {
 
     @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
-        if (blockState.getValue(FACING) == Direction.NORTH) {
-            return DIRECTION_NORTH;
-        } else if (blockState.getValue(FACING) == Direction.EAST) {
-            return DIRECTION_EAST;
-        } else if (blockState.getValue(FACING) == Direction.SOUTH) {
-            return DIRECTION_SOUTH;
-        } else {
-            return DIRECTION_WEST;
+        switch (blockState.getValue(FACING)){
+            case NORTH:
+                return DIRECTION_NORTH;
+            case EAST:
+                return DIRECTION_EAST;
+            case SOUTH:
+                return DIRECTION_SOUTH;
+            default:
+                return DIRECTION_WEST;
         }
     }
 
     @Override
     public VoxelShape getCollisionShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
-        if (blockState.getValue(FACING) == Direction.NORTH) {
-            return DIRECTION_NORTH_COLLISION;
-        } else if (blockState.getValue(FACING) == Direction.EAST) {
-            return DIRECTION_EAST_COLLISION;
-        } else if (blockState.getValue(FACING) == Direction.SOUTH) {
-            return DIRECTION_SOUTH_COLLISION;
-        } else {
-            return DIRECTION_WEST_COLLISION;
+        switch (blockState.getValue(FACING)){
+            case NORTH:
+                return DIRECTION_NORTH_COLLISION;
+            case EAST:
+                return DIRECTION_EAST_COLLISION;
+            case SOUTH:
+                return DIRECTION_SOUTH_COLLISION;
+            default:
+                return DIRECTION_WEST_COLLISION;
         }
     }
 
