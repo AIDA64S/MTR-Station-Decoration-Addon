@@ -131,7 +131,7 @@ public class RenderYamanoteRailwaySign<T extends BlockYamanoteRailwaySign.TileEn
                 return;
             }
             final Map<String, List<String>> exits = station.getGeneratedExits();
-            final List<String> selectedExitsSorted = selectedIds.stream().map(Station::deserializeExit).filter(exits::containsKey).sorted(String::compareTo).toList();
+            final List<String> selectedExitsSorted = selectedIds.stream().map(Station::deserializeExit).filter(exits::containsKey).sorted(String::compareTo).collect(Collectors.toList());
             matrices.pushPose();
             matrices.translate(x + margin + (flipCustomText ? signSize : 0), y + margin, 0);
             final float maxWidth = maxDefaultWidth;
@@ -158,7 +158,7 @@ public class RenderYamanoteRailwaySign<T extends BlockYamanoteRailwaySign.TileEn
                 return;
             }
             final Map<Integer, ClientCache.ColorNameTuple> routesInStation = ClientData.DATA_CACHE.getAllRoutesIncludingConnectingStations(station);
-            final List<ClientCache.ColorNameTuple> selectedIdsSorted = selectedIds.stream().filter(selectedId -> RailwayData.isBetween(selectedId, Integer.MIN_VALUE, Integer.MAX_VALUE)).map(Math::toIntExact).filter(routesInStation::containsKey).map(routesInStation::get).sorted(Comparator.comparingInt(route -> route.color)).toList();
+            final List<ClientCache.ColorNameTuple> selectedIdsSorted = selectedIds.stream().filter(selectedId -> RailwayData.isBetween(selectedId, Integer.MIN_VALUE, Integer.MAX_VALUE)).map(Math::toIntExact).filter(routesInStation::containsKey).map(routesInStation::get).sorted(Comparator.comparingInt(route -> route.color)).collect(Collectors.toList());
             final float maxWidth = Math.max(0, maxDefaultWidth);
             final float height = size - margin * 2;
             final List<ClientCache.DynamicResource> resourceLocationDataList = new ArrayList<>();
@@ -195,7 +195,7 @@ public class RenderYamanoteRailwaySign<T extends BlockYamanoteRailwaySign.TileEn
             }
             final Map<Long, Platform> platformPositions = ClientData.DATA_CACHE.requestStationIdToPlatforms(station.id);
             if (platformPositions != null) {
-                final List<Long> selectedIdsSorted = selectedIds.stream().filter(platformPositions::containsKey).sorted(Comparator.comparing(platformPositions::get)).toList();
+                final List<Long> selectedIdsSorted = selectedIds.stream().filter(platformPositions::containsKey).sorted(Comparator.comparing(platformPositions::get)).collect(Collectors.toList());
                 final int selectedCount = selectedIdsSorted.size();
 
                 final float extraMargin = margin - margin / selectedCount;
