@@ -11,7 +11,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import top.mcmtr.MSDBlockEntityTypes;
 
-public class BlockYamanotePIDS extends BlockPIDSBase {
+public class BlockYuuniPIDS extends BlockPIDSBase {
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext collisionContext) {
         VoxelShape shape1 = IBlock.getVoxelShapeByDirection(5.75, 0, 0.3, 10.25, 11.6, 15.7, IBlock.getStatePropertySafe(state, FACING));
