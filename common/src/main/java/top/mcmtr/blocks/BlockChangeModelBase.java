@@ -18,7 +18,7 @@ import net.minecraft.world.level.material.Material;
 import java.util.List;
 
 public abstract class BlockChangeModelBase extends HorizontalDirectionalBlock {
-    public static final IntegerProperty TEXTURE_TYPE = IntegerProperty.create("type", 0, 7);
+    public static final IntegerProperty TEXTURE_TYPE = IntegerProperty.create("type", 0, 5);
     private final int count;
 
     public BlockChangeModelBase(int count) {

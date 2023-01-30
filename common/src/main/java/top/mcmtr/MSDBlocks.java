@@ -67,4 +67,6 @@ public interface MSDBlocks {
     RegistryObject<Block> RIGID_CATENARY_NODE = new RegistryObject<>(() -> new BlockRigidCatenaryNode(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
     RegistryObject<Block> LAPTOP = new RegistryObject<>(() -> new BlockLaptop(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
     RegistryObject<Block> DECORATION_BOOK = new RegistryObject<>(BlockDecorationBook::new);
+    RegistryObject<Block> DISPLAY_BOARD_HORIZONTAL = new RegistryObject<>(BlockDisplayBoardHorizontal::new);
+    RegistryObject<Block> DISPLAY_BOARD_VERTICALLY = new RegistryObject<>(BlockDisplayBoardVertically::new);
 }

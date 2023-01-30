@@ -95,6 +95,8 @@ public class MSDMain {
         registerBlockItem.accept("rigid_catenary_node", MSDBlocks.RIGID_CATENARY_NODE, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("laptop", MSDBlocks.LAPTOP, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("decoration_book", MSDBlocks.DECORATION_BOOK, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("display_board_horizontal", MSDBlocks.DISPLAY_BOARD_HORIZONTAL, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("display_board_vertically", MSDBlocks.DISPLAY_BOARD_VERTICALLY, MSDCreativeModeTabs.MSD_BLOCKS);
 
         registerBlock.accept("yamanote_railway_sign_middle", MSDBlocks.YAMANOTE_RAILWAY_SIGN_MIDDLE);
 

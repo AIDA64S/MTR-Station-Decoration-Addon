@@ -24,9 +24,9 @@ public class ItemModelChangeStick extends ItemWithCreativeTabBase {
             if (clickCondition(useOnContext)) {
                 final BlockPos blockPos = useOnContext.getClickedPos();
                 final BlockState blockState = world.getBlockState(blockPos);
-                final BlockChangeModelBase block = (BlockChangeModelBase)blockState.getBlock();
+                final BlockChangeModelBase block = (BlockChangeModelBase) blockState.getBlock();
                 int blockTextureType = blockState.getValue(TEXTURE_TYPE);
-                if(blockTextureType == block.getCount() - 1){
+                if (blockTextureType == block.getCount() - 1) {
                     world.setBlockAndUpdate(blockPos, blockState.setValue(TEXTURE_TYPE, 0));
                 } else {
                     world.setBlockAndUpdate(blockPos, blockState.setValue(TEXTURE_TYPE, blockTextureType + 1));

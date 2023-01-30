@@ -49,6 +49,8 @@
   "block.msd.rigid_catenary_node": "Rigid Catenary Node",
   "block.msd.laptop": "Laptop",
   "block.msd.decoration_book": "Book",
+  "block.msd.display_board_horizontal": "Display Board(Horizontal)",
+  "block.msd.display_board_vertically": "Display Board(Vertically)",
   "tooltip.msd.yamanote_4_pids_length": "Length: 4",
   "tooltip.msd.yamanote_5_pids_length": "Length: 5",
   "tooltip.msd.yamanote_6_pids_length": "Length: 6",
