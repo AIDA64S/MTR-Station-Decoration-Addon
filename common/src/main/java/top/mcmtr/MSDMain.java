@@ -45,6 +45,7 @@ public class MSDMain {
         registerBlockItem.accept("railing_stair_start", MSDBlocks.RAILING_STAIR_START, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("railing_stair_start_mirror", MSDBlocks.RAILING_STAIR_START_MIRROR, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("yuuni_pids", MSDBlocks.YUUNI_PIDS, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("yuuni_pids_pole", MSDBlocks.YUUNI_PIDS_POLE, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("yamanote_4_pids", MSDBlocks.YAMANOTE_4_PIDS, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("yamanote_5_pids", MSDBlocks.YAMANOTE_5_PIDS, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("yamanote_6_pids", MSDBlocks.YAMANOTE_6_PIDS, MSDCreativeModeTabs.MSD_BLOCKS);
@@ -62,8 +63,6 @@ public class MSDMain {
         registerBlockItem.accept("yamanote_railway_sign_7_even", MSDBlocks.YAMANOTE_RAILWAY_SIGN_7_EVEN, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("yamanote_railway_sign_7_odd", MSDBlocks.YAMANOTE_RAILWAY_SIGN_7_ODD, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("yamanote_railway_sign_pole", MSDBlocks.YAMANOTE_RAILWAY_SIGN_POLE, MSDCreativeModeTabs.MSD_BLOCKS);
-        registerBlockItem.accept("yamanote_railway_sign_double_pole", MSDBlocks.YAMANOTE_RAILWAY_SIGN_DOUBLE_POLE, MSDCreativeModeTabs.MSD_BLOCKS);
-        registerBlockItem.accept("railway_sign_double_pole", MSDBlocks.RAILWAY_SIGN_DOUBLE_POLE, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("surveillance_cameras", MSDBlocks.SURVEILLANCE_CAMERAS, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("surveillance_cameras_wall", MSDBlocks.SURVEILLANCE_CAMERAS_WALL, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("hall_seat_side", MSDBlocks.HALL_SEAT_SIDE, MSDCreativeModeTabs.MSD_BLOCKS);
@@ -97,6 +96,9 @@ public class MSDMain {
         registerBlockItem.accept("decoration_book", MSDBlocks.DECORATION_BOOK, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("display_board_horizontal", MSDBlocks.DISPLAY_BOARD_HORIZONTAL, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("display_board_vertically", MSDBlocks.DISPLAY_BOARD_VERTICALLY, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("yuuni_ticket", MSDBlocks.YUUNI_TICKET, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("ceiling_double", MSDBlocks.CEILING_DOUBLE, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("ceiling_double_light", MSDBlocks.CEILING_DOUBLE_LIGHT, MSDCreativeModeTabs.MSD_BLOCKS);
 
         registerBlock.accept("yamanote_railway_sign_middle", MSDBlocks.YAMANOTE_RAILWAY_SIGN_MIDDLE);
 

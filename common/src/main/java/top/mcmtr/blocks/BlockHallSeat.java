@@ -64,6 +64,11 @@ public class BlockHallSeat extends Block {
         return defaultBlockState().setValue(FACING, blockPlaceContext.getHorizontalDirection());
     }
 
+    @Override
+    public VoxelShape getOcclusionShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
+        return Shapes.empty();
+    }
+
     public enum SeatLocation {
         SIDE,
         MIDDLE,

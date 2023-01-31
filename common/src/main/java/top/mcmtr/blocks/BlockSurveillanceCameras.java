@@ -44,6 +44,11 @@ public class BlockSurveillanceCameras extends Block {
         builder.add(FACING);
     }
 
+    @Override
+    public VoxelShape getOcclusionShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
+        return Shapes.empty();
+    }
+
     public enum CameraType {
         WALL,
         CEILING
