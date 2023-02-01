@@ -5,6 +5,7 @@ import mtr.data.PIDSType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import top.mcmtr.client.MSDClientData;
+import top.mcmtr.config.Config;
 import top.mcmtr.items.ItemMSDBlockClickingBase;
 import top.mcmtr.packet.MSDPacket;
 import top.mcmtr.packet.MSDPacketTrainDataGuiClient;
@@ -74,6 +75,7 @@ public class MSDMainClient {
         RegistryClient.registerNetworkReceiver(MSDPacket.PACKET_REMOVE_RIGID_CATENARY_NODE, packet -> MSDPacketTrainDataGuiClient.removeRigidCatenaryNodeS2C(Minecraft.getInstance(), packet));
         RegistryClient.registerNetworkReceiver(MSDPacket.PACKET_CREATE_RIGID_CATENARY, packet -> MSDPacketTrainDataGuiClient.createRigidCatenaryS2C(Minecraft.getInstance(), packet));
         RegistryClient.registerNetworkReceiver(MSDPacket.PACKET_REMOVE_RIGID_CATENARY, packet -> MSDPacketTrainDataGuiClient.removeRigidCatenaryConnectionS2C(Minecraft.getInstance(), packet));
+        Config.refreshProperties();
     }
 
     public static void registerItemModelPredicates() {

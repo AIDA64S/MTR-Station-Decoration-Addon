@@ -43,7 +43,6 @@ public class RigidCatenary extends SerializedDataBase {
     private static final String KEY_REVERSE_T_2 = "rigid_reverse_t_2";
     private static final String KEY_IS_STRAIGHT_2 = "rigid_is_straight_2";
     private static final String KEY_CATENARY_TYPE = "rigid_catenary_type";
-    private static final int SEGMENT_LENGTH = Config.getRigidCatenarySegmentLength();
 
     public RigidCatenary(BlockPos posStart, RailAngle facingStart, BlockPos posEnd, RailAngle facingEnd, CatenaryType catenaryType) {
         this.facingStart = facingStart;
@@ -319,6 +318,7 @@ public class RigidCatenary extends SerializedDataBase {
     }
 
     private void renderSegment(double h, double k, double r, double tStart, double tEnd, double rawValueOffset, boolean reverseT, boolean isStraight, RenderRigidCatenary callback) {
+        final int SEGMENT_LENGTH = Config.getRigidCatenarySegmentLength();
         final double count = Math.abs(tEnd - tStart);
         final double round = Math.round(count / SEGMENT_LENGTH);
         final double increment = count / (round < 1 ? 0 : round);
