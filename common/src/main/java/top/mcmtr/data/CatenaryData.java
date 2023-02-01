@@ -104,6 +104,7 @@ public class CatenaryData extends PersistentStateMapper {
                 playerLastUpdatedPositions.put(player, playerBlockPos);
             }
         });
+        catenaryDataFileSaveModule.autoSaveTick();
     }
 
     public void disconnectPlayer(Player player) {

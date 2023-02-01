@@ -71,6 +71,6 @@ public interface MSDBlocks {
     RegistryObject<Block> DISPLAY_BOARD_HORIZONTAL = new RegistryObject<>(BlockDisplayBoardHorizontal::new);
     RegistryObject<Block> DISPLAY_BOARD_VERTICALLY = new RegistryObject<>(BlockDisplayBoardVertically::new);
     RegistryObject<Block> YUUNI_TICKET = new RegistryObject<>(() -> new BlockYuuniTicket(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F).lightLevel(state -> 5)));
-    RegistryObject<Block> CEILING_DOUBLE = new RegistryObject<>(() -> new BlockCeiling(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(1.0F)));
-    RegistryObject<Block> CEILING_DOUBLE_LIGHT = new RegistryObject<>(() -> new BlockCeiling(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(1.0F).lightLevel(state -> 15)));
+    RegistryObject<Block> CEILING_DOUBLE = new RegistryObject<>(() -> new BlockCeilingDouble(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(1.0F)));
+    RegistryObject<Block> CEILING_DOUBLE_LIGHT = new RegistryObject<>(() -> new BlockCeilingDouble(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(1.0F).lightLevel(state -> 15)));
 }

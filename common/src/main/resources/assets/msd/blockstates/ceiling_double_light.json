@@ -1,21 +1,20 @@
 {
-  "multipart": [
-    {
-      "when": {
-        "facing": "false"
-      },
-      "apply": {
-        "model": "msd:block/ceiling_double_light"
-      }
+  "variants": {
+    "facing=north": {
+      "model": "msd:block/ceiling_double_light",
+      "y": 0
     },
-    {
-      "when": {
-        "facing": "true"
-      },
-      "apply": {
-        "model": "msd:block/ceiling_double_light",
-        "y": 90
-      }
+    "facing=east": {
+      "model": "msd:block/ceiling_double_light",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "msd:block/ceiling_double_light",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "msd:block/ceiling_double_light",
+      "y": 270
     }
-  ]
+  }
 }

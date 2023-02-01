@@ -108,6 +108,7 @@ public class RigidCatenaryData extends PersistentStateMapper {
                 playerLastUpdatedPositions.put(player, playerBlockPos);
             }
         });
+        rigidCatenaryDataFileSaveModule.autoSaveTick();
     }
 
     public void disconnectPlayer(Player player) {
