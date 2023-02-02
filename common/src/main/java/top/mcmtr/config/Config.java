@@ -20,7 +20,6 @@ public class Config {
     private static final Path CONFIG_PATH = Minecraft.getInstance().gameDirectory.toPath().resolve("config").resolve("msd.json");
 
     public static int getRigidCatenarySegmentLength() {
-        refreshProperties();
         return rigidCatenarySegmentLength;
     }
 
