@@ -14,7 +14,7 @@ import top.mcmtr.MSDBlockEntityTypes;
 public class BlockYuuniPIDS extends BlockPIDSBase {
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext collisionContext) {
-        VoxelShape shape1 = IBlock.getVoxelShapeByDirection(5.75, 0, 0.3, 10.25, 11.6, 15.7, IBlock.getStatePropertySafe(state, FACING));
+        VoxelShape shape1 = IBlock.getVoxelShapeByDirection(5.75, 0.3, 0, 10.25, 11.6, 15.7, IBlock.getStatePropertySafe(state, FACING));
         VoxelShape shape2 = IBlock.getVoxelShapeByDirection(7.75, 11.6, 10.5, 8.25, 16, 11, IBlock.getStatePropertySafe(state, FACING));
         return Shapes.or(shape1, shape2);
     }
