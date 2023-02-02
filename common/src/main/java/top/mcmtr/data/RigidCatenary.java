@@ -320,8 +320,8 @@ public class RigidCatenary extends SerializedDataBase {
     private void renderSegment(double h, double k, double r, double tStart, double tEnd, double rawValueOffset, boolean reverseT, boolean isStraight, RenderRigidCatenary callback) {
         final int SEGMENT_LENGTH = Config.getRigidCatenarySegmentLength();
         final double count = Math.abs(tEnd - tStart);
-        final double round = Math.round(count / SEGMENT_LENGTH);
-        final double increment = count / (round < 1 ? 0 : round);
+        final double segment_count = Math.round(count / SEGMENT_LENGTH);
+        final double increment = count / Math.max(1, segment_count);
         for (double i = 0; i < count - 0.1; i += increment) {
             final double t1 = (reverseT ? -1 : 1) * i + tStart;
             final double t2 = (reverseT ? -1 : 1) * (i + increment) + tStart;
