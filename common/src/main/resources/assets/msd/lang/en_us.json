@@ -72,5 +72,6 @@
   "tooltip.msd.model_count": "Models Count: %s",
   "gui.msd.pid_terminal": "Terminating Here    ",
   "gui.msd.invalid_orientation": "Could not connect Rigid Catenary; invalid orientation",
-  "gui.msd.radius_too_small": "Could not connect Rigid Catenary; radius must be at least 2"
+  "gui.msd.radius_too_small": "Could not connect Rigid Catenary; radius must be at least 2",
+  "gui.msd.custom_text_sign_message": "Custom Text"
 }

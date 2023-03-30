@@ -72,5 +72,6 @@
   "tooltip.msd.model_count": "模型數量：%s",
   "gui.msd.pid_terminal": "終止於此",
   "gui.msd.invalid_orientation": "無法連接剛性接觸網，方向無效",
-  "gui.msd.radius_too_small": "無法連接剛性接觸網，半徑必須至少為 2"
+  "gui.msd.radius_too_small": "無法連接剛性接觸網，半徑必須至少為 2",
+  "gui.msd.custom_text_sign_message": "自定義文字"
 }

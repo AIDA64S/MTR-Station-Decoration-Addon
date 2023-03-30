@@ -16,7 +16,7 @@
   "block.msd.railing_stair_start_mirror": "楼梯栏杆头部(镜像)",
   "block.msd.yuuni_pids": "Yuuni乘客资讯显示屏",
   "block.msd.yuuni_pids_pole": "Yuuni乘客资讯显示屏柱",
-  "block.msd.yuuni_2_pids": "Yuuni 乘客资讯显示屏柱(风格2)",
+  "block.msd.yuuni_2_pids": "Yuuni 乘客资讯显示屏(风格2)",
   "block.msd.yamanote_pids": "山手线风格乘客资讯显示屏(双数)",
   "block.msd.yamanote_railway_sign": "山手线风格指示牌",
   "block.msd.yamanote_railway_sign_pole": "山手线风格指示牌柱",
@@ -72,5 +72,6 @@
   "tooltip.msd.model_count": "模型数量：%s",
   "gui.msd.pid_terminal": "终点站",
   "gui.msd.invalid_orientation": "无法连接刚性接触网，方向无效",
-  "gui.msd.radius_too_small": "无法连接刚性接触网，半径必须至少为 2"
+  "gui.msd.radius_too_small": "无法连接刚性接触网，半径必须至少为 2",
+  "gui.msd.custom_text_sign_message": "自定义文字"
 }

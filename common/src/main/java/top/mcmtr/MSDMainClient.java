@@ -69,7 +69,7 @@ public class MSDMainClient {
         RegistryClient.registerTileEntityRenderer(MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_6_ODD_TILE_ENTITY.get(), RenderYamanoteRailwaySign::new);
         RegistryClient.registerTileEntityRenderer(MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_7_EVEN_TILE_ENTITY.get(), RenderYamanoteRailwaySign::new);
         RegistryClient.registerTileEntityRenderer(MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_7_ODD_TILE_ENTITY.get(), RenderYamanoteRailwaySign::new);
-        RegistryClient.registerTileEntityRenderer(MSDBlockEntityTypes.STANDING_SIGN_TILE_ENTITY.get(), dispatcher -> new RenderCustomTextSign<>(dispatcher, 3, 0F, 15F,7F,6F,32, true,0x00FF00, 1F));
+        RegistryClient.registerTileEntityRenderer(MSDBlockEntityTypes.STANDING_SIGN_TILE_ENTITY.get(), dispatcher -> new RenderCustomTextSign<>(dispatcher, 3, 0F, 15F, 7F, 6F, 32, true, 0x00FF00, 1F));
 
         RegistryClient.registerNetworkReceiver(MSDPacket.PACKET_OPEN_YAMANOTE_RAILWAY_SIGN_SCREEN, packet -> MSDPacketTrainDataGuiClient.openYamanoteRailwaySignScreenS2C(Minecraft.getInstance(), packet));
         RegistryClient.registerNetworkReceiver(MSDPacket.PACKET_WRITE_CATENARY, packet -> MSDClientData.writeCatenaries(Minecraft.getInstance(), packet));

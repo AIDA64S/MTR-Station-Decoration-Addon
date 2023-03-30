@@ -154,7 +154,6 @@ public class MSDPacketTrainDataGuiServer extends PacketTrainDataBase {
             }
             final BlockEntity entity2 = player.level.getBlockEntity(pos2);
             if (entity2 instanceof BlockCustomTextSignBase.TileEntityBlockCustomTextSignBase) {
-                ((BlockCustomTextSignBase.TileEntityBlockCustomTextSignBase) entity2).setDirectionFlap(true);
                 entities.add((BlockCustomTextSignBase.TileEntityBlockCustomTextSignBase) entity2);
             }
             setTileEntityDataAndWriteUpdate(player, entity -> entity.setData(messages), entities.toArray(new BlockCustomTextSignBase.TileEntityBlockCustomTextSignBase[0]));

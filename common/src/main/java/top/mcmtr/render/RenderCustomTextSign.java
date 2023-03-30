@@ -30,7 +30,6 @@ public class RenderCustomTextSign<T extends BlockEntityMapper> extends BlockEnti
     private final int textColor;
     public static final int MAX_VIEW_DISTANCE = 128;
     private static final int SWITCH_LANGUAGE_TICKS = 60;
-    private int startIndex;
 
     public RenderCustomTextSign(BlockEntityRenderDispatcher dispatcher, int maxArrivals, float startX, float startY, float startZ, float maxHeight, int maxWidth, boolean rotate90, int textColor, float textPadding) {
         super(dispatcher);
@@ -57,12 +56,7 @@ public class RenderCustomTextSign<T extends BlockEntityMapper> extends BlockEnti
             return;
         }
         final String[] customMessages = new String[maxArrivals];
-        if (!((BlockCustomTextSignBase.TileEntityBlockCustomTextSignBase) entity).isDirectionFlap()) {
-            startIndex = ((BlockCustomTextSignBase.TileEntityBlockCustomTextSignBase) entity).getMaxArrivals() / 2;
-        } else {
-            startIndex = 0;
-        }
-        for (int i = startIndex; i < maxArrivals + startIndex; i++) {
+        for (int i = 0; i < maxArrivals; i++) {
             if (entity instanceof BlockCustomTextSignBase.TileEntityBlockCustomTextSignBase) {
                 customMessages[i] = ((BlockCustomTextSignBase.TileEntityBlockCustomTextSignBase) entity).getMessage(i);
             } else {
@@ -70,7 +64,7 @@ public class RenderCustomTextSign<T extends BlockEntityMapper> extends BlockEnti
             }
         }
         try {
-            for (int i = startIndex; i < maxArrivals + startIndex; i++) {
+            for (int i = 0; i < maxArrivals; i++) {
                 final int languageTicks = (int) Math.floor(MTRClient.getGameTick()) / SWITCH_LANGUAGE_TICKS;
                 final String destinationString;
                 final String[] destinationSplit = customMessages[i].split("\\|");
@@ -84,17 +78,12 @@ public class RenderCustomTextSign<T extends BlockEntityMapper> extends BlockEnti
                 final Font textRenderer = Minecraft.getInstance().font;
                 final int destinationWidth = textRenderer.width(destinationString);
                 final float leftLength;
-                if (!((BlockCustomTextSignBase.TileEntityBlockCustomTextSignBase) entity).isDirectionFlap()) {
-                    if (destinationWidth > totalScaledWidth) {
-                        matrices.scale(totalScaledWidth / destinationWidth, 1, 1);
-                        leftLength = 0;
-                    } else {
-                        leftLength = totalScaledWidth - destinationWidth;
-                    }
-                } else {
+                if (destinationWidth > totalScaledWidth) {
+                    matrices.scale(totalScaledWidth / destinationWidth, 1, 1);
                     leftLength = 0;
+                } else {
+                    leftLength = totalScaledWidth - destinationWidth;
                 }
-
                 textRenderer.draw(matrices, destinationString, leftLength, 0, textColor);
                 matrices.popPose();
             }

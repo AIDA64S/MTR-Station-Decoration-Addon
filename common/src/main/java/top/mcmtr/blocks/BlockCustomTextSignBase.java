@@ -40,7 +40,6 @@ public abstract class BlockCustomTextSignBase extends BlockDirectionalMapper imp
             final BlockPos otherPos = blockPos.relative(IBlock.getStatePropertySafe(blockState, FACING));
             final BlockEntity entity1 = level.getBlockEntity(blockPos);
             final BlockEntity entity2 = level.getBlockEntity(otherPos);
-            ((TileEntityBlockCustomTextSignBase) entity2).setDirectionFlap(true);
             if (entity1 instanceof TileEntityBlockCustomTextSignBase && entity2 instanceof TileEntityBlockCustomTextSignBase) {
                 ((TileEntityBlockCustomTextSignBase) entity1).syncData();
                 ((TileEntityBlockCustomTextSignBase) entity2).syncData();
@@ -82,7 +81,6 @@ public abstract class BlockCustomTextSignBase extends BlockDirectionalMapper imp
             state.updateNeighbourShapes(world, pos, 3);
             final BlockEntity entity1 = world.getBlockEntity(pos);
             final BlockEntity entity2 = world.getBlockEntity(pos.relative(direction));
-            ((TileEntityBlockCustomTextSignBase) entity2).setDirectionFlap(true);
             if (entity1 instanceof TileEntityBlockCustomTextSignBase && entity2 instanceof TileEntityBlockCustomTextSignBase) {
                 System.arraycopy(((TileEntityBlockCustomTextSignBase) entity1).messages, 0, ((TileEntityBlockCustomTextSignBase) entity2).messages, 0, Math.min(((TileEntityBlockCustomTextSignBase) entity1).messages.length, ((TileEntityBlockCustomTextSignBase) entity2).messages.length));
             }
@@ -100,7 +98,6 @@ public abstract class BlockCustomTextSignBase extends BlockDirectionalMapper imp
     }
 
     public abstract static class TileEntityBlockCustomTextSignBase extends BlockEntityClientSerializableMapper {
-        private boolean directionFlap = false;
         private final String[] messages = new String[getMaxArrivals()];
         private static final String KEY_MESSAGE = "msd_custom_message";
 
@@ -141,14 +138,6 @@ public abstract class BlockCustomTextSignBase extends BlockDirectionalMapper imp
             } else {
                 return "";
             }
-        }
-
-        public void setDirectionFlap(boolean directionFlap) {
-            this.directionFlap = directionFlap;
-        }
-
-        public boolean isDirectionFlap() {
-            return directionFlap;
         }
 
         public abstract int getMaxArrivals();

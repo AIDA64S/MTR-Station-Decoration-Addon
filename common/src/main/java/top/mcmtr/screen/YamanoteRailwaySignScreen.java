@@ -72,7 +72,7 @@ public class YamanoteRailwaySignScreen extends ScreenMapper implements IGui {
                 exitParents.sort(String::compareTo);
                 exitParents.forEach(exitParent -> {
                     final List<String> destinations = exits.get(exitParent);
-                    exitsForList.add(new DataConverter(Station.serializeExit(exitParent), exitParent + "" + (destinations.size() > 0 ? destinations.get(0) : ""), 0));
+                    exitsForList.add(new DataConverter(Station.serializeExit(exitParent), exitParent + (destinations.size() > 0 ? destinations.get(0) : ""), 0));
                 });
                 final List<Platform> platforms = new ArrayList<>(ClientData.DATA_CACHE.requestStationIdToPlatforms(station.id).values());
                 Collections.sort(platforms);
