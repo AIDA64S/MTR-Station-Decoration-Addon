@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "msd:block/laptop",
+      "y": 0
+    },
+    "facing=east": {
+      "model": "msd:block/laptop",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "msd:block/laptop",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "msd:block/laptop",
+      "y": 270
+    },
+    "facing=up": {
+      "model": "msd:block/laptop",
+      "y": 0
+    },
+    "facing=down": {
+      "model": "msd:block/laptop",
+      "y": 0
+    }
+  }
+}

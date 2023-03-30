@@ -1,0 +1,100 @@
+{
+  "variants": {
+    "facing=north,type=0": {
+      "model": "msd:block/display_board_vertically_1",
+      "y": 0
+    },
+    "facing=east,type=0": {
+      "model": "msd:block/display_board_vertically_1",
+      "y": 90
+    },
+    "facing=south,type=0": {
+      "model": "msd:block/display_board_vertically_1",
+      "y": 180
+    },
+    "facing=west,type=0": {
+      "model": "msd:block/display_board_vertically_1",
+      "y": 270
+    },
+    "facing=north,type=1": {
+      "model": "msd:block/display_board_vertically_2",
+      "y": 0
+    },
+    "facing=east,type=1": {
+      "model": "msd:block/display_board_vertically_2",
+      "y": 90
+    },
+    "facing=south,type=1": {
+      "model": "msd:block/display_board_vertically_2",
+      "y": 180
+    },
+    "facing=west,type=1": {
+      "model": "msd:block/display_board_vertically_2",
+      "y": 270
+    },
+    "facing=north,type=2": {
+      "model": "msd:block/display_board_vertically_3",
+      "y": 0
+    },
+    "facing=east,type=2": {
+      "model": "msd:block/display_board_vertically_3",
+      "y": 90
+    },
+    "facing=south,type=2": {
+      "model": "msd:block/display_board_vertically_3",
+      "y": 180
+    },
+    "facing=west,type=2": {
+      "model": "msd:block/display_board_vertically_3",
+      "y": 270
+    },
+    "facing=north,type=3": {
+      "model": "msd:block/display_board_vertically_4",
+      "y": 0
+    },
+    "facing=east,type=3": {
+      "model": "msd:block/display_board_vertically_4",
+      "y": 90
+    },
+    "facing=south,type=3": {
+      "model": "msd:block/display_board_vertically_4",
+      "y": 180
+    },
+    "facing=west,type=3": {
+      "model": "msd:block/display_board_vertically_4",
+      "y": 270
+    },
+    "facing=north,type=4": {
+      "model": "msd:block/display_board_vertically_5",
+      "y": 0
+    },
+    "facing=east,type=4": {
+      "model": "msd:block/display_board_vertically_5",
+      "y": 90
+    },
+    "facing=south,type=4": {
+      "model": "msd:block/display_board_vertically_5",
+      "y": 180
+    },
+    "facing=west,type=4": {
+      "model": "msd:block/display_board_vertically_5",
+      "y": 270
+    },
+    "facing=north,type=5": {
+      "model": "msd:block/display_board_vertically_6",
+      "y": 0
+    },
+    "facing=east,type=5": {
+      "model": "msd:block/display_board_vertically_6",
+      "y": 90
+    },
+    "facing=south,type=5": {
+      "model": "msd:block/display_board_vertically_6",
+      "y": 180
+    },
+    "facing=west,type=5": {
+      "model": "msd:block/display_board_vertically_6",
+      "y": 270
+    }
+  }
+}

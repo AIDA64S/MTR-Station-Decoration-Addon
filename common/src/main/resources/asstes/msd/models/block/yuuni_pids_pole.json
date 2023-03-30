@@ -1,0 +1,24 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [64, 64],
+	"textures": {
+		"0": "msd:block/yuuni_pids",
+		"particle": "msd:block/yuuni_pids"
+	},
+	"elements": [
+		{
+			"name": "Middle",
+			"from": [7.75, 0, 10.5],
+			"to": [8.25, 16, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+			"faces": {
+				"north": {"uv": [7.0375, 1.90625, 8.94688, 1.14063], "texture": "#0"},
+				"east": {"uv": [7.28125, 2.20313, 9.22188, 1.39063], "texture": "#0"},
+				"south": {"uv": [7.75625, 3, 8.96875, 2.0625], "texture": "#0"},
+				"west": {"uv": [6.98125, 2.54688, 8.67188, 1.6875], "texture": "#0"},
+				"up": {"uv": [7.08438, 1.23125, 8.57188, 1.48437], "rotation": 180, "texture": "#0"},
+				"down": {"uv": [7.30313, 1.04062, 9.00938, 2.16875], "rotation": 180, "texture": "#0"}
+			}
+		}
+	]
+}
