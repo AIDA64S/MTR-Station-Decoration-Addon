@@ -50,6 +50,7 @@ public class MSDMainClient {
         RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.CEILING_DOUBLE.get());
         RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.CEILING_DOUBLE_LIGHT.get());
         RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.STANDING_SIGN.get());
+        RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.STANDING_SIGN_POLE.get());
 
         RegistryClient.registerTileEntityRenderer(MSDBlockEntityTypes.YUUNI_PIDS_TILE_ENTITY.get(), dispatcher -> new RenderPIDS<>(dispatcher, 2, 2.5F, 7.5F, 6, 6.5F, 27, true, false, PIDSType.PIDS, 0xFF9900, 0x33CC00, 1.25F, true));
         RegistryClient.registerTileEntityRenderer(MSDBlockEntityTypes.YUUNI_PIDS_2_TILE_ENTITY.get(), dispatcher -> new RenderPIDS<>(dispatcher, 1, 1, 3.25F, 6F, 2.5F, 30, true, false, PIDSType.PIDS, 0xFF9900, 0xFFC0CB));
@@ -69,7 +70,7 @@ public class MSDMainClient {
         RegistryClient.registerTileEntityRenderer(MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_6_ODD_TILE_ENTITY.get(), RenderYamanoteRailwaySign::new);
         RegistryClient.registerTileEntityRenderer(MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_7_EVEN_TILE_ENTITY.get(), RenderYamanoteRailwaySign::new);
         RegistryClient.registerTileEntityRenderer(MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_7_ODD_TILE_ENTITY.get(), RenderYamanoteRailwaySign::new);
-        RegistryClient.registerTileEntityRenderer(MSDBlockEntityTypes.STANDING_SIGN_TILE_ENTITY.get(), dispatcher -> new RenderCustomTextSign<>(dispatcher, 3, 0F, 15F, 7F, 6F, 32, true, 0x00FF00, 1F));
+        RegistryClient.registerTileEntityRenderer(MSDBlockEntityTypes.STANDING_SIGN_TILE_ENTITY.get(), dispatcher -> new RenderCustomTextSign<>(dispatcher, 3, 8F, 14.5F, 7F, 15F, 11, true, 0x000000, true, 0xFFFFFF, 2F, 3.1F, 6.2F, 0.004F));
 
         RegistryClient.registerNetworkReceiver(MSDPacket.PACKET_OPEN_YAMANOTE_RAILWAY_SIGN_SCREEN, packet -> MSDPacketTrainDataGuiClient.openYamanoteRailwaySignScreenS2C(Minecraft.getInstance(), packet));
         RegistryClient.registerNetworkReceiver(MSDPacket.PACKET_WRITE_CATENARY, packet -> MSDClientData.writeCatenaries(Minecraft.getInstance(), packet));

@@ -101,7 +101,8 @@ public class MSDMain {
         registerBlockItem.accept("yuuni_ticket", MSDBlocks.YUUNI_TICKET, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("ceiling_double", MSDBlocks.CEILING_DOUBLE, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("ceiling_double_light", MSDBlocks.CEILING_DOUBLE_LIGHT, MSDCreativeModeTabs.MSD_BLOCKS);
-        registerBlockItem.accept("standing_sign", MSDBlocks.STANDING_SIGN, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("yuuni_standing_sign", MSDBlocks.STANDING_SIGN, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("yuuni_standing_sign_pole",MSDBlocks.STANDING_SIGN_POLE, MSDCreativeModeTabs.MSD_BLOCKS);
 
         registerBlock.accept("yamanote_railway_sign_middle", MSDBlocks.YAMANOTE_RAILWAY_SIGN_MIDDLE);
 
@@ -123,7 +124,7 @@ public class MSDMain {
         registerBlockEntityType.accept("yamanote_railway_sign_6_odd", MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_6_ODD_TILE_ENTITY);
         registerBlockEntityType.accept("yamanote_railway_sign_7_even", MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_7_EVEN_TILE_ENTITY);
         registerBlockEntityType.accept("yamanote_railway_sign_7_odd", MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_7_ODD_TILE_ENTITY);
-        registerBlockEntityType.accept("standing_sign", MSDBlockEntityTypes.STANDING_SIGN_TILE_ENTITY);
+        registerBlockEntityType.accept("yuuni_standing_sign", MSDBlockEntityTypes.STANDING_SIGN_TILE_ENTITY);
 
         Registry.registerNetworkReceiver(PACKET_YAMANOTE_SIGN_TYPES, MSDPacketTrainDataGuiServer::receiveMSDSignIdsC2S);
         Registry.registerNetworkReceiver(PACKET_CUSTOM_TEXT_SIGN_UPDATE, MSDPacketTrainDataGuiServer::receiveCustomTextSignMessageC2S);

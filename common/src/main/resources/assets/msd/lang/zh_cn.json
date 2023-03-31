@@ -54,6 +54,8 @@
   "block.msd.yuuni_ticket": "Yuuni售票机",
   "block.msd.ceiling_double": "天花板(无灯 & 双倍长)",
   "block.msd.ceiling_double_light": "天花板(有灯 & 双倍长)",
+  "block.msd.yuuni_standing_sign": "Yuuni方向立牌",
+  "block.msd.yuuni_standing_sign_pole": "Yuuni方向立牌柱",
   "tooltip.msd.yamanote_4_pids_length": "长度：4",
   "tooltip.msd.yamanote_5_pids_length": "长度：5",
   "tooltip.msd.yamanote_6_pids_length": "长度：6",

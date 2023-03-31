@@ -3,8 +3,6 @@ package top.mcmtr.packet;
 import io.netty.buffer.Unpooled;
 import mtr.Registry;
 import mtr.block.BlockRouteSignBase;
-import mtr.data.RailwayData;
-import mtr.data.RailwayDataLoggingModule;
 import mtr.data.SerializedDataBase;
 import mtr.mappings.BlockEntityMapper;
 import mtr.packet.PacketTrainDataBase;
@@ -18,6 +16,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import top.mcmtr.blocks.BlockCustomTextSignBase;
 import top.mcmtr.blocks.BlockYamanoteRailwaySign;
 import top.mcmtr.data.Catenary;
+import top.mcmtr.data.CatenaryData;
 import top.mcmtr.data.RigidCatenary;
 
 import java.util.ArrayList;
@@ -66,8 +65,8 @@ public class MSDPacketTrainDataGuiServer extends PacketTrainDataBase {
 
     @SafeVarargs
     private static <T extends BlockEntityMapper> void setTileEntityDataAndWriteUpdate(ServerPlayer player, Consumer<T> setData, T... entities) {
-        final RailwayData railwayData = RailwayData.getInstance(player.level);
-        if (railwayData != null && entities.length > 0) {
+        final CatenaryData catenaryData = CatenaryData.getInstance(player.level);
+        if (catenaryData != null && entities.length > 0) {
             final CompoundTag compoundTagOld = new CompoundTag();
             entities[0].writeCompoundTag(compoundTagOld);
             BlockPos blockPos = null;
@@ -82,7 +81,6 @@ public class MSDPacketTrainDataGuiServer extends PacketTrainDataBase {
             }
             final CompoundTag compoundTagNew = new CompoundTag();
             entities[0].writeCompoundTag(compoundTagNew);
-            railwayData.railwayDataLoggingModule.addEvent(player, entities[0].getClass(), RailwayDataLoggingModule.getData(compoundTagOld), RailwayDataLoggingModule.getData(compoundTagNew), blockPos);
         }
     }
 

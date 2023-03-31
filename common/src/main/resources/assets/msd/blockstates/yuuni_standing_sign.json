@@ -1,14 +1,14 @@
 {
   "variants": {
     "facing=north,type=0": {
-      "model": "msd:block/yuuni_sign_east"
+      "model": "msd:block/yuuni_sign_south"
     },
     "facing=east,type=0": {
-      "model": "msd:block/yuuni_sign_east",
+      "model": "msd:block/yuuni_sign_west",
       "y": 90
     },
     "facing=south,type=0": {
-      "model": "msd:block/yuuni_sign_east",
+      "model": "msd:block/yuuni_sign_north",
       "y": 180
     },
     "facing=west,type=0": {
