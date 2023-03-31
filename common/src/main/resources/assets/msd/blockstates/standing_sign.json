@@ -1,18 +1,18 @@
 {
   "variants": {
-    "facing=north": {
-      "model": "msd:block/yamanote_4_pids"
+    "facing=north,type=0": {
+      "model": "msd:block/yuuni_sign_east"
     },
-    "facing=east": {
-      "model": "msd:block/yamanote_4_pids",
+    "facing=east,type=0": {
+      "model": "msd:block/yuuni_sign_east",
       "y": 90
     },
-    "facing=south": {
-      "model": "msd:block/yamanote_4_pids",
+    "facing=south,type=0": {
+      "model": "msd:block/yuuni_sign_east",
       "y": 180
     },
-    "facing=west": {
-      "model": "msd:block/yamanote_4_pids",
+    "facing=west,type=0": {
+      "model": "msd:block/yuuni_sign_east",
       "y": 270
     }
   }

@@ -77,6 +77,17 @@ public class RenderCustomTextSign<T extends BlockEntityMapper> extends BlockEnti
                 matrices.scale(1F / scale, 1F / scale, 1F / scale);
                 final Font textRenderer = Minecraft.getInstance().font;
                 final int destinationWidth = textRenderer.width(destinationString);
+                if (destinationWidth > totalScaledWidth) {
+                    matrices.scale(totalScaledWidth / destinationWidth, 1, 1);
+                }
+                textRenderer.draw(matrices, destinationString, 0, 0, textColor);
+                matrices.popPose();
+                matrices.pushPose();
+                matrices.translate(0.5, 0, 0.5);
+                UtilitiesClient.rotateYDegrees(matrices, (rotate90 ? -90 : -180) - facing.toYRot());
+                UtilitiesClient.rotateZDegrees(matrices, 180);
+                matrices.translate((-startX + 8 - (totalScaledWidth * 16 / scale)) / 16, -startY / 16 + i * maxHeight / maxArrivals / 16, (startZ - 8) / 16 - SMALL_OFFSET * 2);
+                matrices.scale(1F / scale, 1F / scale, 1F / scale);
                 final float leftLength;
                 if (destinationWidth > totalScaledWidth) {
                     matrices.scale(totalScaledWidth / destinationWidth, 1, 1);

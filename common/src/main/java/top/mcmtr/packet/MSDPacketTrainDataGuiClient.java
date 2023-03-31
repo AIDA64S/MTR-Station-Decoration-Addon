@@ -87,20 +87,18 @@ public class MSDPacketTrainDataGuiClient extends PacketTrainDataBase {
     }
 
     public static void openCustomTextSignConfigScreenS2C(Minecraft minecraftClient, FriendlyByteBuf packet) {
-        final BlockPos pos1 = packet.readBlockPos();
-        final BlockPos pos2 = packet.readBlockPos();
+        final BlockPos pos = packet.readBlockPos();
         final int maxArrivals = packet.readInt();
         minecraftClient.execute(() -> {
             if (!(minecraftClient.screen instanceof CustomTextSignScreen)) {
-                UtilitiesClient.setScreen(minecraftClient, new CustomTextSignScreen(pos1, pos2, maxArrivals));
+                UtilitiesClient.setScreen(minecraftClient, new CustomTextSignScreen(pos, maxArrivals));
             }
         });
     }
 
-    public static void sendCustomTextSignConfigC2S(BlockPos pos1, BlockPos pos2, String[] messages) {
+    public static void sendCustomTextSignConfigC2S(BlockPos pos, String[] messages) {
         final FriendlyByteBuf packet = new FriendlyByteBuf(Unpooled.buffer());
-        packet.writeBlockPos(pos1);
-        packet.writeBlockPos(pos2);
+        packet.writeBlockPos(pos);
         packet.writeInt(messages.length);
         for (String message : messages) {
             packet.writeUtf(message);

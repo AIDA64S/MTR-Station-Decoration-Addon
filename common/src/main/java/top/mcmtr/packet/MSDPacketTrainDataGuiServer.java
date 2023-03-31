@@ -130,17 +130,15 @@ public class MSDPacketTrainDataGuiServer extends PacketTrainDataBase {
         world.players().forEach(worldPlayer -> Registry.sendToPlayer((ServerPlayer) worldPlayer, PACKET_REMOVE_RIGID_CATENARY, packet));
     }
 
-    public static void openCustomTextSignConfigScreenS2C(ServerPlayer player, BlockPos pos1, BlockPos pos2, int maxArrivals) {
+    public static void openCustomTextSignConfigScreenS2C(ServerPlayer player, BlockPos pos1, /*BlockPos pos2,*/ int maxArrivals) {
         final FriendlyByteBuf packet = new FriendlyByteBuf(Unpooled.buffer());
         packet.writeBlockPos(pos1);
-        packet.writeBlockPos(pos2);
         packet.writeInt(maxArrivals);
         Registry.sendToPlayer(player, PACKET_OPEN_CUSTOM_TEXT_SIGN_CONFIG_SCREEN, packet);
     }
 
     public static void receiveCustomTextSignMessageC2S(MinecraftServer minecraftServer, ServerPlayer player, FriendlyByteBuf packet) {
-        final BlockPos pos1 = packet.readBlockPos();
-        final BlockPos pos2 = packet.readBlockPos();
+        final BlockPos pos = packet.readBlockPos();
         final int maxArrivals = packet.readInt();
         final String[] messages = new String[maxArrivals];
         for (int i = 0; i < maxArrivals; i++) {
@@ -148,13 +146,9 @@ public class MSDPacketTrainDataGuiServer extends PacketTrainDataBase {
         }
         minecraftServer.execute(() -> {
             final List<BlockCustomTextSignBase.TileEntityBlockCustomTextSignBase> entities = new ArrayList<>();
-            final BlockEntity entity1 = player.level.getBlockEntity(pos1);
+            final BlockEntity entity1 = player.level.getBlockEntity(pos);
             if (entity1 instanceof BlockCustomTextSignBase.TileEntityBlockCustomTextSignBase) {
                 entities.add((BlockCustomTextSignBase.TileEntityBlockCustomTextSignBase) entity1);
-            }
-            final BlockEntity entity2 = player.level.getBlockEntity(pos2);
-            if (entity2 instanceof BlockCustomTextSignBase.TileEntityBlockCustomTextSignBase) {
-                entities.add((BlockCustomTextSignBase.TileEntityBlockCustomTextSignBase) entity2);
             }
             setTileEntityDataAndWriteUpdate(player, entity -> entity.setData(messages), entities.toArray(new BlockCustomTextSignBase.TileEntityBlockCustomTextSignBase[0]));
         });

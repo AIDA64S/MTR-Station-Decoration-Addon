@@ -17,16 +17,14 @@ import top.mcmtr.packet.MSDPacketTrainDataGuiClient;
 
 public class CustomTextSignScreen extends ScreenMapper implements IGui, IPacket {
     private final BlockPos pos1;
-    private final BlockPos pos2;
     private final String[] messages;
     private final WidgetBetterTextField[] textFieldMessages;
     private final Component messageText = Text.translatable("gui.msd.custom_text_sign_message");
     private static final int MAX_MESSAGE_LENGTH = 2048;
 
-    public CustomTextSignScreen(BlockPos pos1, BlockPos pos2, int maxArrivals) {
+    public CustomTextSignScreen(BlockPos pos1, int maxArrivals) {
         super(Text.literal(""));
         this.pos1 = pos1;
-        this.pos2 = pos2;
         messages = new String[maxArrivals];
         for (int i = 0; i < maxArrivals; i++) {
             messages[i] = "";
@@ -70,7 +68,7 @@ public class CustomTextSignScreen extends ScreenMapper implements IGui, IPacket 
         for (int i = 0; i < textFieldMessages.length; i++) {
             messages[i] = textFieldMessages[i].getValue();
         }
-        MSDPacketTrainDataGuiClient.sendCustomTextSignConfigC2S(pos1, pos2, messages);
+        MSDPacketTrainDataGuiClient.sendCustomTextSignConfigC2S(pos1, /*pos2,*/ messages);
         super.onClose();
     }
 

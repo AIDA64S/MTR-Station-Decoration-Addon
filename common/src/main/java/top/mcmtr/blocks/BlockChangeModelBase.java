@@ -22,7 +22,7 @@ public abstract class BlockChangeModelBase extends HorizontalDirectionalBlock {
     private final int count;
 
     public BlockChangeModelBase(int count) {
-        super(Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F));
+        super(Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F).lightLevel((state) -> 5));
         this.count = count;
     }
 

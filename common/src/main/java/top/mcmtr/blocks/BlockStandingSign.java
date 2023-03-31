@@ -11,6 +11,11 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import top.mcmtr.MSDBlockEntityTypes;
 
 public class BlockStandingSign extends BlockCustomTextSignBase {
+
+    public BlockStandingSign() {
+        super(1);
+    }
+
     @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
         VoxelShape shape1 = IBlock.getVoxelShapeByDirection(7, 8, 0, 9, 16, 17, IBlock.getStatePropertySafe(blockState, FACING));

@@ -1,90 +1,37 @@
 package top.mcmtr.blocks;
 
 import mtr.block.IBlock;
-import mtr.mappings.BlockDirectionalMapper;
 import mtr.mappings.BlockEntityClientSerializableMapper;
 import mtr.mappings.EntityBlockMapper;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import top.mcmtr.packet.MSDPacketTrainDataGuiServer;
 
-public abstract class BlockCustomTextSignBase extends BlockDirectionalMapper implements EntityBlockMapper {
-    public BlockCustomTextSignBase() {
-        super(Properties.of(Material.METAL, MaterialColor.COLOR_GRAY).requiresCorrectToolForDrops().strength(2.0F).lightLevel((state) -> 5));
+public abstract class BlockCustomTextSignBase extends BlockChangeModelBase implements EntityBlockMapper {
+    public BlockCustomTextSignBase(int count) {
+        super(count);
     }
 
     @Override
     public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
         return IBlock.checkHoldingBrush(level, player, () -> {
-            final BlockPos otherPos = blockPos.relative(IBlock.getStatePropertySafe(blockState, FACING));
             final BlockEntity entity1 = level.getBlockEntity(blockPos);
-            final BlockEntity entity2 = level.getBlockEntity(otherPos);
-            if (entity1 instanceof TileEntityBlockCustomTextSignBase && entity2 instanceof TileEntityBlockCustomTextSignBase) {
+            if (entity1 instanceof TileEntityBlockCustomTextSignBase) {
                 ((TileEntityBlockCustomTextSignBase) entity1).syncData();
-                ((TileEntityBlockCustomTextSignBase) entity2).syncData();
-                MSDPacketTrainDataGuiServer.openCustomTextSignConfigScreenS2C((ServerPlayer) player, blockPos, otherPos, ((TileEntityBlockCustomTextSignBase) entity1).getMaxArrivals());
+                MSDPacketTrainDataGuiServer.openCustomTextSignConfigScreenS2C((ServerPlayer) player, blockPos, ((TileEntityBlockCustomTextSignBase) entity1).getMaxArrivals());
             }
         });
-    }
-
-    @Override
-    public BlockState updateShape(BlockState state, Direction direction, BlockState newState, LevelAccessor world, BlockPos pos, BlockPos posFrom) {
-        if (IBlock.getStatePropertySafe(state, FACING) == direction && !newState.is(this)) {
-            return Blocks.AIR.defaultBlockState();
-        } else {
-            return state;
-        }
-    }
-
-    @Override
-    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        final Direction direction = ctx.getHorizontalDirection().getOpposite();
-        return IBlock.isReplaceable(ctx, direction, 2) ? defaultBlockState().setValue(FACING, direction) : null;
-    }
-
-    @Override
-    public void playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
-        final Direction facing = IBlock.getStatePropertySafe(state, FACING);
-        if (facing == Direction.SOUTH || facing == Direction.WEST) {
-            IBlock.onBreakCreative(world, player, pos.relative(facing));
-        }
-        super.playerWillDestroy(world, pos, state, player);
-    }
-
-    @Override
-    public void setPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
-        if (!world.isClientSide) {
-            final Direction direction = IBlock.getStatePropertySafe(state, FACING);
-            world.setBlock(pos.relative(direction), defaultBlockState().setValue(FACING, direction.getOpposite()), 3);
-            world.updateNeighborsAt(pos, Blocks.AIR);
-            state.updateNeighbourShapes(world, pos, 3);
-            final BlockEntity entity1 = world.getBlockEntity(pos);
-            final BlockEntity entity2 = world.getBlockEntity(pos.relative(direction));
-            if (entity1 instanceof TileEntityBlockCustomTextSignBase && entity2 instanceof TileEntityBlockCustomTextSignBase) {
-                System.arraycopy(((TileEntityBlockCustomTextSignBase) entity1).messages, 0, ((TileEntityBlockCustomTextSignBase) entity2).messages, 0, Math.min(((TileEntityBlockCustomTextSignBase) entity1).messages.length, ((TileEntityBlockCustomTextSignBase) entity2).messages.length));
-            }
-        }
     }
 
     @Override
@@ -92,10 +39,6 @@ public abstract class BlockCustomTextSignBase extends BlockDirectionalMapper imp
         return PushReaction.BLOCK;
     }
 
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING);
-    }
 
     public abstract static class TileEntityBlockCustomTextSignBase extends BlockEntityClientSerializableMapper {
         private final String[] messages = new String[getMaxArrivals()];
