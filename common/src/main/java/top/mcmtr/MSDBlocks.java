@@ -73,4 +73,5 @@ public interface MSDBlocks {
     RegistryObject<Block> CEILING_DOUBLE_LIGHT = new RegistryObject<>(() -> new BlockCeilingDouble(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(1.0F).lightLevel(state -> 15)));
     RegistryObject<Block> STANDING_SIGN = new RegistryObject<>(BlockStandingSign::new);
     RegistryObject<Block> STANDING_SIGN_POLE = new RegistryObject<>(BlockStandingSignPole::new);
+    RegistryObject<Block> STANDING_SIGN_1 = new RegistryObject<>(BlockStandingSign1::new);
 }

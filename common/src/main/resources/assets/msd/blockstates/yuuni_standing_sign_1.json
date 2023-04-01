@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north,type=0": {
+      "model": "msd:block/yuuni_sign_1"
+    },
+    "facing=east,type=0": {
+      "model": "msd:block/yuuni_sign_1",
+      "y": 90
+    },
+    "facing=south,type=0": {
+      "model": "msd:block/yuuni_sign_1",
+      "y": 180
+    },
+    "facing=west,type=0": {
+      "model": "msd:block/yuuni_sign_1",
+      "y": 270
+    }
+  }
+}

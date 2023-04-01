@@ -35,7 +35,9 @@ public class RenderCustomTextSign<T extends BlockEntityMapper> extends BlockEnti
     private final boolean enableFirstTextColor;
     private final int firstTextColor;
     public static final int MAX_VIEW_DISTANCE = 128;
-
+    /**
+     * (总行高x0.8)/ (行数x缩放倍数)= 文字高度
+     * */
     public RenderCustomTextSign(BlockEntityRenderDispatcher dispatcher, int maxArrivals, float startX, float startY, float startZ, float maxHeight, int maxWidth, boolean rotate90, int textColor, boolean enableFirstTextColor, int firstTextColor, float textPadding, float fRowTextPadding, float sRowTextPadding, float rowSpacing) {
         super(dispatcher);
         this.scale = 160 * maxArrivals / maxHeight * textPadding;
