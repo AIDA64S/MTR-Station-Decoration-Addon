@@ -1,9 +1,9 @@
 package top.mcmtr.blocks;
 
+import mtr.block.IBlock;
 import mtr.mappings.BlockEntityMapper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -16,7 +16,7 @@ public class BlockStandingSign1 extends BlockCustomTextSignBase {
 
     @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
-        return Block.box(0, 2.5, 7.6, 16, 8.5, 8.4);
+        return IBlock.getVoxelShapeByDirection(0, 2.5, 7.6, 16, 8.5, 8.4, IBlock.getStatePropertySafe(blockState, FACING));
     }
 
     @Override

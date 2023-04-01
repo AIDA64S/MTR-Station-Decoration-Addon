@@ -56,6 +56,7 @@
   "block.msd.ceiling_double_light": "Ceiling(Light & Double models)",
   "block.msd.yuuni_standing_sign": "Yuuni Direction Standing Sign",
   "block.msd.yuuni_standing_sign_pole": "Yuuni Direction Standing Sign pole",
+  "block.msd.yuuni_standing_sign_1": "Yuuni Direction Standing Sign(Style 2)",
   "tooltip.msd.yamanote_4_pids_length": "Length: 4",
   "tooltip.msd.yamanote_5_pids_length": "Length: 5",
   "tooltip.msd.yamanote_6_pids_length": "Length: 6",
