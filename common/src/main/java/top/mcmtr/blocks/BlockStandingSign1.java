@@ -16,7 +16,7 @@ public class BlockStandingSign1 extends BlockCustomTextSignBase {
 
     @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
-        return IBlock.getVoxelShapeByDirection(0, 2.5, 7.6, 16, 8.5, 8.4, IBlock.getStatePropertySafe(blockState, FACING));
+        return IBlock.getVoxelShapeByDirection(7.6, 2.5, 0, 8.4, 8.5, 16, IBlock.getStatePropertySafe(blockState, FACING));
     }
 
     @Override

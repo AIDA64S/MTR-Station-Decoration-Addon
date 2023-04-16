@@ -9,7 +9,7 @@
     },
     "facing=south,type=0": {
       "model": "msd:block/yuuni_sign_1",
-      "y": 180
+      "y": 0
     },
     "facing=west,type=0": {
       "model": "msd:block/yuuni_sign_1",
