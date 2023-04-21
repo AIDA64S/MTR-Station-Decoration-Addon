@@ -1,6 +1,6 @@
 package top.mcmtr.blocks;
 
-import mtr.block.BlockPIDSBase;
+import mtr.block.BlockPIDSBaseHorizontal;
 import mtr.block.IBlock;
 import mtr.mappings.BlockEntityMapper;
 import mtr.mappings.Text;
@@ -19,7 +19,7 @@ import top.mcmtr.MSDBlockEntityTypes;
 
 import java.util.List;
 
-public class BlockYamanote6PIDS extends BlockPIDSBase {
+public class BlockYamanote6PIDS extends BlockPIDSBaseHorizontal {
     @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
         VoxelShape shape1 = IBlock.getVoxelShapeByDirection(7, 8, 0, 9, 16, 25, IBlock.getStatePropertySafe(blockState, FACING));
@@ -42,13 +42,13 @@ public class BlockYamanote6PIDS extends BlockPIDSBase {
         list.add(Text.translatable("tooltip.msd.yamanote_6_pids_length").setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
     }
 
-    public static class TileEntityPIDS extends TileEntityBlockPIDSBase {
+    public static class TileEntityPIDS extends TileEntityBlockPIDSBaseHorizontal {
         public TileEntityPIDS(BlockPos pos, BlockState state) {
             super(MSDBlockEntityTypes.YAMANOTE_6_PIDS_TILE_ENTITY.get(), pos, state);
         }
 
         @Override
-        protected int getMaxArrivals() {
+        public int getMaxArrivals() {
             return 3;
         }
     }

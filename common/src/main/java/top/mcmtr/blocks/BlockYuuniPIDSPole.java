@@ -1,6 +1,6 @@
 package top.mcmtr.blocks;
 
-import mtr.block.BlockPIDSBase;
+import mtr.block.BlockPIDSBaseHorizontal;
 import mtr.block.BlockPoleCheckBase;
 import mtr.block.IBlock;
 import mtr.mappings.Text;
@@ -25,7 +25,7 @@ public class BlockYuuniPIDSPole extends BlockPoleCheckBase {
 
     @Override
     protected boolean isBlock(Block block) {
-        return block instanceof BlockPIDSBase || block instanceof BlockYuuniPIDSPole;
+        return block instanceof BlockPIDSBaseHorizontal || block instanceof BlockYuuniPIDSPole;
     }
 
     @Override

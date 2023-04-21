@@ -1,6 +1,6 @@
 package top.mcmtr.blocks;
 
-import mtr.block.BlockPIDSBase;
+import mtr.block.BlockPIDSBaseHorizontal;
 import mtr.block.IBlock;
 import mtr.mappings.BlockEntityMapper;
 import net.minecraft.core.BlockPos;
@@ -11,7 +11,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import top.mcmtr.MSDBlockEntityTypes;
 
-public class BlockYuuniPIDS_2 extends BlockPIDSBase {
+public class BlockYuuniPIDS_2 extends BlockPIDSBaseHorizontal {
     @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
         VoxelShape shape1 = IBlock.getVoxelShapeByDirection(5.75, 4.95, 0, 10.25, 9.6, 13.7, IBlock.getStatePropertySafe(blockState, FACING));
@@ -25,13 +25,13 @@ public class BlockYuuniPIDS_2 extends BlockPIDSBase {
         return new TileEntityPIDS(blockPos, blockState);
     }
 
-    public static class TileEntityPIDS extends TileEntityBlockPIDSBase {
+    public static class TileEntityPIDS extends TileEntityBlockPIDSBaseHorizontal {
         public TileEntityPIDS(BlockPos pos, BlockState state) {
             super(MSDBlockEntityTypes.YUUNI_PIDS_2_TILE_ENTITY.get(), pos, state);
         }
 
         @Override
-        protected int getMaxArrivals() {
+        public int getMaxArrivals() {
             return 1;
         }
     }
