@@ -3,7 +3,7 @@ package top.mcmtr.render;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mtr.MTRClient;
 import mtr.block.BlockArrivalProjectorBase;
-import mtr.block.BlockPIDSBase;
+import mtr.block.BlockPIDSBaseHorizontal;
 import mtr.block.IBlock;
 import mtr.client.ClientData;
 import mtr.data.*;
@@ -86,9 +86,9 @@ public class RenderPIDS<T extends BlockEntityMapper> extends BlockEntityRenderer
         final String[] customMessages = new String[maxArrivals];
         final boolean[] hideArrival = new boolean[maxArrivals];
         for (int i = 0; i < maxArrivals; i++) {
-            if (entity instanceof BlockPIDSBase.TileEntityBlockPIDSBase) {
-                customMessages[i] = ((BlockPIDSBase.TileEntityBlockPIDSBase) entity).getMessage(i);
-                hideArrival[i] = ((BlockPIDSBase.TileEntityBlockPIDSBase) entity).getHideArrival(i);
+            if (entity instanceof BlockPIDSBaseHorizontal.TileEntityBlockPIDSBaseHorizontal) {
+                customMessages[i] = ((BlockPIDSBaseHorizontal.TileEntityBlockPIDSBaseHorizontal) entity).getMessage(i);
+                hideArrival[i] = ((BlockPIDSBaseHorizontal.TileEntityBlockPIDSBaseHorizontal) entity).getHideArrival(i);
             } else {
                 customMessages[i] = "";
             }
@@ -250,12 +250,12 @@ public class RenderPIDS<T extends BlockEntityMapper> extends BlockEntityRenderer
                 break;
             case PIDS:
                 final Set<Long> tempPlatformIds;
-                if (entity instanceof BlockPIDSBase.TileEntityBlockPIDSBase) {
-                    tempPlatformIds = ((BlockPIDSBase.TileEntityBlockPIDSBase) entity).getPlatformIds();
+                if (entity instanceof BlockPIDSBaseHorizontal.TileEntityBlockPIDSBaseHorizontal) {
+                    tempPlatformIds = ((BlockPIDSBaseHorizontal.TileEntityBlockPIDSBaseHorizontal) entity).getPlatformIds();
                 } else {
                     tempPlatformIds = new HashSet<>();
                 }
-                platformIds = tempPlatformIds.isEmpty() ? Collections.singleton(entity instanceof BlockPIDSBase.TileEntityBlockPIDSBase ? ((BlockPIDSBase.TileEntityBlockPIDSBase) entity).getPlatformId(ClientData.PLATFORMS, ClientData.DATA_CACHE) : 0) : tempPlatformIds;
+                platformIds = tempPlatformIds.isEmpty() ? Collections.singleton(entity instanceof BlockPIDSBaseHorizontal.TileEntityBlockPIDSBaseHorizontal ? ((BlockPIDSBaseHorizontal.TileEntityBlockPIDSBaseHorizontal) entity).getPlatformId(ClientData.PLATFORMS, ClientData.DATA_CACHE) : 0) : tempPlatformIds;
                 break;
             default:
                 platformIds = new HashSet<>();
