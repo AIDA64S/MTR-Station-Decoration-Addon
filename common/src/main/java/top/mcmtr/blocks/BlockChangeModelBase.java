@@ -21,8 +21,8 @@ public abstract class BlockChangeModelBase extends HorizontalDirectionalBlock {
     public static final IntegerProperty TEXTURE_TYPE = IntegerProperty.create("type", 0, 5);
     private final int count;
 
-    public BlockChangeModelBase(int count) {
-        super(Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F).lightLevel((state) -> 5));
+    public BlockChangeModelBase(int count, Properties properties) {
+        super(properties);
         this.count = count;
     }
 

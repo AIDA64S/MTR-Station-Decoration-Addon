@@ -14,6 +14,21 @@
     "facing=west,type=0": {
       "model": "msd:block/yuuni_sign_east",
       "y": 270
+    },
+    "facing=north,type=1": {
+      "model": "msd:block/yuuni_sign_south_en"
+    },
+    "facing=east,type=1": {
+      "model": "msd:block/yuuni_sign_west_en",
+      "y": 90
+    },
+    "facing=south,type=1": {
+      "model": "msd:block/yuuni_sign_north_en",
+      "y": 180
+    },
+    "facing=west,type=1": {
+      "model": "msd:block/yuuni_sign_east_en",
+      "y": 270
     }
   }
 }

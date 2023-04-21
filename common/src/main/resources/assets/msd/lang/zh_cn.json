@@ -1,5 +1,6 @@
 {
-  "itemGroup.msd.msd_blocks": "站台装饰",
+  "itemGroup.msd.msd_blocks": "站外装饰",
+  "itemGroup.msd.msd_station_blocks": "站内装饰",
   "item.msd.catenary_connector": "接触网连接器",
   "item.msd.electric_connector": "电线连接器",
   "item.msd.catenary_remover": "连接移除器",
@@ -7,6 +8,7 @@
   "item.msd.rigid_catenary_remover": "刚性接触网移除器",
   "item.msd.rigid_soft_catenary_connector": "接触网连接器(刚性-柔性过渡)",
   "item.msd.model_change_stick": "模型切换棒",
+  "block.msd.decoration_stair": "装饰楼梯",
   "block.msd.railing_stair": "楼梯栏杆",
   "block.msd.railing_stair_end": "楼梯栏杆尾部",
   "block.msd.railing_stair_end_mirror": "楼梯栏杆尾部(镜像)",

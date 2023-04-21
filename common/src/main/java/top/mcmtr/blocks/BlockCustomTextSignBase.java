@@ -13,6 +13,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
@@ -20,7 +21,7 @@ import top.mcmtr.packet.MSDPacketTrainDataGuiServer;
 
 public abstract class BlockCustomTextSignBase extends BlockChangeModelBase implements EntityBlockMapper {
     public BlockCustomTextSignBase(int count) {
-        super(count);
+        super(count, Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F).lightLevel((state) -> 5));
     }
 
     @Override

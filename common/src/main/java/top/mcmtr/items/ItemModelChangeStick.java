@@ -14,7 +14,7 @@ import static top.mcmtr.blocks.BlockChangeModelBase.TEXTURE_TYPE;
 
 public class ItemModelChangeStick extends ItemWithCreativeTabBase {
     public ItemModelChangeStick() {
-        super(MSDCreativeModeTabs.MSD_BLOCKS, properties -> properties.stacksTo(1));
+        super(MSDCreativeModeTabs.MSD_Station_Decoration, properties -> properties.stacksTo(1));
     }
 
     @Override

@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"parent": "yuunisign3",
 	"textures": {
-		"0": "msd:block/yuuni_sign",
-		"particle": "msd:block/yuuni_sign"
+		"0": "msd:block/yuuni_sign_en",
+		"particle": "msd:block/yuuni_sign_en"
 	},
 	"elements": [
 		{
@@ -749,20 +749,6 @@
 			}
 		},
 		{
-			"name": "background",
-			"from": [7.65, 5.2, 1.5],
-			"to": [8.4, 6.7, 14.5],
-			"rotation": {"angle": 0, "axis": "y", "origin": [8.5, 6.74662, 3.62329]},
-			"faces": {
-				"north": {"uv": [11.09778, 8.69778, 12.09778, 9.69778], "texture": "#0"},
-				"east": {"uv": [10.12889, 7.95111, 15.27111, 9.89333], "texture": "#0"},
-				"south": {"uv": [14.36889, 4.48444, 15.36889, 5.48444], "texture": "#0"},
-				"west": {"uv": [10.16889, 8.34222, 15.75556, 9.84], "texture": "#0"},
-				"up": {"uv": [10.12, 7.98222, 15.11111, 10.12], "texture": "#0"},
-				"down": {"uv": [6.6, 3.91111, 7.6, 4.91111], "texture": "#0"}
-			}
-		},
-		{
 			"name": "Middle",
 			"from": [7.1484, 0, 7.645],
 			"to": [8.8584, 4.2, 8.355],
@@ -874,12 +860,5 @@
 				"down": {"uv": [5.29778, 0.32, 6.45444, 0.32], "rotation": 180, "texture": "#0"}
 			}
 		}
-	],
-	"display": {
-		"gui": {
-			"rotation": [0, 90, 0],
-			"translation": [0, -0.75, 0],
-			"scale": [0.89, 0.89, 0.89]
-		}
-	}
+	]
 }

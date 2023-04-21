@@ -12,7 +12,7 @@ import top.mcmtr.MSDBlockEntityTypes;
 public class BlockStandingSign extends BlockCustomTextSignBase {
 
     public BlockStandingSign() {
-        super(1);
+        super(2);
     }
 
     @Override
