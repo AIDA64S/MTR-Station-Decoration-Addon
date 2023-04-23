@@ -1,6 +1,5 @@
 {
 	"credit": "Made with Blockbench",
-	"parent": "yuunisign3",
 	"textures": {
 		"0": "msd:block/yuuni_sign_en",
 		"particle": "msd:block/yuuni_sign_en"

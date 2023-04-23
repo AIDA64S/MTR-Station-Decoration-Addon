@@ -99,7 +99,7 @@ public class RenderTrainsMixin {
     private static void renderCatenaryStandard(Catenary catenary, String texture) {
         final int maxCatenaryDistance = UtilitiesClient.getRenderDistance() * 16;
         catenary.render((x1, y1, z1, x2, y2, z2, count, i, base, sinX, sinZ, increment) -> {
-            final BlockPos pos3 = new BlockPos(x1, y1, z1);
+            final BlockPos pos3 = RailwayData.newBlockPos(x1, y1, z1);
             if (RenderTrains.shouldNotRender(pos3, maxCatenaryDistance, null)) {
                 return;
             }
@@ -128,7 +128,7 @@ public class RenderTrainsMixin {
     private static void renderRigidCatenaryStandard(Level world, RigidCatenary rigidCatenary, String texture) {
         final int maxCatenaryDistance = UtilitiesClient.getRenderDistance() * 16;
         rigidCatenary.render((x1, z1, x2, z2, x3, z3, x4, z4, x5, z5, x6, z6, x7, z7, x8, z8, y1, y2) -> {
-            final BlockPos pos3 = new BlockPos(x1, y1, z1);
+            final BlockPos pos3 = RailwayData.newBlockPos(x1, y1, z1);
             if (RenderTrains.shouldNotRender(pos3, maxCatenaryDistance, null)) {
                 return;
             }
@@ -150,7 +150,7 @@ public class RenderTrainsMixin {
     private static void renderRigidSoftCatenaryStandard(Catenary catenary, String texture) {
         final int maxCatenaryDistance = UtilitiesClient.getRenderDistance() * 16;
         catenary.render((x1, y1, z1, x2, y2, z2, count, i, base, sinX, sinZ, increment) -> {
-            final BlockPos pos3 = new BlockPos(x1, y1, z1);
+            final BlockPos pos3 = RailwayData.newBlockPos(x1, y1, z1);
             if (RenderTrains.shouldNotRender(pos3, maxCatenaryDistance, null)) {
                 return;
             }
