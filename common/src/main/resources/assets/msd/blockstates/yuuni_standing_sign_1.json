@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=north,type=0": {
+      "model": "msd:block/yuuni_sign_1"
+    },
+    "facing=east,type=0": {
+      "model": "msd:block/yuuni_sign_1_east_west",
+      "y": 270
+    },
+    "facing=south,type=0": {
+      "model": "msd:block/yuuni_sign_1",
+      "y": 0
+    },
+    "facing=west,type=0": {
+      "model": "msd:block/yuuni_sign_1_east_west",
+      "y": 270
+    },
+    "facing=north,type=1": {
+      "model": "msd:block/yuuni_sign_1_en"
+    },
+    "facing=east,type=1": {
+      "model": "msd:block/yuuni_sign_1_east_west_en",
+      "y": 270
+    },
+    "facing=south,type=1": {
+      "model": "msd:block/yuuni_sign_1_en",
+      "y": 0
+    },
+    "facing=west,type=1": {
+      "model": "msd:block/yuuni_sign_1_east_west_en",
+      "y": 270
+    }
+  }
+}

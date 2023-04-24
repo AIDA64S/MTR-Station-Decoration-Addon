@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "msd:block/hall_seat_middle",
+      "y": 0
+    },
+    "facing=east": {
+      "model": "msd:block/hall_seat_middle",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "msd:block/hall_seat_middle",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "msd:block/hall_seat_middle",
+      "y": 270
+    },
+    "facing=up": {
+      "model": "msd:block/hall_seat_middle",
+      "y": 0
+    },
+    "facing=down": {
+      "model": "msd:block/hall_seat_middle",
+      "y": 0
+    }
+  }
+}

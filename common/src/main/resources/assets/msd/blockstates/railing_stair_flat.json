@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "msd:block/railing_stair_flat",
+      "y": 90
+    },
+    "facing=east": {
+      "model": "msd:block/railing_stair_flat",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "msd:block/railing_stair_flat",
+      "y": 270
+    },
+    "facing=west": {
+      "model": "msd:block/railing_stair_flat",
+      "y": 0
+    },
+    "facing=up": {
+      "model": "msd:block/railing_stair_flat",
+      "y": 0
+    },
+    "facing=down": {
+      "model": "msd:block/railing_stair_flat",
+      "y": 0
+    }
+  }
+}

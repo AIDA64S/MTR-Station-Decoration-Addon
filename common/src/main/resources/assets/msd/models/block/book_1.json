@@ -1,0 +1,44 @@
+{
+	"credit": "Designed By Santorsia, Made with Blockbench ",
+	"texture_size": [32, 32],
+	"textures": {
+		"0": "msd:block/book",
+		"particle": "msd:block/book"
+	},
+	"elements": [
+		{
+			"name": "bb_main",
+			"from": [4.5, 0, 0],
+			"to": [16.5, 0.5, 9],
+			"rotation": {"angle": -22.5, "axis": "y", "origin": [0, 0, 0]},
+			"faces": {
+				"north": {"uv": [0, 6, 0.5, 12], "rotation": 270, "texture": "#0"},
+				"east": {"uv": [1.5, 10.5, 1, 6], "rotation": 90, "texture": "#0"},
+				"south": {"uv": [0.5, 6, 1, 12], "rotation": 90, "texture": "#0"},
+				"west": {"uv": [2, 6, 1.5, 10.5], "rotation": 90, "texture": "#0"},
+				"up": {"uv": [4.5, 0, 9, 6], "rotation": 90, "texture": "#0"},
+				"down": {"uv": [0, 0, 4.5, 6], "rotation": 90, "texture": "#0"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [1, 110, 19],
+			"translation": [0.75, 6, 0]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [1, 65, 19],
+			"translation": [0.75, 6, 0]
+		},
+		"firstperson_righthand": {
+			"translation": [0, 9.75, 0]
+		},
+		"firstperson_lefthand": {
+			"translation": [0, 9.75, 0]
+		},
+		"gui": {
+			"rotation": [37, 62, 7],
+			"scale": [0.59, 0.59, 0.59]
+		}
+	}
+}

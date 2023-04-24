@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "msd:block/ceiling_double",
+      "y": 0
+    },
+    "facing=east": {
+      "model": "msd:block/ceiling_double",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "msd:block/ceiling_double",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "msd:block/ceiling_double",
+      "y": 270
+    }
+  }
+}

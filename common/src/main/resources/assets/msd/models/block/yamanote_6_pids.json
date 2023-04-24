@@ -1,0 +1,32 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [64, 64],
+	"textures": {
+		"0": "msd:block/yamanote_number_pids",
+		"particle": "msd:block/yamanote_number_pids"
+	},
+	"elements": [
+		{
+			"from": [7, 8, 0],
+			"to": [9, 16, 25],
+			"faces": {
+				"east": {"uv": [0, 0, 7.25, 2], "texture": "#0"},
+				"south": {"uv": [1, 4, 1.5, 6], "texture": "#0"},
+				"west": {"uv": [0, 2, 7.25, 4], "texture": "#0"},
+				"up": {"uv": [0.5, 11.25, 0, 4], "texture": "#0"},
+				"down": {"uv": [1, 4, 0.5, 11.25], "texture": "#0"}
+			}
+		},
+		{
+			"from": [7.5, 8, 25],
+			"to": [8.5, 16, 26],
+			"faces": {
+				"east": {"uv": [1.75, 4, 2, 6], "texture": "#0"},
+				"south": {"uv": [2, 4, 2.25, 6], "texture": "#0"},
+				"west": {"uv": [2.25, 4, 2.5, 6], "texture": "#0"},
+				"up": {"uv": [2.75, 4.25, 2.5, 4], "texture": "#0"},
+				"down": {"uv": [3, 4, 2.75, 4.25], "texture": "#0"}
+			}
+		}
+	]
+}

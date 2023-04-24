@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "msd:item/catenary_remover",
+    "layer1": "msd:item/catenary_selected"
+  }
+}

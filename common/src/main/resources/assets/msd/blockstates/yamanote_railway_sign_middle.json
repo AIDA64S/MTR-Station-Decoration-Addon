@@ -1,0 +1,19 @@
+{
+	"variants": {
+		"facing=north": {
+			"model": "msd:block/yamanote_railway_sign_middle"
+		},
+		"facing=east": {
+			"model": "msd:block/yamanote_railway_sign_middle",
+			"y": 90
+		},
+		"facing=south": {
+			"model": "msd:block/yamanote_railway_sign_middle",
+			"y": 180
+		},
+		"facing=west": {
+			"model": "msd:block/yamanote_railway_sign_middle",
+			"y": 270
+		}
+	}
+}
