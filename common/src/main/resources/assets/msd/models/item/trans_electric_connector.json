@@ -1,0 +1,14 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "msd:item/trans_electric_connector"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "msd:selected": 1
+      },
+      "model": "msd:item/trans_electric_selected"
+    }
+  ]
+}

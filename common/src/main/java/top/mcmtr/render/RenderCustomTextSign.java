@@ -7,6 +7,8 @@ import mtr.mappings.BlockEntityMapper;
 import mtr.mappings.BlockEntityRendererMapper;
 import mtr.mappings.UtilitiesClient;
 import mtr.render.RenderTrains;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -16,6 +18,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import top.mcmtr.blocks.BlockCustomTextSignBase;
+import top.mcmtr.config.Config;
 
 public class RenderCustomTextSign<T extends BlockEntityMapper> extends BlockEntityRendererMapper<T> implements IGui {
     private final float scale;
@@ -34,10 +37,10 @@ public class RenderCustomTextSign<T extends BlockEntityMapper> extends BlockEnti
     private final int textColor;
     private final boolean enableFirstTextColor;
     private final int firstTextColor;
-    public static final int MAX_VIEW_DISTANCE = 128;
+
     /**
      * (总行高x0.8)/ (行数x缩放倍数)= 文字高度
-     * */
+     */
     public RenderCustomTextSign(BlockEntityRenderDispatcher dispatcher, int maxArrivals, float startX, float startY, float startZ, float maxHeight, int maxWidth, boolean rotate90, int textColor, boolean enableFirstTextColor, int firstTextColor, float textPadding, float fRowTextPadding, float sRowTextPadding, float rowSpacing) {
         super(dispatcher);
         this.scale = 160 * maxArrivals / maxHeight * textPadding;
@@ -58,6 +61,11 @@ public class RenderCustomTextSign<T extends BlockEntityMapper> extends BlockEnti
         this.rowSpacing = rowSpacing;
     }
 
+    @Environment(EnvType.CLIENT)
+    public int getViewDistance() {
+        return Config.getCustomTextSignMaxViewDistance();
+    }
+
     @Override
     public void render(T entity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
         final BlockGetter world = entity.getLevel();
@@ -66,7 +74,7 @@ public class RenderCustomTextSign<T extends BlockEntityMapper> extends BlockEnti
         }
         final BlockPos pos = entity.getBlockPos();
         final Direction facing = IBlock.getStatePropertySafe(world, pos, HorizontalDirectionalBlock.FACING);
-        if (RenderTrains.shouldNotRender(pos, Math.min(MAX_VIEW_DISTANCE, RenderTrains.maxTrainRenderDistance), rotate90 ? null : facing)) {
+        if (RenderTrains.shouldNotRender(pos, RenderTrains.maxTrainRenderDistance, rotate90 ? null : facing)) {
             return;
         }
         final String[] customMessages = new String[maxArrivals];

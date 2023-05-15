@@ -3,6 +3,8 @@ package top.mcmtr.blocks;
 import mtr.block.IBlock;
 import mtr.mappings.BlockEntityClientSerializableMapper;
 import mtr.mappings.EntityBlockMapper;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
@@ -17,6 +19,7 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
+import top.mcmtr.config.Config;
 import top.mcmtr.packet.MSDPacketTrainDataGuiServer;
 
 public abstract class BlockCustomTextSignBase extends BlockChangeModelBase implements EntityBlockMapper {
@@ -47,6 +50,11 @@ public abstract class BlockCustomTextSignBase extends BlockChangeModelBase imple
 
         public TileEntityBlockCustomTextSignBase(BlockEntityType<?> type, BlockPos pos, BlockState state) {
             super(type, pos, state);
+        }
+
+        @Environment(EnvType.CLIENT)
+        public double getViewDistance() {
+            return Config.getCustomTextSignMaxViewDistance();
         }
 
         @Override

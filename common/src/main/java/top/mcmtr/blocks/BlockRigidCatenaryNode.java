@@ -78,7 +78,7 @@ public class BlockRigidCatenaryNode extends BlockDirectionalMapper {
         builder.add(FACING, IS_22_5, IS_45, IS_CONNECTED);
     }
 
-    public static void resetRigidCatenaryNode(Level world, BlockPos pos) {
+    public static void resetNode(Level world, BlockPos pos) {
         final BlockState state = world.getBlockState(pos);
         if (state.getBlock() instanceof BlockRigidCatenaryNode) {
             world.setBlockAndUpdate(pos, state.setValue(BlockRigidCatenaryNode.IS_CONNECTED, false));

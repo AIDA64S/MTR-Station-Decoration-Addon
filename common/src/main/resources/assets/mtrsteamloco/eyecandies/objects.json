@@ -1,0 +1,7 @@
+{
+    "short": {
+        "name": "短接触网架",
+        "model": "mtrsteamloco:eyecandies/short_catenary.obj",
+        "textureId": "mtrsteamloco:eyecandies/catenary_rack.png"
+    }
+}

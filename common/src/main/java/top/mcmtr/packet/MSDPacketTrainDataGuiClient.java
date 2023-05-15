@@ -8,17 +8,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import top.mcmtr.client.MSDClientData;
-import top.mcmtr.data.Catenary;
-import top.mcmtr.data.CatenaryData;
-import top.mcmtr.data.RigidCatenary;
-import top.mcmtr.data.RigidCatenaryData;
+import top.mcmtr.data.*;
+import top.mcmtr.screen.BlockNodeScreen;
 import top.mcmtr.screen.CustomTextSignScreen;
 import top.mcmtr.screen.YamanoteRailwaySignScreen;
 
 import java.util.Set;
 
-import static top.mcmtr.packet.MSDPacket.PACKET_CUSTOM_TEXT_SIGN_UPDATE;
-import static top.mcmtr.packet.MSDPacket.PACKET_YAMANOTE_SIGN_TYPES;
+import static top.mcmtr.packet.MSDPacket.*;
 
 public class MSDPacketTrainDataGuiClient extends PacketTrainDataBase {
     public static void openYamanoteRailwaySignScreenS2C(Minecraft minecraftClient, FriendlyByteBuf packet) {
@@ -104,5 +101,49 @@ public class MSDPacketTrainDataGuiClient extends PacketTrainDataBase {
             packet.writeUtf(message);
         }
         RegistryClient.sendToServer(PACKET_CUSTOM_TEXT_SIGN_UPDATE, packet);
+    }
+
+    public static void openBlockNodeScreenS2C(Minecraft minecraftClient, FriendlyByteBuf packet) {
+        final BlockPos pos = packet.readBlockPos();
+        final double locationX = packet.readDouble();
+        final double locationY = packet.readDouble();
+        final double locationZ = packet.readDouble();
+        final BlockLocation location = new BlockLocation(locationX, locationY, locationZ);
+        minecraftClient.execute(() -> {
+            if (!(minecraftClient.screen instanceof BlockNodeScreen)) {
+                UtilitiesClient.setScreen(minecraftClient, new BlockNodeScreen(location, pos));
+            }
+        });
+    }
+
+    public static void sendBlockNodeLocationC2S(BlockLocation location, BlockPos pos) {
+        final FriendlyByteBuf packet = new FriendlyByteBuf(Unpooled.buffer());
+        packet.writeBlockPos(pos);
+        packet.writeDouble(location.getX());
+        packet.writeDouble(location.getY());
+        packet.writeDouble(location.getZ());
+        RegistryClient.sendToServer(PACKET_BLOCK_NODE_POS_UPDATE, packet);
+    }
+
+    public static void createTransCatenaryS2C(Minecraft minecraftClient, FriendlyByteBuf packet) {
+        final BlockPos pos1 = packet.readBlockPos();
+        final BlockPos pos2 = packet.readBlockPos();
+        final TransCatenary catenary1 = new TransCatenary(packet);
+        final TransCatenary catenary2 = new TransCatenary(packet);
+        minecraftClient.execute(() -> {
+            TransCatenaryData.addTrnasCatenary(MSDClientData.TRANS_CATENARIES, pos1, pos2, catenary1);
+            TransCatenaryData.addTrnasCatenary(MSDClientData.TRANS_CATENARIES, pos2, pos1, catenary2);
+        });
+    }
+
+    public static void removeTransCatenaryNodeS2C(Minecraft minecraftClient, FriendlyByteBuf packet) {
+        final BlockPos pos = packet.readBlockPos();
+        minecraftClient.execute(() -> TransCatenaryData.removeTransCatenaryNode(null, MSDClientData.TRANS_CATENARIES, pos));
+    }
+
+    public static void removeTransCatenaryConnectionS2C(Minecraft minecraftClient, FriendlyByteBuf packet) {
+        final BlockPos pos1 = packet.readBlockPos();
+        final BlockPos pos2 = packet.readBlockPos();
+        minecraftClient.execute(() -> TransCatenaryData.removeTransCatenaryConnection(null, MSDClientData.TRANS_CATENARIES, pos1, pos2));
     }
 }
