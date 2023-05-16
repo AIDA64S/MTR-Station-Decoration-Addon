@@ -118,8 +118,8 @@ public abstract class BlockNodeBase extends Block implements EntityBlockMapper {
         @Override
         public void readCompoundTag(CompoundTag compoundTag) {
             pointLocation.setX(compoundTag.getDouble(KEY_LOCATION + "x"));
-            pointLocation.setY(compoundTag.getDouble(KEY_LOCATION + "x"));
-            pointLocation.setZ(compoundTag.getDouble(KEY_LOCATION + "x"));
+            pointLocation.setY(compoundTag.getDouble(KEY_LOCATION + "y"));
+            pointLocation.setZ(compoundTag.getDouble(KEY_LOCATION + "z"));
         }
 
         @Override
