@@ -34,11 +34,5 @@
         "model": "mtrsteamloco:eyecandies/auxiliary_positioning.obj",
         "textureId": "mtrsteamloco:eyecandies/catenary_rack.png",
         "translation": [ 0, -1, 0 ]
-    },
-    "auxiliary_positioning_2": {
-        "name": "Auxiliary Positioning-Electric(电线辅助定位模型)",
-        "model": "mtrsteamloco:eyecandies/auxiliary_positioning_2.obj",
-        "textureId": "mtrsteamloco:eyecandies/catenary_rack.png",
-        "translation": [ 0, -1, 0 ]
     }
 }
