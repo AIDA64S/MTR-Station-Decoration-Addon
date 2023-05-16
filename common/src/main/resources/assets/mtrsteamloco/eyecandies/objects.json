@@ -18,5 +18,15 @@
         "name": "Short Catenary Anti-positioning(接触网支持装置-反定位)",
         "model": "mtrsteamloco:eyecandies/catenary_anti.obj",
         "textureId": "mtrsteamloco:eyecandies/catenary_rack.png"
+    },
+    "rigid_node": {
+        "name": "Rigid Catenary Node(刚性接触网支持装置)",
+        "model": "mtrsteamloco:eyecandies/rigid_catenary_node.obj",
+        "textureId": "mtrsteamloco:eyecandies/catenary_rack.png"
+    },
+    "rigid_1": {
+        "name": "Rigid Catenary Ex(刚性接触网支持装置扩展)",
+        "model": "mtrsteamloco:eyecandies/rigid_catenary_rack.obj",
+        "textureId": "mtrsteamloco:eyecandies/catenary_rack.png"
     }
 }

@@ -11,12 +11,16 @@ import org.msgpack.core.MessagePacker;
 import org.msgpack.value.Value;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class Catenary extends SerializedDataBase {
     private final int xStart, yStart, zStart, xEnd, yEnd, zEnd;
+    private final double count, increment, increment2, sinX, sinZ;
     public final CatenaryType catenaryType;
     private static final int ELECTRIC_CURVATURE_SCALE = 300;
+    private final List<VecLocation> corner = new ArrayList<>();
     private static final int MAX_ELECTRIC_DIP = 8;
     private static final String KEY_X_START = "c_x_start";
     private static final String KEY_Y_START = "c_y_start";
@@ -34,6 +38,16 @@ public class Catenary extends SerializedDataBase {
         this.yEnd = posEnd.getY();
         this.zEnd = posEnd.getZ();
         this.catenaryType = catenaryType;
+        this.count = getLength();
+        this.increment = count / Math.round(count / 2);
+        this.increment2 = increment - 0.5;
+        this.sinX = getSin(zStart, zEnd, 0.015625, count);
+        this.sinZ = getSin(xStart, xEnd, 0.015625, count);
+        for (double i = 0; i < count - 0.1; i += increment) {
+            final VecLocation cornerTemp = new VecLocation(getPositionXZ(i, xStart, xEnd) + 0.5, getPositionY(i, yStart, yEnd, catenaryType), getPositionXZ(i, zStart, zEnd) + 0.5,
+                    getPositionXZ(i + increment, xStart, xEnd) + 0.5, getPositionY(i + increment, yStart, yEnd, catenaryType), getPositionXZ(i + increment, zStart, zEnd) + 0.5, i);
+            corner.add(cornerTemp);
+        }
     }
 
     public Catenary(Map<String, Value> map) {
@@ -45,17 +59,16 @@ public class Catenary extends SerializedDataBase {
         this.yEnd = messagePackHelper.getInt(KEY_Y_END);
         this.zEnd = messagePackHelper.getInt(KEY_Z_END);
         this.catenaryType = EnumHelper.valueOf(CatenaryType.CATENARY, messagePackHelper.getString(KEY_CATENARY_TYPE));
-    }
-
-    @Deprecated
-    public Catenary(CompoundTag compoundTag) {
-        this.xStart = compoundTag.getInt(KEY_X_START);
-        this.yStart = compoundTag.getInt(KEY_Y_START);
-        this.zStart = compoundTag.getInt(KEY_Z_START);
-        this.xEnd = compoundTag.getInt(KEY_X_END);
-        this.yEnd = compoundTag.getInt(KEY_Y_END);
-        this.zEnd = compoundTag.getInt(KEY_Z_END);
-        this.catenaryType = EnumHelper.valueOf(CatenaryType.CATENARY, compoundTag.getString(KEY_CATENARY_TYPE));
+        this.count = getLength();
+        this.increment = count / Math.round(count / 2);
+        this.increment2 = increment - 0.5;
+        this.sinX = getSin(zStart, zEnd, 0.015625, count);
+        this.sinZ = getSin(xStart, xEnd, 0.015625, count);
+        for (double i = 0; i < count - 0.1; i += increment) {
+            final VecLocation cornerTemp = new VecLocation(getPositionXZ(i, xStart, xEnd) + 0.5, getPositionY(i, yStart, yEnd, catenaryType), getPositionXZ(i, zStart, zEnd) + 0.5,
+                    getPositionXZ(i + increment, xStart, xEnd) + 0.5, getPositionY(i + increment, yStart, yEnd, catenaryType), getPositionXZ(i + increment, zStart, zEnd) + 0.5, i);
+            corner.add(cornerTemp);
+        }
     }
 
     public Catenary(FriendlyByteBuf packet) {
@@ -66,6 +79,16 @@ public class Catenary extends SerializedDataBase {
         this.yEnd = packet.readInt();
         this.zEnd = packet.readInt();
         this.catenaryType = EnumHelper.valueOf(CatenaryType.CATENARY, packet.readUtf(PACKET_STRING_READ_LENGTH));
+        this.count = getLength();
+        this.increment = count / Math.round(count / 2);
+        this.increment2 = increment - 0.5;
+        this.sinX = getSin(zStart, zEnd, 0.015625, count);
+        this.sinZ = getSin(xStart, xEnd, 0.015625, count);
+        for (double i = 0; i < count - 0.1; i += increment) {
+            final VecLocation cornerTemp = new VecLocation(getPositionXZ(i, xStart, xEnd) + 0.5, getPositionY(i, yStart, yEnd, catenaryType), getPositionXZ(i, zStart, zEnd) + 0.5,
+                    getPositionXZ(i + increment, xStart, xEnd) + 0.5, getPositionY(i + increment, yStart, yEnd, catenaryType), getPositionXZ(i + increment, zStart, zEnd) + 0.5, i);
+            corner.add(cornerTemp);
+        }
     }
 
     @Override
@@ -96,30 +119,21 @@ public class Catenary extends SerializedDataBase {
     }
 
     public void render(RenderCatenary callback) {
-        renderSegment(xStart, yStart, zStart, xEnd, yEnd, zEnd, catenaryType, callback);
+        renderSegment(callback);
     }
 
-    private void renderSegment(int xStart, int yStart, int zStart, int xEnd, int yEnd, int zEnd, CatenaryType catenaryType, RenderCatenary callback) {
-        final double count = getLength();
-        final double increment = count / Math.round(count / 2);
-        final double increment2 = increment - 0.5;
+    private void renderSegment(RenderCatenary callback) {
         double base = 0.6;
-        final double sinX = getSin(zStart, zEnd, 0.015625, count);
-        final double sinZ = getSin(xStart, xEnd, 0.015625, count);
         if (count < 8) {
-            for (double i = 0; i < count - 0.1; i += increment) {
-                final Vec3 corner1 = new Vec3(getPositionXZ(i, xStart, xEnd) + 0.5, getPositionY(i, yStart, yEnd, catenaryType), getPositionXZ(i, zStart, zEnd) + 0.5);
-                final Vec3 corner2 = new Vec3(getPositionXZ(i + increment, xStart, xEnd) + 0.5, getPositionY(i + increment, yStart, yEnd, catenaryType), getPositionXZ(i + increment, zStart, zEnd) + 0.5);
-                callback.renderCatenary(corner1.x, corner1.y, corner1.z, corner2.x, corner2.y, corner2.z, count, i, base, sinX, sinZ, increment2);
+            for (VecLocation cornerResult : corner) {
+                callback.renderCatenary(cornerResult.x1, cornerResult.y1, cornerResult.z1, cornerResult.x2, cornerResult.y2, cornerResult.z2, count, cornerResult.i, base, sinX, sinZ, increment2);
             }
         } else {
-            for (double i = 0; i < count - 0.1; i += increment) {
-                final Vec3 corner1 = new Vec3(getPositionXZ(i, xStart, xEnd) + 0.5, getPositionY(i, yStart, yEnd, catenaryType), getPositionXZ(i, zStart, zEnd) + 0.5);
-                final Vec3 corner2 = new Vec3(getPositionXZ(i + increment, xStart, xEnd) + 0.5, getPositionY(i + increment, yStart, yEnd, catenaryType), getPositionXZ(i + increment, zStart, zEnd) + 0.5);
-                callback.renderCatenary(corner1.x, corner1.y, corner1.z, corner2.x, corner2.y, corner2.z, count, i, base, sinX, sinZ, increment2);
-                if (i < (count / 2 - increment2)) {
+            for (VecLocation cornerResult : corner) {
+                callback.renderCatenary(cornerResult.x1, cornerResult.y1, cornerResult.z1, cornerResult.x2, cornerResult.y2, cornerResult.z2, count, cornerResult.i, base, sinX, sinZ, increment2);
+                if (cornerResult.i < (count / 2 - increment2)) {
                     base *= 0.5;
-                } else if (i >= (count / 2)) {
+                } else if (cornerResult.i >= (count / 2)) {
                     base /= 0.5;
                 }
             }
