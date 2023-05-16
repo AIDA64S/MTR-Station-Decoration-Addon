@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import top.mcmtr.MSDBlockEntityTypes;
+import top.mcmtr.data.CatenaryData;
 import top.mcmtr.data.TransCatenaryData;
 import top.mcmtr.packet.MSDPacketTrainDataGuiServer;
 
@@ -21,9 +22,14 @@ public class BlockTransCatenaryNode extends BlockNodeBase {
     public void playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
         if (!world.isClientSide) {
             final TransCatenaryData catenaryData = TransCatenaryData.getInstance(world);
+            final CatenaryData catenaryData1 = CatenaryData.getInstance(world);
             if (catenaryData != null) {
                 catenaryData.removeTransCatenaryNode(pos);
                 MSDPacketTrainDataGuiServer.removeTransCatenaryNodeS2C(world, pos);
+            }
+            if (catenaryData1 != null) {
+                catenaryData1.removeCatenaryNode(pos);
+                MSDPacketTrainDataGuiServer.removeCatenaryNodeS2C(world, pos);
             }
         }
     }

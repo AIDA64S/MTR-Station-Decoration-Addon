@@ -63,8 +63,8 @@ public class TransCatenary extends SerializedDataBase {
         this.sinX = getSin(zStart, zEnd, 0.015625, count);
         this.sinZ = getSin(xStart, xEnd, 0.015625, count);
         for (double i = 0; i < count - 0.1; i += increment) {
-            final VecLocation cornerTemp = new VecLocation(getPositionXYZ(i, xStart, xEnd) + 0.5, getPositionXYZ(i, yStart, yEnd), getPositionXYZ(i, zStart, zEnd) + 0.5,
-                    getPositionXYZ(i + increment, xStart, xEnd) + 0.5, getPositionXYZ(i + increment, yStart, yEnd), getPositionXYZ(i + increment, zStart, zEnd) + 0.5, i);
+            final VecLocation cornerTemp = new VecLocation(getPositionXYZ(i, xStart, xEnd) + 0.5, getPositionY(i, yStart, yEnd, catenaryType), getPositionXYZ(i, zStart, zEnd) + 0.5,
+                    getPositionXYZ(i + increment, xStart, xEnd) + 0.5, getPositionY(i + increment, yStart, yEnd, catenaryType), getPositionXYZ(i + increment, zStart, zEnd) + 0.5, i);
             corner.add(cornerTemp);
         }
     }
@@ -83,8 +83,8 @@ public class TransCatenary extends SerializedDataBase {
         this.sinX = getSin(zStart, zEnd, 0.015625, count);
         this.sinZ = getSin(xStart, xEnd, 0.015625, count);
         for (double i = 0; i < count - 0.1; i += increment) {
-            final VecLocation cornerTemp = new VecLocation(getPositionXYZ(i, xStart, xEnd) + 0.5, getPositionXYZ(i, yStart, yEnd), getPositionXYZ(i, zStart, zEnd) + 0.5,
-                    getPositionXYZ(i + increment, xStart, xEnd) + 0.5, getPositionXYZ(i + increment, yStart, yEnd), getPositionXYZ(i + increment, zStart, zEnd) + 0.5, i);
+            final VecLocation cornerTemp = new VecLocation(getPositionXYZ(i, xStart, xEnd) + 0.5, getPositionY(i, yStart, yEnd, catenaryType), getPositionXYZ(i, zStart, zEnd) + 0.5,
+                    getPositionXYZ(i + increment, xStart, xEnd) + 0.5, getPositionY(i + increment, yStart, yEnd, catenaryType), getPositionXYZ(i + increment, zStart, zEnd) + 0.5, i);
             corner.add(cornerTemp);
         }
     }

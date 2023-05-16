@@ -137,6 +137,7 @@ public class MSDMain {
         registerBlockEntityType.accept("catenary_node_style_2", MSDBlockEntityTypes.BLOCK_CATENARY_NODE_STYLE_2_ENTITY);
         registerBlockEntityType.accept("short_catenary_node", MSDBlockEntityTypes.BLOCK_SHORT_CATENARY_NODE_ENTITY);
         registerBlockEntityType.accept("short_catenary_node_style_2", MSDBlockEntityTypes.BLOCK_SHORT_CATENARY_NODE_STYLE_2_ENTITY);
+        registerBlockEntityType.accept("electric_node", MSDBlockEntityTypes.BLOCK_ELECTRIC_NODE_ENTITY);
 
         Registry.registerNetworkReceiver(PACKET_YAMANOTE_SIGN_TYPES, MSDPacketTrainDataGuiServer::receiveMSDSignIdsC2S);
         Registry.registerNetworkReceiver(PACKET_CUSTOM_TEXT_SIGN_UPDATE, MSDPacketTrainDataGuiServer::receiveCustomTextSignMessageC2S);
