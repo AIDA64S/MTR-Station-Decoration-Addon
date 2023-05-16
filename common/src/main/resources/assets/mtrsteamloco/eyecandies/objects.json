@@ -1,7 +1,22 @@
 {
-    "short": {
-        "name": "短接触网架",
+    "short_1": {
+        "name": "Short Catenary Positive positioning(短接触网支持装置-正定位)",
         "model": "mtrsteamloco:eyecandies/short_catenary.obj",
+        "textureId": "mtrsteamloco:eyecandies/catenary_rack.png"
+    },
+    "short_2": {
+        "name": "Short Catenary Anti-positioning(短接触网支持装置-反定位)",
+        "model": "mtrsteamloco:eyecandies/short_catenary_anti.obj",
+        "textureId": "mtrsteamloco:eyecandies/catenary_rack.png"
+    },
+    "long_1": {
+        "name": "Catenary Positive positioning(接触网支持装置-正定位)",
+        "model": "mtrsteamloco:eyecandies/catenary.obj",
+        "textureId": "mtrsteamloco:eyecandies/catenary_rack.png"
+    },
+    "long_2": {
+        "name": "Short Catenary Anti-positioning(接触网支持装置-反定位)",
+        "model": "mtrsteamloco:eyecandies/catenary_anti.obj",
         "textureId": "mtrsteamloco:eyecandies/catenary_rack.png"
     }
 }
