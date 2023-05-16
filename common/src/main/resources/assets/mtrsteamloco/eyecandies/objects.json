@@ -28,5 +28,11 @@
         "name": "Rigid Catenary Ex(刚性接触网支持装置扩展)",
         "model": "mtrsteamloco:eyecandies/rigid_catenary_rack.obj",
         "textureId": "mtrsteamloco:eyecandies/catenary_rack.png"
+    },
+    "auxiliary_positioning": {
+        "name": "Auxiliary Positioning(辅助定位模型)",
+        "model": "mtrsteamloco:eyecandies/auxiliary_positioning.obj",
+        "textureId": "mtrsteamloco:eyecandies/catenary_rack.png",
+        "translation": [ 0, -1, 0 ]
     }
 }
