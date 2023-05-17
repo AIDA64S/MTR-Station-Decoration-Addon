@@ -21,6 +21,7 @@ public class RigidCatenary extends SerializedDataBase {
     public final CatenaryType catenaryType;
     public final RailAngle facingStart;
     public final RailAngle facingEnd;
+    private boolean checkRun = false;
     private final double h1, k1, r1, tStart1, tEnd1;
     private final double h2, k2, r2, tStart2, tEnd2;
     private final int yStart, yEnd;
@@ -181,46 +182,6 @@ public class RigidCatenary extends SerializedDataBase {
                 isStraight1 = isStraight2 = true;
             }
         }
-        final int SEGMENT_LENGTH = Config.getRigidCatenarySegmentLength();
-        final double count1 = Math.abs(tEnd1 - tStart1);
-        final double count2 = Math.abs(tEnd2 - tStart2);
-        final double segment_count1 = Math.round(count1 / SEGMENT_LENGTH);
-        final double segment_count2 = Math.round(count2 / SEGMENT_LENGTH);
-        final double increment1 = count1 / Math.max(1, segment_count1);
-        final double increment2 = count2 / Math.max(1, segment_count2);
-        final double rawValueOffset = Math.abs(tEnd1 - tStart1);
-        for (double i = 0; i < count1 - 0.1; i += increment1) {
-            final double t1 = (reverseT1 ? -1 : 1) * i + tStart1;
-            final double t2 = (reverseT1 ? -1 : 1) * (i + increment1) + tStart1;
-            final Vec3 corner1 = getPositionXZ(h1, k1, r1, t1, -0.015625F, isStraight1);
-            final Vec3 corner2 = getPositionXZ(h1, k1, r1, t1, 0.015625F, isStraight1);
-            final Vec3 corner3 = getPositionXZ(h1, k1, r1, t2, 0.015625F, isStraight1);
-            final Vec3 corner4 = getPositionXZ(h1, k1, r1, t2, -0.015625F, isStraight1);
-            final Vec3 corner5 = getPositionXZ(h1, k1, r1, t1, -0.09375F, isStraight1);
-            final Vec3 corner6 = getPositionXZ(h1, k1, r1, t1, 0.09375F, isStraight1);
-            final Vec3 corner7 = getPositionXZ(h1, k1, r1, t2, 0.09375F, isStraight1);
-            final Vec3 corner8 = getPositionXZ(h1, k1, r1, t2, -0.09375F, isStraight1);
-            final double y1 = getPositionY(i);
-            final double y2 = getPositionY(i + increment1);
-            final MoreVecLocation locationTemp1 = new MoreVecLocation(corner1.x, corner1.z, corner2.x, corner2.z, corner3.x, corner3.z, corner4.x, corner4.z, corner5.x, corner5.z, corner6.x, corner6.z, corner7.x, corner7.z, corner8.x, corner8.z, y1, y2);
-            corners1.add(locationTemp1);
-        }
-        for (double i = 0; i < count2 - 0.1; i += increment2) {
-            final double t1 = (reverseT2 ? -1 : 1) * i + tStart2;
-            final double t2 = (reverseT2 ? -1 : 1) * (i + increment2) + tStart2;
-            final Vec3 corner1 = getPositionXZ(h2, k2, r2, t1, -0.015625F, isStraight2);
-            final Vec3 corner2 = getPositionXZ(h2, k2, r2, t1, 0.015625F, isStraight2);
-            final Vec3 corner3 = getPositionXZ(h2, k2, r2, t2, 0.015625F, isStraight2);
-            final Vec3 corner4 = getPositionXZ(h2, k2, r2, t2, -0.015625F, isStraight2);
-            final Vec3 corner5 = getPositionXZ(h2, k2, r2, t1, -0.09375F, isStraight2);
-            final Vec3 corner6 = getPositionXZ(h2, k2, r2, t1, 0.09375F, isStraight2);
-            final Vec3 corner7 = getPositionXZ(h2, k2, r2, t2, 0.09375F, isStraight2);
-            final Vec3 corner8 = getPositionXZ(h2, k2, r2, t2, -0.09375F, isStraight2);
-            final double y1 = getPositionY(i + rawValueOffset);
-            final double y2 = getPositionY(i + increment2 + rawValueOffset);
-            final MoreVecLocation locationTemp = new MoreVecLocation(corner1.x, corner1.z, corner2.x, corner2.z, corner3.x, corner3.z, corner4.x, corner4.z, corner5.x, corner5.z, corner6.x, corner6.z, corner7.x, corner7.z, corner8.x, corner8.z, y1, y2);
-            corners2.add(locationTemp);
-        }
     }
 
     public RigidCatenary(Map<String, Value> map) {
@@ -244,46 +205,6 @@ public class RigidCatenary extends SerializedDataBase {
         catenaryType = EnumHelper.valueOf(CatenaryType.RIGID_CATENARY, messagePackHelper.getString(KEY_CATENARY_TYPE));
         facingStart = getRigidCatenaryAngle(false);
         facingEnd = getRigidCatenaryAngle(true);
-        final int SEGMENT_LENGTH = Config.getRigidCatenarySegmentLength();
-        final double count1 = Math.abs(tEnd1 - tStart1);
-        final double count2 = Math.abs(tEnd2 - tStart2);
-        final double segment_count1 = Math.round(count1 / SEGMENT_LENGTH);
-        final double segment_count2 = Math.round(count2 / SEGMENT_LENGTH);
-        final double increment1 = count1 / Math.max(1, segment_count1);
-        final double increment2 = count2 / Math.max(1, segment_count2);
-        final double rawValueOffset = Math.abs(tEnd1 - tStart1);
-        for (double i = 0; i < count1 - 0.1; i += increment1) {
-            final double t1 = (reverseT1 ? -1 : 1) * i + tStart1;
-            final double t2 = (reverseT1 ? -1 : 1) * (i + increment1) + tStart1;
-            final Vec3 corner1 = getPositionXZ(h1, k1, r1, t1, -0.015625F, isStraight1);
-            final Vec3 corner2 = getPositionXZ(h1, k1, r1, t1, 0.015625F, isStraight1);
-            final Vec3 corner3 = getPositionXZ(h1, k1, r1, t2, 0.015625F, isStraight1);
-            final Vec3 corner4 = getPositionXZ(h1, k1, r1, t2, -0.015625F, isStraight1);
-            final Vec3 corner5 = getPositionXZ(h1, k1, r1, t1, -0.09375F, isStraight1);
-            final Vec3 corner6 = getPositionXZ(h1, k1, r1, t1, 0.09375F, isStraight1);
-            final Vec3 corner7 = getPositionXZ(h1, k1, r1, t2, 0.09375F, isStraight1);
-            final Vec3 corner8 = getPositionXZ(h1, k1, r1, t2, -0.09375F, isStraight1);
-            final double y1 = getPositionY(i);
-            final double y2 = getPositionY(i + increment1);
-            final MoreVecLocation locationTemp1 = new MoreVecLocation(corner1.x, corner1.z, corner2.x, corner2.z, corner3.x, corner3.z, corner4.x, corner4.z, corner5.x, corner5.z, corner6.x, corner6.z, corner7.x, corner7.z, corner8.x, corner8.z, y1, y2);
-            corners1.add(locationTemp1);
-        }
-        for (double i = 0; i < count2 - 0.1; i += increment2) {
-            final double t1 = (reverseT2 ? -1 : 1) * i + tStart2;
-            final double t2 = (reverseT2 ? -1 : 1) * (i + increment2) + tStart2;
-            final Vec3 corner1 = getPositionXZ(h2, k2, r2, t1, -0.015625F, isStraight2);
-            final Vec3 corner2 = getPositionXZ(h2, k2, r2, t1, 0.015625F, isStraight2);
-            final Vec3 corner3 = getPositionXZ(h2, k2, r2, t2, 0.015625F, isStraight2);
-            final Vec3 corner4 = getPositionXZ(h2, k2, r2, t2, -0.015625F, isStraight2);
-            final Vec3 corner5 = getPositionXZ(h2, k2, r2, t1, -0.09375F, isStraight2);
-            final Vec3 corner6 = getPositionXZ(h2, k2, r2, t1, 0.09375F, isStraight2);
-            final Vec3 corner7 = getPositionXZ(h2, k2, r2, t2, 0.09375F, isStraight2);
-            final Vec3 corner8 = getPositionXZ(h2, k2, r2, t2, -0.09375F, isStraight2);
-            final double y1 = getPositionY(i + rawValueOffset);
-            final double y2 = getPositionY(i + increment2 + rawValueOffset);
-            final MoreVecLocation locationTemp = new MoreVecLocation(corner1.x, corner1.z, corner2.x, corner2.z, corner3.x, corner3.z, corner4.x, corner4.z, corner5.x, corner5.z, corner6.x, corner6.z, corner7.x, corner7.z, corner8.x, corner8.z, y1, y2);
-            corners2.add(locationTemp);
-        }
     }
 
     public RigidCatenary(FriendlyByteBuf packet) {
@@ -306,46 +227,6 @@ public class RigidCatenary extends SerializedDataBase {
         catenaryType = EnumHelper.valueOf(CatenaryType.RIGID_CATENARY, packet.readUtf(PACKET_STRING_READ_LENGTH));
         facingStart = getRigidCatenaryAngle(false);
         facingEnd = getRigidCatenaryAngle(true);
-        final int SEGMENT_LENGTH = Config.getRigidCatenarySegmentLength();
-        final double count1 = Math.abs(tEnd1 - tStart1);
-        final double count2 = Math.abs(tEnd2 - tStart2);
-        final double segment_count1 = Math.round(count1 / SEGMENT_LENGTH);
-        final double segment_count2 = Math.round(count2 / SEGMENT_LENGTH);
-        final double increment1 = count1 / Math.max(1, segment_count1);
-        final double increment2 = count2 / Math.max(1, segment_count2);
-        final double rawValueOffset = Math.abs(tEnd1 - tStart1);
-        for (double i = 0; i < count1 - 0.1; i += increment1) {
-            final double t1 = (reverseT1 ? -1 : 1) * i + tStart1;
-            final double t2 = (reverseT1 ? -1 : 1) * (i + increment1) + tStart1;
-            final Vec3 corner1 = getPositionXZ(h1, k1, r1, t1, -0.015625F, isStraight1);
-            final Vec3 corner2 = getPositionXZ(h1, k1, r1, t1, 0.015625F, isStraight1);
-            final Vec3 corner3 = getPositionXZ(h1, k1, r1, t2, 0.015625F, isStraight1);
-            final Vec3 corner4 = getPositionXZ(h1, k1, r1, t2, -0.015625F, isStraight1);
-            final Vec3 corner5 = getPositionXZ(h1, k1, r1, t1, -0.09375F, isStraight1);
-            final Vec3 corner6 = getPositionXZ(h1, k1, r1, t1, 0.09375F, isStraight1);
-            final Vec3 corner7 = getPositionXZ(h1, k1, r1, t2, 0.09375F, isStraight1);
-            final Vec3 corner8 = getPositionXZ(h1, k1, r1, t2, -0.09375F, isStraight1);
-            final double y1 = getPositionY(i);
-            final double y2 = getPositionY(i + increment1);
-            final MoreVecLocation locationTemp1 = new MoreVecLocation(corner1.x, corner1.z, corner2.x, corner2.z, corner3.x, corner3.z, corner4.x, corner4.z, corner5.x, corner5.z, corner6.x, corner6.z, corner7.x, corner7.z, corner8.x, corner8.z, y1, y2);
-            corners1.add(locationTemp1);
-        }
-        for (double i = 0; i < count2 - 0.1; i += increment2) {
-            final double t1 = (reverseT2 ? -1 : 1) * i + tStart2;
-            final double t2 = (reverseT2 ? -1 : 1) * (i + increment2) + tStart2;
-            final Vec3 corner1 = getPositionXZ(h2, k2, r2, t1, -0.015625F, isStraight2);
-            final Vec3 corner2 = getPositionXZ(h2, k2, r2, t1, 0.015625F, isStraight2);
-            final Vec3 corner3 = getPositionXZ(h2, k2, r2, t2, 0.015625F, isStraight2);
-            final Vec3 corner4 = getPositionXZ(h2, k2, r2, t2, -0.015625F, isStraight2);
-            final Vec3 corner5 = getPositionXZ(h2, k2, r2, t1, -0.09375F, isStraight2);
-            final Vec3 corner6 = getPositionXZ(h2, k2, r2, t1, 0.09375F, isStraight2);
-            final Vec3 corner7 = getPositionXZ(h2, k2, r2, t2, 0.09375F, isStraight2);
-            final Vec3 corner8 = getPositionXZ(h2, k2, r2, t2, -0.09375F, isStraight2);
-            final double y1 = getPositionY(i + rawValueOffset);
-            final double y2 = getPositionY(i + increment2 + rawValueOffset);
-            final MoreVecLocation locationTemp = new MoreVecLocation(corner1.x, corner1.z, corner2.x, corner2.z, corner3.x, corner3.z, corner4.x, corner4.z, corner5.x, corner5.z, corner6.x, corner6.z, corner7.x, corner7.z, corner8.x, corner8.z, y1, y2);
-            corners2.add(locationTemp);
-        }
     }
 
     @Override
@@ -395,6 +276,52 @@ public class RigidCatenary extends SerializedDataBase {
         packet.writeUtf(catenaryType.toString());
     }
 
+    public void init(){
+        if(!checkRun){
+            final int SEGMENT_LENGTH = Config.getRigidCatenarySegmentLength();
+            final double count1 = Math.abs(tEnd1 - tStart1);
+            final double count2 = Math.abs(tEnd2 - tStart2);
+            final double segment_count1 = Math.round(count1 / SEGMENT_LENGTH);
+            final double segment_count2 = Math.round(count2 / SEGMENT_LENGTH);
+            final double increment1 = count1 / Math.max(1, segment_count1);
+            final double increment2 = count2 / Math.max(1, segment_count2);
+            final double rawValueOffset = Math.abs(tEnd1 - tStart1);
+            for (double i = 0; i < count1 - 0.1; i += increment1) {
+                final double t1 = (reverseT1 ? -1 : 1) * i + tStart1;
+                final double t2 = (reverseT1 ? -1 : 1) * (i + increment1) + tStart1;
+                final Vec3 corner1 = getPositionXZ(h1, k1, r1, t1, -0.015625F, isStraight1);
+                final Vec3 corner2 = getPositionXZ(h1, k1, r1, t1, 0.015625F, isStraight1);
+                final Vec3 corner3 = getPositionXZ(h1, k1, r1, t2, 0.015625F, isStraight1);
+                final Vec3 corner4 = getPositionXZ(h1, k1, r1, t2, -0.015625F, isStraight1);
+                final Vec3 corner5 = getPositionXZ(h1, k1, r1, t1, -0.09375F, isStraight1);
+                final Vec3 corner6 = getPositionXZ(h1, k1, r1, t1, 0.09375F, isStraight1);
+                final Vec3 corner7 = getPositionXZ(h1, k1, r1, t2, 0.09375F, isStraight1);
+                final Vec3 corner8 = getPositionXZ(h1, k1, r1, t2, -0.09375F, isStraight1);
+                final double y1 = getPositionY(i);
+                final double y2 = getPositionY(i + increment1);
+                final MoreVecLocation locationTemp1 = new MoreVecLocation(corner1.x, corner1.z, corner2.x, corner2.z, corner3.x, corner3.z, corner4.x, corner4.z, corner5.x, corner5.z, corner6.x, corner6.z, corner7.x, corner7.z, corner8.x, corner8.z, y1, y2);
+                corners1.add(locationTemp1);
+            }
+            for (double i = 0; i < count2 - 0.1; i += increment2) {
+                final double t1 = (reverseT2 ? -1 : 1) * i + tStart2;
+                final double t2 = (reverseT2 ? -1 : 1) * (i + increment2) + tStart2;
+                final Vec3 corner1 = getPositionXZ(h2, k2, r2, t1, -0.015625F, isStraight2);
+                final Vec3 corner2 = getPositionXZ(h2, k2, r2, t1, 0.015625F, isStraight2);
+                final Vec3 corner3 = getPositionXZ(h2, k2, r2, t2, 0.015625F, isStraight2);
+                final Vec3 corner4 = getPositionXZ(h2, k2, r2, t2, -0.015625F, isStraight2);
+                final Vec3 corner5 = getPositionXZ(h2, k2, r2, t1, -0.09375F, isStraight2);
+                final Vec3 corner6 = getPositionXZ(h2, k2, r2, t1, 0.09375F, isStraight2);
+                final Vec3 corner7 = getPositionXZ(h2, k2, r2, t2, 0.09375F, isStraight2);
+                final Vec3 corner8 = getPositionXZ(h2, k2, r2, t2, -0.09375F, isStraight2);
+                final double y1 = getPositionY(i + rawValueOffset);
+                final double y2 = getPositionY(i + increment2 + rawValueOffset);
+                final MoreVecLocation locationTemp = new MoreVecLocation(corner1.x, corner1.z, corner2.x, corner2.z, corner3.x, corner3.z, corner4.x, corner4.z, corner5.x, corner5.z, corner6.x, corner6.z, corner7.x, corner7.z, corner8.x, corner8.z, y1, y2);
+                corners2.add(locationTemp);
+            }
+            checkRun = !checkRun;
+        }
+    }
+
     public Vec3 getPosition(double rawValue) {
         final double count1 = Math.abs(tEnd1 - tStart1);
         final double count2 = Math.abs(tEnd2 - tStart2);
@@ -413,6 +340,7 @@ public class RigidCatenary extends SerializedDataBase {
     }
 
     public void render(RenderRigidCatenary callback) {
+        init();
         renderSegment(corners1, callback);
         renderSegment(corners2, callback);
     }
