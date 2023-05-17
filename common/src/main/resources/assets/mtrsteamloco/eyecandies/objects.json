@@ -35,8 +35,7 @@
     },
     "short_gantry": {
         "name": "Short Catenary gantry-P(龙门架短接触网-正定位)",
-        "model": "mtrsteamloco:eyecandies/short_catenary_top_side.obj",
-        "translation": [ 0, -1, 0 ]
+        "model": "mtrsteamloco:eyecandies/short_catenary_top_side.obj"
     },
     "short_gantry_anti": {
         "name": "Short Catenary gantry-A(龙门架短接触网-反定位)",
