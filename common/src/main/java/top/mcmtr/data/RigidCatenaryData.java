@@ -29,6 +29,7 @@ public class RigidCatenaryData extends LineDataBase {
     private static final String NAME = "msd_rigid_catenary_data";
     private final Map<BlockPos, Map<BlockPos, RigidCatenary>> rigidCatenaries = new HashMap<>();
     private final RigidCatenaryDataFileSaveModule rigidCatenaryDataFileSaveModule;
+    private final Map<Player, BlockPos> playerLastUpdatedPositions = new HashMap<>();
 
     public RigidCatenaryData(Level world) {
         super(NAME, world);
