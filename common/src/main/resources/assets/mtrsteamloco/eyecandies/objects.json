@@ -1,0 +1,72 @@
+{
+    "short": {
+        "name": "Short Catenary-P(短接触网支持装置-正定位)",
+        "model": "mtrsteamloco:eyecandies/short_catenary.obj"
+    },
+    "short_anti": {
+        "name": "Short Catenary-A(短接触网支持装置-反定位)",
+        "model": "mtrsteamloco:eyecandies/short_catenary_anti.obj"
+    },
+    "long": {
+        "name": "Catenary Positive-P(接触网支持装置-正定位)",
+        "model": "mtrsteamloco:eyecandies/catenary.obj"
+    },
+    "long_anti": {
+        "name": "Catenary Catenary-A(接触网支持装置-反定位)",
+        "model": "mtrsteamloco:eyecandies/catenary_anti.obj"
+    },
+    "rigid_node": {
+        "name": "Rigid Catenary Node(刚性接触网支持装置)",
+        "model": "mtrsteamloco:eyecandies/rigid_catenary_node.obj"
+    },
+    "rigid": {
+        "name": "Rigid Catenary Ex(刚性接触网支持装置扩展)",
+        "model": "mtrsteamloco:eyecandies/rigid_catenary_rack.obj"
+    },
+    "auxiliary_positioning": {
+        "name": "Auxiliary Positioning(辅助定位模型)",
+        "model": "mtrsteamloco:eyecandies/auxiliary_positioning.obj",
+        "translation": [ 0, -1, 0 ]
+    },
+    "auxiliary_positioning_gantry": {
+        "name": "Auxiliary Positioning-gantry(龙门架用辅助定位模型)",
+        "model": "mtrsteamloco:eyecandies/auxiliary_positioning_gantry.obj",
+        "translation": [ 0, -1, 0 ]
+    },
+    "short_gantry": {
+        "name": "Short Catenary gantry-P(龙门架短接触网-正定位)",
+        "model": "mtrsteamloco:eyecandies/short_catenary_top_side.obj"
+    },
+    "short_gantry_anti": {
+        "name": "Short Catenary gantry-A(龙门架短接触网-反定位)",
+        "model": "mtrsteamloco:eyecandies/short_catenary_top_side_anti.obj"
+    },
+    "short_gantry_side_same": {
+        "name": "Short Catenary gantry-PS(龙门架短接触网-双向正定位)",
+        "model": "mtrsteamloco:eyecandies/short_catenary_top_both_side_same.obj"
+    },
+    "short_gantry_side_same_anti": {
+        "name": "Short Catenary gantry-PSA(龙门架短接触网-双向反定位)",
+        "model": "mtrsteamloco:eyecandies/short_catenary_top_both_side_anti_same.obj"
+    },
+    "short_gantry_side_different_anti": {
+        "name": "Short Catenary gantry-PDA(龙门架短接触网-双向异向定位)",
+        "model": "mtrsteamloco:eyecandies/short_catenary_top_both_side_different.obj"
+    },
+    "gantry_11": {
+        "name": "Gantry x11(龙门架-11)",
+        "model": "mtrsteamloco:eyecandies/gantry_11.obj"
+    },
+    "gantry_11_side": {
+        "name": "Gantry x11 side(龙门架-11-单侧)",
+        "model": "mtrsteamloco:eyecandies/gantry_11_side.obj"
+    },
+    "gantry_19": {
+        "name": "Gantry x19(龙门架-19)",
+        "model": "mtrsteamloco:eyecandies/gantry_19.obj"
+    },
+    "gantry_19_side": {
+        "name": "Gantry x19 side(龙门架-19-单侧)",
+        "model": "mtrsteamloco:eyecandies/gantry_19_side.obj"
+    }
+}

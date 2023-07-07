@@ -24,6 +24,7 @@ import top.mcmtr.client.MSDClientData;
 import top.mcmtr.data.Catenary;
 import top.mcmtr.data.CatenaryType;
 import top.mcmtr.data.RigidCatenary;
+import top.mcmtr.data.TransCatenary;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -77,8 +78,29 @@ public class RenderTrainsMixin {
             } else {
                 renderedRigidCatenaryMap.put(rigidCatenaryProduct, true);
             }
-            if (rigidCatenary.catenaryType == CatenaryType.RIGID_CATENARY) {
-                renderRigidCatenaryStandard(world, rigidCatenary);
+            renderRigidCatenaryStandard(world, rigidCatenary);
+        }));
+        matrices.popPose();
+        matrices.pushPose();
+        final Map<UUID, Boolean> renderedTransCatenaryMap = new HashMap<>();
+        MSDClientData.TRANS_CATENARIES.forEach((startPos, catenaryMap) -> catenaryMap.forEach((endPos, catenary) -> {
+            if (!RailwayData.isBetween(player2.getX(), startPos.getX(), endPos.getX(), maxCatenaryDistance2) || !RailwayData.isBetween(player2.getZ(), startPos.getZ(), endPos.getZ(), maxCatenaryDistance2)) {
+                return;
+            }
+            final UUID catenaryProduct = PathData.getRailProduct(startPos, endPos);
+            if (renderedTransCatenaryMap.containsKey(catenaryProduct)) {
+                if (renderedTransCatenaryMap.get(catenaryProduct)) {
+                    return;
+                }
+            } else {
+                renderedTransCatenaryMap.put(catenaryProduct, true);
+            }
+            if (catenary.catenaryType == CatenaryType.TRANS_ELECTRIC) {
+                catenary.render((x1, y1, z1, x2, y2, z2, count, i, base, sinX, sinZ, increment) ->
+                        IDrawing.drawLine(matrices, vertexConsumers, (float) x1, (float) y1 + 0.5F, (float) z1, (float) x2, (float) y2 + 0.5F, (float) z2, 0, 0, 0)
+                );
+            } else {
+                renderTransCatenaryStandard(catenary);
             }
         }));
         matrices.popPose();
@@ -94,6 +116,10 @@ public class RenderTrainsMixin {
 
     private static void renderRigidSoftCatenaryStandard(Catenary catenary) {
         renderRigidSoftCatenaryStandard(catenary, "msd:textures/block/overhead_line.png");
+    }
+
+    private static void renderTransCatenaryStandard(TransCatenary catenary) {
+        renderTransCatenaryStandard(catenary, "msd:textures/block/overhead_line.png");
     }
 
     private static void renderCatenaryStandard(Catenary catenary, String texture) {
@@ -159,6 +185,35 @@ public class RenderTrainsMixin {
                 IDrawing.drawTexture(matrices, vertexConsumer, (float) (x2 - sinX), (float) y2, (float) (z2 + sinZ), (float) (x1 - sinX), (float) y1, (float) (z1 + sinZ), (float) (x1 + sinX), (float) y1, (float) (z1 - sinZ), (float) (x2 + sinX), (float) y2, (float) (z2 - sinZ), 0.0F, 0.03125F, 1.0F, 0.0F, Direction.UP, -1, 0);
                 IDrawing.drawTexture(matrices, vertexConsumer, (float) x1, (float) y1 + 0.03125F, (float) z1, (float) x2, (float) y2 + 0.03125F, (float) z2, (float) x2, (float) y2, (float) z2, (float) x1, (float) y1, (float) z1, 0.0F, 0.0F, 1.0F, 0.03125F, Direction.UP, -1, 0);
                 IDrawing.drawTexture(matrices, vertexConsumer, (float) x2, (float) y2 + 0.03125F, (float) z2, (float) x1, (float) y1 + 0.03125F, (float) z1, (float) x1, (float) y1, (float) z1, (float) x2, (float) y2, (float) z2, 0.0F, 0.03125F, 1.0F, 0.0F, Direction.UP, -1, 0);
+            });
+        });
+    }
+
+    private static void renderTransCatenaryStandard(TransCatenary catenary, String texture) {
+        final int maxCatenaryDistance = UtilitiesClient.getRenderDistance() * 16;
+        catenary.render((x1, y1, z1, x2, y2, z2, count, i, base, sinX, sinZ, increment) -> {
+            final BlockPos pos3 = RailwayData.newBlockPos(x1, y1, z1);
+            if (RenderTrains.shouldNotRender(pos3, maxCatenaryDistance, null)) {
+                return;
+            }
+            RenderTrains.scheduleRender(new ResourceLocation(texture), false, RenderTrains.QueuedRenderLayer.EXTERIOR, (matrices, vertexConsumer) -> {
+                if (count < 8) {
+                    IDrawing.drawTexture(matrices, vertexConsumer, (float) x1, (float) y1 + 0.65F + (float) base, (float) z1, (float) x2, (float) y2 + 0.65F + (float) base, (float) z2, (float) x2, (float) y2, (float) z2, (float) x1, (float) y1, (float) z1, 0.0F, 0.0F, 1.0F, 1.0F, Direction.UP, -1, 0);
+                    IDrawing.drawTexture(matrices, vertexConsumer, (float) x2, (float) y2 + 0.65F + (float) base, (float) z2, (float) x1, (float) y1 + 0.65F + (float) base, (float) z1, (float) x1, (float) y1, (float) z1, (float) x2, (float) y2, (float) z2, 0.0F, 1.0F, 1.0F, 0.0F, Direction.UP, -1, 0);
+                } else {
+                    if (i < (count / 2 - increment)) {
+                        IDrawing.drawTexture(matrices, vertexConsumer, (float) x1, (float) y1 + 0.65F + (float) base, (float) z1, (float) x2, (float) y2 + 0.65F + (float) (base * 0.5), (float) z2, (float) x2, (float) y2, (float) z2, (float) x1, (float) y1, (float) z1, 0.0F, 0.0F, 1.0F, 1.0F, Direction.UP, -1, 0);
+                        IDrawing.drawTexture(matrices, vertexConsumer, (float) x2, (float) y2 + 0.65F + (float) (base * 0.5), (float) z2, (float) x1, (float) y1 + 0.65F + (float) base, (float) z1, (float) x1, (float) y1, (float) z1, (float) x2, (float) y2, (float) z2, 0.0F, 1.0F, 1.0F, 0.0F, Direction.UP, -1, 0);
+                    } else if (i >= (count / 2)) {
+                        IDrawing.drawTexture(matrices, vertexConsumer, (float) x1, (float) y1 + 0.65F + (float) base, (float) z1, (float) x2, (float) y2 + 0.65F + (float) (base / 0.5), (float) z2, (float) x2, (float) y2, (float) z2, (float) x1, (float) y1, (float) z1, 0.0F, 0.0F, 1.0F, 1.0F, Direction.UP, -1, 0);
+                        IDrawing.drawTexture(matrices, vertexConsumer, (float) x2, (float) y2 + 0.65F + (float) (base / 0.5), (float) z2, (float) x1, (float) y1 + 0.65F + (float) base, (float) z1, (float) x1, (float) y1, (float) z1, (float) x2, (float) y2, (float) z2, 0.0F, 1.0F, 1.0F, 0.0F, Direction.UP, -1, 0);
+                    } else {
+                        IDrawing.drawTexture(matrices, vertexConsumer, (float) x1, (float) y1 + 0.65F + (float) base, (float) z1, (float) x2, (float) y2 + 0.65F + (float) base, (float) z2, (float) x2, (float) y2, (float) z2, (float) x1, (float) y1, (float) z1, 0.0F, 0.0F, 1.0F, 1.0F, Direction.UP, -1, 0);
+                        IDrawing.drawTexture(matrices, vertexConsumer, (float) x2, (float) y2 + 0.65F + (float) base, (float) z2, (float) x1, (float) y1 + 0.65F + (float) base, (float) z1, (float) x1, (float) y1, (float) z1, (float) x2, (float) y2, (float) z2, 0.0F, 1.0F, 1.0F, 0.0F, Direction.UP, -1, 0);
+                    }
+                }
+                IDrawing.drawTexture(matrices, vertexConsumer, (float) (x1 - sinX), (float) y1, (float) (z1 + sinZ), (float) (x2 - sinX), (float) y2, (float) (z2 + sinZ), (float) (x2 + sinX), (float) y2, (float) (z2 - sinZ), (float) (x1 + sinX), (float) y1, (float) (z1 - sinZ), 0.0F, 0.0F, 1.0F, 0.03125F, Direction.UP, -1, 0);
+                IDrawing.drawTexture(matrices, vertexConsumer, (float) (x2 - sinX), (float) y2, (float) (z2 + sinZ), (float) (x1 - sinX), (float) y1, (float) (z1 + sinZ), (float) (x1 + sinX), (float) y1, (float) (z1 - sinZ), (float) (x2 + sinX), (float) y2, (float) (z2 - sinZ), 0.0F, 0.03125F, 1.0F, 0.0F, Direction.UP, -1, 0);
             });
         });
     }

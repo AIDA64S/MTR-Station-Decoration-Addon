@@ -17,6 +17,8 @@ import mtr.mappings.BlockEntityRendererMapper;
 import mtr.mappings.UtilitiesClient;
 import mtr.render.RenderTrains;
 import mtr.render.StoredMatrixTransformations;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -27,6 +29,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockState;
 import top.mcmtr.blocks.BlockYamanoteRailwaySign;
+import top.mcmtr.config.Config;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -41,6 +44,11 @@ public class RenderYamanoteRailwaySign<T extends BlockYamanoteRailwaySign.TileEn
     @Override
     public boolean shouldRenderOffScreen(T blockEntity) {
         return true;
+    }
+
+    @Environment(EnvType.CLIENT)
+    public int getViewDistance() {
+        return Config.getYamanoteRailwaySignMaxViewDistance();
     }
 
     @Override

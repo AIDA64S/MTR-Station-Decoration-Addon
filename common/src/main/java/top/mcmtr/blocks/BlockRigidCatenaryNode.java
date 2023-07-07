@@ -18,6 +18,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import top.mcmtr.data.CatenaryData;
 import top.mcmtr.data.RigidCatenaryData;
+import top.mcmtr.data.TransCatenaryData;
 import top.mcmtr.packet.MSDPacketTrainDataGuiServer;
 
 public class BlockRigidCatenaryNode extends BlockDirectionalMapper {
@@ -42,6 +43,7 @@ public class BlockRigidCatenaryNode extends BlockDirectionalMapper {
         if (!level.isClientSide) {
             final RigidCatenaryData rigidCatenaryData = RigidCatenaryData.getInstance(level);
             final CatenaryData catenaryData = CatenaryData.getInstance(level);
+            final TransCatenaryData transCatenaryData = TransCatenaryData.getInstance(level);
             if (rigidCatenaryData != null) {
                 rigidCatenaryData.removeRigidCatenaryNode(blockPos);
                 MSDPacketTrainDataGuiServer.removeRigidCatenaryNodeS2C(level, blockPos);
@@ -49,6 +51,10 @@ public class BlockRigidCatenaryNode extends BlockDirectionalMapper {
             if (catenaryData != null) {
                 catenaryData.removeCatenaryNode(blockPos);
                 MSDPacketTrainDataGuiServer.removeCatenaryNodeS2C(level, blockPos);
+            }
+            if (transCatenaryData != null) {
+                transCatenaryData.removeTransCatenaryNode(blockPos);
+                MSDPacketTrainDataGuiServer.removeTransCatenaryNodeS2C(level, blockPos);
             }
         }
     }
@@ -78,7 +84,7 @@ public class BlockRigidCatenaryNode extends BlockDirectionalMapper {
         builder.add(FACING, IS_22_5, IS_45, IS_CONNECTED);
     }
 
-    public static void resetRigidCatenaryNode(Level world, BlockPos pos) {
+    public static void resetNode(Level world, BlockPos pos) {
         final BlockState state = world.getBlockState(pos);
         if (state.getBlock() instanceof BlockRigidCatenaryNode) {
             world.setBlockAndUpdate(pos, state.setValue(BlockRigidCatenaryNode.IS_CONNECTED, false));

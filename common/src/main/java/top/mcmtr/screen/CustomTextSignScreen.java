@@ -68,7 +68,7 @@ public class CustomTextSignScreen extends ScreenMapper implements IGui, IPacket 
         for (int i = 0; i < textFieldMessages.length; i++) {
             messages[i] = textFieldMessages[i].getValue();
         }
-        MSDPacketTrainDataGuiClient.sendCustomTextSignConfigC2S(pos1, /*pos2,*/ messages);
+        MSDPacketTrainDataGuiClient.sendCustomTextSignConfigC2S(pos1, messages);
         super.onClose();
     }
 

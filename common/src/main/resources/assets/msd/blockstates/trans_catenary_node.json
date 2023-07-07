@@ -1,0 +1,40 @@
+{
+  "variants": {
+    "facing=north,is_connected=true": {
+      "model": "msd:block/trans_catenary_node"
+    },
+    "facing=north,is_connected=false": {
+      "model": "msd:block/trans_catenary_node"
+    },
+    "facing=east,is_connected=true": {
+      "model": "msd:block/trans_catenary_node"
+    },
+    "facing=east,is_connected=false": {
+      "model": "msd:block/trans_catenary_node"
+    },
+    "facing=south,is_connected=true": {
+      "model": "msd:block/trans_catenary_node"
+    },
+    "facing=south,is_connected=false": {
+      "model": "msd:block/trans_catenary_node"
+    },
+    "facing=west,is_connected=true": {
+      "model": "msd:block/trans_catenary_node"
+    },
+    "facing=west,is_connected=false": {
+      "model": "msd:block/trans_catenary_node"
+    },
+    "facing=up,is_connected=true": {
+      "model": "msd:block/trans_catenary_node"
+    },
+    "facing=up,is_connected=false": {
+      "model": "msd:block/trans_catenary_node"
+    },
+    "facing=down,is_connected=true": {
+      "model": "msd:block/trans_catenary_node"
+    },
+    "facing=down,is_connected=false": {
+      "model": "msd:block/trans_catenary_node"
+    }
+  }
+}

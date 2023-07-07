@@ -4,6 +4,8 @@ import mtr.block.BlockPIDSBaseHorizontal;
 import mtr.block.IBlock;
 import mtr.mappings.BlockEntityMapper;
 import mtr.mappings.Text;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -16,6 +18,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import top.mcmtr.MSDBlockEntityTypes;
+import top.mcmtr.config.Config;
 
 import java.util.List;
 
@@ -45,6 +48,11 @@ public class BlockYamanote6PIDS extends BlockPIDSBaseHorizontal {
     public static class TileEntityPIDS extends TileEntityBlockPIDSBaseHorizontal {
         public TileEntityPIDS(BlockPos pos, BlockState state) {
             super(MSDBlockEntityTypes.YAMANOTE_6_PIDS_TILE_ENTITY.get(), pos, state);
+        }
+
+        @Environment(EnvType.CLIENT)
+        public double getViewDistance() {
+            return Config.getYuuniPIDSMaxViewDistance();
         }
 
         @Override

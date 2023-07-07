@@ -3,6 +3,8 @@ package top.mcmtr.blocks;
 import mtr.block.BlockPIDSBaseHorizontal;
 import mtr.block.IBlock;
 import mtr.mappings.BlockEntityMapper;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockState;
@@ -10,6 +12,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import top.mcmtr.MSDBlockEntityTypes;
+import top.mcmtr.config.Config;
 
 public class BlockYuuniPIDS extends BlockPIDSBaseHorizontal {
     @Override
@@ -27,6 +30,11 @@ public class BlockYuuniPIDS extends BlockPIDSBaseHorizontal {
     public static class TileEntityPIDS extends TileEntityBlockPIDSBaseHorizontal {
         public TileEntityPIDS(BlockPos pos, BlockState state) {
             super(MSDBlockEntityTypes.YUUNI_PIDS_TILE_ENTITY.get(), pos, state);
+        }
+
+        @Environment(EnvType.CLIENT)
+        public double getViewDistance() {
+            return Config.getYuuniPIDSMaxViewDistance();
         }
 
         @Override

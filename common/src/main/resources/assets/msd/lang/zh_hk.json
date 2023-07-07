@@ -8,6 +8,9 @@
   "item.msd.rigid_catenary_remover": "剛性接觸網移除器",
   "item.msd.rigid_soft_catenary_connector": "接觸網連接器(剛性-柔性過渡)",
   "item.msd.model_change_stick": "模型切換棒",
+  "item.msd.trans_catenary_connector": "多位置接觸網連接器",
+  "item.msd.trans_catenary_remover": "多位置接觸網移除器",
+  "item.msd.trans_electric_connector": "多位置電綫連接器",
   "block.msd.decoration_stair": "裝飾樓梯",
   "block.msd.railing_stair": "樓梯欄杆",
   "block.msd.railing_stair_end": "樓梯欄杆尾部",
@@ -59,6 +62,7 @@
   "block.msd.yuuni_standing_sign": "Yuuni方向立牌",
   "block.msd.yuuni_standing_sign_pole": "Yuuni方向立牌柱",
   "block.msd.yuuni_standing_sign_1": "Yuuni方向立牌(Style 2)",
+  "block.msd.trans_catenary_node": "可變位置節點",
   "tooltip.msd.yamanote_4_pids_length": "長度：4",
   "tooltip.msd.yamanote_5_pids_length": "長度: 5",
   "tooltip.msd.yamanote_6_pids_length": "長度: 6",
@@ -78,5 +82,14 @@
   "gui.msd.pid_terminal": "終止於此",
   "gui.msd.invalid_orientation": "無法連接剛性接觸網，方向無效",
   "gui.msd.radius_too_small": "無法連接剛性接觸網，半徑必須至少為 2",
-  "gui.msd.custom_text_sign_message": "自定義文字"
+  "gui.msd.custom_text_sign_message": "自定義文字",
+  "gui.msd.point_position_options": "可變節點位置調整",
+  "options.msd.point_position_x": "X",
+  "options.msd.point_position_y": "Y",
+  "options.msd.point_position_z": "Z",
+  "gui.msd.options": "MTR Station Decoration選項",
+  "options.msd.rigid_catenary_segment_length": "剛性接觸網模型段長度",
+  "options.msd.pids_view_distance": "Yuuni PIDS最大可視距離",
+  "options.msd.railway_sign_view_distance": "山手線風格指示牌最大可視距離",
+  "options.msd.custom_text_view_distance": "自定義文字最大可視距離"
 }

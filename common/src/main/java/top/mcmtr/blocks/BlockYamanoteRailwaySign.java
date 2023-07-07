@@ -2,6 +2,8 @@ package top.mcmtr.blocks;
 
 import mtr.block.IBlock;
 import mtr.mappings.*;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -32,6 +34,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import top.mcmtr.MSDBlockEntityTypes;
 import top.mcmtr.MSDBlocks;
+import top.mcmtr.config.Config;
 import top.mcmtr.packet.MSDPacketTrainDataGuiServer;
 
 import java.util.*;
@@ -184,6 +187,11 @@ public class BlockYamanoteRailwaySign extends BlockDirectionalMapper implements 
             super(getType(length, isOdd), pos, state);
             this.signIds = new String[length];
             this.selectedIds = new HashSet<>();
+        }
+
+        @Environment(EnvType.CLIENT)
+        public double getViewDistance() {
+            return Config.getYamanoteRailwaySignMaxViewDistance();
         }
 
         @Override

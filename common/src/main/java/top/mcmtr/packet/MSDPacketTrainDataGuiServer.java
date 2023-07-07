@@ -14,10 +14,9 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import top.mcmtr.blocks.BlockCustomTextSignBase;
+import top.mcmtr.blocks.BlockNodeBase;
 import top.mcmtr.blocks.BlockYamanoteRailwaySign;
-import top.mcmtr.data.Catenary;
-import top.mcmtr.data.CatenaryData;
-import top.mcmtr.data.RigidCatenary;
+import top.mcmtr.data.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -128,7 +127,7 @@ public class MSDPacketTrainDataGuiServer extends PacketTrainDataBase {
         world.players().forEach(worldPlayer -> Registry.sendToPlayer((ServerPlayer) worldPlayer, PACKET_REMOVE_RIGID_CATENARY, packet));
     }
 
-    public static void openCustomTextSignConfigScreenS2C(ServerPlayer player, BlockPos pos1, /*BlockPos pos2,*/ int maxArrivals) {
+    public static void openCustomTextSignConfigScreenS2C(ServerPlayer player, BlockPos pos1, int maxArrivals) {
         final FriendlyByteBuf packet = new FriendlyByteBuf(Unpooled.buffer());
         packet.writeBlockPos(pos1);
         packet.writeInt(maxArrivals);
@@ -150,5 +149,52 @@ public class MSDPacketTrainDataGuiServer extends PacketTrainDataBase {
             }
             setTileEntityDataAndWriteUpdate(player, entity -> entity.setData(messages), entities.toArray(new BlockCustomTextSignBase.TileEntityBlockCustomTextSignBase[0]));
         });
+    }
+
+    public static void openBlockNodeScreenC2S(ServerPlayer player, BlockLocation location, BlockPos pos) {
+        final FriendlyByteBuf packet = new FriendlyByteBuf(Unpooled.buffer());
+        packet.writeBlockPos(pos);
+        packet.writeDouble(location.getX());
+        packet.writeDouble(location.getY());
+        packet.writeDouble(location.getZ());
+        Registry.sendToPlayer(player, PACKET_OPEN_BLOCK_NODE_SCREEN, packet);
+    }
+
+    public static void receiveBlockNodeLocationC2S(MinecraftServer minecraftServer, ServerPlayer player, FriendlyByteBuf packet) {
+        final BlockPos pos = packet.readBlockPos();
+        final double locationX = packet.readDouble();
+        final double locationY = packet.readDouble();
+        final double locationZ = packet.readDouble();
+        final BlockLocation location = new BlockLocation(locationX, locationY, locationZ);
+        minecraftServer.execute(() -> {
+            final List<BlockNodeBase.BlockNodeBaseEntity> entities = new ArrayList<>();
+            final BlockEntity entity1 = player.level.getBlockEntity(pos);
+            if (entity1 instanceof BlockNodeBase.BlockNodeBaseEntity) {
+                entities.add((BlockNodeBase.BlockNodeBaseEntity) entity1);
+            }
+            setTileEntityDataAndWriteUpdate(player, entity -> entity.setData(location), entities.toArray(new BlockNodeBase.BlockNodeBaseEntity[0]));
+        });
+    }
+
+    public static void createTransCatenaryS2C(Level world, BlockPos pos1, BlockPos pos2, TransCatenary catenary1, TransCatenary catenary2) {
+        final FriendlyByteBuf packet = new FriendlyByteBuf(Unpooled.buffer());
+        packet.writeBlockPos(pos1);
+        packet.writeBlockPos(pos2);
+        catenary1.writePacket(packet);
+        catenary2.writePacket(packet);
+        world.players().forEach(worldPlayer -> Registry.sendToPlayer((ServerPlayer) worldPlayer, PACKET_CREATE_TRANS_CATENARY, packet));
+    }
+
+    public static void removeTransCatenaryNodeS2C(Level world, BlockPos pos) {
+        final FriendlyByteBuf packet = new FriendlyByteBuf(Unpooled.buffer());
+        packet.writeBlockPos(pos);
+        world.players().forEach(worldPlayer -> Registry.sendToPlayer((ServerPlayer) worldPlayer, PACKET_REMOVE_TRANS_CATENARY_NODE, packet));
+    }
+
+    public static void removeTransCatenaryConnectionS2C(Level world, BlockPos pos1, BlockPos pos2) {
+        final FriendlyByteBuf packet = new FriendlyByteBuf(Unpooled.buffer());
+        packet.writeBlockPos(pos1);
+        packet.writeBlockPos(pos2);
+        world.players().forEach(worldPlayer -> Registry.sendToPlayer((ServerPlayer) worldPlayer, PACKET_REMOVE_TRANS_CATENARY, packet));
     }
 }

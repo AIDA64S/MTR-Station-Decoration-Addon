@@ -5,7 +5,7 @@
   "name": "MTR Station Decoration Addon",
   "description": "A Station Decoration Addon for the Minecraft Transit Railway Mod",
   "authors": [
-    "MTR Lovers",
+    "AIDA64S#4031",
     "Santorsia#3166",
     "Nemo#3465"
   ],
@@ -18,6 +18,9 @@
     ],
     "client": [
       "top.mcmtr.MSDMainFabricClient"
+    ],
+    "modmenu": [
+      "top.mcmtr.ModMenuConfig"
     ]
   },
   "mixins": [

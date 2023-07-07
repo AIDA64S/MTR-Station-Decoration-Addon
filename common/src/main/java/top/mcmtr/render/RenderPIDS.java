@@ -12,6 +12,8 @@ import mtr.mappings.BlockEntityRendererMapper;
 import mtr.mappings.Text;
 import mtr.mappings.UtilitiesClient;
 import mtr.render.RenderTrains;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -21,6 +23,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import top.mcmtr.config.Config;
 
 import java.util.*;
 
@@ -43,7 +46,6 @@ public class RenderPIDS<T extends BlockEntityMapper> extends BlockEntityRenderer
     private final int firstTrainColor;
     private final boolean appendDotAfterMin;
 
-    public static final int MAX_VIEW_DISTANCE = 64;
     private static final int SWITCH_LANGUAGE_TICKS = 60;
     private static final int CAR_TEXT_COLOR = 0xFF0000;
 
@@ -68,6 +70,12 @@ public class RenderPIDS<T extends BlockEntityMapper> extends BlockEntityRenderer
         this.appendDotAfterMin = appendDotAfterMin;
     }
 
+    @Environment(EnvType.CLIENT)
+    public int getViewDistance() {
+        return Config.getYuuniPIDSMaxViewDistance();
+    }
+
+
     public RenderPIDS(BlockEntityRenderDispatcher dispatcher, int maxArrivals, float startX, float startY, float startZ, float maxHeight, int maxWidth, boolean rotate90, boolean renderArrivalNumber, PIDSType renderType, int textColor, int firstTrainColor) {
         this(dispatcher, maxArrivals, startX, startY, startZ, maxHeight, maxWidth, rotate90, renderArrivalNumber, renderType, textColor, firstTrainColor, 1, false);
     }
@@ -80,7 +88,7 @@ public class RenderPIDS<T extends BlockEntityMapper> extends BlockEntityRenderer
         }
         final BlockPos pos = entity.getBlockPos();
         final Direction facing = IBlock.getStatePropertySafe(world, pos, HorizontalDirectionalBlock.FACING);
-        if (RenderTrains.shouldNotRender(pos, Math.min(MAX_VIEW_DISTANCE, RenderTrains.maxTrainRenderDistance), rotate90 ? null : facing)) {
+        if (RenderTrains.shouldNotRender(pos, RenderTrains.maxTrainRenderDistance, rotate90 ? null : facing)) {
             return;
         }
         final String[] customMessages = new String[maxArrivals];

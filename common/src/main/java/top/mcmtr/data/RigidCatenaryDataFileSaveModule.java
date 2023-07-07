@@ -1,45 +1,27 @@
 package top.mcmtr.data;
 
-import mtr.data.IReducedSaveData;
 import mtr.data.MessagePackHelper;
-import mtr.data.NameColorDataBase;
 import mtr.data.SerializedDataBase;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
-import org.msgpack.core.MessageBufferPacker;
-import org.msgpack.core.MessagePack;
 import org.msgpack.core.MessagePacker;
-import org.msgpack.core.MessageUnpacker;
 import org.msgpack.value.Value;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
-import java.util.*;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.stream.Stream;
+import java.util.HashMap;
+import java.util.Map;
 
-public class RigidCatenaryDataFileSaveModule extends RigidCatenaryModuleBase {
-    private boolean canAutoSave = false;
-    private boolean dataLoaded = false;
-    private boolean useReducedHash = true;
-    private int filesWritten;
-    private int filesDeleted;
-    private long autoSaveStartMillis;
-    private final List<BlockPos> dirtyRigidCatenaryPositions = new ArrayList<>();
-    private final Map<Path, Integer> existingFiles = new HashMap<>();
-    private final List<Path> checkFilesToDelete = new ArrayList<>();
-    private final Path rigidCatenariesPath;
+public class RigidCatenaryDataFileSaveModule extends DataModuleBase {
+    private final Map<BlockPos, Map<BlockPos, RigidCatenary>> rigidCatenaries;
 
-    public RigidCatenaryDataFileSaveModule(RigidCatenaryData rigidCatenaryData, Level world, Map<BlockPos, Map<BlockPos, RigidCatenary>> rigidCatenaries, Path savePath) {
-        super(rigidCatenaryData, world, rigidCatenaries);
-        this.rigidCatenariesPath = savePath.resolve("rigid_catenaries");
+    public RigidCatenaryDataFileSaveModule(Level world, Map<BlockPos, Map<BlockPos, RigidCatenary>> rigidCatenaries, Path savePath) {
+        super(savePath.resolve("rigid_catenaries"), world);
+        this.rigidCatenaries = rigidCatenaries;
         try {
-            Files.createDirectories(rigidCatenariesPath);
+            Files.createDirectories(filePath);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -47,44 +29,25 @@ public class RigidCatenaryDataFileSaveModule extends RigidCatenaryModuleBase {
 
     public void load() {
         existingFiles.clear();
-        readMessagePackFromFile(rigidCatenariesPath, RigidCatenaryEntry::new, rigidCatenaryEntry -> rigidCatenaries.put(rigidCatenaryEntry.pos, rigidCatenaryEntry.connections), true);
+        readMessagePackFromFile(filePath, RigidCatenaryEntry::new, rigidCatenaryEntry -> rigidCatenaries.put(rigidCatenaryEntry.pos, rigidCatenaryEntry.connections));
         System.out.println("MTR Station Decoration Catenary data successfully load for " + world.dimension().location());
         canAutoSave = true;
         dataLoaded = true;
     }
 
-    public void fullSave() {
-        useReducedHash = false;
-        dirtyRigidCatenaryPositions.clear();
-        checkFilesToDelete.clear();
-        autoSave();
-        while (true) {
-            if (autoSaveTick()) {
-                break;
-            }
-        }
-        canAutoSave = false;
-    }
-
     public void autoSave() {
-        if (!dataLoaded) {
-            dataLoaded = true;
-            canAutoSave = true;
-        }
+        checkDataLoaded();
         if (canAutoSave && checkFilesToDelete.isEmpty()) {
-            autoSaveStartMillis = System.currentTimeMillis();
-            filesWritten = 0;
-            filesDeleted = 0;
-            dirtyRigidCatenaryPositions.addAll(rigidCatenaries.keySet());
-            checkFilesToDelete.addAll(existingFiles.keySet());
+            enableAutoSave();
+            dirtyPositions.addAll(rigidCatenaries.keySet());
         }
     }
 
     public boolean autoSaveTick() {
         if (canAutoSave) {
             final boolean deleteEmptyOld = checkFilesToDelete.isEmpty();
-            boolean hasSpareTime = writeDirtyDataToFile(dirtyRigidCatenaryPositions, pos -> rigidCatenaries.containsKey(pos) ? new RigidCatenaryEntry(pos, rigidCatenaries.get(pos)) : null, BlockPos::asLong, rigidCatenariesPath);
-            final boolean doneWriting = dirtyRigidCatenaryPositions.isEmpty();
+            boolean hasSpareTime = writeDirtyDataToFile(dirtyPositions, pos -> rigidCatenaries.containsKey(pos) ? new RigidCatenaryEntry(pos, rigidCatenaries.get(pos)) : null, BlockPos::asLong, filePath);
+            final boolean doneWriting = dirtyPositions.isEmpty();
             if (hasSpareTime && !checkFilesToDelete.isEmpty() && doneWriting) {
                 final Path path = checkFilesToDelete.remove(0);
                 try {
@@ -110,97 +73,6 @@ public class RigidCatenaryDataFileSaveModule extends RigidCatenaryModuleBase {
         } else {
             return true;
         }
-    }
-
-    private <T extends SerializedDataBase> void readMessagePackFromFile(Path path, Function<Map<String, Value>, T> getData, Consumer<T> callback, boolean skipVerify) {
-        try (final Stream<Path> pathStream = Files.list(path)) {
-            pathStream.forEach(idFolder -> {
-                try (final Stream<Path> folderStream = Files.list(idFolder)) {
-                    folderStream.forEach(idFile -> {
-                        try (final InputStream inputStream = Files.newInputStream(idFile)) {
-                            try (final MessageUnpacker messageUnpacker = MessagePack.newDefaultUnpacker(inputStream)) {
-                                final int size = messageUnpacker.unpackMapHeader();
-                                final HashMap<String, Value> result = new HashMap<>(size);
-                                for (int i = 0; i < size; i++) {
-                                    result.put(messageUnpacker.unpackString(), messageUnpacker.unpackValue());
-                                }
-                                final T data = getData.apply(result);
-                                if (skipVerify || !(data instanceof NameColorDataBase) || !((NameColorDataBase) data).name.isEmpty()) {
-                                    callback.accept(data);
-                                }
-                                existingFiles.put(idFile, getHash(data, true));
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    });
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private Path writeMessagePackToFile(SerializedDataBase data, long id, Path path) {
-        final Path parentPath = path.resolve(String.valueOf(id % 100));
-        try {
-            Files.createDirectories(parentPath);
-            final Path dataPath = parentPath.resolve(String.valueOf(id));
-            final int hash = getHash(data, useReducedHash);
-            if (!existingFiles.containsKey(dataPath) || hash != existingFiles.get(dataPath)) {
-                final MessagePacker messagePacker = MessagePack.newDefaultPacker(Files.newOutputStream(dataPath, StandardOpenOption.CREATE));
-                messagePacker.packMapHeader(data.messagePackLength());
-                data.toMessagePack(messagePacker);
-                messagePacker.close();
-                existingFiles.put(dataPath, hash);
-                filesWritten++;
-            }
-            return dataPath;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    private <T extends SerializedDataBase, U> boolean writeDirtyDataToFile(List<U> dirtyData, Function<U, T> getId, Function<U, Long> idToLong, Path path) {
-        final long millis = System.currentTimeMillis();
-        while (!dirtyData.isEmpty()) {
-            final U id = dirtyData.remove(0);
-            final T data = getId.apply(id);
-            if (data != null) {
-                final Path newPath = writeMessagePackToFile(data, idToLong.apply(id), path);
-                if (newPath != null) {
-                    checkFilesToDelete.remove(newPath);
-                }
-            }
-            if (System.currentTimeMillis() - millis >= 2) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private static int getHash(SerializedDataBase data, boolean useReducedHash) {
-        try {
-            final MessageBufferPacker messageBufferPacker = MessagePack.newDefaultBufferPacker();
-            if (useReducedHash && data instanceof IReducedSaveData) {
-                messageBufferPacker.packMapHeader(((IReducedSaveData) data).reducedMessagePackLength());
-                ((IReducedSaveData) data).toReducedMessagePack(messageBufferPacker);
-            } else {
-                messageBufferPacker.packMapHeader(data.messagePackLength());
-                data.toMessagePack(messageBufferPacker);
-            }
-            final int hash = Arrays.hashCode(messageBufferPacker.toByteArray());
-            messageBufferPacker.close();
-            return hash;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
     }
 
     private static class RigidCatenaryEntry extends SerializedDataBase {

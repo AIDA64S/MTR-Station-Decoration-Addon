@@ -12,12 +12,12 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import top.mcmtr.data.CatenaryData;
 import top.mcmtr.data.RigidCatenaryData;
+import top.mcmtr.data.TransCatenaryData;
 import top.mcmtr.packet.MSDPacketTrainDataGuiServer;
 
 import java.util.function.BiConsumer;
 
-import static top.mcmtr.packet.MSDPacket.PACKET_CUSTOM_TEXT_SIGN_UPDATE;
-import static top.mcmtr.packet.MSDPacket.PACKET_YAMANOTE_SIGN_TYPES;
+import static top.mcmtr.packet.MSDPacket.*;
 
 public class MSDMain {
     public static final String MOD_ID = "msd";
@@ -37,6 +37,9 @@ public class MSDMain {
         registerItem.accept("rigid_catenary_remover", MSDItems.RIGID_CATENARY_REMOVER);
         registerItem.accept("rigid_soft_catenary_connector", MSDItems.RIGID_SOFT_CATENARY_CONNECTOR);
         registerItem.accept("model_change_stick", MSDItems.MODEL_CHANGE_STICK);
+        registerItem.accept("trans_catenary_connector", MSDItems.TRANS_CATENARY_CONNECTOR);
+        registerItem.accept("trans_catenary_remover", MSDItems.TRANS_CATENARY_REMOVER);
+        registerItem.accept("trans_electric_connector", MSDItems.TRANS_ELECTRIC_CONNECTOR);
 
         registerBlockItem.accept("decoration_stair", MSDBlocks.DECORATION_STAIR, MSDCreativeModeTabs.MSD_Station_Decoration);
         registerBlockItem.accept("railing_stair_start", MSDBlocks.RAILING_STAIR_START, MSDCreativeModeTabs.MSD_Station_Decoration);
@@ -105,6 +108,7 @@ public class MSDMain {
         registerBlockItem.accept("yuuni_standing_sign", MSDBlocks.STANDING_SIGN, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("yuuni_standing_sign_pole", MSDBlocks.STANDING_SIGN_POLE, MSDCreativeModeTabs.MSD_BLOCKS);
         registerBlockItem.accept("yuuni_standing_sign_1", MSDBlocks.STANDING_SIGN_1, MSDCreativeModeTabs.MSD_BLOCKS);
+        registerBlockItem.accept("trans_catenary_node", MSDBlocks.TRANS_CATENARY_NODE, MSDCreativeModeTabs.MSD_BLOCKS);
 
         registerBlock.accept("yamanote_railway_sign_middle", MSDBlocks.YAMANOTE_RAILWAY_SIGN_MIDDLE);
 
@@ -128,18 +132,29 @@ public class MSDMain {
         registerBlockEntityType.accept("yamanote_railway_sign_7_odd", MSDBlockEntityTypes.YAMANOTE_RAILWAY_SIGN_7_ODD_TILE_ENTITY);
         registerBlockEntityType.accept("yuuni_standing_sign", MSDBlockEntityTypes.STANDING_SIGN_TILE_ENTITY);
         registerBlockEntityType.accept("yuuni_standing_sign_1", MSDBlockEntityTypes.STANDING_SIGN_1_TILE_ENTITY);
+        registerBlockEntityType.accept("trans_catenary_node", MSDBlockEntityTypes.BLOCK_TRANS_CATENARY_NODE_ENTITY);
+        registerBlockEntityType.accept("catenary_node", MSDBlockEntityTypes.BLOCK_CATENARY_NODE_ENTITY);
+        registerBlockEntityType.accept("catenary_node_style_2", MSDBlockEntityTypes.BLOCK_CATENARY_NODE_STYLE_2_ENTITY);
+        registerBlockEntityType.accept("short_catenary_node", MSDBlockEntityTypes.BLOCK_SHORT_CATENARY_NODE_ENTITY);
+        registerBlockEntityType.accept("short_catenary_node_style_2", MSDBlockEntityTypes.BLOCK_SHORT_CATENARY_NODE_STYLE_2_ENTITY);
+        registerBlockEntityType.accept("electric_node", MSDBlockEntityTypes.BLOCK_ELECTRIC_NODE_ENTITY);
 
         Registry.registerNetworkReceiver(PACKET_YAMANOTE_SIGN_TYPES, MSDPacketTrainDataGuiServer::receiveMSDSignIdsC2S);
         Registry.registerNetworkReceiver(PACKET_CUSTOM_TEXT_SIGN_UPDATE, MSDPacketTrainDataGuiServer::receiveCustomTextSignMessageC2S);
+        Registry.registerNetworkReceiver(PACKET_BLOCK_NODE_POS_UPDATE, MSDPacketTrainDataGuiServer::receiveBlockNodeLocationC2S);
 
         Registry.registerTickEvent(minecraftServer -> minecraftServer.getAllLevels().forEach(serverLevel -> {
             final CatenaryData catenaryData = CatenaryData.getInstance(serverLevel);
             final RigidCatenaryData rigidCatenaryData = RigidCatenaryData.getInstance(serverLevel);
+            final TransCatenaryData transCatenaryData = TransCatenaryData.getInstance(serverLevel);
             if (catenaryData != null) {
                 catenaryData.simulateCatenaries();
             }
             if (rigidCatenaryData != null) {
                 rigidCatenaryData.simulateRigidCatenaries();
+            }
+            if (transCatenaryData != null) {
+                transCatenaryData.simulateTransCatenaries();
             }
         }));
         Registry.registerPlayerJoinEvent(player -> {
@@ -149,11 +164,15 @@ public class MSDMain {
         Registry.registerPlayerQuitEvent(player -> {
             final CatenaryData catenaryData = CatenaryData.getInstance(player.getLevel());
             final RigidCatenaryData rigidCatenaryData = RigidCatenaryData.getInstance(player.getLevel());
+            final TransCatenaryData transCatenaryData = TransCatenaryData.getInstance(player.getLevel());
             if (catenaryData != null) {
                 catenaryData.disconnectPlayer(player);
             }
             if (rigidCatenaryData != null) {
                 rigidCatenaryData.disconnectPlayer(player);
+            }
+            if(transCatenaryData != null) {
+                transCatenaryData.disconnectPlayer(player);
             }
         });
     }

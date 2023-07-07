@@ -52,6 +52,7 @@ public class MSDMainClient {
         RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.STANDING_SIGN.get());
         RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.STANDING_SIGN_POLE.get());
         RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.STANDING_SIGN_1.get());
+        RegistryClient.registerBlockRenderType(RenderType.cutout(), MSDBlocks.TRANS_CATENARY_NODE.get());
 
         RegistryClient.registerTileEntityRenderer(MSDBlockEntityTypes.YUUNI_PIDS_TILE_ENTITY.get(), dispatcher -> new RenderPIDS<>(dispatcher, 2, 2.5F, 7.5F, 6F, 6.5F, 27, true, false, PIDSType.PIDS, 0xFF9900, 0x33CC00, 1.25F, true));
         RegistryClient.registerTileEntityRenderer(MSDBlockEntityTypes.YUUNI_PIDS_2_TILE_ENTITY.get(), dispatcher -> new RenderPIDS<>(dispatcher, 1, 4F, 7.5F, 5.9F, 2.5F, 24, true, false, PIDSType.PIDS, 0xFF9900, 0xFFC0CB));
@@ -84,7 +85,11 @@ public class MSDMainClient {
         RegistryClient.registerNetworkReceiver(MSDPacket.PACKET_CREATE_RIGID_CATENARY, packet -> MSDPacketTrainDataGuiClient.createRigidCatenaryS2C(Minecraft.getInstance(), packet));
         RegistryClient.registerNetworkReceiver(MSDPacket.PACKET_REMOVE_RIGID_CATENARY, packet -> MSDPacketTrainDataGuiClient.removeRigidCatenaryConnectionS2C(Minecraft.getInstance(), packet));
         RegistryClient.registerNetworkReceiver(MSDPacket.PACKET_OPEN_CUSTOM_TEXT_SIGN_CONFIG_SCREEN, packet -> MSDPacketTrainDataGuiClient.openCustomTextSignConfigScreenS2C(Minecraft.getInstance(), packet));
-
+        RegistryClient.registerNetworkReceiver(MSDPacket.PACKET_OPEN_BLOCK_NODE_SCREEN, packet -> MSDPacketTrainDataGuiClient.openBlockNodeScreenS2C(Minecraft.getInstance(), packet));
+        RegistryClient.registerNetworkReceiver(MSDPacket.PACKET_WRITE_TRANS_CATENARY, packet -> MSDClientData.writeTransCatenaries(Minecraft.getInstance(), packet));
+        RegistryClient.registerNetworkReceiver(MSDPacket.PACKET_CREATE_TRANS_CATENARY, packet -> MSDPacketTrainDataGuiClient.createTransCatenaryS2C(Minecraft.getInstance(), packet));
+        RegistryClient.registerNetworkReceiver(MSDPacket.PACKET_REMOVE_TRANS_CATENARY, packet -> MSDPacketTrainDataGuiClient.removeTransCatenaryConnectionS2C(Minecraft.getInstance(), packet));
+        RegistryClient.registerNetworkReceiver(MSDPacket.PACKET_REMOVE_TRANS_CATENARY_NODE, packet -> MSDPacketTrainDataGuiClient.removeTransCatenaryNodeS2C(Minecraft.getInstance(), packet));
         Config.refreshProperties();
     }
 
@@ -95,5 +100,8 @@ public class MSDMainClient {
         RegistryClient.registerItemModelPredicate(MSDMain.MOD_ID + ":selected", MSDItems.RIGID_CATENARY_CONNECTOR.get(), ItemMSDBlockClickingBase.TAG_POS);
         RegistryClient.registerItemModelPredicate(MSDMain.MOD_ID + ":selected", MSDItems.RIGID_CATENARY_REMOVER.get(), ItemMSDBlockClickingBase.TAG_POS);
         RegistryClient.registerItemModelPredicate(MSDMain.MOD_ID + ":selected", MSDItems.RIGID_SOFT_CATENARY_CONNECTOR.get(), ItemMSDBlockClickingBase.TAG_POS);
+        RegistryClient.registerItemModelPredicate(MSDMain.MOD_ID + ":selected", MSDItems.TRANS_CATENARY_CONNECTOR.get(),ItemMSDBlockClickingBase.TAG_POS);
+        RegistryClient.registerItemModelPredicate(MSDMain.MOD_ID + ":selected", MSDItems.TRANS_CATENARY_REMOVER.get(),ItemMSDBlockClickingBase.TAG_POS);
+        RegistryClient.registerItemModelPredicate(MSDMain.MOD_ID + ":selected", MSDItems.TRANS_ELECTRIC_CONNECTOR.get(), ItemMSDBlockClickingBase.TAG_POS);
     }
 }

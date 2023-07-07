@@ -7,7 +7,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import top.mcmtr.MSDCreativeModeTabs;
-import top.mcmtr.blocks.BlockCatenaryNode;
+import top.mcmtr.blocks.BlockNodeBase;
 import top.mcmtr.blocks.BlockRigidCatenaryNode;
 import top.mcmtr.data.Catenary;
 import top.mcmtr.data.CatenaryData;
@@ -41,7 +41,7 @@ public class ItemCatenaryModifier extends ItemMSDBlockClickingBase {
         final BlockPos posStart = context.getClickedPos();
         final BlockState stateStart = world.getBlockState(posStart);
         final BlockState stateEnd = world.getBlockState(posEnd);
-        if (catenaryData != null && (stateEnd.getBlock() instanceof BlockCatenaryNode || stateEnd.getBlock() instanceof BlockRigidCatenaryNode)) {
+        if (catenaryData != null && (stateEnd.getBlock() instanceof BlockNodeBase || stateEnd.getBlock() instanceof BlockRigidCatenaryNode)) {
             if (isConnector) {
                 if (!posStart.equals(posEnd)) {
                     onConnect(world, stateStart, stateEnd, posStart, posEnd, catenaryData);
@@ -56,7 +56,7 @@ public class ItemCatenaryModifier extends ItemMSDBlockClickingBase {
     protected boolean clickCondition(UseOnContext context) {
         final Level world = context.getLevel();
         final Block blockStart = world.getBlockState(context.getClickedPos()).getBlock();
-        return blockStart instanceof BlockCatenaryNode || blockStart instanceof BlockRigidCatenaryNode;
+        return blockStart instanceof BlockNodeBase || blockStart instanceof BlockRigidCatenaryNode;
     }
 
     private void onConnect(Level world, BlockState stateStart, BlockState stateEnd, BlockPos posStart, BlockPos posEnd, CatenaryData catenaryData) {
@@ -66,13 +66,13 @@ public class ItemCatenaryModifier extends ItemMSDBlockClickingBase {
             return;
         }
         catenaryData.addCatenary(posEnd, posStart, catenary2);
-        if (stateStart.getBlock() instanceof BlockCatenaryNode) {
-            world.setBlockAndUpdate(posStart, stateStart.setValue(BlockCatenaryNode.IS_CONNECTED, true));
+        if (stateStart.getBlock() instanceof BlockNodeBase) {
+            world.setBlockAndUpdate(posStart, stateStart.setValue(BlockNodeBase.IS_CONNECTED, true));
         } else {
             world.setBlockAndUpdate(posStart, stateStart.setValue(BlockRigidCatenaryNode.IS_CONNECTED, true));
         }
-        if (stateEnd.getBlock() instanceof BlockCatenaryNode) {
-            world.setBlockAndUpdate(posEnd, stateEnd.setValue(BlockCatenaryNode.IS_CONNECTED, true));
+        if (stateEnd.getBlock() instanceof BlockNodeBase) {
+            world.setBlockAndUpdate(posEnd, stateEnd.setValue(BlockNodeBase.IS_CONNECTED, true));
         } else {
             world.setBlockAndUpdate(posEnd, stateEnd.setValue(BlockRigidCatenaryNode.IS_CONNECTED, true));
         }

@@ -2,8 +2,6 @@ package top.mcmtr.data;
 
 import io.netty.buffer.Unpooled;
 import mtr.Registry;
-import mtr.data.SerializedDataBase;
-import mtr.mappings.PersistentStateMapper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -16,61 +14,29 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.LevelResource;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import org.msgpack.core.MessagePacker;
-import org.msgpack.value.Value;
-import top.mcmtr.blocks.BlockCatenaryNode;
+import top.mcmtr.blocks.BlockNodeBase;
 import top.mcmtr.blocks.BlockRigidCatenaryNode;
 import top.mcmtr.packet.MSDPacket;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.*;
 
 import static mtr.packet.IPacket.MAX_PACKET_BYTES;
 
-public class CatenaryData extends PersistentStateMapper {
-    private final Level world;
+public class CatenaryData extends LineDataBase {
+    private static final int CATENARY_UPDATE_DISTANCE = 128;
+    private static final int PLAYER_MOVE_UPDATE_THRESHOLD = 16;
+    private static final String NAME = "msd_catenary_data";
     private final Map<BlockPos, Map<BlockPos, Catenary>> catenaries = new HashMap<>();
     private final CatenaryDataFileSaveModule catenaryDataFileSaveModule;
-    private static final String NAME = "msd_catenary_data";
-    private static final String KEY_CATENARIES = "catenaries";
-    private static final int CATENARY_UPDATE_DISTANCE = 128;
     private final Map<Player, BlockPos> playerLastUpdatedPositions = new HashMap<>();
-    private static final int PLAYER_MOVE_UPDATE_THRESHOLD = 16;
 
     public CatenaryData(Level world) {
-        super(NAME);
-        this.world = world;
+        super(NAME, world);
         final ResourceLocation dimensionLocation = world.dimension().location();
         final Path savePath = ((ServerLevel) world).getServer().getWorldPath(LevelResource.ROOT).resolve("msd").resolve(dimensionLocation.getNamespace()).resolve(dimensionLocation.getPath());
-        catenaryDataFileSaveModule = new CatenaryDataFileSaveModule(this, world, catenaries, savePath);
-    }
-
-    @Override
-    public void load(CompoundTag compoundTag) {
-        try {
-            final CompoundTag tagNewCatenaries = compoundTag.getCompound(KEY_CATENARIES);
-            for (final String key : tagNewCatenaries.getAllKeys()) {
-                final CatenaryEntry catenaryEntry = new CatenaryEntry(tagNewCatenaries.getCompound(key));
-                catenaries.put(catenaryEntry.pos, catenaryEntry.connections);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        catenaryDataFileSaveModule.load();
-    }
-
-    @Override
-    public void save(File file) {
-        final MinecraftServer minecraftServer = ((ServerLevel) world).getServer();
-        if (minecraftServer.isStopped() || !minecraftServer.isRunning()) {
-            catenaryDataFileSaveModule.fullSave();
-        } else {
-            catenaryDataFileSaveModule.autoSave();
-        }
-        setDirty();
-        super.save(file);
+        catenaryDataFileSaveModule = new CatenaryDataFileSaveModule(world, catenaries, savePath);
     }
 
     public void simulateCatenaries() {
@@ -83,9 +49,24 @@ public class CatenaryData extends PersistentStateMapper {
                 catenaries.forEach((startPos, blockPosCatenaryMap) -> blockPosCatenaryMap.forEach((endPos, catenary) -> {
                     if (new AABB(startPos, endPos).inflate(CATENARY_UPDATE_DISTANCE).contains(playerPos)) {
                         if (!catenariesToAdd.containsKey(startPos)) {
-                            catenariesToAdd.put(startPos, new HashMap<>());
+                            if (!catenariesToAdd.containsKey(endPos)) {
+                                catenariesToAdd.put(startPos, new HashMap<>());
+                                catenariesToAdd.get(startPos).put(endPos, catenary);
+                            } else {
+                                if (!catenariesToAdd.get(endPos).containsKey(startPos)) {
+                                    catenariesToAdd.put(startPos, new HashMap<>());
+                                    catenariesToAdd.get(startPos).put(endPos, catenary);
+                                }
+                            }
+                        } else {
+                            if (!catenariesToAdd.containsKey(endPos)) {
+                                catenariesToAdd.get(startPos).put(endPos, catenary);
+                            } else {
+                                if (!catenariesToAdd.get(endPos).containsKey(startPos)) {
+                                    catenariesToAdd.get(startPos).put(endPos, catenary);
+                                }
+                            }
                         }
-                        catenariesToAdd.get(startPos).put(endPos, catenary);
                     }
                 }));
                 final FriendlyByteBuf packet = new FriendlyByteBuf(Unpooled.buffer());
@@ -107,6 +88,10 @@ public class CatenaryData extends PersistentStateMapper {
         catenaryDataFileSaveModule.autoSaveTick();
     }
 
+    public static CatenaryData getInstance(Level world) {
+        return getInstance(world, () -> new CatenaryData(world), NAME);
+    }
+
     public void disconnectPlayer(Player player) {
         playerLastUpdatedPositions.remove(player);
     }
@@ -125,7 +110,7 @@ public class CatenaryData extends PersistentStateMapper {
 
     public static boolean addCatenary(Map<BlockPos, Map<BlockPos, Catenary>> catenaries, BlockPos posStart, BlockPos posEnd, Catenary catenary) {
         try {
-            if (posStart.getX() == posEnd.getX() && posStart.getY() == posEnd.getY() && posStart.getZ() == posEnd.getZ()) {
+            if (checkPosEquals(posStart, posEnd)) {
                 return false;
             }
             if (!catenaries.containsKey(posStart)) {
@@ -148,8 +133,8 @@ public class CatenaryData extends PersistentStateMapper {
             catenaries.forEach((startPos, catenaryMap) -> {
                 catenaryMap.remove(pos);
                 if (catenaryMap.isEmpty() && world != null) {
-                    BlockCatenaryNode.resetCatenaryNode(world, pos);
-                    BlockRigidCatenaryNode.resetRigidCatenaryNode(world, pos);
+                    BlockNodeBase.resetNode(world, startPos);
+                    BlockRigidCatenaryNode.resetNode(world, startPos);
                 }
             });
             if (world != null) {
@@ -165,15 +150,15 @@ public class CatenaryData extends PersistentStateMapper {
             if (catenaries.containsKey(pos1)) {
                 catenaries.get(pos1).remove(pos2);
                 if (catenaries.get(pos1).isEmpty() && world != null) {
-                    BlockCatenaryNode.resetCatenaryNode(world, pos1);
-                    BlockRigidCatenaryNode.resetRigidCatenaryNode(world, pos1);
+                    BlockNodeBase.resetNode(world, pos1);
+                    BlockRigidCatenaryNode.resetNode(world, pos1);
                 }
             }
             if (catenaries.containsKey(pos2)) {
                 catenaries.get(pos2).remove(pos1);
                 if (catenaries.get(pos2).isEmpty() && world != null) {
-                    BlockCatenaryNode.resetCatenaryNode(world, pos2);
-                    BlockRigidCatenaryNode.resetRigidCatenaryNode(world, pos2);
+                    BlockNodeBase.resetNode(world, pos2);
+                    BlockRigidCatenaryNode.resetNode(world, pos2);
                 }
             }
             if (world != null) {
@@ -185,23 +170,20 @@ public class CatenaryData extends PersistentStateMapper {
     }
 
     @Override
-    public CompoundTag save(CompoundTag compoundTag) {
-        return compoundTag;
+    public void load(CompoundTag compoundTag) {
+        catenaryDataFileSaveModule.load();
     }
 
-    public static Map<String, Value> castMessagePackValueToSKMap(Value value) {
-        final Map<Value, Value> oldMap = value == null ? new HashMap<>() : value.asMapValue().map();
-        final HashMap<String, Value> resultMap = new HashMap<>(oldMap.size());
-        oldMap.forEach((key, newValue) -> resultMap.put(key.asStringValue().asString(), newValue));
-        return resultMap;
-    }
-
-    public static boolean chunkLoaded(Level world, BlockPos pos) {
-        return world.getChunkSource().getChunkNow(pos.getX() / 16, pos.getZ() / 16) != null && world.hasChunk(pos.getX() / 16, pos.getZ() / 16);
-    }
-
-    public static CatenaryData getInstance(Level world) {
-        return getInstance(world, () -> new CatenaryData(world), NAME);
+    @Override
+    public void save(File file) {
+        final MinecraftServer minecraftServer = ((ServerLevel) world).getServer();
+        if (minecraftServer.isStopped() || !minecraftServer.isRunning()) {
+            catenaryDataFileSaveModule.fullSave();
+        } else {
+            catenaryDataFileSaveModule.autoSave();
+        }
+        setDirty();
+        super.save(file);
     }
 
     private static void validateCatenaries(Level world, Map<BlockPos, Map<BlockPos, Catenary>> catenaries) {
@@ -209,7 +191,7 @@ public class CatenaryData extends PersistentStateMapper {
         final Set<BlockPos> catenariesNodesToRemove = new HashSet<>();
         catenaries.forEach((startPos, catenaryMap) -> {
             final boolean chunkLoaded = chunkLoaded(world, startPos);
-            if (chunkLoaded && !((world.getBlockState(startPos).getBlock() instanceof BlockCatenaryNode) || (world.getBlockState(startPos).getBlock() instanceof BlockRigidCatenaryNode))) {
+            if (chunkLoaded && !((world.getBlockState(startPos).getBlock() instanceof BlockNodeBase) || (world.getBlockState(startPos).getBlock() instanceof BlockRigidCatenaryNode))) {
                 catenariesNodesToRemove.add(startPos);
             }
             if (catenaryMap.isEmpty()) {
@@ -218,43 +200,5 @@ public class CatenaryData extends PersistentStateMapper {
         });
         catenariesToRemove.forEach(catenaries::remove);
         catenariesNodesToRemove.forEach(pos -> removeCatenaryNode(null, catenaries, pos));
-    }
-
-    @Deprecated
-    private static class CatenaryEntry extends SerializedDataBase {
-        public final BlockPos pos;
-        public final Map<BlockPos, Catenary> connections;
-        private static final String KEY_NODE_POS = "catenary_node_pos";
-        private static final String KEY_CATENARY_CONNECTIONS = "catenary_connections";
-
-        public CatenaryEntry(CompoundTag compoundTag) {
-            this.pos = BlockPos.of(compoundTag.getLong(KEY_NODE_POS));
-            this.connections = new HashMap<>();
-            final CompoundTag tagConnections = compoundTag.getCompound(KEY_CATENARY_CONNECTIONS);
-            for (final String keyConnection : tagConnections.getAllKeys()) {
-                connections.put(BlockPos.of(tagConnections.getCompound(keyConnection).getLong(KEY_NODE_POS)), new Catenary(tagConnections.getCompound(keyConnection)));
-            }
-        }
-
-        @Override
-        public void toMessagePack(MessagePacker messagePacker) throws IOException {
-            messagePacker.packString(KEY_NODE_POS).packLong(pos.asLong());
-            messagePacker.packString(KEY_CATENARY_CONNECTIONS).packArrayHeader(connections.size());
-            for (final Map.Entry<BlockPos, Catenary> entry : connections.entrySet()) {
-                final BlockPos endNodePos = entry.getKey();
-                messagePacker.packMapHeader(entry.getValue().messagePackLength() + 1);
-                messagePacker.packString(KEY_NODE_POS).packLong(endNodePos.asLong());
-                entry.getValue().toMessagePack(messagePacker);
-            }
-        }
-
-        @Override
-        public int messagePackLength() {
-            return 2;
-        }
-
-        @Override
-        public void writePacket(FriendlyByteBuf packet) {
-        }
     }
 }

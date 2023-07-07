@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "msd:item/trans_electric_connector",
+    "layer1": "msd:item/catenary_selected"
+  }
+}
