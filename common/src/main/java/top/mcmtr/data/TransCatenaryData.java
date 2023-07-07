@@ -29,7 +29,6 @@ public class TransCatenaryData extends LineDataBase {
     private static final String NAME = "msd_trans_catenary_data";
     private final Map<BlockPos, Map<BlockPos, TransCatenary>> catenaries = new HashMap<>();
     private final TransCatenaryDataFileSaveModule transCatenaryDataFileSaveModule;
-    private final Map<Player, BlockPos> playerLastUpdatedPositions = new HashMap<>();
 
     private TransCatenaryData(Level world) {
         super(NAME, world);

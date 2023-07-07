@@ -30,7 +30,6 @@ public class CatenaryData extends LineDataBase {
     private static final String NAME = "msd_catenary_data";
     private final Map<BlockPos, Map<BlockPos, Catenary>> catenaries = new HashMap<>();
     private final CatenaryDataFileSaveModule catenaryDataFileSaveModule;
-    private final Map<Player, BlockPos> playerLastUpdatedPositions = new HashMap<>();
 
     public CatenaryData(Level world) {
         super(NAME, world);
