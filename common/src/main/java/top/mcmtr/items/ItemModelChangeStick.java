@@ -17,6 +17,9 @@ public class ItemModelChangeStick extends ItemWithCreativeTabBase {
         super(MSDCreativeModeTabs.MSD_Station_Decoration, properties -> properties.stacksTo(1));
     }
 
+    /**
+     * 首先检查用户所在世界是否是客户端侧，之后通过检查手部物品，之后获取所点击方块的属性，并将其+1以实现属性变更。
+     */
     @Override
     public InteractionResult useOn(UseOnContext useOnContext) {
         final Level world = useOnContext.getLevel();

@@ -16,6 +16,9 @@ public abstract class ItemMSDBlockClickingBase extends ItemWithCreativeTabBase {
         super(creativeModeTab, propertiesConsumer);
     }
 
+    /**
+     * 首先检测是否为客户端侧，之后检查手中物品存储信息的上下文，如果是第一个点则存储，如果是第二个点则和第一个点构成一条线，完成连接任务后就删除这些信息以供下一次使用
+     */
     @Override
     public InteractionResult useOn(UseOnContext context) {
         if (!context.getLevel().isClientSide) {
@@ -38,9 +41,18 @@ public abstract class ItemMSDBlockClickingBase extends ItemWithCreativeTabBase {
         }
     }
 
+    /**
+     * 第一次点击时的操作
+     */
     protected abstract void onStartClick(UseOnContext context, CompoundTag compoundTag);
 
+    /**
+     * 第二次点击时的操作
+     */
     protected abstract void onEndClick(UseOnContext context, BlockPos posEnd, CompoundTag compoundTag);
 
+    /**
+     * 点击操作具体内容
+     */
     protected abstract boolean clickCondition(UseOnContext context);
 }
