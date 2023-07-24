@@ -8,6 +8,7 @@ import top.mcmtr.blocks.*;
 
 public interface MSDBlocks {
     RegistryObject<Block> DECORATION_STAIR = new RegistryObject<>(BlockStair::new);
+    RegistryObject<Block> DECORATION_FLOOR = new RegistryObject<>(BlockFloor::new);
     RegistryObject<Block> RAILING_STAIR_START = new RegistryObject<>(() -> new BlockRailingStair(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
     RegistryObject<Block> RAILING_STAIR = new RegistryObject<>(() -> new BlockRailingStair(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
     RegistryObject<Block> RAILING_STAIR_END = new RegistryObject<>(() -> new BlockRailingStair(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F)));
