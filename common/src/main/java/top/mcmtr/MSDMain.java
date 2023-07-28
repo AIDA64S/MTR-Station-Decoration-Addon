@@ -42,6 +42,7 @@ public class MSDMain {
         registerItem.accept("trans_electric_connector", MSDItems.TRANS_ELECTRIC_CONNECTOR);
 
         registerBlockItem.accept("decoration_stair", MSDBlocks.DECORATION_STAIR, MSDCreativeModeTabs.MSD_Station_Decoration);
+        registerBlockItem.accept("decoration_floor", MSDBlocks.DECORATION_FLOOR, MSDCreativeModeTabs.MSD_Station_Decoration);
         registerBlockItem.accept("railing_stair_start", MSDBlocks.RAILING_STAIR_START, MSDCreativeModeTabs.MSD_Station_Decoration);
         registerBlockItem.accept("railing_stair", MSDBlocks.RAILING_STAIR, MSDCreativeModeTabs.MSD_Station_Decoration);
         registerBlockItem.accept("railing_stair_end", MSDBlocks.RAILING_STAIR_END, MSDCreativeModeTabs.MSD_Station_Decoration);

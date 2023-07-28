@@ -30,7 +30,6 @@ public class CatenaryData extends LineDataBase {
     private static final String NAME = "msd_catenary_data";
     private final Map<BlockPos, Map<BlockPos, Catenary>> catenaries = new HashMap<>();
     private final CatenaryDataFileSaveModule catenaryDataFileSaveModule;
-    private final Map<Player, BlockPos> playerLastUpdatedPositions = new HashMap<>();
 
     public CatenaryData(Level world) {
         super(NAME, world);
@@ -39,6 +38,9 @@ public class CatenaryData extends LineDataBase {
         catenaryDataFileSaveModule = new CatenaryDataFileSaveModule(world, catenaries, savePath);
     }
 
+    /**
+     * 此方法会被按照Tick调用，用于将用户设定的视野范围内的本地数据同步到客户端需要渲染的一侧
+     * */
     public void simulateCatenaries() {
         final List<? extends Player> players = world.players();
         players.forEach(player -> {

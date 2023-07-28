@@ -4,9 +4,7 @@ import mtr.data.EnumHelper;
 import mtr.data.MessagePackHelper;
 import mtr.data.SerializedDataBase;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.phys.Vec3;
 import org.msgpack.core.MessagePacker;
 import org.msgpack.value.Value;
 
@@ -30,6 +28,10 @@ public class Catenary extends SerializedDataBase {
     private static final String KEY_Z_END = "c_z_end";
     private static final String KEY_CATENARY_TYPE = "catenary_type";
 
+    /**
+     * 当创建一个接触网时，该对象会被实例化，此构造方法会被调用，通过获取接触网的两点信息构建一条线，并通过计算获取到需要渲染的每一小段贴图的四个XYZ坐标，并将这写数据存储
+     * 此后需要渲染时，直接从数组中取出进行遍历获取坐标。
+     */
     public Catenary(BlockPos posStart, BlockPos posEnd, CatenaryType catenaryType) {
         this.xStart = posStart.getX();
         this.yStart = posStart.getY();
@@ -50,6 +52,9 @@ public class Catenary extends SerializedDataBase {
         }
     }
 
+    /**
+     * 从HashMap(本地文件)中构建接触网
+     */
     public Catenary(Map<String, Value> map) {
         final MessagePackHelper messagePackHelper = new MessagePackHelper(map);
         this.xStart = messagePackHelper.getInt(KEY_X_START);
@@ -71,6 +76,9 @@ public class Catenary extends SerializedDataBase {
         }
     }
 
+    /**
+     * 用于Client2Service/Service2Client交互使用
+     */
     public Catenary(FriendlyByteBuf packet) {
         this.xStart = packet.readInt();
         this.yStart = packet.readInt();
@@ -91,6 +99,9 @@ public class Catenary extends SerializedDataBase {
         }
     }
 
+    /**
+     * 将接触网信息写入本地文件
+     */
     @Override
     public void toMessagePack(MessagePacker messagePacker) throws IOException {
         messagePacker.packString(KEY_X_START).packInt(xStart);
@@ -107,6 +118,9 @@ public class Catenary extends SerializedDataBase {
         return 7;
     }
 
+    /**
+     * 用于Client2Service/Service2Client交互使用
+     */
     @Override
     public void writePacket(FriendlyByteBuf packet) {
         packet.writeInt(xStart);
@@ -118,6 +132,9 @@ public class Catenary extends SerializedDataBase {
         packet.writeUtf(catenaryType.toString());
     }
 
+    /**
+     * 渲染
+     */
     public void render(RenderCatenary callback) {
         renderSegment(callback);
     }

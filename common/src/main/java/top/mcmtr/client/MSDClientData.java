@@ -15,6 +15,9 @@ public class MSDClientData {
     public static final Map<BlockPos, Map<BlockPos, RigidCatenary>> RIGID_CATENARIES = new HashMap<>();
     public static final Map<BlockPos, Map<BlockPos, TransCatenary>> TRANS_CATENARIES = new HashMap<>();
 
+    /**
+     * 上文:此前会检测玩家位置，之后将玩家视野范围之内的接触网信息通过此方法写入到常量Map，用于渲染器循环遍历读取。
+     */
     public static void writeCatenaries(Minecraft client, FriendlyByteBuf packet) {
         final Map<BlockPos, Map<BlockPos, Catenary>> catenariesTemp = new HashMap<>();
         final int catenariesCount = packet.readInt();

@@ -12,6 +12,7 @@ import java.util.Map;
 
 public abstract class LineDataBase extends PersistentStateMapper {
     protected final Level world;
+    protected final Map<Player, BlockPos> playerLastUpdatedPositions = new HashMap<>();
 
     public LineDataBase(String name, Level world) {
         super(name);

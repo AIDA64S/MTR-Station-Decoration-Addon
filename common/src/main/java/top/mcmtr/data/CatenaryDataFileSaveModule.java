@@ -17,6 +17,9 @@ import java.util.Map;
 public class CatenaryDataFileSaveModule extends DataModuleBase {
     private final Map<BlockPos, Map<BlockPos, Catenary>> catenaries;
 
+    /**
+     * 文件存储到世界，并创建初始路径
+     * */
     public CatenaryDataFileSaveModule(Level world, Map<BlockPos, Map<BlockPos, Catenary>> catenaries, Path savePath) {
         super(savePath.resolve("catenaries"), world);
         this.catenaries = catenaries;
@@ -27,6 +30,9 @@ public class CatenaryDataFileSaveModule extends DataModuleBase {
         }
     }
 
+    /**
+     * 从文件中加载数据
+     * */
     public void load() {
         existingFiles.clear();
         readMessagePackFromFile(filePath, CatenaryEntry::new, catenaryEntry -> catenaries.put(catenaryEntry.pos, catenaryEntry.connections));
@@ -76,6 +82,9 @@ public class CatenaryDataFileSaveModule extends DataModuleBase {
         }
     }
 
+    /**
+     * 接触网存储本地及读取的入口
+     * */
     private static class CatenaryEntry extends SerializedDataBase {
         public final BlockPos pos;
         public final Map<BlockPos, Catenary> connections;
