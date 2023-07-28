@@ -12,7 +12,7 @@ jobs:
   build:
     strategy:
       matrix:
-        minecraft: [ 1.16.5, 1.17.1, 1.18.2, 1.19.2, 1.19.3, 1.19.4 ]
+        minecraft: [ 1.16.5, 1.17.1, 1.18.2, 1.19.2, 1.19.3, 1.19.4, 1.20.1 ]
         loader: [ fabric, forge ]
     runs-on: ubuntu-latest
     steps:
@@ -27,8 +27,6 @@ jobs:
           java-version: 17
       - name: Make gradle wrapper executable
         run: chmod +x ./gradlew
-      - name: Setup ${{ matrix.minecraft }} ${{ matrix.loader }}
-        run: ./gradlew setupLibrary -PbuildVersion="${{ matrix.minecraft }}"
       - name: Build ${{ matrix.minecraft }} ${{ matrix.loader }}
         run: ./gradlew ${{ matrix.loader }}:build -PbuildVersion="${{ matrix.minecraft }}"
       - name: Capture release artifacts

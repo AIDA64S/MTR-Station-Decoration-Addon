@@ -2,23 +2,25 @@ import groovy.json.JsonSlurper
 import org.apache.tools.ant.filters.ReplaceTokens
 
 plugins {
-    id "architectury-plugin" version "3.4-SNAPSHOT"
-    id "dev.architectury.loom" version "1.1-SNAPSHOT" apply false
-    id "de.undercouch.download" version "4.1.2"
-    id "com.github.johnrengelman.shadow" version "7.1.0"
+    id "java"
+    id "architectury-plugin" version "+"
+    id "de.undercouch.download" version "+"
+    id "dev.architectury.loom" version "+" apply false
+    id "com.github.johnrengelman.shadow" version "+" apply false
 }
 
-String default_minecraft_version = "1.16.5"
-String minecraft_version = rootProject.properties.containsKey("buildVersion") ? rootProject.getProperties().get("buildVersion") : default_minecraft_version
-int minecraft_main_version = minecraft_version.split("\\.")[1] as int
+def default_minecraft_version = "1.20.1"
+def minecraft_version = rootProject.properties.containsKey("buildVersion") ? rootProject.getProperties().get("buildVersion").toString() : default_minecraft_version
+def minecraft_main_version = minecraft_version.split("\\.")[1] as int
 def is_1_19_3 = minecraft_version == "1.19.3" || minecraft_version == "1.19.4"
+def is_1_20_1 = minecraft_version == "1.20.1"
 
-rootProject.ext.fabric_loader_version = new JsonSlurper().parse(("https://meta.fabricmc.net/v2/versions/loader/" + minecraft_version).toURL())[0]["loader"]["version"]
-rootProject.ext.forge_version = minecraft_version + "-" + new JsonSlurper().parse(("https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json").toURL())["promos"][minecraft_version + "-latest"]
-rootProject.ext.fabric_api_version = getModrinthVersion("fabric", minecraft_version, "fabric-api")
-rootProject.ext.architectury_version = getModrinthVersion("forge", minecraft_version, "architectury-api").split("\\+")[0]
+rootProject.ext.fabric_loader_version = [minecraft_version, getJson("https://meta.fabricmc.net/v2/versions/loader/" + minecraft_version)[0]["loader"]["version"]]
+rootProject.ext.forge_version = minecraft_version + "-" + getJson("https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json")["promos"][minecraft_version + "-latest"]
+rootProject.ext.fabric_api_data = getModrinthData("fabric", minecraft_version, "fabric-api")
+rootProject.ext.mod_menu_data = getModrinthData("fabric", minecraft_version, "modmenu")
+rootProject.ext.architectury_data = getModrinthData("forge", minecraft_version, "architectury-api")
 rootProject.ext.architectury_id = minecraft_main_version == 16 ? "me.shedaniel" : "dev.architectury"
-rootProject.ext.mod_menu_version = getModrinthVersion("fabric", minecraft_version, "modmenu")
 
 architectury {
     minecraft = minecraft_version
@@ -26,6 +28,7 @@ architectury {
 
 subprojects {
     apply plugin: "dev.architectury.loom"
+    apply plugin: "com.github.johnrengelman.shadow"
 
     loom {
         silentMojangMappingsLicense()
@@ -41,45 +44,50 @@ subprojects {
     dependencies {
         minecraft "com.mojang:minecraft:${minecraft_version}"
         mappings loom.officialMojangMappings()
-        implementation files("../checkouts/mtr-common.jar")
-        implementation "org.msgpack:msgpack-core:${rootProject.messagepack_version}"
+        implementation "org.msgpack:msgpack-core:+"
+        implementation "com.github.jonafanho:Minecraft-Mod-API-Tools:${rootProject.minecraft_mod_api_tools_version}"
         implementation "org.codehaus.groovy:groovy-json:3.0.9"
+        implementation files("../checkouts/mtr-common.jar")
+        shadowCommon "org.msgpack:msgpack-core:+"
     }
 }
 
-task setupLibrary() {
+tasks.register('setupLibrary') {
     doLast {
-        download {
-            src "https://www.minecrafttransitrailway.com/libs/${rootProject.mtr_version}/MTR-common-${minecraft_version}-${rootProject.mtr_version}-dev.jar"
+        String baseURL = is_1_20_1 ? "https://storage.zbx1425.cn/mtr-artifacts/libs/" : "https://www.minecrafttransitrailway.com/libs/"
+        download.run {
+            src "${baseURL}${rootProject.mtr_version}/MTR-common-${minecraft_version}-${rootProject.mtr_version}-dev.jar"
             dest "checkouts/mtr-common.jar"
             overwrite true
         }
 
-        download {
-            src "https://www.minecrafttransitrailway.com/libs/${rootProject.mtr_version}/MTR-fabric-${minecraft_version}-${rootProject.mtr_version}-dev-shadow.jar"
+        download.run {
+            src "${baseURL}${rootProject.mtr_version}/MTR-fabric-${minecraft_version}-${rootProject.mtr_version}-dev-shadow.jar"
             dest "checkouts/mtr-fabric.jar"
             overwrite true
         }
 
-        download {
-            src "https://www.minecrafttransitrailway.com/libs/${rootProject.mtr_version}/MTR-forge-${minecraft_version}-${rootProject.mtr_version}-dev-shadow.jar"
+        download.run {
+            src "${baseURL}${rootProject.mtr_version}/MTR-forge-${minecraft_version}-${rootProject.mtr_version}-dev-shadow.jar"
             dest "checkouts/mtr-forge.jar"
             overwrite true
         }
     }
 }
 
-task setupFiles() {
-    System.out.println("Fabric Loader: " + rootProject.fabric_loader_version)
+tasks.register("setupFiles") {
+    System.out.println("Fabric Loader: " + rootProject.fabric_loader_version[1])
     System.out.println("Forge: " + rootProject.forge_version)
-    System.out.println("Fabric API: " + rootProject.fabric_api_version)
-    System.out.println("Architectury: " + rootProject.architectury_version)
-    System.out.println("Mod Menu: " + rootProject.mod_menu_version)
+    System.out.println("Fabric API: " + rootProject.fabric_api_data[0])
+    System.out.println("Mod Menu: " + rootProject.mod_menu_data[0])
+    System.out.println("Architectury: " + rootProject.architectury_data[0].split("\\+")[0])
 
-    download {
-        src "https://github.com/jonafanho/Minecraft-Mappings/archive/refs/heads/${is_1_19_3 ? minecraft_version : "1." + minecraft_main_version}.zip"
+    String baseURL = is_1_20_1 ? "https://storage.zbx1425.cn/mtr-artifacts/Minecraft-Mappings/" : "https://github.com/jonafanho/Minecraft-Mappings/archive/refs/heads/"
+    download.run {
+        src "${baseURL}${is_1_19_3 ? minecraft_version : "1." + minecraft_main_version}.zip"
         dest "common/src/main/java/top/mcmtr/mappings/files.zip"
         overwrite true
+        retries - 1
     }
 
     copy {
@@ -117,31 +125,21 @@ task setupFiles() {
         into "build/latest"
         filter(ReplaceTokens, tokens: ["version": rootProject.mod_version])
     }
+
+    finalizedBy(setupLibrary)
 }
 
 allprojects {
     apply plugin: "architectury-plugin"
 
-    version = minecraft_version + "-" + project.mod_version
-    group = project.maven_group
+    version = minecraft_version + "-" + rootProject.mod_version
+    group = rootProject.maven_group
 
     repositories {
         maven { url = "https://jitpack.io/" }
         maven { url = "https://maven.terraformersmc.com/" }
-    }
-
-    tasks.withType(JavaCompile) {
-        options.encoding = "UTF-8"
-
-        if (minecraft_main_version == 16) {
-            def targetVersion = 8
-            if (JavaVersion.current().isJava9Compatible()) {
-                options.release = targetVersion
-            }
-        } else if (minecraft_main_version == 17) {
-            options.release = 16
-        } else {
-            options.release = 17
+        flatDir {
+            dirs "../libs"
         }
     }
 
@@ -154,12 +152,34 @@ allprojects {
     }
 }
 
-static def getModrinthVersion(loader, minecraftVersion, projectId) {
-	def versionsArray = new JsonSlurper().parse(("https://api.modrinth.com/v2/project/" + projectId + "/version").toURL())
-	for (def versionElement : versionsArray) {
-		if (versionElement["loaders"].contains(loader) && versionElement["game_versions"].contains(minecraftVersion)) {
-			return versionElement["version_number"]
-		}
-	}
-	return ""
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(minecraft_main_version == 16 ? 8 : minecraft_main_version == 17 ? 16 : 17))
+    }
+    withSourcesJar()
+    withJavadocJar()
+}
+
+static String[] getModrinthData(String loader, String minecraftVersion, String projectId) {
+    def versionsArray = getJson("https://api.modrinth.com/v2/project/" + projectId + "/version")
+    for (def versionElement : versionsArray) {
+        if (versionElement["loaders"].contains(loader) && versionElement["game_versions"].contains(minecraftVersion)) {
+            return [versionElement["version_number"], versionElement["files"][0]["url"]]
+        }
+    }
+    return ["", ""]
+}
+
+static Object getJson(String url) {
+    int tries = 0
+    while (true) {
+        try {
+            if (tries > 1) {
+                System.out.println("Parsed ${url} after ${tries} tries")
+            }
+            return new JsonSlurper().parse(url.toURL())
+        } catch (Exception ignored) {
+            Thread.sleep(1000)
+        }
+    }
 }
