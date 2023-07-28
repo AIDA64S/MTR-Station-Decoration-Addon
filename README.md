@@ -30,12 +30,6 @@
       <img id="mtr_discord" src="./image/discord.png" alt="MTR Discord" width="128">
    </a>
 </div>
-<div id="source_id" class="image-t">
-    <h4>Minecraft Transit Railway</h4>
-    <h4>MTR-Station-Decoration-Addon</h4>
-    <h4>Nemo's Transit Expansion</h4>
-    <h4>Join Discord</h4>
-</div>
 
 ## License
 
@@ -99,12 +93,6 @@
     flex-wrap: wrap;
   }
   .image-t a {
-    flex: 0 0 calc(25% - 10px);
-    margin: 5px;
-    text-align: center;
-    text-decoration: none;
-  }
-  .image-t h4 {
     flex: 0 0 calc(25% - 10px);
     margin: 5px;
     text-align: center;
