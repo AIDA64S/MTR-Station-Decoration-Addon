@@ -11,4 +11,4 @@ include("common")
 include("fabric")
 include("forge")
 
-rootProject.name = "MTR-Station-Decoration-addon"
+rootProject.name = "MTR-Station-Decoration-Addon"
