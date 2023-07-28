@@ -11,4 +11,4 @@ A Station Decoration Addon for the Minecraft Transit Railway Mod
     3. Sync the Gradle Project again
 
 ## License
-[MIT License](https://raw.githubusercontent.com/AIDA64S/MTR-Station-Decoration-Addon/1.3.4/LICENSE)
+[MIT License](https://raw.githubusercontent.com/AIDA64S/MTR-Station-Decoration-Addon/master/LICENSE)
