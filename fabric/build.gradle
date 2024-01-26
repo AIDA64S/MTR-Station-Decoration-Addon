@@ -1,0 +1,58 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+import org.mtr.mod.BuildTools
+
+plugins {
+    id "fabric-loom" version "+"
+}
+
+final BuildTools buildTools = new BuildTools(minecraftVersion, "fabric", project)
+
+loom {
+    accessWidenerPath = file("src/main/resources/msd.accesswidener")
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${minecraftVersion}"
+    mappings "net.fabricmc:yarn:${buildTools.getYarnVersion()}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${buildTools.getFabricVersion()}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${buildTools.getFabricApiVersion()}"
+    modApi "com.terraformersmc:modmenu:${buildTools.getModMenuVersion()}"
+    implementation "org.mtr:MTR-fabric-${minecraftVersion}:${mtrVersion}-dev"
+}
+
+repositories {
+    maven { url = "https://maven.terraformersmc.com/" }
+    flatDir { dirs "../libs" }
+}
+
+shadowJar {
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(buildTools.javaLanguageVersion))
+    }
+    withSourcesJar()
+}
+
+tasks.register("setupFiles") {
+    copy {
+        outputs.upToDateWhen { false }
+        from "src/main/fabric.mod.template.json"
+        into "src/main/resources"
+        filter(ReplaceTokens, tokens: ["minecraft": minecraftVersion, "version": minecraftVersion + "-" + version])
+        rename "(.+).template.json", "\$1.json"
+    }
+}
+
+build {
+    doLast {
+        buildTools.copyBuildFile()
+    }
+}
+
+remapJar {
+    dependsOn(shadowJar)
+    mustRunAfter(shadowJar)
+    inputFile = file(shadowJar.archivePath)
+}

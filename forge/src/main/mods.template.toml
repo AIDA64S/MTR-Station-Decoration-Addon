@@ -1,0 +1,25 @@
+modLoader = "javafml"
+loaderVersion = "[36,)"
+license = "MIT"
+
+[[mods]]
+modId = "msd"
+version = "@version@"
+displayName = "MTR Station Decoration Addon"
+authors = "AIDA64S#4031,Santorsia#3166,Nemo#3465"
+description = "A Station Decoration Addon for the Minecraft Transit Railway Mod"
+logoFile = "icon.png"
+
+[[dependencies.msd]]
+modId = "forge"
+mandatory = true
+versionRange = "[36,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.msd]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[@minecraft@]"
+ordering = "NONE"
+side = "BOTH"

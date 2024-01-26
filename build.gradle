@@ -1,0 +1,25 @@
+plugins {
+	id "java"
+	id "com.github.johnrengelman.shadow" version "+" apply false
+}
+
+group "top.mcmtr"
+version rootProject.properties.version
+
+subprojects {
+	apply plugin: "java"
+	apply plugin: "com.github.johnrengelman.shadow"
+
+	dependencies {
+		implementation "org.mtr:Minecraft-Mappings-common:${mappingVersion}"
+		compileOnly "com.google.code.findbugs:jsr305:+"
+		compileOnly "xyz.jpenilla:squaremap-api:+"
+		compileOnly "net.kyori:adventure-api:+"
+		compileOnly "com.test:Dynmap:3.2.1"
+	}
+
+	repositories {
+		maven { url "https://jitpack.io" }
+		flatDir { dirs "../libs" }
+	}
+}
