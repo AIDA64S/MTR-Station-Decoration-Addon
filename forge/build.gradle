@@ -41,7 +41,6 @@ java {
 		languageVersion.set(JavaLanguageVersion.of(buildTools.javaLanguageVersion))
 	}
 	withSourcesJar()
-	withJavadocJar()
 }
 
 tasks.register("setupFiles") {
