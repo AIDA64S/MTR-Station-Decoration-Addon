@@ -10,12 +10,20 @@ subprojects {
 	apply plugin: "java"
 	apply plugin: "com.github.johnrengelman.shadow"
 
+	configurations {
+		shadowImplementation
+		implementation.extendsFrom shadowImplementation
+	}
+
 	dependencies {
-		implementation "org.mtr:Minecraft-Mappings-common:${mappingVersion}"
 		compileOnly "com.google.code.findbugs:jsr305:+"
 		compileOnly "xyz.jpenilla:squaremap-api:+"
 		compileOnly "net.kyori:adventure-api:+"
 		compileOnly "com.test:Dynmap:3.2.1"
+	}
+
+	shadowJar {
+		configurations = [project.configurations.shadowImplementation]
 	}
 
 	repositories {
