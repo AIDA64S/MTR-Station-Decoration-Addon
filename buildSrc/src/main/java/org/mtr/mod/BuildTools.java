@@ -8,7 +8,6 @@ import com.jonafanho.apitools.ModLoader;
 import com.jonafanho.apitools.ModProvider;
 import org.apache.commons.io.IOUtils;
 import org.gradle.api.Project;
-import org.mtr.mapping.mixin.CreateAccessWidener;
 
 import java.io.IOException;
 import java.net.URL;
@@ -21,14 +20,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class BuildTools {
-
     public final String minecraftVersion;
     public final String loader;
     public final int javaLanguageVersion;
-
     private final Path path;
     private final String version;
-
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     public BuildTools(String minecraftVersion, String loader, Project project) throws IOException {
