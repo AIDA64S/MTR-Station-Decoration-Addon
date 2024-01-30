@@ -5,9 +5,7 @@
 	"compatibilityLevel": "JAVA_8",
 	"refmap": "msd.refmap.json",
 	"mixins": [],
-	"client": [
-		"ClientWorldRenderingMixin"
-	],
+	"client": [],
 	"server": [],
 	"injectors": {
 		"defaultRequire": 1

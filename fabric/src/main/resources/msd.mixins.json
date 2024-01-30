@@ -4,9 +4,7 @@
 	"package": "top.mcmtr.mixin",
 	"compatibilityLevel": "JAVA_8",
 	"mixins": [],
-	"client": [
-		"ClientWorldRenderingMixin"
-	],
+	"client": [],
 	"server": [],
 	"injectors": {
 		"defaultRequire": 1

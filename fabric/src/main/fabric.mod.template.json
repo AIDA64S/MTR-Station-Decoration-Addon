@@ -15,7 +15,6 @@
 	},
 	"license": "MIT",
 	"icon": "icon.png",
-	"accessWidener": "msd.accesswidener",
 	"environment": "*",
 	"entrypoints": {
 		"main": [

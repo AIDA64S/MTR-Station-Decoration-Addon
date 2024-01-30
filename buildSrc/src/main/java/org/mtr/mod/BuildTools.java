@@ -6,11 +6,9 @@ import com.google.gson.JsonParser;
 import com.jonafanho.apitools.ModId;
 import com.jonafanho.apitools.ModLoader;
 import com.jonafanho.apitools.ModProvider;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.gradle.api.Project;
 import org.mtr.mapping.mixin.CreateAccessWidener;
-import org.mtr.mapping.mixin.CreateClientWorldRenderingMixin;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,103 +16,108 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.nio.file.StandardOpenOption;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Stream;
 
 public class BuildTools {
 
-	public final String minecraftVersion;
-	public final String loader;
-	public final int javaLanguageVersion;
+    public final String minecraftVersion;
+    public final String loader;
+    public final int javaLanguageVersion;
 
-	private final Path path;
-	private final String version;
-	private final int majorVersion;
+    private final Path path;
+    private final String version;
 
-	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
-	public BuildTools(String minecraftVersion, String loader, Project project) throws IOException {
-		this.minecraftVersion = minecraftVersion;
-		this.loader = loader;
-		path = project.getProjectDir().toPath();
-		version = project.getVersion().toString();
-		majorVersion = Integer.parseInt(minecraftVersion.split("\\.")[1]);
-		javaLanguageVersion = majorVersion <= 16 ? 8 : majorVersion == 17 ? 16 : 17;
+    public BuildTools(String minecraftVersion, String loader, Project project) throws IOException {
+        this.minecraftVersion = minecraftVersion;
+        this.loader = loader;
+        path = project.getProjectDir().toPath();
+        version = project.getVersion().toString();
+        int majorVersion = Integer.parseInt(minecraftVersion.split("\\.")[1]);
+        javaLanguageVersion = majorVersion <= 16 ? 8 : majorVersion == 17 ? 16 : 17;
 
-		final Path accessWidenerPath = path.resolve("src/main/resources").resolve(loader.equals("fabric") ? "" : "META-INF");
-		Files.createDirectories(accessWidenerPath);
-		CreateAccessWidener.create(minecraftVersion, loader, accessWidenerPath.resolve(loader.equals("fabric") ? "msd.accesswidener" : "accesstransformer.cfg"));
+        final Path accessWidenerPath = path.resolve("src/main/resources").resolve(loader.equals("fabric") ? "" : "META-INF");
+        Files.createDirectories(accessWidenerPath);
+        create(minecraftVersion, loader, accessWidenerPath.resolve(loader.equals("fabric") ? "msd.accesswidener" : "accesstransformer.cfg"));
 
-		final Path mixinPath = path.resolve("src/main/java/top/mcmtr/mixin");
-		Files.createDirectories(mixinPath);
-		CreateClientWorldRenderingMixin.create(minecraftVersion, loader, mixinPath, "top.mcmtr.mixin");
-	}
+        final Path mixinPath = path.resolve("src/main/java/top/mcmtr/mixin");
+        Files.createDirectories(mixinPath);
+    }
 
-	public String getFabricVersion() {
-		return getJson("https://meta.fabricmc.net/v2/versions/loader/" + minecraftVersion).getAsJsonArray().get(0).getAsJsonObject().getAsJsonObject("loader").get("version").getAsString();
-	}
+    public String getFabricVersion() {
+        return getJson("https://meta.fabricmc.net/v2/versions/loader/" + minecraftVersion).getAsJsonArray().get(0).getAsJsonObject().getAsJsonObject("loader").get("version").getAsString();
+    }
 
-	public String getYarnVersion() {
-		return getJson("https://meta.fabricmc.net/v2/versions/yarn/" + minecraftVersion).getAsJsonArray().get(0).getAsJsonObject().get("version").getAsString();
-	}
+    public String getYarnVersion() {
+        return getJson("https://meta.fabricmc.net/v2/versions/yarn/" + minecraftVersion).getAsJsonArray().get(0).getAsJsonObject().get("version").getAsString();
+    }
 
-	public String getFabricApiVersion() {
-		final String modIdString = "fabric-api";
-		return new ModId(modIdString, ModProvider.MODRINTH).getModFiles(minecraftVersion, ModLoader.FABRIC, "").get(0).fileName.split(".jar")[0].replace(modIdString + "-", "");
-	}
+    public String getFabricApiVersion() {
+        final String modIdString = "fabric-api";
+        return new ModId(modIdString, ModProvider.MODRINTH).getModFiles(minecraftVersion, ModLoader.FABRIC, "").get(0).fileName.split(".jar")[0].replace(modIdString + "-", "");
+    }
 
-	public String getModMenuVersion() {
-		final String modIdString = "modmenu";
-		return new ModId(modIdString, ModProvider.MODRINTH).getModFiles(minecraftVersion, ModLoader.FABRIC, "").get(0).fileName.split(".jar")[0].replace(modIdString + "-", "");
-	}
+    public String getModMenuVersion() {
+        final String modIdString = "modmenu";
+        return new ModId(modIdString, ModProvider.MODRINTH).getModFiles(minecraftVersion, ModLoader.FABRIC, "").get(0).fileName.split(".jar")[0].replace(modIdString + "-", "");
+    }
 
-	public String getForgeVersion() {
-		return getJson("https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json").getAsJsonObject().getAsJsonObject("promos").get(minecraftVersion + "-latest").getAsString();
-	}
+    public String getForgeVersion() {
+        return getJson("https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json").getAsJsonObject().getAsJsonObject("promos").get(minecraftVersion + "-latest").getAsString();
+    }
 
-	public void copyLootTables() throws IOException {
-		final Path directory = path.resolve("src/main/resources/data/mtr/loot_tables/blocks");
-		Files.createDirectories(directory);
-		try (final Stream<Path> stream = Files.list(path.resolve("src/main/loot_table_templates"))) {
-			stream.forEach(lootTablePath -> {
-				try {
-					FileUtils.write(
-							directory.resolve(lootTablePath.getFileName()).toFile(),
-							FileUtils.readFileToString(lootTablePath.toFile(), StandardCharsets.UTF_8).replace("@condition@", majorVersion >= 20 ? "any_of" : "alternative"),
-							StandardCharsets.UTF_8
-					);
-				} catch (Exception e) {
-					logException(e);
-				}
-			});
-		}
-	}
+    public void copyBuildFile() throws IOException {
+        final Path directory = path.getParent().resolve("build/release");
+        Files.createDirectories(directory);
+        Files.copy(path.resolve(String.format("build/libs/%s-%s%s.jar", loader, version, loader.equals("fabric") ? "" : "-all")), directory.resolve(String.format("MSD-%s-%s-%s.jar", loader, minecraftVersion, version)), StandardCopyOption.REPLACE_EXISTING);
+    }
 
-	public void copyBuildFile() throws IOException {
-		final Path directory = path.getParent().resolve("build/release");
-		Files.createDirectories(directory);
-		Files.copy(path.resolve(String.format("build/libs/%s-%s%s.jar", loader, version, loader.equals("fabric") ? "" : "-all")), directory.resolve(String.format("MSD-%s-%s-%s.jar", loader, minecraftVersion, version)), StandardCopyOption.REPLACE_EXISTING);
-	}
+    private static JsonElement getJson(String url) {
+        for (int i = 0; i < 5; i++) {
+            try {
+                return JsonParser.parseString(IOUtils.toString(new URL(url), StandardCharsets.UTF_8));
+            } catch (Exception e) {
+                logException(e);
+            }
+            try {
+                Thread.sleep(1000);
+            } catch (Exception e) {
+                logException(e);
+            }
+        }
 
-	private static JsonElement getJson(String url) {
-		for (int i = 0; i < 5; i++) {
-			try {
-				return JsonParser.parseString(IOUtils.toString(new URL(url), StandardCharsets.UTF_8));
-			} catch (Exception e) {
-				logException(e);
-			}
-			try {
-				Thread.sleep(1000);
-			} catch (Exception e) {
-				logException(e);
-			}
-		}
+        return new JsonObject();
+    }
 
-		return new JsonObject();
-	}
+    private static void logException(Exception e) {
+        LOGGER.log(Level.INFO, e.getMessage(), e);
+    }
 
-	private static void logException(Exception e) {
-		LOGGER.log(Level.INFO, e.getMessage(), e);
-	}
+    public static void create(String minecraftVersion, String loader, Path path) throws IOException {
+        String content = null;
+        switch (String.format("%s-%s", minecraftVersion, loader)) {
+            case "1.16.5-fabric":
+            case "1.17.1-fabric":
+            case "1.18.2-fabric":
+            case "1.19.4-fabric":
+            case "1.20.4-fabric":
+                content = "accessWidener v2 named";
+                break;
+            case "1.16.5-forge":
+            case "1.17.1-forge":
+            case "1.18.2-forge":
+            case "1.19.4-forge":
+            case "1.20.4-forge":
+                content = "";
+                break;
+            default:
+                break;
+        }
+        if (content != null) {
+            Files.write(path, content.getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        }
+    }
 }
