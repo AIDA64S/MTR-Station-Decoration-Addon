@@ -9,7 +9,6 @@ dependencies {
 	implementation "it.unimi.dsi:fastutil:+"
 	implementation "commons-io:commons-io:+"
 	implementation "com.github.jonafanho:Minecraft-Mod-API-Tools:master-SNAPSHOT"
-	implementation "org.mtr:Minecraft-Mappings-common:0.0.1"
 }
 
 java {
