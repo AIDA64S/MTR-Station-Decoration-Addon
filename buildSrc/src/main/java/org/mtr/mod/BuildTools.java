@@ -44,25 +44,35 @@ public class BuildTools {
     }
 
     public String getFabricVersion() {
-        return getJson("https://meta.fabricmc.net/v2/versions/loader/" + minecraftVersion).getAsJsonArray().get(0).getAsJsonObject().getAsJsonObject("loader").get("version").getAsString();
+        String fabricVersion = getJson("https://meta.fabricmc.net/v2/versions/loader/" + minecraftVersion).getAsJsonArray().get(0).getAsJsonObject().getAsJsonObject("loader").get("version").getAsString();
+        System.out.println("Fabric loader version: "+ fabricVersion);
+        return fabricVersion;
     }
 
     public String getYarnVersion() {
-        return getJson("https://meta.fabricmc.net/v2/versions/yarn/" + minecraftVersion).getAsJsonArray().get(0).getAsJsonObject().get("version").getAsString();
+        String yarnVersion =  getJson("https://meta.fabricmc.net/v2/versions/yarn/" + minecraftVersion).getAsJsonArray().get(0).getAsJsonObject().get("version").getAsString();
+        System.out.println("Yarn version: " + yarnVersion);
+        return yarnVersion;
     }
 
     public String getFabricApiVersion() {
         final String modIdString = "fabric-api";
-        return new ModId(modIdString, ModProvider.MODRINTH).getModFiles(minecraftVersion, ModLoader.FABRIC, "").get(0).fileName.split(".jar")[0].replace(modIdString + "-", "");
+        String fabricApiVersion = new ModId(modIdString, ModProvider.MODRINTH).getModFiles(minecraftVersion, ModLoader.FABRIC, "").get(0).fileName.split(".jar")[0].replace(modIdString + "-", "");
+        System.out.println("Fabric API version: "+ fabricApiVersion);
+        return fabricApiVersion;
     }
 
     public String getModMenuVersion() {
         final String modIdString = "modmenu";
-        return new ModId(modIdString, ModProvider.MODRINTH).getModFiles(minecraftVersion, ModLoader.FABRIC, "").get(0).fileName.split(".jar")[0].replace(modIdString + "-", "");
+        String modMenuVersion = new ModId(modIdString, ModProvider.MODRINTH).getModFiles(minecraftVersion, ModLoader.FABRIC, "").get(0).fileName.split(".jar")[0].replace(modIdString + "-", "");
+        System.out.println("ModMenu version: " + modMenuVersion);
+        return modMenuVersion;
     }
 
     public String getForgeVersion() {
-        return getJson("https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json").getAsJsonObject().getAsJsonObject("promos").get(minecraftVersion + "-latest").getAsString();
+        String forgeVersion = getJson("https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json").getAsJsonObject().getAsJsonObject("promos").get(minecraftVersion + "-latest").getAsString();
+        System.out.println("Forge version: " + forgeVersion);
+        return forgeVersion;
     }
 
     public void copyBuildFile() throws IOException {
