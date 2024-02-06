@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "is_connected=true": {
+      "model": "msd:block/catenary_node"
+    },
+    "is_connected=false": {
+      "model": "msd:block/catenary_node"
+    }
+  }
+}

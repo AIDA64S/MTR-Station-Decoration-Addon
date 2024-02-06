@@ -4,7 +4,7 @@
 	"package": "top.mcmtr.mixin",
 	"compatibilityLevel": "JAVA_8",
 	"mixins": [],
-	"client": [],
+	"client": ["RenderRailsMixin"],
 	"server": [],
 	"injectors": {
 		"defaultRequire": 1

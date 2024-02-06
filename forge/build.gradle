@@ -53,12 +53,26 @@ tasks.register("setupFiles") {
 	}
 
 	delete fileTree("src/main/java/top/mcmtr/mod")
+	delete fileTree("src/main/java/top/mcmtr/core")
+	delete fileTree("src/main/java/top/mcmtr/mixin")
 	delete fileTree("src/main/resources/assets")
 
 	copy {
 		outputs.upToDateWhen { false }
 		from "../fabric/src/main/java/top/mcmtr/mod"
 		into "src/main/java/top/mcmtr/mod"
+	}
+
+	copy {
+		outputs.upToDateWhen { false }
+		from "../fabric/src/main/java/top/mcmtr/core"
+		into "src/main/java/top/mcmtr/core"
+	}
+
+	copy {
+		outputs.upToDateWhen { false }
+		from "../fabric/src/main/java/top/mcmtr/mixin"
+		into "src/main/java/top/mcmtr/mixin"
 	}
 
 	copy {

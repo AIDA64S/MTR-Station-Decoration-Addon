@@ -31,9 +31,10 @@ bin/
 # fabric
 
 run/
-**/top/mcmtr/mixin/
 msd.accesswidener
 fabric.mod.json
 forge/src/main/java/top/mcmtr/mod
+forge/src/main/java/top/mcmtr/mixin
+forge/src/main/java/top/mcmtr/core
 forge/src/main/resources/assets
 forge/src/main/resources/META-INF

@@ -1,0 +1,28 @@
+{
+  "catenary_node_pos": 0,
+  "catenary_connections": [
+    {
+      "node_pos": 0,
+      "xStart": 0,
+      "yStart": 0,
+      "zStart": 0,
+      "xEnd": 0,
+      "yEnd": 0,
+      "zEnd": 0,
+      "catenaryType": "catenary"
+    }
+  ]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
