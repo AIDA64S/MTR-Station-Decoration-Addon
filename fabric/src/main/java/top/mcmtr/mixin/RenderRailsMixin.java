@@ -15,7 +15,7 @@ import top.mcmtr.mod.client.ClientData;
 
 @Mixin(RenderRails.class)
 public class RenderRailsMixin {
-    @Inject(method = "render", at = @At(value = "HEAD", ordinal = 0))
+    @Inject(method = "render", at = @At("HEAD"), remap = false)
     private static void renderCatenary(CallbackInfo ci) {
         final MinecraftClient minecraftClient1 = MinecraftClient.getInstance();
         final ClientWorld clientWorld1 = minecraftClient1.getWorldMapped();
