@@ -15,19 +15,18 @@ import top.mcmtr.mod.client.ClientData;
 
 @Mixin(RenderRails.class)
 public class RenderRailsMixin {
-    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lorg/mtr/libraries/it/unimi/dsi/fastutil/objects/ObjectOpenHashBigSet;forEach(Ljava/util/function/Consumer;)V", ordinal = 0))
+    @Inject(method = "render", at = @At(value = "HEAD", ordinal = 0))
     private static void renderCatenary(CallbackInfo ci) {
-        final MinecraftClient minecraftClient = MinecraftClient.getInstance();
-        final ClientWorld clientWorld = minecraftClient.getWorldMapped();
-        final ClientPlayerEntity clientPlayerEntity = minecraftClient.getPlayerMapped();
-        if (clientWorld == null || clientPlayerEntity == null) {
-            return;
+        final MinecraftClient minecraftClient1 = MinecraftClient.getInstance();
+        final ClientWorld clientWorld1 = minecraftClient1.getWorldMapped();
+        final ClientPlayerEntity clientPlayerEntity1 = minecraftClient1.getPlayerMapped();
+        if (clientWorld1 != null && clientPlayerEntity1 != null) {
+            ClientData.getInstance().catenaries.forEach(catenary -> {
+                if (ClientData.getInstance().catenaryCulling.getOrDefault(catenary.getHexId(), false)) {
+                    renderCatenaryStandard(clientWorld1, catenary);
+                }
+            });
         }
-        ClientData.getInstance().catenaries.forEach(catenary -> {
-            if (ClientData.getInstance().catenaryCulling.getOrDefault(catenary.getHexId(), false)) {
-                renderCatenaryStandard(clientWorld, catenary);
-            }
-        });
     }
 
     @Unique
