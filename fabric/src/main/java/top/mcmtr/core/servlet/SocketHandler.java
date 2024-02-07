@@ -9,22 +9,20 @@ import org.mtr.webserver.Webserver;
 import top.mcmtr.core.data.Catenary;
 import top.mcmtr.core.integration.Integration;
 import top.mcmtr.core.simulation.Simulator;
+import top.mcmtr.mod.Init;
 
 import java.util.logging.Level;
 
 import static top.mcmtr.core.servlet.ServletBase.PARAMETER_DIMENSION;
-import static top.mcmtr.mod.Init.MSD_LOGGER;
 
 public class SocketHandler {
-    private static final String CHANNEL = "update";
-
     public static void register(Webserver webserver, ObjectImmutableList<Simulator> simulators) {
-        webserver.addSocketListener(CHANNEL, ((socketIOClient, id, jsonObject) -> {
+        webserver.addSocketListener(Init.CHANNEL, ((socketIOClient, id, jsonObject) -> {
             final Simulator simulator = simulators.get(jsonObject.get(PARAMETER_DIMENSION).getAsInt());
             simulator.run(() -> {
                 try {
                     simulator.clientGroup.updateData(new JsonReader(jsonObject));
-                    simulator.clientGroup.setSendToClient(webserver, socketIOClient, CHANNEL);
+                    simulator.clientGroup.setSendToClient(webserver, socketIOClient, Init.CHANNEL);
                     final double updateRadius = simulator.clientGroup.getUpdateRadius();
                     final JsonObject responseObject = new JsonObject();
                     simulator.clientGroup.iterateClients(client -> {
@@ -39,12 +37,12 @@ public class SocketHandler {
                             integration.add(catenaries, null);
                             responseObject.add(client.uuid.toString(), Utilities.getJsonObjectFromData(integration));
                         } catch (Exception e) {
-                            MSD_LOGGER.log(Level.WARNING, "MSD Client handler error", e);
+                            Init.MSD_LOGGER.log(Level.WARNING, "MSD Client handler error", e);
                         }
                     });
                     simulator.clientGroup.sendToClient(responseObject);
                 } catch (Exception e) {
-                    MSD_LOGGER.log(Level.WARNING, "MSD socket handler register error", e);
+                    Init.MSD_LOGGER.log(Level.WARNING, "MSD socket handler register error", e);
                 }
             });
         }));

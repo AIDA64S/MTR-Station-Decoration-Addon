@@ -34,8 +34,6 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.logging.Level;
 
-import static top.mcmtr.mod.Init.MSD_LOGGER;
-
 public class PacketDataBase extends PacketHandler {
     protected final IntegrationServlet.Operation operation;
     protected final Integration integration;
@@ -68,7 +66,7 @@ public class PacketDataBase extends PacketHandler {
 
     @Override
     public void runClientQueued() {
-        if (updateClientDataInstance){
+        if (updateClientDataInstance) {
             updateClientForClientData(ClientData.getInstance());
         }
     }
@@ -122,7 +120,7 @@ public class PacketDataBase extends PacketHandler {
                 consumer.accept(Utilities.parseJson(IOUtils.toString(inputStream, StandardCharsets.UTF_8)));
             }
         } catch (Exception e) {
-            MSD_LOGGER.log(Level.WARNING, "MSD send http request error", e);
+            Init.MSD_LOGGER.log(Level.WARNING, "MSD send http request error", e);
         }
     }
 

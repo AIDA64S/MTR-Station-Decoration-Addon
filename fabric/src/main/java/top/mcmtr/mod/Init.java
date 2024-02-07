@@ -20,11 +20,13 @@ import org.mtr.mapping.mapper.MinecraftServerHelper;
 import org.mtr.mapping.mapper.WorldHelper;
 import org.mtr.mapping.registry.EventRegistry;
 import org.mtr.mapping.registry.Registry;
+import org.mtr.mapping.tool.DummyClass;
 import top.mcmtr.core.Main;
 import top.mcmtr.core.data.Data;
 import top.mcmtr.core.integration.Integration;
 import top.mcmtr.core.servlet.IntegrationServlet;
 import top.mcmtr.mod.packet.PacketData;
+import top.mcmtr.mod.packet.PacketRequestData;
 
 import java.net.ServerSocket;
 import java.nio.charset.StandardCharsets;
@@ -47,13 +49,21 @@ public class Init implements Utilities {
     public static final Logger MSD_LOGGER = Logger.getLogger("Station-Decoration");
     public static final Registry REGISTRY = new Registry();
     public static final int SECONDS_PER_MC_HOUR = 50;
-    private static final String CHANNEL = "update";
+    public static final String CHANNEL = "msd_update";
     private static final int MILLIS_PER_MC_DAY = SECONDS_PER_MC_HOUR * MILLIS_PER_SECOND * HOURS_PER_DAY;
 
     private static final Object2ObjectArrayMap<Identifier, IntObjectImmutablePair<ObjectArraySet<ObjectBooleanImmutablePair<ServerPlayerEntity>>>> PLAYERS_TO_UPDATE = new Object2ObjectArrayMap<>();
 
     public static void init() {
+        Blocks.init();
+        Items.init();
+        BlockEntityTypes.init();
+        CreativeModeTabs.init();
+        DummyClass.enableLogging();
+
         REGISTRY.setupPackets(new Identifier(MOD_ID, "packet"));
+        REGISTRY.registerPacket(PacketData.class, PacketData::create);
+        REGISTRY.registerPacket(PacketRequestData.class, PacketRequestData::new);
         EventRegistry.registerServerStarted(minecraftServer -> {
             final ObjectArrayList<String> worldNames = new ObjectArrayList<>();
             PLAYERS_TO_UPDATE.clear();
@@ -159,7 +169,7 @@ public class Init implements Utilities {
                 MSD_LOGGER.log(Level.INFO, "MSD Found available port: " + port);
                 return;
             } catch (Exception e) {
-                MSD_LOGGER.log(Level.WARNING, "port: " + i + " is used");
+                MSD_LOGGER.log(Level.WARNING, "MSD server port: " + i + " is used");
             }
         }
     }

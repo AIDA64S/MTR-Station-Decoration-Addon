@@ -11,11 +11,10 @@ import org.mtr.libraries.it.unimi.dsi.fastutil.objects.ObjectSet;
 import top.mcmtr.core.data.Catenary;
 import top.mcmtr.core.integration.Integration;
 import top.mcmtr.core.simulation.Simulator;
+import top.mcmtr.mod.Init;
 
 import javax.annotation.Nullable;
 import java.util.logging.Level;
-
-import static top.mcmtr.mod.Init.MSD_LOGGER;
 
 public final class IntegrationResponse extends ResponseBase<Integration> {
 
@@ -39,7 +38,7 @@ public final class IntegrationResponse extends ResponseBase<Integration> {
         }), true);
     }
 
-    public Integration list(){
+    public Integration list() {
         return new Integration(this.simulator);
     }
 
@@ -53,7 +52,7 @@ public final class IntegrationResponse extends ResponseBase<Integration> {
                 catenaryNodePositionCallback.accpet(catenaryNodePosition, catenariesToUpdate, catenaryNodePositionsToUpdate);
             });
         } catch (Exception e) {
-            MSD_LOGGER.log(Level.WARNING, "MSD integration response parse body fail", e);
+            Init.MSD_LOGGER.log(Level.WARNING, "MSD integration response parse body fail", e);
         }
         if (shouldSync) {
             simulator.sync();

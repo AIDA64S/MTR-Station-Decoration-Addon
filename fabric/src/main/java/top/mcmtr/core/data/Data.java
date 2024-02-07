@@ -6,14 +6,13 @@ import org.mtr.libraries.it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import org.mtr.libraries.it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import org.mtr.libraries.it.unimi.dsi.fastutil.objects.ObjectOpenHashBigSet;
 import org.mtr.libraries.it.unimi.dsi.fastutil.objects.ObjectSet;
+import top.mcmtr.mod.Init;
 
 import java.util.Collection;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.logging.Level;
-
-import static top.mcmtr.mod.Init.MSD_LOGGER;
 
 public class Data {
     public final ObjectOpenHashBigSet<Catenary> catenaries = new ObjectOpenHashBigSet<>();
@@ -27,7 +26,7 @@ public class Data {
             catenaries.forEach(catenary -> catenary.writeConnectedCatenariesCacheFromMap(positionsToCatenary));
             mapIds(catenaryIdMap, catenaries);
         } catch (Exception e) {
-            MSD_LOGGER.log(Level.WARNING, "msd data sync fail", e);
+            Init.MSD_LOGGER.log(Level.WARNING, "msd data sync fail", e);
         }
     }
 

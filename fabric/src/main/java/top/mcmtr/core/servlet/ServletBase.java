@@ -9,6 +9,7 @@ import org.mtr.libraries.it.unimi.dsi.fastutil.objects.Object2ObjectAVLTreeMap;
 import org.mtr.libraries.it.unimi.dsi.fastutil.objects.ObjectImmutableList;
 import org.mtr.webserver.Webserver;
 import top.mcmtr.core.simulation.Simulator;
+import top.mcmtr.mod.Init;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -16,8 +17,6 @@ import java.util.Collections;
 import java.util.function.BiConsumer;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
-
-import static top.mcmtr.mod.Init.MSD_LOGGER;
 
 public abstract class ServletBase {
     public static final String PARAMETER_DIMENSIONS = "dimensions";
@@ -36,7 +35,7 @@ public abstract class ServletBase {
                 try {
                     dimension = Integer.parseInt(tryGetParameter(queryStringDecoder, PARAMETER_DIMENSION));
                 } catch (Exception e) {
-                    MSD_LOGGER.log(Level.WARNING, "string to int exception, can ignored");
+                    Init.MSD_LOGGER.log(Level.WARNING, "string to int exception, can ignored");
                 }
                 if (dimension < 0 || dimension >= simulators.size()) {
                     buildResponseObject(sendResponse, currentMillis, null, HttpResponseStatus.BAD_REQUEST, "(MSD) Invalid Dimension");

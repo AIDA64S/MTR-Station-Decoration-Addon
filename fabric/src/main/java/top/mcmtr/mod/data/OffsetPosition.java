@@ -5,7 +5,7 @@ import org.mtr.core.serializer.SerializedDataBase;
 import org.mtr.core.serializer.WriterBase;
 
 public class OffsetPosition implements SerializedDataBase {
-    public final double x, y, z;
+    public double x, y, z;
     public static final String KEY_X = "x";
     public static final String KEY_Y = "y";
     public static final String KEY_Z = "z";

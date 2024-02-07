@@ -8,20 +8,15 @@ import org.mtr.webserver.Webserver;
 import top.mcmtr.core.servlet.IntegrationServlet;
 import top.mcmtr.core.servlet.SocketHandler;
 import top.mcmtr.core.simulation.Simulator;
+import top.mcmtr.mod.Init;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.Arrays;
-import java.util.Locale;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-
-import static top.mcmtr.mod.Init.MSD_LOGGER;
 
 @ParametersAreNonnullByDefault
 public class Main {
@@ -32,7 +27,7 @@ public class Main {
 
     public Main(Path rootPath, int webServerPort, String... dimensions) {
         final ObjectArrayList<Simulator> tempSimulators = new ObjectArrayList<>();
-        MSD_LOGGER.info("MSD loading files...");
+        Init.MSD_LOGGER.info("MSD loading files...");
         for (final String dimension : dimensions) {
             tempSimulators.add(new Simulator(dimension, rootPath));
         }
@@ -43,21 +38,21 @@ public class Main {
         webserver.start();
         scheduledExecutorService = Executors.newScheduledThreadPool(simulators.size());
         simulators.forEach(simulator -> scheduledExecutorService.scheduleAtFixedRate(simulator::tick, 0, MILLISECONDS_PER_TICK, TimeUnit.MILLISECONDS));
-        MSD_LOGGER.info("MSD Server started with dimensions " + Arrays.toString(dimensions));
+        Init.MSD_LOGGER.info("MSD Server started with dimensions " + Arrays.toString(dimensions));
     }
 
     public void save() {
-        MSD_LOGGER.info("MSD Starting quick save...");
+        Init.MSD_LOGGER.info("MSD Starting quick save...");
         simulators.forEach(Simulator::save);
     }
 
     public void stop() {
-        MSD_LOGGER.info("MSD Server Stopping...");
-        webserver.start();
+        Init.MSD_LOGGER.info("MSD Server Stopping...");
+        webserver.stop();
         scheduledExecutorService.shutdown();
         Utilities.awaitTermination(scheduledExecutorService);
-        MSD_LOGGER.info("MSD Server Starting full save...");
+        Init.MSD_LOGGER.info("MSD Server Starting full save...");
         simulators.forEach(Simulator::stop);
-        MSD_LOGGER.info("MSD Server Stopped");
+        Init.MSD_LOGGER.info("MSD Server Stopped");
     }
 }

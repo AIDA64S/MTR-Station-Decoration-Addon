@@ -1,14 +1,16 @@
 package top.mcmtr.mod.blocks;
 
+import org.jetbrains.annotations.NotNull;
 import org.mtr.mapping.holder.*;
 import org.mtr.mapping.mapper.BlockEntityExtension;
+import top.mcmtr.mod.BlockEntityTypes;
 import top.mcmtr.mod.Init;
 import top.mcmtr.mod.packet.PacketData;
 
 public final class BlockCatenaryNode extends BlockNodeBase {
 
-    public BlockCatenaryNode(BlockSettings blockSettings) {
-        super(blockSettings);
+    public BlockCatenaryNode() {
+        super();
     }
 
     @Override
@@ -25,8 +27,23 @@ public final class BlockCatenaryNode extends BlockNodeBase {
         }
     }
 
+    @NotNull
+    @Override
+    public BlockRenderType getRenderType2(BlockState state) {
+        if (state.get(new Property<>(IS_CONNECTED.data))) {
+            return BlockRenderType.INVISIBLE;
+        }
+        return super.getRenderType2(state);
+    }
+
     @Override
     public BlockEntityExtension createBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return null;
+        return new BlockCatenaryNodeEntity(blockPos, blockState);
+    }
+
+    public static class BlockCatenaryNodeEntity extends BlockNodeBaseEntity {
+        public BlockCatenaryNodeEntity(BlockPos blockPos, BlockState blockState) {
+            super(BlockEntityTypes.CATENARY_NODE.get(), blockPos, blockState);
+        }
     }
 }
