@@ -148,7 +148,7 @@ public class Init implements Utilities {
             startingPort = Integer.parseInt(FileUtils.readFileToString(filePath.toFile(), StandardCharsets.UTF_8));
         } catch (Exception ignored) {
             try {
-                Files.writeString(filePath, String.valueOf(startingPort), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+                Files.write(filePath, String.valueOf(startingPort).getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
             } catch (Exception e) {
                 MSD_LOGGER.log(Level.WARNING, "MSD write port file error", e);
             }
