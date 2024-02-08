@@ -1,4 +1,4 @@
-package top.mcmtr.mod.data;
+package top.mcmtr.core.data;
 
 import org.mtr.core.serializer.ReaderBase;
 import org.mtr.core.serializer.SerializedDataBase;

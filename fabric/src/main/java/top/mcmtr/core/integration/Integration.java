@@ -7,7 +7,6 @@ import top.mcmtr.core.data.Catenary;
 import top.mcmtr.core.data.Data;
 import top.mcmtr.core.generated.integration.IntegrationSchema;
 
-import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
 public class Integration extends IntegrationSchema {
@@ -32,7 +31,7 @@ public class Integration extends IntegrationSchema {
         catenaryNodePositions.forEach(consumer);
     }
 
-    public void add(@Nullable ObjectSet<Catenary> catenaries, @Nullable ObjectSet<Position> catenaryNodePositions) {
+    public void add(ObjectSet<Catenary> catenaries, ObjectSet<Position> catenaryNodePositions) {
         if (catenaries != null) {
             this.catenaries.addAll(catenaries);
         }

@@ -1,14 +1,12 @@
 package top.mcmtr.mod.blocks;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.mtr.mapping.holder.*;
 import org.mtr.mapping.mapper.BlockEntityExtension;
 import org.mtr.mapping.mapper.BlockExtension;
 import org.mtr.mapping.mapper.BlockHelper;
 import org.mtr.mapping.mapper.BlockWithEntity;
 import org.mtr.mapping.tool.HolderBase;
-import top.mcmtr.mod.data.OffsetPosition;
+import top.mcmtr.core.data.OffsetPosition;
 
 import java.util.List;
 
@@ -24,19 +22,16 @@ public abstract class BlockNodeBase extends BlockExtension implements BlockWithE
         properties.add(IS_CONNECTED);
     }
 
-    @Nullable
     @Override
     public BlockState getPlacementState2(ItemPlacementContext ctx) {
         return getDefaultState2().with(new Property<>(IS_CONNECTED.data), false);
     }
 
-    @NotNull
     @Override
     public VoxelShape getOutlineShape2(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return VoxelShapes.fullCube();
     }
 
-    @NotNull
     @Override
     public VoxelShape getCollisionShape2(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return VoxelShapes.empty();

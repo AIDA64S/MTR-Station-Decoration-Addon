@@ -1,8 +1,6 @@
 package top.mcmtr.core.data;
 
 import org.mtr.core.data.Position;
-import top.mcmtr.mod.data.OffsetPosition;
-import top.mcmtr.mod.data.VectorLocation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,24 +16,28 @@ public class CatenaryMath {
     private final double increment2;
     private final double sinX;
     private final double sinZ;
+    private final CatenaryType catenaryType;
     private final List<VectorLocation> corner = new ArrayList<>();
     public static final double CATENARY_WIDTH = 0.015625;
+    private static final int ELECTRIC_CURVATURE_SCALE = 300;
+    private static final int MAX_ELECTRIC_DIP = 8;
 
-    public CatenaryMath(Position position1, Position position2, OffsetPosition offset1, OffsetPosition offset2) {
+    public CatenaryMath(Position position1, Position position2, OffsetPosition offset1, OffsetPosition offset2, CatenaryType catenaryType) {
         this.xStart = position1.getX() + offset1.x;
         this.yStart = position1.getY() + offset1.y;
         this.zStart = position1.getZ() + offset1.z;
         this.xEnd = position2.getX() + offset2.x;
         this.yEnd = position2.getY() + offset2.y;
         this.zEnd = position2.getZ() + offset2.z;
+        this.catenaryType = catenaryType;
         this.count = getLength();
         double increment = count / Math.round(count / 2);
         this.increment2 = increment - 0.5;
         this.sinX = getSin(zStart, zEnd, count);
         this.sinZ = getSin(xStart, xEnd, count);
         for (double i = 0; i < count - 0.1; i += increment) {
-            final VectorLocation cornerTemp = new VectorLocation(getPositionXYZ(i, xStart, xEnd) + 0.5, getPositionXYZ(i, yStart, yEnd), getPositionXYZ(i, zStart, zEnd) + 0.5,
-                    getPositionXYZ(i + increment, xStart, xEnd) + 0.5, getPositionXYZ(i + increment, yStart, yEnd), getPositionXYZ(i + increment, zStart, zEnd) + 0.5, i);
+            final VectorLocation cornerTemp = new VectorLocation(getPositionXZ(i, xStart, xEnd) + 0.5, getPositionY(i, yStart, yEnd), getPositionXZ(i, zStart, zEnd) + 0.5,
+                    getPositionXZ(i + increment, xStart, xEnd) + 0.5, getPositionY(i + increment, yStart, yEnd), getPositionXZ(i + increment, zStart, zEnd) + 0.5, i);
             corner.add(cornerTemp);
         }
     }
@@ -58,7 +60,7 @@ public class CatenaryMath {
         }
     }
 
-    private double getPositionXYZ(double value, double start, double end) {
+    private double getPositionXZ(double value, double start, double end) {
         final double intercept = count / 2;
         final double change;
         final double initial;
@@ -73,6 +75,23 @@ public class CatenaryMath {
             offsetValue = count - value;
         }
         return change / intercept * offsetValue + initial;
+    }
+
+    private double getPositionY(double value, double start, double end) {
+        if (catenaryType == CatenaryType.ELECTRIC) {
+            if (value < 0.5) {
+                return start;
+            } else if (value > count - 0.5) {
+                return end;
+            }
+            final double offsetValue = value - 0.5;
+            final double offsetLength = count - 1;
+            final double posY = start + (end - start) * offsetValue / offsetLength;
+            final double dip = offsetLength * offsetLength / 4 / ELECTRIC_CURVATURE_SCALE;
+            return posY + (dip > MAX_ELECTRIC_DIP ? MAX_ELECTRIC_DIP / dip : 1) * (offsetValue - offsetLength) * offsetValue / ELECTRIC_CURVATURE_SCALE;
+        } else {
+            return getPositionXZ(value, start, end);
+        }
     }
 
     private double getLength() {

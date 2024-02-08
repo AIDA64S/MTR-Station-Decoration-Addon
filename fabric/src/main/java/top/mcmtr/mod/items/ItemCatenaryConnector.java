@@ -5,17 +5,18 @@ import org.mtr.mapping.holder.*;
 import org.mtr.mapping.mapper.TextHelper;
 import org.mtr.mod.Init;
 import top.mcmtr.core.data.Catenary;
+import top.mcmtr.core.data.CatenaryType;
 import top.mcmtr.mod.blocks.BlockCatenaryNode;
 import top.mcmtr.mod.packet.PacketData;
 
-import javax.annotation.Nullable;
-
 public final class ItemCatenaryConnector extends ItemBlockClickingBase {
     private final boolean isConnector;
+    private final CatenaryType catenaryType;
 
-    public ItemCatenaryConnector(ItemSettings itemSettings, boolean isConnector) {
+    public ItemCatenaryConnector(ItemSettings itemSettings, boolean isConnector, CatenaryType catenaryType) {
         super(itemSettings);
         this.isConnector = isConnector;
+        this.catenaryType = catenaryType;
     }
 
     @Override
@@ -47,12 +48,12 @@ public final class ItemCatenaryConnector extends ItemBlockClickingBase {
         return blockStart.data instanceof BlockCatenaryNode;
     }
 
-    private void onConnect(World world, ItemStack stack, BlockState blockStart, BlockState blockEnd, BlockPos posStart, BlockPos posEnd, @Nullable ServerPlayerEntity player) {
+    private void onConnect(World world, ItemStack stack, BlockState blockStart, BlockState blockEnd, BlockPos posStart, BlockPos posEnd, ServerPlayerEntity player) {
         final Position positionStart = Init.blockPosToPosition(posStart);
         final Position positionEnd = Init.blockPosToPosition(posEnd);
         final BlockCatenaryNode.BlockCatenaryNodeEntity catenaryNodeEntityStart = (BlockCatenaryNode.BlockCatenaryNodeEntity) world.getBlockEntity(posStart).data;
         final BlockCatenaryNode.BlockCatenaryNodeEntity catenaryNodeEntityEnd = (BlockCatenaryNode.BlockCatenaryNodeEntity) world.getBlockEntity(posEnd).data;
-        final Catenary catenary = new Catenary(positionStart, positionEnd, catenaryNodeEntityStart.getOffsetPosition(), catenaryNodeEntityEnd.getOffsetPosition());
+        final Catenary catenary = Catenary.newCatenary(positionStart, positionEnd, catenaryNodeEntityStart.getOffsetPosition(), catenaryNodeEntityEnd.getOffsetPosition(), catenaryType);
         if (catenary.isValid()) {
             world.setBlockState(posStart, blockStart.with(new Property<>(BlockCatenaryNode.IS_CONNECTED.data), true));
             world.setBlockState(posEnd, blockEnd.with(new Property<>(BlockCatenaryNode.IS_CONNECTED.data), true));
@@ -62,9 +63,9 @@ public final class ItemCatenaryConnector extends ItemBlockClickingBase {
         }
     }
 
-    private void onRemove(World world, BlockPos posStart, BlockPos posEnd, @Nullable ServerPlayerEntity player) {
+    private void onRemove(World world, BlockPos posStart, BlockPos posEnd, ServerPlayerEntity player) {
         final BlockCatenaryNode.BlockCatenaryNodeEntity catenaryNodeEntityStart = (BlockCatenaryNode.BlockCatenaryNodeEntity) world.getBlockEntity(posStart).data;
         final BlockCatenaryNode.BlockCatenaryNodeEntity catenaryNodeEntityEnd = (BlockCatenaryNode.BlockCatenaryNodeEntity) world.getBlockEntity(posEnd).data;
-        PacketData.deleteCatenary(ServerWorld.cast(world), new Catenary(Init.blockPosToPosition(posStart), Init.blockPosToPosition(posEnd), catenaryNodeEntityStart.getOffsetPosition(), catenaryNodeEntityEnd.getOffsetPosition()));
+        PacketData.deleteCatenary(ServerWorld.cast(world), Catenary.newCatenary(Init.blockPosToPosition(posStart), Init.blockPosToPosition(posEnd), catenaryNodeEntityStart.getOffsetPosition(), catenaryNodeEntityEnd.getOffsetPosition(), CatenaryType.NONE));
     }
 }

@@ -49,7 +49,7 @@ public class PacketDataBase extends PacketHandler {
         final IntegrationServlet.Operation operation = EnumHelper.valueOf(IntegrationServlet.Operation.UPDATE, packetBufferReceiver.readString());
         final JsonReader integrationJsonReader = new JsonReader(Utilities.parseJson(packetBufferReceiver.readString()));
         final boolean updateClientDataInstance = packetBufferReceiver.readBoolean();
-        return packetDataBaseInstance.create(operation, new Integration(ClientData.getInstance()), updateClientDataInstance);
+        return packetDataBaseInstance.create(operation, new Integration(integrationJsonReader, ClientData.getInstance()), updateClientDataInstance);
     }
 
     @Override

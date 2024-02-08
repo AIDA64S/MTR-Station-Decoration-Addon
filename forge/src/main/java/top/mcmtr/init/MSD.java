@@ -11,6 +11,5 @@ public class MSD {
     public MSD() {
         Init.init();
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> InitClient::init);
-        System.out.println("MSD-Forge启动测试");
     }
 }

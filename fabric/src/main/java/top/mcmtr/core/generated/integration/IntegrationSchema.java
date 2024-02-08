@@ -9,7 +9,7 @@ import top.mcmtr.core.data.Catenary;
 
 public abstract class IntegrationSchema implements SerializedDataBase {
     public static final String KEY_CATENARIES = "catenaries";
-    public static final String KEY_CATENARY_NODE = "catenaryNodePositions";
+    public static final String KEY_CATENARY_NODE = "catenary_code_positions";
     protected final ObjectArrayList<Catenary> catenaries = new ObjectArrayList<>();
     protected final ObjectArrayList<Position> catenaryNodePositions = new ObjectArrayList<>();
 
@@ -26,16 +26,16 @@ public abstract class IntegrationSchema implements SerializedDataBase {
     }
 
     @Override
-    public void serializeData(WriterBase writerBase) {
+    public void serializeData(final WriterBase writerBase) {
         this.serializeCatenaries(writerBase);
         this.serializeCatenaryNodePositions(writerBase);
     }
 
-    protected void serializeCatenaries(WriterBase writerBase) {
+    protected void serializeCatenaries(final WriterBase writerBase) {
         writerBase.writeDataset(this.catenaries, KEY_CATENARIES);
     }
 
-    protected void serializeCatenaryNodePositions(WriterBase writerBase) {
+    protected void serializeCatenaryNodePositions(final WriterBase writerBase) {
         writerBase.writeDataset(this.catenaryNodePositions, KEY_CATENARY_NODE);
     }
 

@@ -1,6 +1,5 @@
 package top.mcmtr.mod.items;
 
-import org.jetbrains.annotations.NotNull;
 import org.mtr.mapping.holder.*;
 import org.mtr.mapping.mapper.ItemExtension;
 
@@ -12,7 +11,7 @@ public abstract class ItemBlockClickingBase extends ItemExtension {
     }
 
     @Override
-    public @NotNull ActionResult useOnBlock2(ItemUsageContext context) {
+    public ActionResult useOnBlock2(ItemUsageContext context) {
         if (!context.getWorld().isClient()) {
             if (clickCondition(context)) {
                 final CompoundTag compoundTag = context.getStack().getOrCreateTag();

@@ -7,21 +7,30 @@ import org.mtr.core.tool.Utilities;
 import org.mtr.libraries.it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import org.mtr.libraries.it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import top.mcmtr.core.generated.data.CatenarySchema;
-import top.mcmtr.mod.data.OffsetPosition;
 
 public class Catenary extends CatenarySchema implements SerializedDataBaseWithId {
     public final CatenaryMath catenaryMath;
     private final ObjectOpenHashSet<Catenary> connectedCatenaries1 = new ObjectOpenHashSet<>();
     private final ObjectOpenHashSet<Catenary> connectedCatenaries2 = new ObjectOpenHashSet<>();
 
-    public Catenary(Position position1, Position position2, OffsetPosition offsetPosition1, OffsetPosition offsetPosition2) {
-        super(position1, position2, offsetPosition1, offsetPosition2);
-        this.catenaryMath = new CatenaryMath(position1, position2, offsetPosition1, offsetPosition2);
+    public static Catenary newCatenary(Position position1, Position position2, OffsetPosition offsetPosition1, OffsetPosition offsetPosition2, CatenaryType catenaryType) {
+        return new Catenary(position1, position2, offsetPosition1, offsetPosition2, catenaryType);
+    }
+
+    public Catenary(Position position1, Position position2, OffsetPosition offsetPosition1, OffsetPosition offsetPosition2, CatenaryType catenaryType) {
+        super(position1, position2, offsetPosition1, offsetPosition2, catenaryType);
+        this.catenaryMath = new CatenaryMath(position1, position2, offsetPosition1, offsetPosition2, catenaryType);
     }
 
     public Catenary(ReaderBase readerBase) {
         super(readerBase);
-        this.catenaryMath = new CatenaryMath(this.position1, this.position2, this.offsetPosition1, this.offsetPosition2);
+        this.catenaryMath = new CatenaryMath(this.position1, this.position2, this.offsetPosition1, this.offsetPosition2, this.catenaryType);
+        updateData(readerBase);
+    }
+
+    @Override
+    public boolean isValid() {
+        return catenaryMath.verify();
     }
 
     public boolean closeTo(Position position, double radius) {
@@ -36,11 +45,6 @@ public class Catenary extends CatenarySchema implements SerializedDataBaseWithId
     @Override
     protected Position getPosition2() {
         return this.position2;
-    }
-
-    @Override
-    public boolean isValid() {
-        return catenaryMath.verify();
     }
 
     void writePositionsToCatenaryCache(Object2ObjectOpenHashMap<Position, Object2ObjectOpenHashMap<Position, Catenary>> positionsToCatenary) {

@@ -13,7 +13,6 @@ import top.mcmtr.core.integration.Integration;
 import top.mcmtr.core.simulation.Simulator;
 import top.mcmtr.mod.Init;
 
-import javax.annotation.Nullable;
 import java.util.logging.Level;
 
 public final class IntegrationResponse extends ResponseBase<Integration> {
@@ -49,7 +48,7 @@ public final class IntegrationResponse extends ResponseBase<Integration> {
             body.iterateCatenaries(catenary -> bodyCallback.accept(catenary, true, catenary.getCatenaryFromData(simulator, catenaryNodePositionsToUpdate), simulator.catenaries, catenariesToUpdate));
             body.iterateCatenaryNodePositions(catenaryNodePosition -> {
                 catenaryNodePositionsToUpdate.add(catenaryNodePosition);
-                catenaryNodePositionCallback.accpet(catenaryNodePosition, catenariesToUpdate, catenaryNodePositionsToUpdate);
+                catenaryNodePositionCallback.accept(catenaryNodePosition, catenariesToUpdate, catenaryNodePositionsToUpdate);
             });
         } catch (Exception e) {
             Init.MSD_LOGGER.log(Level.WARNING, "MSD integration response parse body fail", e);
@@ -63,7 +62,7 @@ public final class IntegrationResponse extends ResponseBase<Integration> {
         return integration;
     }
 
-    private static <T extends SerializedDataBase> void update(T bodyData, boolean addNewData, @Nullable T existingData, ObjectSet<T> dataSet, ObjectSet<T> dataToUpdate) {
+    private static <T extends SerializedDataBase> void update(T bodyData, boolean addNewData, T existingData, ObjectSet<T> dataSet, ObjectSet<T> dataToUpdate) {
         final boolean isCatenary = bodyData instanceof Catenary;
         final boolean isValid = !isCatenary || ((Catenary) bodyData).isValid();
         if (existingData == null) {
@@ -84,13 +83,13 @@ public final class IntegrationResponse extends ResponseBase<Integration> {
         }
     }
 
-    private static <T extends SerializedDataBase> void get(T bodyData, boolean addNewData, @Nullable T existingData, ObjectSet<T> dataSet, ObjectSet<T> dataToUpdate) {
+    private static <T extends SerializedDataBase> void get(T bodyData, boolean addNewData, T existingData, ObjectSet<T> dataSet, ObjectSet<T> dataToUpdate) {
         if (existingData != null) {
             dataToUpdate.add(existingData);
         }
     }
 
-    private static <T extends SerializedDataBase> void delete(T bodyData, boolean addNewData, @Nullable T existingData, ObjectSet<T> dataSet, ObjectSet<T> dataToUpdate) {
+    private static <T extends SerializedDataBase> void delete(T bodyData, boolean addNewData, T existingData, ObjectSet<T> dataSet, ObjectSet<T> dataToUpdate) {
         if (existingData != null && dataSet.remove(existingData)) {
             dataToUpdate.add(existingData);
         }
@@ -98,7 +97,7 @@ public final class IntegrationResponse extends ResponseBase<Integration> {
 
     @FunctionalInterface
     private interface BodyCallback {
-        <T extends SerializedDataBase> void accept(T bodyData, boolean addNewData, @Nullable T existingData, ObjectSet<T> dataSet, ObjectSet<T> dataToUpdate);
+        <T extends SerializedDataBase> void accept(T bodyData, boolean addNewData, T existingData, ObjectSet<T> dataSet, ObjectSet<T> dataToUpdate);
     }
 
     @FunctionalInterface
@@ -106,6 +105,6 @@ public final class IntegrationResponse extends ResponseBase<Integration> {
         CatenaryNodePositionCallback EMPTY = (catenaryNodePosition, catenariesToUpdate, catenaryNodePositionsToUpdate) -> {
         };
 
-        void accpet(Position catenaryNodePosition, ObjectOpenHashSet<Catenary> catenariesToUpdate, ObjectOpenHashSet<Position> catenaryNodePositionsToUpdate);
+        void accept(Position catenaryNodePosition, ObjectOpenHashSet<Catenary> catenariesToUpdate, ObjectOpenHashSet<Position> catenaryNodePositionsToUpdate);
     }
 }

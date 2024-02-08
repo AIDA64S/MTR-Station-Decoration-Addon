@@ -1,6 +1,5 @@
 package top.mcmtr.mod.blocks;
 
-import org.jetbrains.annotations.NotNull;
 import org.mtr.mapping.holder.*;
 import org.mtr.mapping.mapper.BlockEntityExtension;
 import top.mcmtr.mod.BlockEntityTypes;
@@ -27,7 +26,6 @@ public final class BlockCatenaryNode extends BlockNodeBase {
         }
     }
 
-    @NotNull
     @Override
     public BlockRenderType getRenderType2(BlockState state) {
         if (state.get(new Property<>(IS_CONNECTED.data))) {

@@ -11,7 +11,6 @@ import org.mtr.webserver.Webserver;
 import top.mcmtr.core.simulation.Simulator;
 import top.mcmtr.mod.Init;
 
-import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.function.BiConsumer;
@@ -46,10 +45,9 @@ public abstract class ServletBase {
         }));
     }
 
-    @Nullable
     protected abstract JsonObject getContent(String endpoint, String data, Object2ObjectAVLTreeMap<String, String> parameters, JsonReader jsonReader, long currentMillis, Simulator simulator);
 
-    private void run(String path, QueryStringDecoder queryStringDecoder, JsonReader jsonReader, @Nullable BiConsumer<JsonObject, HttpResponseStatus> sendResponse, long currentMillis, Simulator simulator) {
+    private void run(String path, QueryStringDecoder queryStringDecoder, JsonReader jsonReader, BiConsumer<JsonObject, HttpResponseStatus> sendResponse, long currentMillis, Simulator simulator) {
         final String endpoint;
         final String data;
         final String extraPath = queryStringDecoder.path().replace(path, "");
@@ -75,7 +73,7 @@ public abstract class ServletBase {
         });
     }
 
-    private static void buildResponseObject(BiConsumer<JsonObject, HttpResponseStatus> sendResponse, long currentMillis, @Nullable JsonObject data, HttpResponseStatus httpResponseStatus, String... parameters) {
+    private static void buildResponseObject(BiConsumer<JsonObject, HttpResponseStatus> sendResponse, long currentMillis, JsonObject data, HttpResponseStatus httpResponseStatus, String... parameters) {
         final StringBuilder reasonPhrase = new StringBuilder(httpResponseStatus.reasonPhrase());
         final String trimmedParameters = Arrays.stream(parameters).filter(parameter -> !parameter.isEmpty()).collect(Collectors.joining(", "));
         if (!trimmedParameters.isEmpty()) {

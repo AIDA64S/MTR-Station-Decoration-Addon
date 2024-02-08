@@ -9,8 +9,6 @@ import top.mcmtr.core.data.Data;
 import top.mcmtr.core.integration.Integration;
 import top.mcmtr.core.servlet.IntegrationServlet;
 
-import javax.annotation.Nullable;
-
 public final class PacketData extends PacketDataBase {
     private static PacketData fromCatenary(IntegrationServlet.Operation operation, Catenary catenary) {
         return PacketData.create(operation, ObjectSet.of(catenary), null);
@@ -20,7 +18,7 @@ public final class PacketData extends PacketDataBase {
         return PacketData.create(IntegrationServlet.Operation.DELETE, null, ObjectSet.of(position));
     }
 
-    private static PacketData create(IntegrationServlet.Operation operation, @Nullable ObjectSet<Catenary> catenaries, @Nullable ObjectSet<Position> positions) {
+    private static PacketData create(IntegrationServlet.Operation operation, ObjectSet<Catenary> catenaries, ObjectSet<Position> positions) {
         final Integration integration = new Integration(new Data());
         integration.add(catenaries, positions);
         return new PacketData(operation, integration, true);
