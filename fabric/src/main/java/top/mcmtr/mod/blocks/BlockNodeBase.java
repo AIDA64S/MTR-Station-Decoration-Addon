@@ -47,9 +47,9 @@ public abstract class BlockNodeBase extends BlockExtension implements BlockWithE
         }
 
         public void setOffsetPosition(OffsetPosition offsetPosition) {
-            this.offsetPosition.x = offsetPosition.x;
-            this.offsetPosition.y = offsetPosition.y;
-            this.offsetPosition.z = offsetPosition.z;
+            this.offsetPosition.setX(offsetPosition.getX());
+            this.offsetPosition.setY(offsetPosition.getY());
+            this.offsetPosition.setZ(offsetPosition.getZ());
         }
 
         public OffsetPosition getOffsetPosition() {
@@ -58,16 +58,16 @@ public abstract class BlockNodeBase extends BlockExtension implements BlockWithE
 
         @Override
         public void readCompoundTag(CompoundTag compoundTag) {
-            this.offsetPosition.x = compoundTag.getDouble(KEY_OFFSET_POSITION + "x");
-            this.offsetPosition.y = compoundTag.getDouble(KEY_OFFSET_POSITION + "y");
-            this.offsetPosition.z = compoundTag.getDouble(KEY_OFFSET_POSITION + "z");
+            this.offsetPosition.setX(compoundTag.getDouble(KEY_OFFSET_POSITION + "x"));
+            this.offsetPosition.setY(compoundTag.getDouble(KEY_OFFSET_POSITION + "y"));
+            this.offsetPosition.setZ(compoundTag.getDouble(KEY_OFFSET_POSITION + "z"));
         }
 
         @Override
         public void writeCompoundTag(CompoundTag compoundTag) {
-            compoundTag.putDouble(KEY_OFFSET_POSITION + "x", this.offsetPosition.x);
-            compoundTag.putDouble(KEY_OFFSET_POSITION + "y", this.offsetPosition.y);
-            compoundTag.putDouble(KEY_OFFSET_POSITION + "z", this.offsetPosition.z);
+            compoundTag.putDouble(KEY_OFFSET_POSITION + "x", this.offsetPosition.getX());
+            compoundTag.putDouble(KEY_OFFSET_POSITION + "y", this.offsetPosition.getY());
+            compoundTag.putDouble(KEY_OFFSET_POSITION + "z", this.offsetPosition.getZ());
         }
     }
 }

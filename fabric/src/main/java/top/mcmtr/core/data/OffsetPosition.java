@@ -5,7 +5,9 @@ import org.mtr.core.serializer.SerializedDataBase;
 import org.mtr.core.serializer.WriterBase;
 
 public class OffsetPosition implements SerializedDataBase {
-    public double x, y, z;
+    private double x;
+    private double y;
+    private double z;
     public static final String KEY_X = "x";
     public static final String KEY_Y = "y";
     public static final String KEY_Z = "z";
@@ -22,6 +24,30 @@ public class OffsetPosition implements SerializedDataBase {
         this.z = readerBase.getDouble(KEY_Z, 0);
     }
 
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public double getZ() {
+        return z;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public void setZ(double z) {
+        this.z = z;
+    }
+
     @Override
     public void updateData(ReaderBase readerBase) {
     }
@@ -35,6 +61,10 @@ public class OffsetPosition implements SerializedDataBase {
 
     @Override
     public String toString() {
-        return "OffsetPosition{x=" + x + ", y=" + y + ", z=" + z + "}";
+        return "OffsetPosition{" +
+                "x=" + x +
+                ", y=" + y +
+                ", z=" + z +
+                '}';
     }
 }

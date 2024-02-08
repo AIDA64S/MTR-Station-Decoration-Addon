@@ -9,7 +9,7 @@ import org.mtr.mapping.registry.CreativeModeTabHolder;
 public class CreativeModeTabs {
     static {
         STATION = Init.REGISTRY.createCreativeModeTabHolder(new Identifier(Init.MOD_ID, "station"), () -> new ItemStack(new ItemConvertible(Items.getBeefMapped().data)));
-        EXTERNAL = Init.REGISTRY.createCreativeModeTabHolder(new Identifier(Init.MOD_ID, "external"), () -> new ItemStack(new ItemConvertible(Items.getBeefMapped().data)));
+        EXTERNAL = Init.REGISTRY.createCreativeModeTabHolder(new Identifier(Init.MOD_ID, "external"), () -> new ItemStack(new ItemConvertible(Items.getPigSpawnEggMapped().data)));
     }
 
     public static final CreativeModeTabHolder STATION;

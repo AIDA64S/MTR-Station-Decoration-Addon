@@ -1,0 +1,12 @@
+{
+  "itemGroup.msd.station": "Station Decoration",
+  "itemGroup.msd.external": "Station External Decoration",
+  "item.msd.catenary_connector": "Catenary Connector",
+  "item.msd.electric_connector": "Electric Connector",
+  "item.msd.rigid_catenary_connector": "Rigid Catenary Connector",
+  "item.msd.rigid_soft_catenary_connector": "Catenary Connector(Rigid-Soft)",
+  "item.msd.catenary_remover": "Connection Remover",
+  "item.msd.rigid_catenary_remover": "Rigid Catenary Remover",
+  "block.msd.catenary_node": "Catenary Node",
+  "block.msd.rigid_catenary_node": "Rigid Catenary Node"
+}

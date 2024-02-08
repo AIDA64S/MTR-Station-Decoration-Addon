@@ -22,13 +22,13 @@ public class CatenaryMath {
     private static final int ELECTRIC_CURVATURE_SCALE = 300;
     private static final int MAX_ELECTRIC_DIP = 8;
 
-    public CatenaryMath(Position position1, Position position2, OffsetPosition offset1, OffsetPosition offset2, CatenaryType catenaryType) {
-        this.xStart = position1.getX() + offset1.x;
-        this.yStart = position1.getY() + offset1.y;
-        this.zStart = position1.getZ() + offset1.z;
-        this.xEnd = position2.getX() + offset2.x;
-        this.yEnd = position2.getY() + offset2.y;
-        this.zEnd = position2.getZ() + offset2.z;
+    public CatenaryMath(Position positionStart, Position positionEnd, OffsetPosition offsetStart, OffsetPosition offsetEnd, CatenaryType catenaryType) {
+        this.xStart = positionStart.getX() + offsetStart.getX();
+        this.yStart = positionStart.getY() + offsetStart.getY();
+        this.zStart = positionStart.getZ() + offsetStart.getZ();
+        this.xEnd = positionEnd.getX() + offsetEnd.getX();
+        this.yEnd = positionEnd.getY() + offsetEnd.getY();
+        this.zEnd = positionEnd.getZ() + offsetEnd.getZ();
         this.catenaryType = catenaryType;
         this.count = getLength();
         double increment = count / Math.round(count / 2);

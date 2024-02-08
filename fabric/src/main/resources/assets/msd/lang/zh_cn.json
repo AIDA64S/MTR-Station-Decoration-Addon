@@ -1,0 +1,12 @@
+{
+  "itemGroup.msd.station": "站内装饰",
+  "itemGroup.msd.external": "站外装饰",
+  "item.msd.catenary_connector": "接触网连接器",
+  "item.msd.electric_connector": "电缆连接器",
+  "item.msd.rigid_catenary_connector": "刚性接触网连接器",
+  "item.msd.rigid_soft_catenary_connector": "刚性-柔性接触网过渡连接器",
+  "item.msd.catenary_remover": "连接移除器",
+  "item.msd.rigid_catenary_remover": "刚性接触网连接移除器",
+  "block.msd.catenary_node": "接触网节点",
+  "block.msd.rigid_catenary_node": "刚性接触网节点"
+}
