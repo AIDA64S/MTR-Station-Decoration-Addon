@@ -4,7 +4,7 @@ import org.mtr.core.serializer.ReaderBase;
 import org.mtr.core.serializer.SerializedDataBase;
 import org.mtr.core.serializer.WriterBase;
 
-public class OffsetPosition implements SerializedDataBase {
+public final class OffsetPosition implements SerializedDataBase {
     private double x;
     private double y;
     private double z;
@@ -18,30 +18,31 @@ public class OffsetPosition implements SerializedDataBase {
         this.z = z;
     }
 
-    public OffsetPosition(ReaderBase readerBase) {
+    public OffsetPosition(final ReaderBase readerBase) {
         this.x = readerBase.getDouble(KEY_X, 0);
         this.y = readerBase.getDouble(KEY_Y, 0);
         this.z = readerBase.getDouble(KEY_Z, 0);
+        updateData(readerBase);
     }
 
     public double getX() {
-        return x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public double getZ() {
-        return z;
+        return this.x;
     }
 
     public void setX(double x) {
         this.x = x;
     }
 
+    public double getY() {
+        return this.y;
+    }
+
     public void setY(double y) {
         this.y = y;
+    }
+
+    public double getZ() {
+        return this.z;
     }
 
     public void setZ(double z) {
@@ -49,22 +50,12 @@ public class OffsetPosition implements SerializedDataBase {
     }
 
     @Override
-    public void updateData(ReaderBase readerBase) {
+    public void updateData(final ReaderBase readerBase) {
     }
 
-    @Override
-    public void serializeData(WriterBase writerBase) {
+    public void serializeData(final WriterBase writerBase) {
         writerBase.writeDouble(KEY_X, this.x);
         writerBase.writeDouble(KEY_Y, this.y);
         writerBase.writeDouble(KEY_Z, this.z);
-    }
-
-    @Override
-    public String toString() {
-        return "OffsetPosition{" +
-                "x=" + x +
-                ", y=" + y +
-                ", z=" + z +
-                '}';
     }
 }
