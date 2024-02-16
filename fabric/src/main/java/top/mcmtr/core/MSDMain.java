@@ -4,9 +4,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MSDMain {
-    public static final Logger MSD_LOGGER = Logger.getLogger("msd_core_log");
+    public static final Logger MSD_CORE_LOG = Logger.getLogger("MSD_SERVER_LOGGER");
 
-    public static void logException(Exception e, String message) {
-        MSD_LOGGER.log(Level.WARNING, message + "\n" + e.getMessage(), e);
+    public static void logException(Exception e, String exceptionMessage) {
+        MSD_CORE_LOG.log(Level.WARNING, exceptionMessage, e);
     }
 }

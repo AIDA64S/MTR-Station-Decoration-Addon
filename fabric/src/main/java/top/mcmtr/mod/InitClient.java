@@ -2,7 +2,6 @@ package top.mcmtr.mod;
 
 import org.mtr.mapping.holder.Identifier;
 import org.mtr.mapping.holder.RenderLayer;
-import org.mtr.mapping.registry.EventRegistryClient;
 import org.mtr.mapping.registry.RegistryClient;
 import top.mcmtr.mod.items.ItemBlockClickingBase;
 
@@ -14,16 +13,6 @@ public class InitClient {
 
         REGISTRY_CLIENT.registerItemModelPredicate(Items.CATENARY_CONNECTOR, new Identifier(Init.MOD_ID, "selected"), checkItemPredicateTag());
         REGISTRY_CLIENT.registerItemModelPredicate(Items.CONNECTOR_REMOVER, new Identifier(Init.MOD_ID, "selected"), checkItemPredicateTag());
-
-        REGISTRY_CLIENT.setupPackets(new Identifier(Init.MOD_ID, "packet"));
-        EventRegistryClient.registerClientJoin(() -> {
-        });
-
-        EventRegistryClient.registerStartClientTick(() -> {
-        });
-
-        EventRegistryClient.registerEndClientTick(() -> {
-        });
 
         REGISTRY_CLIENT.init();
     }

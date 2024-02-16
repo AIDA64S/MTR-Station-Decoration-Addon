@@ -1,11 +1,13 @@
 package top.mcmtr.mod.blocks;
 
-import org.mtr.mapping.holder.*;
+import org.mtr.mapping.holder.BlockPos;
+import org.mtr.mapping.holder.BlockRenderType;
+import org.mtr.mapping.holder.BlockState;
+import org.mtr.mapping.holder.Property;
 import org.mtr.mapping.mapper.BlockEntityExtension;
 import top.mcmtr.mod.BlockEntityTypes;
 
 public final class BlockCatenaryNode extends BlockNodeBase {
-
     public BlockCatenaryNode() {
         super();
     }
