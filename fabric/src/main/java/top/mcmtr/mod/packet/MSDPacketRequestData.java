@@ -6,6 +6,7 @@ import org.mtr.mapping.holder.ServerWorld;
 import org.mtr.mapping.tool.PacketBufferReceiver;
 import top.mcmtr.core.operation.MSDDataRequest;
 import top.mcmtr.core.operation.MSDDataResponse;
+import top.mcmtr.core.servlet.OperationType;
 import top.mcmtr.mod.client.MSDMinecraftClientData;
 
 import javax.annotation.Nonnull;
@@ -41,7 +42,7 @@ public final class MSDPacketRequestData extends MSDPacketRequestResponseBase {
     @Nonnull
     @Override
     protected String getEndpoint() {
-        return "operation/get-data";
+        return "operation/" + OperationType.GET_DATA;
     }
 
     @Override

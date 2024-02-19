@@ -10,10 +10,12 @@ public class Items {
     static {
         CATENARY_CONNECTOR = Init.REGISTRY.registerItem(new Identifier(Init.MOD_ID, "catenary_connector"), itemSettings -> new Item(new ItemCatenaryConnector(itemSettings.maxCount(1), true, CatenaryType.CATENARY)), CreativeModeTabs.EXTERNAL);
         CONNECTOR_REMOVER = Init.REGISTRY.registerItem(new Identifier(Init.MOD_ID, "catenary_remover"), itemSettings -> new Item(new ItemCatenaryConnector(itemSettings.maxCount(1), false, CatenaryType.CATENARY)), CreativeModeTabs.EXTERNAL);
+        ELECTRIC_CONNECTOR = Init.REGISTRY.registerItem(new Identifier(Init.MOD_ID, "electric_connector"), itemSettings -> new Item(new ItemCatenaryConnector(itemSettings.maxCount(1), true, CatenaryType.ELECTRIC)), CreativeModeTabs.EXTERNAL);
     }
 
     public static final ItemRegistryObject CATENARY_CONNECTOR;
     public static final ItemRegistryObject CONNECTOR_REMOVER;
+    public static final ItemRegistryObject ELECTRIC_CONNECTOR;
 
     public static void init() {
         Init.MSD_LOGGER.info("Registering MTR Station Decoration items");

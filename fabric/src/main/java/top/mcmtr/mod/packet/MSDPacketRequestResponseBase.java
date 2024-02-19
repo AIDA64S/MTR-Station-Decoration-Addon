@@ -2,6 +2,7 @@ package top.mcmtr.mod.packet;
 
 import org.mtr.core.integration.Response;
 import org.mtr.core.tool.Utilities;
+import org.mtr.mapping.holder.MinecraftServer;
 import org.mtr.mapping.holder.ServerPlayerEntity;
 import org.mtr.mapping.holder.ServerWorld;
 import org.mtr.mapping.holder.World;
@@ -31,6 +32,11 @@ public abstract class MSDPacketRequestResponseBase extends PacketHandler {
     }
 
     @Override
+    public void runServer(MinecraftServer minecraftServer, ServerPlayerEntity serverPlayerEntity) {
+        runServer(serverPlayerEntity.getServerWorld(), serverPlayerEntity);
+    }
+
+    @Override
     public final void runClient() {
         runClient(Response.create(Utilities.parseJson(content)));
     }
@@ -38,7 +44,7 @@ public abstract class MSDPacketRequestResponseBase extends PacketHandler {
     /**
      * 发送信息到核心服务器，如果将结果发送给所有玩家，则{@link ServerPlayerEntity}可以为空
      */
-    protected final void runServer(ServerWorld serverWorld, @Nullable ServerPlayerEntity serverPlayerEntity) {
+    public final void runServer(ServerWorld serverWorld, @Nullable ServerPlayerEntity serverPlayerEntity) {
         Init.sendHttpRequest(getEndpoint(), new World(serverWorld.data), content, responseType() == MSDPacketRequestResponseBase.ResponseType.NONE ? null : response -> {
             if (responseType() == MSDPacketRequestResponseBase.ResponseType.PLAYER) {
                 if (serverPlayerEntity != null) {

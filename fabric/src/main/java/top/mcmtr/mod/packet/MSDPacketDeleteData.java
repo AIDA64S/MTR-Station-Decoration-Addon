@@ -8,6 +8,7 @@ import org.mtr.mapping.holder.ServerWorld;
 import org.mtr.mapping.tool.PacketBufferReceiver;
 import top.mcmtr.core.operation.MSDDeleteDataRequest;
 import top.mcmtr.core.operation.MSDDeleteDataResponse;
+import top.mcmtr.core.servlet.OperationType;
 import top.mcmtr.mod.Init;
 import top.mcmtr.mod.blocks.BlockNodeBase;
 import top.mcmtr.mod.client.MSDMinecraftClientData;
@@ -46,7 +47,7 @@ public final class MSDPacketDeleteData extends MSDPacketRequestResponseBase {
     @Nonnull
     @Override
     protected String getEndpoint() {
-        return "operation/delete-data";
+        return "operation/" + OperationType.DELETE_DATA;
     }
 
     @Override

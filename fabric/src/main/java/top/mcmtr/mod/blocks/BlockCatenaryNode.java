@@ -1,11 +1,10 @@
 package top.mcmtr.mod.blocks;
 
-import org.mtr.mapping.holder.BlockPos;
-import org.mtr.mapping.holder.BlockRenderType;
-import org.mtr.mapping.holder.BlockState;
-import org.mtr.mapping.holder.Property;
+import org.mtr.mapping.holder.*;
 import org.mtr.mapping.mapper.BlockEntityExtension;
 import top.mcmtr.mod.BlockEntityTypes;
+import top.mcmtr.mod.Init;
+import top.mcmtr.mod.packet.MSDPacketDeleteData;
 
 public final class BlockCatenaryNode extends BlockNodeBase {
     public BlockCatenaryNode() {
@@ -18,6 +17,13 @@ public final class BlockCatenaryNode extends BlockNodeBase {
             return BlockRenderType.INVISIBLE;
         }
         return super.getRenderType2(state);
+    }
+
+    @Override
+    public void onBreak3(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+        if (!world.isClient()) {
+            MSDPacketDeleteData.sendDirectlyToServerCatenaryNodePosition(ServerWorld.cast(world), Init.blockPosToPosition(pos));
+        }
     }
 
     @Override

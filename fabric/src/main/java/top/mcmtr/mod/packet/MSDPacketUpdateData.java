@@ -8,6 +8,7 @@ import org.mtr.mapping.tool.PacketBufferReceiver;
 import top.mcmtr.core.data.Catenary;
 import top.mcmtr.core.operation.MSDUpdateDataRequest;
 import top.mcmtr.core.operation.MSDUpdateDataResponse;
+import top.mcmtr.core.servlet.OperationType;
 import top.mcmtr.mod.client.MSDMinecraftClientData;
 
 import javax.annotation.Nonnull;
@@ -42,7 +43,7 @@ public final class MSDPacketUpdateData extends MSDPacketRequestResponseBase {
     @Nonnull
     @Override
     protected String getEndpoint() {
-        return "operation/update-data";
+        return "operation/" + OperationType.UPDATE_DATA;
     }
 
     @Override

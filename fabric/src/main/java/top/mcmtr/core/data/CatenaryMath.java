@@ -99,7 +99,7 @@ public class CatenaryMath {
     }
 
     public boolean verify() {
-        return getLength() > 0;
+        return count > 0;
     }
 
     private double getSin(double start, double end, double length) {
