@@ -118,7 +118,7 @@ public abstract class MSDServletBase extends HttpServlet {
                 }
             });
         } catch (IOException e) {
-            MSDMain.logException(e, "MSD Servlet send response error");
+            MSDMain.MSD_CORE_LOG.error("MSD Servlet send response error", e);
         }
     }
 

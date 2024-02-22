@@ -3,7 +3,7 @@ package top.mcmtr.core.data;
 import org.mtr.core.data.Position;
 import org.mtr.core.serializer.SerializedDataBaseWithId;
 import org.mtr.core.tool.Utilities;
-import org.mtr.libraries.it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+import org.mtr.libraries.it.unimi.dsi.fastutil.objects.ObjectArraySet;
 
 public abstract class TwoPositionsBase implements SerializedDataBaseWithId {
     @Override
@@ -11,7 +11,7 @@ public abstract class TwoPositionsBase implements SerializedDataBaseWithId {
         return getHexId(getPositionStart(), getPositionEnd());
     }
 
-    public final void writePositions(ObjectOpenHashSet<Position> positionsToUpdate) {
+    public final void writePositions(ObjectArraySet<Position> positionsToUpdate) {
         positionsToUpdate.add(getPositionStart());
         positionsToUpdate.add(getPositionEnd());
     }

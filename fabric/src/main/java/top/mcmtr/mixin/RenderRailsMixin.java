@@ -22,7 +22,7 @@ import top.mcmtr.mod.client.MSDMinecraftClientData;
 import java.util.function.Function;
 
 @Mixin(RenderRails.class)
-public class RenderRailsMixin {
+public final class RenderRailsMixin {
     @Unique
     private static final Identifier CATENARY_TEXTURE = new Identifier(Init.MOD_ID, "textures/block/overhead_line.png");
 

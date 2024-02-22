@@ -44,7 +44,7 @@ public class MSDSimulator extends MSDData implements Utilities {
                 }
             }
         } catch (Exception e) {
-            MSDMain.logException(e, "MSD Simulator tick error");
+            MSDMain.MSD_CORE_LOG.error("MSD Simulator tick error", e);
             throw e;
         }
     }

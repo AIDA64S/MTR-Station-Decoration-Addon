@@ -6,8 +6,7 @@ import org.mtr.core.tool.Utilities;
 import org.mtr.libraries.com.google.gson.JsonObject;
 import org.mtr.libraries.it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import org.mtr.libraries.it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import org.mtr.libraries.it.unimi.dsi.fastutil.objects.ObjectOpenHashBigSet;
-import org.mtr.libraries.it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+import org.mtr.libraries.it.unimi.dsi.fastutil.objects.ObjectArraySet;
 import top.mcmtr.core.data.Catenary;
 import top.mcmtr.core.generated.operation.MSDDeleteDataRequestSchema;
 import top.mcmtr.core.simulation.MSDSimulator;
@@ -36,7 +35,7 @@ public final class MSDDeleteDataRequest extends MSDDeleteDataRequestSchema {
 
     public JsonObject delete(MSDSimulator simulator) {
         final MSDDeleteDataResponse deleteDataResponse = new MSDDeleteDataResponse();
-        final ObjectOpenHashSet<Position> catenaryNodePositionsToUpdate = new ObjectOpenHashSet<>();
+        final ObjectArraySet<Position> catenaryNodePositionsToUpdate = new ObjectArraySet<>();
         catenaryIds.forEach(catenaryId ->
                 delete(simulator.catenaryIdMap.get(catenaryId), simulator.catenaries, catenaryId, deleteDataResponse.getCatenaryIds(), catenaryNodePositionsToUpdate));
         catenaryNodePositions.forEach(catenaryNodePosition ->
@@ -51,7 +50,7 @@ public final class MSDDeleteDataRequest extends MSDDeleteDataRequestSchema {
         return Utilities.getJsonObjectFromData(deleteDataResponse);
     }
 
-    private static void delete(@Nullable Catenary catenary, ObjectOpenHashBigSet<Catenary> catenaries, String catenaryId, ObjectArrayList<String> catenariesIdsToUpdate, ObjectOpenHashSet<Position> catenaryNodePositionsToUpdate) {
+    private static void delete(@Nullable Catenary catenary, ObjectArraySet<Catenary> catenaries, String catenaryId, ObjectArrayList<String> catenariesIdsToUpdate, ObjectArraySet<Position> catenaryNodePositionsToUpdate) {
         if (catenary != null) {
             catenaries.remove(catenary);
             catenariesIdsToUpdate.add(catenaryId);

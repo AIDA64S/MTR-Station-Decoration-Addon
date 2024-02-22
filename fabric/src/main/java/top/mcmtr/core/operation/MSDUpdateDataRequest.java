@@ -47,13 +47,12 @@ public final class MSDUpdateDataRequest extends MSDUpdateDataRequestSchema {
                 dataToUpdate.add(newData);
             }
         } else if (isValid) {
-            dataSet.remove(existingData);
             if (isCatenary) {
+                dataSet.remove(existingData);
                 dataSet.add(newData);
                 dataToUpdate.add(newData);
             } else {
                 existingData.updateData(new JsonReader(Utilities.getJsonObjectFromData(newData)));
-                dataSet.add(existingData);
                 dataToUpdate.add(existingData);
             }
         }

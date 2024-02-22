@@ -4,7 +4,7 @@ import org.mtr.core.data.Position;
 import org.mtr.core.serializer.SerializedDataBaseWithId;
 import org.mtr.libraries.it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import org.mtr.libraries.it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import org.mtr.libraries.it.unimi.dsi.fastutil.objects.ObjectOpenHashBigSet;
+import org.mtr.libraries.it.unimi.dsi.fastutil.objects.ObjectArraySet;
 import org.mtr.libraries.it.unimi.dsi.fastutil.objects.ObjectSet;
 import top.mcmtr.core.MSDMain;
 
@@ -13,7 +13,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public abstract class MSDData {
-    public final ObjectOpenHashBigSet<Catenary> catenaries = new ObjectOpenHashBigSet<>();
+    public final ObjectArraySet<Catenary> catenaries = new ObjectArraySet<>();
     public final Object2ObjectOpenHashMap<String, Catenary> catenaryIdMap = new Object2ObjectOpenHashMap<>();
     public final Object2ObjectOpenHashMap<Position, Object2ObjectOpenHashMap<Position, Catenary>> positionsToCatenary = new Object2ObjectOpenHashMap<>();
 
@@ -23,7 +23,7 @@ public abstract class MSDData {
             catenaries.forEach(catenary -> catenary.writePositionsToCatenaryCache(positionsToCatenary));
             mapIds(catenaryIdMap, catenaries);
         } catch (Exception e) {
-            MSDMain.logException(e, "MSD Data sync error");
+            MSDMain.MSD_CORE_LOG.error("MSD Data sync error", e);
         }
     }
 
