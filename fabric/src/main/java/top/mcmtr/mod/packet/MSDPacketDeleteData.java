@@ -29,12 +29,12 @@ public final class MSDPacketDeleteData extends MSDPacketRequestResponseBase {
     }
 
     @Override
-    protected void runServer(ServerWorld serverWorld, String content) {
+    protected void runServerInbound(ServerWorld serverWorld, String content) {
         Response.create(Utilities.parseJson(content)).getData(MSDDeleteDataResponse::new).iterateCatenaryNodePosition(catenaryNodePosition -> BlockNodeBase.resetCatenaryNode(serverWorld, Init.positionToBlockPos(catenaryNodePosition)));
     }
 
     @Override
-    protected void runClient(Response response) {
+    protected void runClientInbound(Response response) {
         final MSDDeleteDataResponse deleteDataResponse = response.getData(MSDDeleteDataResponse::new);
         deleteDataResponse.write(MSDMinecraftClientData.getInstance());
     }
@@ -59,13 +59,13 @@ public final class MSDPacketDeleteData extends MSDPacketRequestResponseBase {
      * 发送要删除的接触网节点数据到服务器
      */
     public static void sendDirectlyToServerCatenaryNodePosition(ServerWorld serverWorld, Position catenaryNodePosition) {
-        new MSDPacketDeleteData(new MSDDeleteDataRequest().addCatenaryNodePosition(catenaryNodePosition)).runServer(serverWorld, (ServerPlayerEntity) null);
+        new MSDPacketDeleteData(new MSDDeleteDataRequest().addCatenaryNodePosition(catenaryNodePosition)).runServerOutbound(serverWorld, null);
     }
 
     /**
      * 发送要删除的接触网数据到服务器
      */
     public static void sendDirectlyToServerCatenaryId(ServerWorld serverWorld, String catenaryId) {
-        new MSDPacketDeleteData(new MSDDeleteDataRequest().addCatenaryId(catenaryId)).runServer(serverWorld, (ServerPlayerEntity) null);
+        new MSDPacketDeleteData(new MSDDeleteDataRequest().addCatenaryId(catenaryId)).runServerOutbound(serverWorld, null);
     }
 }

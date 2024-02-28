@@ -5,12 +5,9 @@ import org.mtr.libraries.com.logisticscraft.occlusionculling.util.Vec3d;
 import org.mtr.libraries.it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import org.mtr.mapping.holder.*;
 import org.mtr.mod.client.IDrawing;
-import org.mtr.mod.render.OcclusionCullingThread;
 import org.mtr.mod.render.RenderRails;
 import org.mtr.mod.render.RenderTrains;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -26,11 +23,7 @@ public final class RenderRailsMixin {
     @Unique
     private static final Identifier CATENARY_TEXTURE = new Identifier(Init.MOD_ID, "textures/block/overhead_line.png");
 
-    @Final
-    @Shadow(remap = false)
-    private static final OcclusionCullingThread OCCLUSION_CULLING_THREAD = new OcclusionCullingThread();
-
-    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lorg/mtr/mod/render/OcclusionCullingThread;start()V"), remap = false)
+    @Inject(method = "render", at = @At(value = "HEAD"), remap = false)
     private static void renderCatenary(CallbackInfo ci) {
         final MinecraftClient minecraftClientMSD = MinecraftClient.getInstance();
         final ClientWorld clientWorldMSD = minecraftClientMSD.getWorldMapped();
@@ -76,7 +69,7 @@ public final class RenderRailsMixin {
             }
         });
 
-        OCCLUSION_CULLING_THREAD.schedule(occlusionCullingInstance -> {
+        RenderTrains.WORKER_THREAD.schedule(occlusionCullingInstance -> {
             final ObjectArrayList<Runnable> tasks = new ObjectArrayList<>();
             cullingTasksMSD.forEach(occlusionCullingInstanceRunnableFunction -> tasks.add(occlusionCullingInstanceRunnableFunction.apply(occlusionCullingInstance)));
             minecraftClientMSD.execute(() -> tasks.forEach(Runnable::run));

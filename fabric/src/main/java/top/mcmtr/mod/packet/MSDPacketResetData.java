@@ -24,12 +24,12 @@ public final class MSDPacketResetData extends MSDPacketRequestResponseBase {
     }
 
     @Override
-    protected void runServer(ServerWorld serverWorld, String content) {
+    protected void runServerInbound(ServerWorld serverWorld, String content) {
 
     }
 
     @Override
-    protected void runClient(Response response) {
+    protected void runClientInbound(Response response) {
         response.getData(jsonReader -> new MSDResetDataResponse(jsonReader, MSDMinecraftClientData.getInstance())).write();
     }
 

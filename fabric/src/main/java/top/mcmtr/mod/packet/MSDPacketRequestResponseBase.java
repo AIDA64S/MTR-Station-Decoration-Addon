@@ -33,18 +33,18 @@ public abstract class MSDPacketRequestResponseBase extends PacketHandler {
 
     @Override
     public void runServer(MinecraftServer minecraftServer, ServerPlayerEntity serverPlayerEntity) {
-        runServer(serverPlayerEntity.getServerWorld(), serverPlayerEntity);
+        runServerOutbound(serverPlayerEntity.getServerWorld(), serverPlayerEntity);
     }
 
     @Override
     public final void runClient() {
-        runClient(Response.create(Utilities.parseJson(content)));
+        runClientInbound(Response.create(Utilities.parseJson(content)));
     }
 
     /**
      * 发送信息到核心服务器，如果将结果发送给所有玩家，则{@link ServerPlayerEntity}可以为空
      */
-    public final void runServer(ServerWorld serverWorld, @Nullable ServerPlayerEntity serverPlayerEntity) {
+    public final void runServerOutbound(ServerWorld serverWorld, @Nullable ServerPlayerEntity serverPlayerEntity) {
         Init.sendHttpRequest(getEndpoint(), new World(serverWorld.data), content, responseType() == MSDPacketRequestResponseBase.ResponseType.NONE ? null : response -> {
             if (responseType() == MSDPacketRequestResponseBase.ResponseType.PLAYER) {
                 if (serverPlayerEntity != null) {
@@ -53,19 +53,19 @@ public abstract class MSDPacketRequestResponseBase extends PacketHandler {
             } else {
                 MinecraftServerHelper.iteratePlayers(serverWorld, serverPlayerEntityNew -> Init.REGISTRY.sendPacketToClient(serverPlayerEntityNew, getInstance(response)));
             }
-            runServer(serverWorld, response);
+            runServerInbound(serverWorld, response);
         });
     }
 
     /**
      * 服务器收到请求后进行的操作
      */
-    protected abstract void runServer(ServerWorld serverWorld, String content);
+    protected abstract void runServerInbound(ServerWorld serverWorld, String content);
 
     /**
      * 客户端收到响应后进行的操作
      */
-    protected abstract void runClient(Response response);
+    protected abstract void runClientInbound(Response response);
 
     /**
      * 获取此次操作实例
