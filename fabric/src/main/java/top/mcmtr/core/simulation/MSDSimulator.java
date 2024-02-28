@@ -8,6 +8,7 @@ import org.mtr.libraries.it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import top.mcmtr.core.MSDMain;
 import top.mcmtr.core.data.Catenary;
 import top.mcmtr.core.data.MSDData;
+import top.mcmtr.core.legacy.data.LegacyCatenaryLoader;
 
 import java.nio.file.Path;
 
@@ -23,6 +24,7 @@ public class MSDSimulator extends MSDData implements Utilities {
         final long startMillis = System.currentTimeMillis();
 
         final Path savePath = rootPath.resolve(dimension);
+        LegacyCatenaryLoader.loadCatenary(savePath, catenaries);
         this.fileLoaderCatenaries = new FileLoader<>(catenaries, Catenary::new, savePath, KEY_CATENARIES);
 
         final long endMillis = System.currentTimeMillis();
