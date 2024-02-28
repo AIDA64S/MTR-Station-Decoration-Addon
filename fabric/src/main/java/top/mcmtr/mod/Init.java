@@ -13,9 +13,7 @@ import org.mtr.mapping.mapper.MinecraftServerHelper;
 import org.mtr.mapping.registry.EventRegistry;
 import org.mtr.mapping.registry.Registry;
 import top.mcmtr.core.MSDMain;
-import top.mcmtr.mod.packet.MSDPacketDeleteData;
-import top.mcmtr.mod.packet.MSDPacketRequestData;
-import top.mcmtr.mod.packet.MSDPacketUpdateData;
+import top.mcmtr.mod.packet.*;
 
 import javax.annotation.Nullable;
 import java.net.ServerSocket;
@@ -45,6 +43,9 @@ public class Init implements Utilities {
         REGISTRY.registerPacket(MSDPacketDeleteData.class, MSDPacketDeleteData::new);
         REGISTRY.registerPacket(MSDPacketRequestData.class, MSDPacketRequestData::new);
         REGISTRY.registerPacket(MSDPacketUpdateData.class, MSDPacketUpdateData::new);
+        REGISTRY.registerPacket(MSDPacketResetData.class, MSDPacketResetData::new);
+        REGISTRY.registerPacket(MSDPacketOpenCatenaryScreen.class, MSDPacketOpenCatenaryScreen::new);
+        REGISTRY.registerPacket(MSDPacketUpdateCatenary.class, MSDPacketUpdateCatenary::new);
 
         EventRegistry.registerServerStarted(minecraftServer -> {
             WORLD_ID_LIST.clear();

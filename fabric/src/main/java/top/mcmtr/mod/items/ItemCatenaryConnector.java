@@ -7,6 +7,7 @@ import top.mcmtr.core.data.CatenaryType;
 import top.mcmtr.core.data.OffsetPosition;
 import top.mcmtr.core.data.TwoPositionsBase;
 import top.mcmtr.mod.Init;
+import top.mcmtr.mod.blocks.BlockCatenaryNode;
 import top.mcmtr.mod.blocks.BlockNodeBase;
 import top.mcmtr.mod.packet.MSDPacketDeleteData;
 import top.mcmtr.mod.packet.MSDPacketUpdateData;
@@ -50,7 +51,7 @@ public final class ItemCatenaryConnector extends ItemBlockClickingBase {
     protected boolean clickCondition(ItemUsageContext context) {
         final World world = context.getWorld();
         final Block blockStart = world.getBlockState(context.getBlockPos()).getBlock();
-        return blockStart.data instanceof BlockNodeBase;
+        return blockStart.data instanceof BlockCatenaryNode;
     }
 
     private void onConnect(World world, ItemStack stack, BlockState stateStart, BlockState stateEnd, BlockPos posStart, BlockPos posEnd, CatenaryType catenaryType, @Nullable ServerPlayerEntity player) {

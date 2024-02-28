@@ -23,12 +23,12 @@ public final class Catenary extends CatenarySchema {
     }
 
     @Override
-    protected Position getPositionStart() {
+    public Position getPositionStart() {
         return this.positionStart;
     }
 
     @Override
-    protected Position getPositionEnd() {
+    public Position getPositionEnd() {
         return this.positionEnd;
     }
 

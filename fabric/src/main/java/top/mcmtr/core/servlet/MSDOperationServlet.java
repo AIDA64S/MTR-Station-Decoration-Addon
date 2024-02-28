@@ -4,10 +4,7 @@ import org.mtr.core.serializer.JsonReader;
 import org.mtr.libraries.com.google.gson.JsonObject;
 import org.mtr.libraries.it.unimi.dsi.fastutil.objects.Object2ObjectAVLTreeMap;
 import org.mtr.libraries.it.unimi.dsi.fastutil.objects.ObjectImmutableList;
-import top.mcmtr.core.operation.CatenariesRequest;
-import top.mcmtr.core.operation.MSDDataRequest;
-import top.mcmtr.core.operation.MSDDeleteDataRequest;
-import top.mcmtr.core.operation.MSDUpdateDataRequest;
+import top.mcmtr.core.operation.*;
 import top.mcmtr.core.simulation.MSDSimulator;
 
 public final class MSDOperationServlet extends MSDServletBase {
@@ -24,6 +21,8 @@ public final class MSDOperationServlet extends MSDServletBase {
                 return new MSDUpdateDataRequest(jsonReader, simulator).update();
             case OperationType.DELETE_DATA:
                 return new MSDDeleteDataRequest(jsonReader).delete(simulator);
+            case OperationType.RESET_DATA:
+                return new MSDResetDataRequest(jsonReader, simulator).reset();
             case OperationType.CATENARIES:
                 return new CatenariesRequest(jsonReader).query(simulator);
             default:
