@@ -9,6 +9,7 @@ import org.mtr.libraries.it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import org.mtr.libraries.it.unimi.dsi.fastutil.objects.ObjectSet;
 import top.mcmtr.core.data.Catenary;
 import top.mcmtr.core.data.MSDData;
+import top.mcmtr.core.data.RigidCatenary;
 import top.mcmtr.core.generated.operation.MSDUpdateDataRequestSchema;
 
 import javax.annotation.Nullable;
@@ -31,9 +32,15 @@ public final class MSDUpdateDataRequest extends MSDUpdateDataRequestSchema {
         return this;
     }
 
+    public MSDUpdateDataRequest addRigidCatenary(RigidCatenary rigidCatenary) {
+        rigidCatenaries.add(rigidCatenary);
+        return this;
+    }
+
     public JsonObject update() {
         final MSDUpdateDataResponse updateDataResponse = new MSDUpdateDataResponse(data);
         catenaries.forEach(catenary -> update(catenary, true, data.catenaryIdMap.get(catenary.getHexId()), data.catenaries, updateDataResponse.getCatenaries()));
+        rigidCatenaries.forEach(rigidCatenary -> update(rigidCatenary, true, data.rigidCatenaryIdMap.get(rigidCatenary.getHexId()), data.rigidCatenaries, updateDataResponse.getRigidCatenaries()));
         data.sync();
         return Utilities.getJsonObjectFromData(updateDataResponse);
     }

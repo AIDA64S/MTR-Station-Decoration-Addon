@@ -3,7 +3,6 @@ package top.mcmtr.mod.packet;
 import org.mtr.core.data.Position;
 import org.mtr.core.integration.Response;
 import org.mtr.core.tool.Utilities;
-import org.mtr.mapping.holder.ServerPlayerEntity;
 import org.mtr.mapping.holder.ServerWorld;
 import org.mtr.mapping.tool.PacketBufferReceiver;
 import top.mcmtr.core.operation.MSDDeleteDataRequest;
@@ -31,6 +30,7 @@ public final class MSDPacketDeleteData extends MSDPacketRequestResponseBase {
     @Override
     protected void runServerInbound(ServerWorld serverWorld, String content) {
         Response.create(Utilities.parseJson(content)).getData(MSDDeleteDataResponse::new).iterateCatenaryNodePosition(catenaryNodePosition -> BlockNodeBase.resetCatenaryNode(serverWorld, Init.positionToBlockPos(catenaryNodePosition)));
+        Response.create(Utilities.parseJson(content)).getData(MSDDeleteDataResponse::new).iterateRigidCatenaryNodePosition(rigidCatenaryNodePosition -> BlockNodeBase.resetCatenaryNode(serverWorld, Init.positionToBlockPos(rigidCatenaryNodePosition)));
     }
 
     @Override
@@ -55,17 +55,19 @@ public final class MSDPacketDeleteData extends MSDPacketRequestResponseBase {
         return ResponseType.ALL;
     }
 
-    /**
-     * 发送要删除的接触网节点数据到服务器
-     */
     public static void sendDirectlyToServerCatenaryNodePosition(ServerWorld serverWorld, Position catenaryNodePosition) {
         new MSDPacketDeleteData(new MSDDeleteDataRequest().addCatenaryNodePosition(catenaryNodePosition)).runServerOutbound(serverWorld, null);
     }
 
-    /**
-     * 发送要删除的接触网数据到服务器
-     */
     public static void sendDirectlyToServerCatenaryId(ServerWorld serverWorld, String catenaryId) {
         new MSDPacketDeleteData(new MSDDeleteDataRequest().addCatenaryId(catenaryId)).runServerOutbound(serverWorld, null);
+    }
+
+    public static void sendDirectlyToServerRigidCatenaryNodePosition(ServerWorld serverWorld, Position rigidCatenaryNodePosition) {
+        new MSDPacketDeleteData(new MSDDeleteDataRequest().addRigidCatenaryNodePosition(rigidCatenaryNodePosition).addCatenaryNodePosition(rigidCatenaryNodePosition)).runServerOutbound(serverWorld, null);
+    }
+
+    public static void sendDirectlyToServerRigidCatenaryId(ServerWorld serverWorld, String rigidCatenaryId) {
+        new MSDPacketDeleteData(new MSDDeleteDataRequest().addRigidCatenaryId(rigidCatenaryId)).runServerOutbound(serverWorld, null);
     }
 }

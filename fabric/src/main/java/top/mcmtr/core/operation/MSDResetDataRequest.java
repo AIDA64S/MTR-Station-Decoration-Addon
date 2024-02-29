@@ -43,9 +43,9 @@ public final class MSDResetDataRequest extends MSDResetDataRequestSchema {
         MSDResetDataResponse resetDataResponse = new MSDResetDataResponse(data);
         catenaryNodePositions.forEach(catenaryNodePosition ->
                 data.positionsToCatenary.getOrDefault(catenaryNodePosition, new Object2ObjectOpenHashMap<>()).values().forEach(catenary -> {
-                    Catenary newCatenary = catenary.getPositionStart().equals(catenaryNodePosition) ?
-                            new Catenary(catenary.getPositionStart(), catenary.getPositionEnd(), offsetPositions.isEmpty() ? catenary.getOffsetPositionStart() : offsetPositions.get(0), catenary.getOffsetPositionEnd(), catenary.getCatenaryType()) :
-                            new Catenary(catenary.getPositionStart(), catenary.getPositionEnd(), catenary.getOffsetPositionStart(), offsetPositions.isEmpty() ? catenary.getOffsetPositionEnd() : offsetPositions.get(0), catenary.getCatenaryType());
+                    Catenary newCatenary = catenary.getPosition1().equals(catenaryNodePosition) ?
+                            new Catenary(catenary.getPosition1(), catenary.getPosition2(), offsetPositions.isEmpty() ? catenary.getOffsetPositionStart() : offsetPositions.get(0), catenary.getOffsetPositionEnd(), catenary.getCatenaryType()) :
+                            new Catenary(catenary.getPosition1(), catenary.getPosition2(), catenary.getOffsetPositionStart(), offsetPositions.isEmpty() ? catenary.getOffsetPositionEnd() : offsetPositions.get(0), catenary.getCatenaryType());
                     update(newCatenary, data.catenaryIdMap.get(catenary.getHexId()), data.catenaries, resetDataResponse.getCatenaries());
                 }));
         data.sync();

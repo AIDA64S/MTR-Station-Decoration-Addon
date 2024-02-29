@@ -6,6 +6,7 @@ import org.mtr.libraries.it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import org.mtr.libraries.it.unimi.dsi.fastutil.objects.ObjectSet;
 import top.mcmtr.core.data.Catenary;
 import top.mcmtr.core.data.MSDData;
+import top.mcmtr.core.data.RigidCatenary;
 import top.mcmtr.core.generated.operation.MSDUpdateDataResponseSchema;
 
 import javax.annotation.Nullable;
@@ -25,11 +26,16 @@ public final class MSDUpdateDataResponse extends MSDUpdateDataResponseSchema {
 
     public void write() {
         catenaries.forEach(catenary -> update(catenary, data.catenaries, data.catenaryIdMap.get(catenary.getHexId())));
+        rigidCatenaries.forEach(rigidCatenary -> update(rigidCatenary, data.rigidCatenaries, data.rigidCatenaryIdMap.get(rigidCatenary.getHexId())));
         data.sync();
     }
 
     ObjectArrayList<Catenary> getCatenaries() {
         return catenaries;
+    }
+
+    ObjectArrayList<RigidCatenary> getRigidCatenaries() {
+        return rigidCatenaries;
     }
 
     private static <T extends SerializedDataBase> void update(T newData, ObjectSet<T> dataSet, @Nullable T existingData) {

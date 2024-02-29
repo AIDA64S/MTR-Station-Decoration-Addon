@@ -17,11 +17,19 @@ public abstract class MSDData {
     public final Object2ObjectOpenHashMap<String, Catenary> catenaryIdMap = new Object2ObjectOpenHashMap<>();
     public final Object2ObjectOpenHashMap<Position, Object2ObjectOpenHashMap<Position, Catenary>> positionsToCatenary = new Object2ObjectOpenHashMap<>();
 
+    public final ObjectArraySet<RigidCatenary> rigidCatenaries = new ObjectArraySet<>();
+    public final Object2ObjectOpenHashMap<String, RigidCatenary> rigidCatenaryIdMap = new Object2ObjectOpenHashMap<>();
+    public final Object2ObjectOpenHashMap<Position, Object2ObjectOpenHashMap<Position, RigidCatenary>> positionsToRigidCatenary = new Object2ObjectOpenHashMap<>();
+
     public void sync() {
         try {
             positionsToCatenary.clear();
             catenaries.forEach(catenary -> catenary.writePositionsToCatenaryCache(positionsToCatenary));
             mapIds(catenaryIdMap, catenaries);
+
+            positionsToRigidCatenary.clear();
+            rigidCatenaries.forEach(rigidCatenary -> rigidCatenary.writePositionsToRigidCatenaryCache(positionsToRigidCatenary));
+            mapIds(rigidCatenaryIdMap, rigidCatenaries);
         } catch (Exception e) {
             MSDMain.MSD_CORE_LOG.error("MSD Data sync error", e);
         }

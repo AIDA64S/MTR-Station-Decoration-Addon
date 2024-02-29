@@ -23,8 +23,6 @@ public final class MSDOperationServlet extends MSDServletBase {
                 return new MSDDeleteDataRequest(jsonReader).delete(simulator);
             case OperationType.RESET_DATA:
                 return new MSDResetDataRequest(jsonReader, simulator).reset();
-            case OperationType.CATENARIES:
-                return new CatenariesRequest(jsonReader).query(simulator);
             default:
                 return null;
         }

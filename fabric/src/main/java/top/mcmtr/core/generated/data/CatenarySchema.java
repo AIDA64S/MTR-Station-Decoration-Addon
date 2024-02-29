@@ -1,12 +1,12 @@
 package top.mcmtr.core.generated.data;
 
 import org.mtr.core.data.Position;
+import org.mtr.core.data.TwoPositionsBase;
 import org.mtr.core.serializer.ReaderBase;
 import org.mtr.core.serializer.WriterBase;
 import org.mtr.core.tool.EnumHelper;
 import top.mcmtr.core.data.CatenaryType;
 import top.mcmtr.core.data.OffsetPosition;
-import top.mcmtr.core.data.TwoPositionsBase;
 
 public abstract class CatenarySchema extends TwoPositionsBase {
     protected final Position positionStart;

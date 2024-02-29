@@ -11,6 +11,7 @@ import org.mtr.mapping.holder.MinecraftClient;
 import org.mtr.mapping.mapper.MinecraftClientHelper;
 import top.mcmtr.core.data.Catenary;
 import top.mcmtr.core.data.MSDClientData;
+import top.mcmtr.core.data.RigidCatenary;
 import top.mcmtr.mod.Init;
 
 import java.util.Map;
@@ -19,12 +20,14 @@ import java.util.stream.Collectors;
 
 public final class MSDMinecraftClientData extends MSDClientData {
     public final Object2ObjectArrayMap<String, MSDMinecraftClientData.CatenaryWrapper> catenaryWrapperList = new Object2ObjectArrayMap<>();
+    public final Object2ObjectArrayMap<String, MSDMinecraftClientData.RigidCatenaryWrapper> rigidCatenaryWrapperList = new Object2ObjectArrayMap<>();
     private static MSDMinecraftClientData instance = new MSDMinecraftClientData();
 
     @Override
     public void sync() {
         super.sync();
         checkAndRemoveFromMap(catenaryWrapperList, catenaries, Catenary::getHexId);
+        checkAndRemoveFromMap(rigidCatenaryWrapperList, rigidCatenaries, RigidCatenary::getHexId);
         positionsToCatenary.forEach((startPosition, catenaryMap) -> catenaryMap.forEach((endPosition, catenary) -> {
             final String hexId = catenary.getHexId();
             final MSDMinecraftClientData.CatenaryWrapper catenaryWrapper = catenaryWrapperList.get(hexId);
@@ -32,6 +35,15 @@ public final class MSDMinecraftClientData extends MSDClientData {
                 catenaryWrapperList.put(hexId, new MSDMinecraftClientData.CatenaryWrapper(catenary, hexId, startPosition, endPosition));
             } else {
                 catenaryWrapper.catenary = catenary;
+            }
+        }));
+        positionsToRigidCatenary.forEach((startPosition, rigidCatenaryMap) -> rigidCatenaryMap.forEach((endPosition, rigidCatenary) -> {
+            final String hexId = rigidCatenary.getHexId();
+            final MSDMinecraftClientData.RigidCatenaryWrapper rigidCatenaryWrapper = rigidCatenaryWrapperList.get(hexId);
+            if (rigidCatenaryWrapper == null) {
+                rigidCatenaryWrapperList.put(hexId, new MSDMinecraftClientData.RigidCatenaryWrapper(rigidCatenary, hexId, startPosition, endPosition));
+            } else {
+                rigidCatenaryWrapper.rigidCatenary = rigidCatenary;
             }
         }));
     }
@@ -42,6 +54,7 @@ public final class MSDMinecraftClientData extends MSDClientData {
             final Position position = Init.blockPosToPosition(clientPlayerEntity.getBlockPos());
             final int requestRadius = MinecraftClientHelper.getRenderDistance() * 16;
             catenaries.removeIf(catenary -> !catenary.closeTo(position, requestRadius));
+            rigidCatenaries.removeIf(rigidCatenary -> !rigidCatenary.closeTo(position, requestRadius));
             sync();
         }
     }
@@ -89,6 +102,34 @@ public final class MSDMinecraftClientData extends MSDClientData {
 
         public Catenary getCatenary() {
             return this.catenary;
+        }
+    }
+
+    public static class RigidCatenaryWrapper {
+        public boolean shouldRender;
+        public final String hexId;
+        public final Vec3d startVector;
+        public final Vec3d endVector;
+        private RigidCatenary rigidCatenary;
+
+        public RigidCatenaryWrapper(RigidCatenary rigidCatenary, String hexId, Position startPosition, Position endPosition) {
+            this.rigidCatenary = rigidCatenary;
+            this.hexId = hexId;
+            this.startVector = new Vec3d(
+                    Math.min(startPosition.getX(), endPosition.getX()),
+                    Math.min(startPosition.getY(), endPosition.getY()),
+                    Math.min(startPosition.getZ(), endPosition.getZ())
+            );
+            ;
+            this.endVector = new Vec3d(
+                    Math.max(startPosition.getX(), endPosition.getX()),
+                    Math.max(startPosition.getY(), endPosition.getY()),
+                    Math.max(startPosition.getZ(), endPosition.getZ())
+            );
+        }
+
+        public RigidCatenary getRigidCatenary() {
+            return rigidCatenary;
         }
     }
 }

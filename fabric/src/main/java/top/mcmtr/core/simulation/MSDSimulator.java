@@ -8,6 +8,7 @@ import org.mtr.libraries.it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import top.mcmtr.core.MSDMain;
 import top.mcmtr.core.data.Catenary;
 import top.mcmtr.core.data.MSDData;
+import top.mcmtr.core.data.RigidCatenary;
 import top.mcmtr.core.legacy.data.LegacyCatenaryLoader;
 
 import java.nio.file.Path;
@@ -16,16 +17,20 @@ public class MSDSimulator extends MSDData implements Utilities {
     private boolean autoSave = false;
     private final String dimension;
     private final FileLoader<Catenary> fileLoaderCatenaries;
+    private final FileLoader<RigidCatenary> fileLoaderRigidCatenaries;
     private final ObjectArrayList<Runnable> queuedRuns = new ObjectArrayList<>();
     private static final String KEY_CATENARIES = "catenaries";
+    private static final String KEY_RIGID_CATENARIES = "rigid_catenaries";
 
     public MSDSimulator(String dimension, Path rootPath) {
         this.dimension = dimension;
         final long startMillis = System.currentTimeMillis();
-
         final Path savePath = rootPath.resolve(dimension);
+
         LegacyCatenaryLoader.loadCatenary(savePath, catenaries);
+
         this.fileLoaderCatenaries = new FileLoader<>(catenaries, Catenary::new, savePath, KEY_CATENARIES);
+        this.fileLoaderRigidCatenaries = new FileLoader<>(rigidCatenaries, RigidCatenary::new, savePath, KEY_RIGID_CATENARIES);
 
         final long endMillis = System.currentTimeMillis();
         MSDMain.MSD_CORE_LOG.info(String.format("MSD Data loading complete for %s in %s second(s)", dimension, (float) (endMillis - startMillis) / MILLIS_PER_SECOND));
@@ -66,6 +71,7 @@ public class MSDSimulator extends MSDData implements Utilities {
     private void save(boolean useReducedHash) {
         final long startMillis = System.currentTimeMillis();
         save(fileLoaderCatenaries, useReducedHash);
+        save(fileLoaderRigidCatenaries, useReducedHash);
         MSDMain.MSD_CORE_LOG.info(String.format("MSD Save complete for %s in %s second(s)", dimension, (System.currentTimeMillis() - startMillis) / 1000F));
     }
 

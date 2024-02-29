@@ -20,11 +20,16 @@ public final class MSDDeleteDataResponse extends MSDDeleteDataResponseSchema {
 
     public void write(MSDData data) {
         data.catenaries.removeIf(catenary -> catenaryIds.contains(catenary.getHexId()));
+        data.rigidCatenaries.removeIf(rigidCatenary -> rigidCatenaryIds.contains(rigidCatenary.getHexId()));
         data.sync();
     }
 
     public void iterateCatenaryNodePosition(Consumer<Position> consumer) {
         catenaryNodePositions.forEach(consumer);
+    }
+
+    public void iterateRigidCatenaryNodePosition(Consumer<Position> consumer) {
+        rigidCatenaryNodePositions.forEach(consumer);
     }
 
     ObjectArrayList<String> getCatenaryIds() {
@@ -33,5 +38,13 @@ public final class MSDDeleteDataResponse extends MSDDeleteDataResponseSchema {
 
     ObjectArrayList<Position> getCatenaryNodePositions() {
         return catenaryNodePositions;
+    }
+
+    ObjectArrayList<String> getRigidCatenaryIds() {
+        return rigidCatenaryIds;
+    }
+
+    ObjectArrayList<Position> getRigidCatenaryNodePositions() {
+        return rigidCatenaryNodePositions;
     }
 }

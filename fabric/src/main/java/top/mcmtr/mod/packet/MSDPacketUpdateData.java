@@ -5,6 +5,7 @@ import org.mtr.core.tool.Utilities;
 import org.mtr.mapping.holder.ServerWorld;
 import org.mtr.mapping.tool.PacketBufferReceiver;
 import top.mcmtr.core.data.Catenary;
+import top.mcmtr.core.data.RigidCatenary;
 import top.mcmtr.core.operation.MSDUpdateDataRequest;
 import top.mcmtr.core.operation.MSDUpdateDataResponse;
 import top.mcmtr.core.servlet.OperationType;
@@ -50,10 +51,11 @@ public final class MSDPacketUpdateData extends MSDPacketRequestResponseBase {
         return ResponseType.ALL;
     }
 
-    /**
-     * 发送连接的接触网数据到服务器
-     */
     public static void sendDirectlyToServerCatenary(ServerWorld serverWorld, Catenary catenary) {
         new MSDPacketUpdateData(new MSDUpdateDataRequest(new MSDMinecraftClientData()).addCatenary(catenary)).runServerOutbound(serverWorld, null);
+    }
+
+    public static void sendDirectlyToServerRigidCatenary(ServerWorld serverWorld, RigidCatenary rigidCatenary) {
+        new MSDPacketUpdateData(new MSDUpdateDataRequest(new MSDMinecraftClientData()).addRigidCatenary(rigidCatenary)).runServerOutbound(serverWorld, null);
     }
 }

@@ -15,8 +15,8 @@ public abstract class MSDDataRequestSchema implements SerializedDataBase {
     private static final String KEY_CLIENT_ID = "client_id";
     private static final String KEY_CLIENT_POSITION = "client_position";
     private static final String KEY_REQUEST_RADIUS = "request_radius";
-    private static final String KEY_EXISTING_CATENARY_IDS = "existing_rail_ids";
-    private static final String KEY_EXISTING_RIGID_CATENARY_IDS = "existing_rigid_rail_ids";
+    private static final String KEY_EXISTING_CATENARY_IDS = "existing_catenary_ids";
+    private static final String KEY_EXISTING_RIGID_CATENARY_IDS = "existing_rigid_catenary_ids";
 
     protected MSDDataRequestSchema(String clientId, Position clientPosition, long requestRadius) {
         this.clientId = clientId;
