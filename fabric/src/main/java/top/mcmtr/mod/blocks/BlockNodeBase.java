@@ -37,9 +37,6 @@ public abstract class BlockNodeBase extends BlockExtension implements BlockWithE
         return VoxelShapes.empty();
     }
 
-    /**
-     * 重置接触网节点的外观为未连接状态
-     */
     public static void resetCatenaryNode(ServerWorld serverWorld, BlockPos blockPos) {
         final BlockState state = serverWorld.getBlockState(blockPos);
         if (state.getBlock().data instanceof BlockNodeBase) {

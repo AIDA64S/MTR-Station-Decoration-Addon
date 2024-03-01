@@ -39,34 +39,30 @@ public final class MSDDeleteDataRequest extends MSDDeleteDataRequestSchema {
         return this;
     }
 
-    public MSDDeleteDataRequest addRigidCatenaryNodePosition(Position position) {
-        rigidCatenaryNodePositions.add(position);
-        return this;
-    }
-
     public JsonObject delete(MSDSimulator simulator) {
         final MSDDeleteDataResponse deleteDataResponse = new MSDDeleteDataResponse();
-        final ObjectArraySet<Position> catenaryNodePositionsToUpdate = new ObjectArraySet<>();
-        final ObjectArraySet<Position> rigidCatenaryNodePositionsToUpdate = new ObjectArraySet<>();
+        final ObjectArraySet<Position> nodePositionsToUpdate = new ObjectArraySet<>();
         catenaryIds.forEach(catenaryId ->
-                delete(simulator.catenaryIdMap.get(catenaryId), simulator.catenaries, catenaryId, deleteDataResponse.getCatenaryIds(), catenaryNodePositionsToUpdate));
-        catenaryNodePositions.forEach(catenaryNodePosition ->
-                simulator.positionsToCatenary.getOrDefault(catenaryNodePosition, new Object2ObjectOpenHashMap<>()).values().forEach(catenary ->
-                        delete(catenary, simulator.catenaries, catenary.getHexId(), deleteDataResponse.getCatenaryIds(), catenaryNodePositionsToUpdate)));
+                delete(simulator.catenaryIdMap.get(catenaryId), simulator.catenaries, catenaryId, deleteDataResponse.getCatenaryIds(), nodePositionsToUpdate));
         rigidCatenaryIds.forEach(rigidCatenaryId ->
-                delete(simulator.rigidCatenaryIdMap.get(rigidCatenaryId), simulator.rigidCatenaries, rigidCatenaryId, deleteDataResponse.getRigidCatenaryIds(), rigidCatenaryNodePositionsToUpdate));
-        rigidCatenaryNodePositions.forEach(rigidCatenaryNodePosition ->
-                simulator.positionsToRigidCatenary.getOrDefault(rigidCatenaryNodePosition, new Object2ObjectOpenHashMap<>()).values().forEach(rigidCatenary ->
-                        delete(rigidCatenary, simulator.rigidCatenaries, rigidCatenary.getHexId(), deleteDataResponse.getRigidCatenaryIds(), rigidCatenaryNodePositionsToUpdate)));
-        simulator.sync();
-        catenaryNodePositionsToUpdate.forEach(catenaryNodePosition -> {
-            if (simulator.positionsToCatenary.getOrDefault(catenaryNodePosition, new Object2ObjectOpenHashMap<>()).isEmpty()) {
-                deleteDataResponse.getCatenaryNodePositions().add(catenaryNodePosition);
-            }
+                delete(simulator.rigidCatenaryIdMap.get(rigidCatenaryId), simulator.rigidCatenaries, rigidCatenaryId, deleteDataResponse.getRigidCatenaryIds(), nodePositionsToUpdate));
+
+        catenaryNodePositions.forEach(catenaryNodePosition -> {
+            simulator.positionsToCatenary.getOrDefault(catenaryNodePosition, new Object2ObjectOpenHashMap<>()).values().forEach(catenary ->
+                    delete(catenary, simulator.catenaries, catenary.getHexId(), deleteDataResponse.getCatenaryIds(), nodePositionsToUpdate));
+            simulator.positionsToRigidCatenary.getOrDefault(catenaryNodePosition, new Object2ObjectOpenHashMap<>()).values().forEach(rigidCatenary ->
+                    delete(rigidCatenary, simulator.rigidCatenaries, rigidCatenary.getHexId(), deleteDataResponse.getRigidCatenaryIds(), nodePositionsToUpdate));
         });
-        rigidCatenaryNodePositionsToUpdate.forEach(rigidCatenaryNodePosition -> {
-            if (simulator.positionsToRigidCatenary.getOrDefault(rigidCatenaryNodePosition, new Object2ObjectOpenHashMap<>()).isEmpty()) {
-                deleteDataResponse.getRigidCatenaryNodePositions().add(rigidCatenaryNodePosition);
+
+        simulator.sync();
+
+        nodePositionsToUpdate.forEach(nodePosition -> {
+            boolean nodeNeedUpdate = simulator.positionsToCatenary.getOrDefault(nodePosition, new Object2ObjectOpenHashMap<>()).isEmpty();
+            if (simulator.positionsToRigidCatenary.getOrDefault(nodePosition, new Object2ObjectOpenHashMap<>()).isEmpty()) {
+                nodeNeedUpdate = true;
+            }
+            if (nodeNeedUpdate) {
+                deleteDataResponse.getCatenaryNodePositions().add(nodePosition);
             }
         });
         return Utilities.getJsonObjectFromData(deleteDataResponse);

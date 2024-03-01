@@ -49,7 +49,6 @@ public class InitClient {
                 lastDataCleanMillis = getGameMillis();
             }
 
-            // If player hasn't moved in 2 seconds, clean any out of range data
             if (lastDataCleanMillis >= 0 && getGameMillis() - lastDataCleanMillis > 2000) {
                 MSDMinecraftClientData.getInstance().clean();
                 lastDataCleanMillis = -1;

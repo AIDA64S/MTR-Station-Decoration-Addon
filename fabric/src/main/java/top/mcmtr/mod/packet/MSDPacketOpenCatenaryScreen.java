@@ -8,7 +8,6 @@ import top.mcmtr.core.data.OffsetPosition;
 
 public final class MSDPacketOpenCatenaryScreen extends PacketHandler {
     private final BlockPos blockPos;
-
     private final boolean isConnected;
     private final OffsetPosition offsetPosition;
 

@@ -28,10 +28,6 @@ public final class MSDDeleteDataResponse extends MSDDeleteDataResponseSchema {
         catenaryNodePositions.forEach(consumer);
     }
 
-    public void iterateRigidCatenaryNodePosition(Consumer<Position> consumer) {
-        rigidCatenaryNodePositions.forEach(consumer);
-    }
-
     ObjectArrayList<String> getCatenaryIds() {
         return catenaryIds;
     }
@@ -42,9 +38,5 @@ public final class MSDDeleteDataResponse extends MSDDeleteDataResponseSchema {
 
     ObjectArrayList<String> getRigidCatenaryIds() {
         return rigidCatenaryIds;
-    }
-
-    ObjectArrayList<Position> getRigidCatenaryNodePositions() {
-        return rigidCatenaryNodePositions;
     }
 }

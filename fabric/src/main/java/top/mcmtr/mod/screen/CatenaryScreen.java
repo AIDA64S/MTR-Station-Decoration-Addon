@@ -15,7 +15,7 @@ import top.mcmtr.mod.Init;
 import top.mcmtr.mod.InitClient;
 import top.mcmtr.mod.client.MSDMinecraftClientData;
 import top.mcmtr.mod.packet.MSDPacketResetData;
-import top.mcmtr.mod.packet.MSDPacketUpdateCatenary;
+import top.mcmtr.mod.packet.MSDPacketUpdateCatenaryNode;
 
 public class CatenaryScreen extends ScreenExtension implements IGui {
     private final boolean isConnected;
@@ -72,7 +72,7 @@ public class CatenaryScreen extends ScreenExtension implements IGui {
         offsetPosition.setX((sliderPositionX.getIntValue() - 8) / 16D);
         offsetPosition.setY((sliderPositionY.getIntValue() - 8) / 16D);
         offsetPosition.setZ((sliderPositionZ.getIntValue() - 8) / 16D);
-        InitClient.REGISTRY_CLIENT.sendPacketToServer(new MSDPacketUpdateCatenary(blockPos, offsetPosition));
+        InitClient.REGISTRY_CLIENT.sendPacketToServer(new MSDPacketUpdateCatenaryNode(blockPos, offsetPosition));
         if (isConnected) {
             final Position position = Init.blockPosToPosition(blockPos);
             InitClient.REGISTRY_CLIENT.sendPacketToServer(new MSDPacketResetData(new MSDResetDataRequest(MSDMinecraftClientData.getInstance()).addCatenaryNodePosition(position).addOffsetPosition(offsetPosition)));

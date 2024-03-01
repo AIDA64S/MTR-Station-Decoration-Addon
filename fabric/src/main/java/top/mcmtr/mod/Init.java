@@ -45,7 +45,7 @@ public class Init implements Utilities {
         REGISTRY.registerPacket(MSDPacketUpdateData.class, MSDPacketUpdateData::new);
         REGISTRY.registerPacket(MSDPacketResetData.class, MSDPacketResetData::new);
         REGISTRY.registerPacket(MSDPacketOpenCatenaryScreen.class, MSDPacketOpenCatenaryScreen::new);
-        REGISTRY.registerPacket(MSDPacketUpdateCatenary.class, MSDPacketUpdateCatenary::new);
+        REGISTRY.registerPacket(MSDPacketUpdateCatenaryNode.class, MSDPacketUpdateCatenaryNode::new);
 
         EventRegistry.registerServerStarted(minecraftServer -> {
             WORLD_ID_LIST.clear();
@@ -61,6 +61,12 @@ public class Init implements Utilities {
             webserver.start();
         });
 
+        EventRegistry.registerPlayerDisconnect((minecraftServer, serverPlayerEntity) -> {
+            if (main != null) {
+                main.save();
+            }
+        });
+
         EventRegistry.registerServerStopping(minecraftServer -> {
             if (main != null) {
                 main.stop();
@@ -73,9 +79,6 @@ public class Init implements Utilities {
         REGISTRY.init();
     }
 
-    /**
-     * 发送请求到核心服务器
-     */
     public static void sendHttpRequest(String endpoint, @Nullable World world, String content, @Nullable Consumer<String> consumer) {
         REQUEST_HELPER.sendPostRequest(String.format(
                 "http://localhost:%s/msd/api/%s?%s",

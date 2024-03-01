@@ -41,9 +41,6 @@ public abstract class MSDPacketRequestResponseBase extends PacketHandler {
         runClientInbound(Response.create(Utilities.parseJson(content)));
     }
 
-    /**
-     * 发送信息到核心服务器，如果将结果发送给所有玩家，则{@link ServerPlayerEntity}可以为空
-     */
     public final void runServerOutbound(ServerWorld serverWorld, @Nullable ServerPlayerEntity serverPlayerEntity) {
         Init.sendHttpRequest(getEndpoint(), new World(serverWorld.data), content, responseType() == MSDPacketRequestResponseBase.ResponseType.NONE ? null : response -> {
             if (responseType() == MSDPacketRequestResponseBase.ResponseType.PLAYER) {
@@ -57,47 +54,23 @@ public abstract class MSDPacketRequestResponseBase extends PacketHandler {
         });
     }
 
-    /**
-     * 服务器收到请求后进行的操作
-     */
     protected abstract void runServerInbound(ServerWorld serverWorld, String content);
 
-    /**
-     * 客户端收到响应后进行的操作
-     */
     protected abstract void runClientInbound(Response response);
 
-    /**
-     * 获取此次操作实例
-     */
     protected abstract MSDPacketRequestResponseBase getInstance(String content);
 
-    /**
-     * 获取此次操作的目的
-     */
     @Nonnull
     protected abstract String getEndpoint();
 
-    /**
-     * 得到此操作会给响应给谁
-     */
     protected abstract ResponseType responseType();
 
-    /**
-     * 此操作的响应目标
-     */
     protected enum ResponseType {
-        /**
-         * 无需响应
-         */
         NONE,
-        /**
-         * 响应给某个玩家
-         */
         PLAYER,
-        /**
-         * 响应给所有玩家
-         */
-        ALL
+        ALL;
+
+        ResponseType() {
+        }
     }
 }

@@ -29,20 +29,6 @@ public class MSDMain {
     public static final int MILLISECONDS_PER_TICK = 10;
     public static final Logger MSD_CORE_LOG = LogManager.getLogger("MSD_SERVER_LOGGER");
 
-    public static void main(String[] args) {
-        try {
-            int i = 0;
-            final Path rootPath = Paths.get(args[i++]);
-            final int webserverPort = Integer.parseInt(args[i++]);
-            final String[] dimensions = new String[args.length - i];
-            System.arraycopy(args, i, dimensions, 0, dimensions.length);
-            final MSDMain main = new MSDMain(rootPath, webserverPort, dimensions);
-            main.readConsoleInput();
-        } catch (Exception e) {
-            MSD_CORE_LOG.error("error command", e);
-        }
-    }
-
     public MSDMain(Path rootPath, int webserverPort, String... dimensions) {
         final ObjectArrayList<MSDSimulator> tempSimulators = new ObjectArrayList<>();
 
@@ -75,31 +61,5 @@ public class MSDMain {
         MSD_CORE_LOG.info("MSD server Starting full save...");
         simulators.forEach(MSDSimulator::stop);
         MSD_CORE_LOG.info("MSD server Stopped");
-    }
-
-    private void readConsoleInput() {
-        while (true) {
-            try {
-                final String[] input = new BufferedReader(new InputStreamReader(System.in)).readLine().trim().toLowerCase(Locale.ENGLISH).replaceAll("[^a-z ]", "").split(" ");
-                switch (input[0]) {
-                    case "exit":
-                    case "stop":
-                    case "quit":
-                        stop();
-                        return;
-                    case "save":
-                    case "save-all":
-                        save();
-                        break;
-                    default:
-                        MSD_CORE_LOG.info(String.format("Unknown command \"%s\"", input[0]));
-                        break;
-                }
-            } catch (Exception e) {
-                MSD_CORE_LOG.error("MSD server read console input error", e);
-                stop();
-                return;
-            }
-        }
     }
 }

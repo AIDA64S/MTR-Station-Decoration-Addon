@@ -25,7 +25,6 @@ public final class MSDPacketResetData extends MSDPacketRequestResponseBase {
 
     @Override
     protected void runServerInbound(ServerWorld serverWorld, String content) {
-
     }
 
     @Override

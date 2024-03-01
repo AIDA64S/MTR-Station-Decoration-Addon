@@ -10,11 +10,11 @@ import org.mtr.mapping.tool.PacketBufferSender;
 import top.mcmtr.core.data.OffsetPosition;
 import top.mcmtr.mod.blocks.BlockCatenaryNode;
 
-public final class MSDPacketUpdateCatenary extends PacketHandler {
+public final class MSDPacketUpdateCatenaryNode extends PacketHandler {
     private final BlockPos blockPos;
     private final OffsetPosition offsetPosition;
 
-    public MSDPacketUpdateCatenary(PacketBufferReceiver packetBufferReceiver) {
+    public MSDPacketUpdateCatenaryNode(PacketBufferReceiver packetBufferReceiver) {
         this.blockPos = BlockPos.fromLong(packetBufferReceiver.readLong());
         final double x = packetBufferReceiver.readDouble();
         final double y = packetBufferReceiver.readDouble();
@@ -22,7 +22,7 @@ public final class MSDPacketUpdateCatenary extends PacketHandler {
         this.offsetPosition = new OffsetPosition(x, y, z);
     }
 
-    public MSDPacketUpdateCatenary(BlockPos blockPos, OffsetPosition offsetPosition) {
+    public MSDPacketUpdateCatenaryNode(BlockPos blockPos, OffsetPosition offsetPosition) {
         this.blockPos = blockPos;
         this.offsetPosition = offsetPosition;
     }

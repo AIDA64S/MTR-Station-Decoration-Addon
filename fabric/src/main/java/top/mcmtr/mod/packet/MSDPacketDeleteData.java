@@ -30,7 +30,6 @@ public final class MSDPacketDeleteData extends MSDPacketRequestResponseBase {
     @Override
     protected void runServerInbound(ServerWorld serverWorld, String content) {
         Response.create(Utilities.parseJson(content)).getData(MSDDeleteDataResponse::new).iterateCatenaryNodePosition(catenaryNodePosition -> BlockNodeBase.resetCatenaryNode(serverWorld, Init.positionToBlockPos(catenaryNodePosition)));
-        Response.create(Utilities.parseJson(content)).getData(MSDDeleteDataResponse::new).iterateRigidCatenaryNodePosition(rigidCatenaryNodePosition -> BlockNodeBase.resetCatenaryNode(serverWorld, Init.positionToBlockPos(rigidCatenaryNodePosition)));
     }
 
     @Override
@@ -61,10 +60,6 @@ public final class MSDPacketDeleteData extends MSDPacketRequestResponseBase {
 
     public static void sendDirectlyToServerCatenaryId(ServerWorld serverWorld, String catenaryId) {
         new MSDPacketDeleteData(new MSDDeleteDataRequest().addCatenaryId(catenaryId)).runServerOutbound(serverWorld, null);
-    }
-
-    public static void sendDirectlyToServerRigidCatenaryNodePosition(ServerWorld serverWorld, Position rigidCatenaryNodePosition) {
-        new MSDPacketDeleteData(new MSDDeleteDataRequest().addRigidCatenaryNodePosition(rigidCatenaryNodePosition).addCatenaryNodePosition(rigidCatenaryNodePosition)).runServerOutbound(serverWorld, null);
     }
 
     public static void sendDirectlyToServerRigidCatenaryId(ServerWorld serverWorld, String rigidCatenaryId) {
