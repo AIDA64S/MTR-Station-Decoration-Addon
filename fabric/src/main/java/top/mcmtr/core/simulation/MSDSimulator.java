@@ -28,6 +28,7 @@ public class MSDSimulator extends MSDData implements Utilities {
         final Path savePath = rootPath.resolve(dimension);
 
         LegacyCatenaryLoader.loadCatenary(savePath, catenaries);
+        LegacyCatenaryLoader.loadRigidCatenary(savePath, rigidCatenaries);
 
         this.fileLoaderCatenaries = new FileLoader<>(catenaries, Catenary::new, savePath, KEY_CATENARIES);
         this.fileLoaderRigidCatenaries = new FileLoader<>(rigidCatenaries, RigidCatenary::new, savePath, KEY_RIGID_CATENARIES);

@@ -13,11 +13,11 @@ public final class CatenaryNodeConnection extends CatenaryNodeConnectionSchema {
     }
 
     public Position getEndPoint() {
-        return DataFixer.fromLong(catenary_node_pos);
+        return DataFixer.fromLong(catenaryNodePos);
     }
 
     public long getEndPointLong() {
-        return catenary_node_pos;
+        return catenaryNodePos;
     }
 
     public CatenaryType getCatenaryType() {

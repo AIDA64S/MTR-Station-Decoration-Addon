@@ -5,7 +5,7 @@ import org.mtr.core.serializer.SerializedDataBase;
 import org.mtr.core.serializer.WriterBase;
 
 public abstract class CatenaryNodeConnectionSchema implements SerializedDataBase {
-    protected long catenary_node_pos;
+    protected long catenaryNodePos;
     protected int xStart;
     protected int yStart;
     protected int zStart;
@@ -30,7 +30,7 @@ public abstract class CatenaryNodeConnectionSchema implements SerializedDataBase
 
     @Override
     public void updateData(ReaderBase readerBase) {
-        readerBase.unpackLong(KEY_NODE_POS, value -> catenary_node_pos = value);
+        readerBase.unpackLong(KEY_NODE_POS, value -> catenaryNodePos = value);
         readerBase.unpackInt(KEY_X_START, value -> xStart = value);
         readerBase.unpackInt(KEY_Y_START, value -> yStart = value);
         readerBase.unpackInt(KEY_Z_START, value -> zStart = value);
@@ -42,7 +42,7 @@ public abstract class CatenaryNodeConnectionSchema implements SerializedDataBase
 
     @Override
     public void serializeData(WriterBase writerBase) {
-        writerBase.writeLong(KEY_NODE_POS, catenary_node_pos);
+        writerBase.writeLong(KEY_NODE_POS, catenaryNodePos);
         writerBase.writeInt(KEY_X_START, xStart);
         writerBase.writeInt(KEY_Y_START, yStart);
         writerBase.writeInt(KEY_Z_START, zStart);
