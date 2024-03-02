@@ -17,7 +17,7 @@ public final class CatenaryMath {
     private final CatenaryType catenaryType;
     private final ObjectArrayList<VectorLocation> corner = new ObjectArrayList<>();
     public static final double CATENARY_WIDTH = 0.015625;
-    private static final int ELECTRIC_CURVATURE_SCALE = 300;
+    private static final int ELECTRIC_CURVATURE_SCALE = 100;
     private static final int MAX_ELECTRIC_DIP = 8;
 
     public CatenaryMath(Position positionStart, Position positionEnd, OffsetPosition offsetStart, OffsetPosition offsetEnd, CatenaryType catenaryType) {

@@ -28,33 +28,18 @@ public final class RigidCatenaryMath {
     private final ObjectArrayList<SolidVectorLocation> corners1 = new ObjectArrayList<>();
     private final ObjectArrayList<SolidVectorLocation> corners2 = new ObjectArrayList<>();
     private static final double ACCEPT_THRESHOLD = 1E-4;
-    private static final int CABLE_CURVATURE_SCALE = 1000;
-    private static final int MAX_CABLE_DIP = 8;
 
     public RigidCatenaryMath(Position position1, Angle angle1, Position position2, Angle angle2, RigidCatenary.Shape shape, double verticalRadius) {
         final long xStart = position1.getX();
         final long zStart = position1.getZ();
         final long xEnd = position2.getX();
         final long zEnd = position2.getZ();
-
-        // Coordinate system translation and rotation
         final Vector vecDifference = new Vector(position2.getX() - position1.getX(), 0, position2.getZ() - position1.getZ());
         final Vector vecDifferenceRotated = vecDifference.rotateY((float) angle1.angleRadians);
-
-        // First we check the Delta Side > 0
-        // 1. If they are same angle
-        // 1. a. If aligned -> Use One Segment
-        // 1. b. If not aligned -> Use two Circle, r = (dv^2 + dp^2) / (4dv).
-        // 2. If they are right angle -> r = min ( dx,dz ), work around, actually equation 3. can be used.
-        // 3. Check if one segment and one circle is available
-        // 3. a. If available -> (Segment First) r2 = dv / ( sin(diff) * tan(diff/2) ) = dv / ( 1 - cos(diff)
-        // 							for case 2, diff = 90 degrees, r = dv
-        //					-> (Circle First) r1 = ( dp - dv / tan(diff) ) / tan (diff/2)
-        // TODO 3. b. If not -> r = very complex one. In this case, we need two circles to connect.
         final double deltaForward = vecDifferenceRotated.z;
         final double deltaSide = vecDifferenceRotated.x;
-        if (angle1.isParallel(angle2)) { // 1
-            if (Math.abs(deltaForward) < ACCEPT_THRESHOLD) { // 1. a.
+        if (angle1.isParallel(angle2)) {
+            if (Math.abs(deltaForward) < ACCEPT_THRESHOLD) {
                 h1 = angle1.cos;
                 k1 = angle1.sin;
                 if (Math.abs(h1) >= 0.5 && Math.abs(k1) >= 0.5) {
@@ -72,7 +57,7 @@ public final class RigidCatenaryMath {
                 reverseT2 = false;
                 isStraight1 = isStraight2 = true;
                 tStart2 = tEnd2 = 0;
-            } else { // 1. b
+            } else {
                 if (Math.abs(deltaSide) > ACCEPT_THRESHOLD) {
                     final double radius = (deltaForward * deltaForward + deltaSide * deltaSide) / (4 * deltaForward);
                     r1 = r2 = Math.abs(radius);
@@ -88,7 +73,6 @@ public final class RigidCatenaryMath {
                     tEnd2 = getTBounds(xEnd, h2, zEnd, k2, r2, tStart2, reverseT2);
                     isStraight1 = isStraight2 = false;
                 } else {
-                    // Banned node perpendicular to the rail nodes direction
                     h1 = k1 = h2 = k2 = r1 = r2 = 0;
                     tStart1 = tStart2 = tEnd1 = tEnd2 = 0;
                     reverseT1 = false;
@@ -96,17 +80,14 @@ public final class RigidCatenaryMath {
                     isStraight1 = isStraight2 = true;
                 }
             }
-        } else { // 3.
-            // Check if it needs invert
+        } else {
             final Angle newAngle1 = vecDifferenceRotated.x < -ACCEPT_THRESHOLD ? angle1.getOpposite() : angle1;
             final Angle newAngle2 = angle2.cos * vecDifference.x + angle2.sin * vecDifference.z < -ACCEPT_THRESHOLD ? angle2.getOpposite() : angle2;
             final double angleForward = Math.atan2(deltaForward, deltaSide);
             final Angle railAngleDifference = newAngle2.sub(newAngle1);
             final double angleDifference = railAngleDifference.angleRadians;
-
             if (Math.signum(angleForward) == Math.signum(angleDifference)) {
                 final double absAngleForward = Math.abs(angleForward);
-
                 if (absAngleForward - Math.abs(angleDifference / 2) < ACCEPT_THRESHOLD) { // Segment First
                     final double offsetSide = Math.abs(deltaForward / railAngleDifference.halfTan);
                     final double remainingSide = deltaSide - offsetSide;
@@ -134,7 +115,7 @@ public final class RigidCatenaryMath {
                     tStart2 = getTBounds(deltaXEnd, h2, deltaZEnd, k2, r2);
                     tEnd2 = getTBounds(xEnd, h2, zEnd, k2, r2, tStart2, reverseT2);
                     isStraight2 = false;
-                } else if (absAngleForward - Math.abs(angleDifference) < ACCEPT_THRESHOLD) { // Circle First
+                } else if (absAngleForward - Math.abs(angleDifference) < ACCEPT_THRESHOLD) {
                     final double crossSide = deltaForward / railAngleDifference.tan;
                     final double remainingSide = (deltaSide - crossSide) * (1 + railAngleDifference.cos);
                     final double remainingForward = (deltaSide - crossSide) * (railAngleDifference.sin);
@@ -162,8 +143,7 @@ public final class RigidCatenaryMath {
                     }
                     isStraight2 = true;
                     reverseT2 = tStart2 > tEnd2;
-                } else { // Out of available range
-                    // TODO complex one. Normally we don't need it.
+                } else {
                     h1 = k1 = h2 = k2 = r1 = r2 = 0;
                     tStart1 = tStart2 = tEnd1 = tEnd2 = 0;
                     reverseT1 = false;
@@ -171,7 +151,6 @@ public final class RigidCatenaryMath {
                     isStraight1 = isStraight2 = true;
                 }
             } else {
-                // TODO 3. b. If not -> r = very complex one. Normally we don't need it.
                 h1 = k1 = h2 = k2 = r1 = r2 = 0;
                 tStart1 = tStart2 = tEnd1 = tEnd2 = 0;
                 reverseT1 = false;
@@ -241,7 +220,6 @@ public final class RigidCatenaryMath {
         for (SolidVectorLocation vecLocation : vecLocations) {
             callback.renderRigidCatenary(vecLocation.x1, vecLocation.z1, vecLocation.x2, vecLocation.z2, vecLocation.x3, vecLocation.z3, vecLocation.x4, vecLocation.z4, vecLocation.xs1, vecLocation.zs1, vecLocation.xs2, vecLocation.zs2, vecLocation.xs3, vecLocation.zs3, vecLocation.xs4, vecLocation.zs4, vecLocation.y1, vecLocation.y2);
         }
-
     }
 
     public double getLength() {
@@ -270,58 +248,39 @@ public final class RigidCatenaryMath {
         if (yStart == yEnd) {
             return yStart;
         }
-
         final double length = getLength();
-
-        switch (shape) {
-            case TWO_RADII:
-                // Copied from NTE
-                if (verticalRadius <= 0) {
-                    return (value / length) * (yEnd - yStart) + yStart;
+        if (shape == RigidCatenary.Shape.TWO_RADII) {
+            if (verticalRadius <= 0) {
+                return (value / length) * (yEnd - yStart) + yStart;
+            } else {
+                final double vTheta = getVTheta();
+                final double curveLength = Math.sin(vTheta) * verticalRadius;
+                final double curveHeight = (1 - Math.cos(vTheta)) * verticalRadius;
+                final int sign = yStart < yEnd ? 1 : -1;
+                if (value < curveLength) {
+                    return sign * (verticalRadius - Math.sqrt(verticalRadius * verticalRadius - value * value)) + yStart;
+                } else if (value > length - curveLength) {
+                    final double r = length - value;
+                    return -sign * (verticalRadius - Math.sqrt(verticalRadius * verticalRadius - r * r)) + yEnd;
                 } else {
-                    final double vTheta = getVTheta();
-                    final double curveLength = Math.sin(vTheta) * verticalRadius;
-                    final double curveHeight = (1 - Math.cos(vTheta)) * verticalRadius;
-                    final int sign = yStart < yEnd ? 1 : -1;
-
-                    if (value < curveLength) {
-                        return sign * (verticalRadius - Math.sqrt(verticalRadius * verticalRadius - value * value)) + yStart;
-                    } else if (value > length - curveLength) {
-                        final double r = length - value;
-                        return -sign * (verticalRadius - Math.sqrt(verticalRadius * verticalRadius - r * r)) + yEnd;
-                    } else {
-                        return sign * (((value - curveLength) / (length - 2 * curveLength)) * (Math.abs(yEnd - yStart) - 2 * curveHeight) + curveHeight) + yStart;
-                    }
+                    return sign * (((value - curveLength) / (length - 2 * curveLength)) * (Math.abs(yEnd - yStart) - 2 * curveHeight) + curveHeight) + yStart;
                 }
-            case CABLE:
-                if (value < 0.5) {
-                    return yStart;
-                } else if (value > length - 0.5) {
-                    return yEnd;
-                }
-
-                final double cableOffsetValue = value - 0.5;
-                final double offsetLength = length - 1;
-                final double posY = yStart + (yEnd - yStart) * cableOffsetValue / offsetLength;
-                final double dip = offsetLength * offsetLength / 4 / CABLE_CURVATURE_SCALE;
-                return posY + (dip > MAX_CABLE_DIP ? MAX_CABLE_DIP / dip : 1) * (cableOffsetValue - offsetLength) * cableOffsetValue / CABLE_CURVATURE_SCALE;
-            default:
-                final double intercept = length / 2;
-                final double yChange;
-                final double yInitial;
-                final double offsetValue;
-
-                if (value < intercept) {
-                    yChange = (yEnd - yStart) / 2D;
-                    yInitial = yStart;
-                    offsetValue = value;
-                } else {
-                    yChange = (yStart - yEnd) / 2D;
-                    yInitial = yEnd;
-                    offsetValue = length - value;
-                }
-
-                return yChange * offsetValue * offsetValue / (intercept * intercept) + yInitial;
+            }
+        } else {
+            final double intercept = length / 2;
+            final double yChange;
+            final double yInitial;
+            final double offsetValue;
+            if (value < intercept) {
+                yChange = (yEnd - yStart) / 2D;
+                yInitial = yStart;
+                offsetValue = value;
+            } else {
+                yChange = (yStart - yEnd) / 2D;
+                yInitial = yEnd;
+                offsetValue = length - value;
+            }
+            return yChange * offsetValue * offsetValue / (intercept * intercept) + yInitial;
         }
     }
 

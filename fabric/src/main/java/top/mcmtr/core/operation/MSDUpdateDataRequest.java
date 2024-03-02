@@ -1,6 +1,5 @@
 package top.mcmtr.core.operation;
 
-import org.mtr.core.serializer.JsonReader;
 import org.mtr.core.serializer.ReaderBase;
 import org.mtr.core.serializer.SerializedDataBase;
 import org.mtr.core.tool.Utilities;
@@ -39,29 +38,17 @@ public final class MSDUpdateDataRequest extends MSDUpdateDataRequestSchema {
 
     public JsonObject update() {
         final MSDUpdateDataResponse updateDataResponse = new MSDUpdateDataResponse(data);
-        catenaries.forEach(catenary -> update(catenary, true, data.catenaryIdMap.get(catenary.getHexId()), data.catenaries, updateDataResponse.getCatenaries()));
-        rigidCatenaries.forEach(rigidCatenary -> update(rigidCatenary, true, data.rigidCatenaryIdMap.get(rigidCatenary.getHexId()), data.rigidCatenaries, updateDataResponse.getRigidCatenaries()));
+        catenaries.forEach(catenary -> update(catenary, data.catenaryIdMap.get(catenary.getHexId()), data.catenaries, updateDataResponse.getCatenaries()));
+        rigidCatenaries.forEach(rigidCatenary -> update(rigidCatenary, data.rigidCatenaryIdMap.get(rigidCatenary.getHexId()), data.rigidCatenaries, updateDataResponse.getRigidCatenaries()));
         data.sync();
         return Utilities.getJsonObjectFromData(updateDataResponse);
     }
 
-    private static <T extends SerializedDataBase> void update(T newData, boolean addNewData, @Nullable T existingData, ObjectSet<T> dataSet, ObjectArrayList<T> dataToUpdate) {
-        final boolean isCatenary = newData instanceof Catenary;
-        final boolean isValid = !isCatenary || ((Catenary) newData).isValid();
-        if (existingData == null) {
-            if (addNewData && isValid) {
-                dataSet.add(newData);
-                dataToUpdate.add(newData);
-            }
-        } else if (isValid) {
-            if (isCatenary) {
-                dataSet.remove(existingData);
-                dataSet.add(newData);
-                dataToUpdate.add(newData);
-            } else {
-                existingData.updateData(new JsonReader(Utilities.getJsonObjectFromData(newData)));
-                dataToUpdate.add(existingData);
-            }
+    private static <T extends SerializedDataBase> void update(T newData, @Nullable T existingData, ObjectSet<T> dataSet, ObjectArrayList<T> dataToUpdate) {
+        if (existingData != null) {
+            dataSet.remove(existingData);
         }
+        dataSet.add(newData);
+        dataToUpdate.add(newData);
     }
 }

@@ -2,18 +2,17 @@ package top.mcmtr.mod.client;
 
 import org.mtr.core.data.Position;
 import org.mtr.libraries.com.logisticscraft.occlusionculling.util.Vec3d;
-import org.mtr.libraries.it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
-import org.mtr.libraries.it.unimi.dsi.fastutil.objects.ObjectAVLTreeSet;
-import org.mtr.libraries.it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import org.mtr.libraries.it.unimi.dsi.fastutil.objects.ObjectSet;
-import org.mtr.mapping.holder.ClientPlayerEntity;
-import org.mtr.mapping.holder.MinecraftClient;
+import org.mtr.libraries.it.unimi.dsi.fastutil.objects.*;
+import org.mtr.mapping.holder.*;
+import org.mtr.mapping.mapper.EntityHelper;
 import org.mtr.mapping.mapper.MinecraftClientHelper;
 import top.mcmtr.core.data.Catenary;
 import top.mcmtr.core.data.MSDClientData;
 import top.mcmtr.core.data.RigidCatenary;
 import top.mcmtr.mod.Init;
+import top.mcmtr.mod.blocks.BlockRigidCatenaryNode;
 
+import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -57,6 +56,40 @@ public final class MSDMinecraftClientData extends MSDClientData {
             rigidCatenaries.removeIf(rigidCatenary -> !rigidCatenary.closeTo(position, requestRadius));
             sync();
         }
+    }
+
+    @Nullable
+    public RigidCatenary getFacingRigidCatenary() {
+        final MinecraftClient minecraftClient = MinecraftClient.getInstance();
+        final ClientWorld clientWorld = minecraftClient.getWorldMapped();
+        if (clientWorld == null) {
+            return null;
+        }
+        final ClientPlayerEntity clientPlayerEntity = minecraftClient.getPlayerMapped();
+        if (clientPlayerEntity == null) {
+            return null;
+        }
+        final HitResult hitResult = minecraftClient.getCrosshairTargetMapped();
+        if (hitResult == null) {
+            return null;
+        }
+        final Vector3d hitPos = hitResult.getPos();
+        final BlockPos blockPos = Init.newBlockPos(hitPos.getXMapped(), hitPos.getYMapped(), hitPos.getZMapped());
+        if (clientWorld.getBlockState(blockPos).getBlock().data instanceof BlockRigidCatenaryNode) {
+            final float playerAngle = EntityHelper.getYaw(new Entity(clientPlayerEntity.data)) + 90;
+            final RigidCatenary[] closestRigidCatenary = {null};
+            final double[] closestAngle = {720};
+            positionsToRigidCatenary.getOrDefault(Init.blockPosToPosition(blockPos), new Object2ObjectOpenHashMap<>()).forEach((endPosition, rigidCatenary) -> {
+                final double angle = Math.abs(Math.toDegrees(Math.atan2(endPosition.getZ() - blockPos.getZ(), endPosition.getX() - blockPos.getX())) - playerAngle) % 360;
+                final double clampedAngle = angle > 180 ? 360 - angle : angle;
+                if (clampedAngle < closestAngle[0]) {
+                    closestRigidCatenary[0] = rigidCatenary;
+                    closestAngle[0] = clampedAngle;
+                }
+            });
+            return closestRigidCatenary[0];
+        }
+        return null;
     }
 
     public static MSDMinecraftClientData getInstance() {

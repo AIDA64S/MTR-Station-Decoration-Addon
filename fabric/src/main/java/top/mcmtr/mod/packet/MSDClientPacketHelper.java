@@ -5,6 +5,7 @@ import org.mtr.mapping.mapper.ScreenExtension;
 import top.mcmtr.core.data.OffsetPosition;
 import top.mcmtr.mod.blocks.BlockCatenaryNode;
 import top.mcmtr.mod.screen.CatenaryScreen;
+import top.mcmtr.mod.screen.RigidCatenaryShapeModifierScreen;
 
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -16,6 +17,10 @@ public final class MSDClientPacketHelper {
                 openScreen(new CatenaryScreen(isConnected, blockPos, offsetPosition), screenExtension -> screenExtension instanceof CatenaryScreen);
             }
         });
+    }
+
+    public static void openRigidCatenaryShapeModifierScreen(String rigidCatenaryId) {
+        openScreen(new RigidCatenaryShapeModifierScreen(rigidCatenaryId), screenExtension -> screenExtension instanceof RigidCatenaryShapeModifierScreen);
     }
 
     private static void openScreen(ScreenExtension screenExtension, Predicate<ScreenExtension> isInstance) {

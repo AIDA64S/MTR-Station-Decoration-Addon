@@ -57,11 +57,8 @@ public final class MSDDeleteDataRequest extends MSDDeleteDataRequestSchema {
         simulator.sync();
 
         nodePositionsToUpdate.forEach(nodePosition -> {
-            boolean nodeNeedUpdate = simulator.positionsToCatenary.getOrDefault(nodePosition, new Object2ObjectOpenHashMap<>()).isEmpty();
-            if (simulator.positionsToRigidCatenary.getOrDefault(nodePosition, new Object2ObjectOpenHashMap<>()).isEmpty()) {
-                nodeNeedUpdate = true;
-            }
-            if (nodeNeedUpdate) {
+            if (simulator.positionsToCatenary.getOrDefault(nodePosition, new Object2ObjectOpenHashMap<>()).isEmpty()
+                    && simulator.positionsToRigidCatenary.getOrDefault(nodePosition, new Object2ObjectOpenHashMap<>()).isEmpty()) {
                 deleteDataResponse.getCatenaryNodePositions().add(nodePosition);
             }
         });

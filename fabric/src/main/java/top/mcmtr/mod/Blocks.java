@@ -11,10 +11,12 @@ public class Blocks {
     static {
         CATENARY_NODE = Init.REGISTRY.registerBlockWithBlockItem(new Identifier(Init.MOD_ID, "catenary_node"), () -> new Block(new BlockCatenaryNode()), CreativeModeTabs.EXTERNAL);
         RIGID_CATENARY_NODE = Init.REGISTRY.registerBlockWithBlockItem(new Identifier(Init.MOD_ID, "rigid_catenary_node"), () -> new Block(new BlockRigidCatenaryNode()), CreativeModeTabs.EXTERNAL);
+        ELECTRIC_NODE = Init.REGISTRY.registerBlock(new Identifier(Init.MOD_ID, "electric_node"), () -> new Block(new BlockCatenaryNode()));
     }
 
     public static final BlockRegistryObject CATENARY_NODE;
     public static final BlockRegistryObject RIGID_CATENARY_NODE;
+    public static final BlockRegistryObject ELECTRIC_NODE;
 
     public static void init() {
         Init.MSD_LOGGER.info("Registering MTR Station Decoration blocks");

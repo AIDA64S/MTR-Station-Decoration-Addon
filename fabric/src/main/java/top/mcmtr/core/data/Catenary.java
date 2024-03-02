@@ -10,6 +10,10 @@ public final class Catenary extends CatenarySchema {
     public final CatenaryMath catenaryMath;
     private final boolean reversePositions;
 
+    public static Catenary copy(Catenary catenary, OffsetPosition offsetPositionStartNew, OffsetPosition offsetPositionEndNew) {
+        return new Catenary(catenary.getPosition1(), catenary.getPosition2(), offsetPositionStartNew, offsetPositionEndNew, catenary.getCatenaryType());
+    }
+
     public Catenary(Position positionStart, Position positionEnd, OffsetPosition offsetPositionStart, OffsetPosition offsetPositionEnd, CatenaryType catenaryType) {
         super(positionStart, positionEnd, offsetPositionStart, offsetPositionEnd, catenaryType);
         this.reversePositions = positionStart.compareTo(positionEnd) > 0;

@@ -57,6 +57,7 @@ public abstract class BlockNodeBase extends BlockExtension implements BlockWithE
             this.offsetPosition.setX(offsetPosition.getX());
             this.offsetPosition.setY(offsetPosition.getY());
             this.offsetPosition.setZ(offsetPosition.getZ());
+            markDirty2();
         }
 
         public OffsetPosition getOffsetPosition() {

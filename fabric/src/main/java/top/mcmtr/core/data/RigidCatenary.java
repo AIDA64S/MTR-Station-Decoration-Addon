@@ -11,6 +11,10 @@ public final class RigidCatenary extends RigidCatenarySchema {
     public final RigidCatenaryMath rigidCatenaryMath;
     private final boolean reversePositions;
 
+    public static RigidCatenary copy(RigidCatenary rigidCatenary, RigidCatenary.Shape newShape, double newVerticalRadius) {
+        return new RigidCatenary(rigidCatenary.position1, rigidCatenary.angle1, rigidCatenary.position2, rigidCatenary.angle2, newShape, newVerticalRadius);
+    }
+
     public RigidCatenary(Position position1, Angle angle1, Position position2, Angle angle2, RigidCatenary.Shape shape, double verticalRadius) {
         super(position1, angle1, position2, angle2, shape, verticalRadius);
         this.reversePositions = position1.compareTo(position2) > 0;
@@ -58,7 +62,7 @@ public final class RigidCatenary extends RigidCatenarySchema {
     }
 
     public enum Shape {
-        QUADRATIC, TWO_RADII, CABLE;
+        QUADRATIC, TWO_RADII;
 
         Shape() {
         }
