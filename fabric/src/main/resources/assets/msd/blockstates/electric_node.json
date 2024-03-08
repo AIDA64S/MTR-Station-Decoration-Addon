@@ -1,56 +1,10 @@
 {
   "variants": {
-    "facing=down,is_connected=true": {
-      "model": "msd:block/electric_node",
-      "x": 180
+    "is_connected=true": {
+      "model": "msd:block/catenary_node"
     },
-    "facing=down,is_connected=false": {
-      "model": "msd:block/electric_node",
-      "x": 180
-    },
-    "facing=east,is_connected=true": {
-      "model": "msd:block/electric_node",
-      "x": 90,
-      "y": 90
-    },
-    "facing=east,is_connected=false": {
-      "model": "msd:block/electric_node",
-      "x": 90,
-      "y": 90
-    },
-    "facing=north,is_connected=true": {
-      "model": "msd:block/electric_node",
-      "x": 90
-    },
-    "facing=north,is_connected=false": {
-      "model": "msd:block/electric_node",
-      "x": 90
-    },
-    "facing=south,is_connected=true": {
-      "model": "msd:block/electric_node",
-      "x": 90,
-      "y": 180
-    },
-    "facing=south,is_connected=false": {
-      "model": "msd:block/electric_node",
-      "x": 90,
-      "y": 180
-    },
-    "facing=up,is_connected=true": {
-      "model": "msd:block/electric_node"
-    },
-    "facing=up,is_connected=false": {
-      "model": "msd:block/electric_node"
-    },
-    "facing=west,is_connected=true": {
-      "model": "msd:block/electric_node",
-      "x": 90,
-      "y": 270
-    },
-    "facing=west,is_connected=false": {
-      "model": "msd:block/electric_node",
-      "x": 90,
-      "y": 270
+    "is_connected=false": {
+      "model": "msd:block/catenary_node"
     }
   }
 }
