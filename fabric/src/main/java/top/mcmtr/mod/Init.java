@@ -48,6 +48,8 @@ public class Init implements Utilities {
         REGISTRY.registerPacket(MSDPacketUpdateCatenaryNode.class, MSDPacketUpdateCatenaryNode::new);
         REGISTRY.registerPacket(MSDPacketUpdateYamanoteRailwaySignConfig.class, MSDPacketUpdateYamanoteRailwaySignConfig::new);
         REGISTRY.registerPacket(MSDPacketOpenBlockEntityScreen.class, MSDPacketOpenBlockEntityScreen::new);
+        REGISTRY.registerPacket(MSDPacketOpenCustomTextConfig.class, MSDPacketOpenCustomTextConfig::new);
+        REGISTRY.registerPacket(MSDPacketUpdateCustomText.class, MSDPacketUpdateCustomText::new);
 
         EventRegistry.registerServerStarted(minecraftServer -> {
             WORLD_ID_LIST.clear();

@@ -1,6 +1,5 @@
 package top.mcmtr.mod.packet;
 
-import org.jetbrains.annotations.NotNull;
 import org.mtr.core.integration.Response;
 import org.mtr.core.tool.Utilities;
 import org.mtr.mapping.holder.ServerWorld;
@@ -37,7 +36,6 @@ public final class MSDPacketResetData extends MSDPacketRequestResponseBase {
         return new MSDPacketResetData(content);
     }
 
-    @NotNull
     @Override
     protected String getEndpoint() {
         return "operation/" + OperationType.RESET_DATA;

@@ -1,6 +1,5 @@
 package top.mcmtr.mod.items;
 
-import org.jetbrains.annotations.NotNull;
 import org.mtr.mapping.holder.ActionResult;
 import org.mtr.mapping.holder.ItemSettings;
 import org.mtr.mapping.holder.ItemUsageContext;
@@ -14,7 +13,6 @@ public class ItemRigidCatenaryModifier extends ItemExtension {
         super(itemSettings);
     }
 
-    @NotNull
     @Override
     public ActionResult useOnBlock2(ItemUsageContext context) {
         if (context.getWorld().isClient()) {

@@ -4,8 +4,10 @@ import org.mtr.mapping.holder.*;
 import org.mtr.mapping.mapper.ScreenExtension;
 import top.mcmtr.core.data.OffsetPosition;
 import top.mcmtr.mod.blocks.BlockCatenaryNode;
+import top.mcmtr.mod.blocks.BlockCustomTextSignBase;
 import top.mcmtr.mod.blocks.BlockYamanoteRailwaySign;
 import top.mcmtr.mod.screen.CatenaryScreen;
+import top.mcmtr.mod.screen.CustomTextScreen;
 import top.mcmtr.mod.screen.RigidCatenaryShapeModifierScreen;
 import top.mcmtr.mod.screen.YamanoteRailwaySignScreen;
 
@@ -17,6 +19,14 @@ public final class MSDClientPacketHelper {
         getBlockEntity(blockPos, blockEntity -> {
             if (blockEntity.data instanceof BlockYamanoteRailwaySign.BlockYamanoteRailwaySignEntity) {
                 openScreen(new YamanoteRailwaySignScreen(blockPos), screenExtension -> screenExtension instanceof YamanoteRailwaySignScreen);
+            }
+        });
+    }
+
+    public static void openCustomTextConfigScreen(BlockPos blockPos, int maxArrivals) {
+        getBlockEntity(blockPos, blockEntity -> {
+            if (blockEntity.data instanceof BlockCustomTextSignBase.BlockCustomTextSignBaseEntity) {
+                openScreen(new CustomTextScreen(blockPos, maxArrivals), screenExtension -> screenExtension instanceof CustomTextScreen);
             }
         });
     }

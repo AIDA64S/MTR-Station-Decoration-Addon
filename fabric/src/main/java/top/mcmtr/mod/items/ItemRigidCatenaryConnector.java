@@ -1,6 +1,5 @@
 package top.mcmtr.mod.items;
 
-import org.jetbrains.annotations.Nullable;
 import org.mtr.core.data.Position;
 import org.mtr.core.data.TwoPositionsBase;
 import org.mtr.core.tool.Angle;
@@ -13,6 +12,8 @@ import top.mcmtr.mod.blocks.BlockNodeBase;
 import top.mcmtr.mod.blocks.BlockRigidCatenaryNode;
 import top.mcmtr.mod.packet.MSDPacketDeleteData;
 import top.mcmtr.mod.packet.MSDPacketUpdateData;
+
+import javax.annotation.Nullable;
 
 public final class ItemRigidCatenaryConnector extends ItemBlockClickingBase {
     public ItemRigidCatenaryConnector(ItemSettings itemSettings, boolean isConnector) {

@@ -1,7 +1,6 @@
 package top.mcmtr.core.legacy.generated.data;
 
 import org.mtr.core.serializer.ReaderBase;
-import org.mtr.core.serializer.SerializedDataBase;
 import org.mtr.core.serializer.SerializedDataBaseWithId;
 import org.mtr.core.serializer.WriterBase;
 import org.mtr.libraries.it.unimi.dsi.fastutil.objects.ObjectArrayList;

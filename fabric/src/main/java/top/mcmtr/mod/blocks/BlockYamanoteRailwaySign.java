@@ -1,6 +1,5 @@
 package top.mcmtr.mod.blocks;
 
-import org.jetbrains.annotations.NotNull;
 import org.mtr.libraries.it.unimi.dsi.fastutil.longs.LongAVLTreeSet;
 import org.mtr.mapping.holder.*;
 import org.mtr.mapping.mapper.*;
@@ -24,12 +23,11 @@ public class BlockYamanoteRailwaySign extends BlockExtension implements IBlock, 
     public static final float SMALL_SIGN_PERCENTAGE = 0.75F;
 
     public BlockYamanoteRailwaySign(int length, boolean isOdd) {
-        super(BlockHelper.createBlockSettings(true, blockState -> 15));
+        super(BlockHelper.createBlockSettings(true, blockState -> 15).nonOpaque());
         this.length = length;
         this.isOdd = isOdd;
     }
 
-    @NotNull
     @Override
     public ActionResult onUse2(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         return IBlock.checkHoldingBrush(world, player, () -> {
@@ -44,7 +42,6 @@ public class BlockYamanoteRailwaySign extends BlockExtension implements IBlock, 
         });
     }
 
-    @NotNull
     @Override
     public BlockState getStateForNeighborUpdate2(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         final Direction facing = IBlock.getStatePropertySafe(state, FACING);

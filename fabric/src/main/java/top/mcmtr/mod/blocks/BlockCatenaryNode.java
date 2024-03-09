@@ -1,6 +1,5 @@
 package top.mcmtr.mod.blocks;
 
-import org.jetbrains.annotations.NotNull;
 import org.mtr.mapping.holder.*;
 import org.mtr.mapping.mapper.BlockEntityExtension;
 import org.mtr.mod.block.IBlock;
@@ -29,7 +28,6 @@ public final class BlockCatenaryNode extends BlockNodeBase {
         }
     }
 
-    @NotNull
     @Override
     public ActionResult onUse2(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         return IBlock.checkHoldingBrush(world, player, () -> {
