@@ -1,13 +1,13 @@
 package top.mcmtr.mod.blocks;
 
 import org.mtr.mapping.holder.*;
-import org.mtr.mapping.mapper.BlockHelper;
+import org.mtr.mod.Blocks;
 import org.mtr.mod.block.IBlock;
 
 public final class BlockDecorationPC extends BlockChangeModelBase {
 
     public BlockDecorationPC() {
-        super(BlockHelper.createBlockSettings(true), 1);
+        super(Blocks.createDefaultBlockSettings(true), 1);
     }
 
     @Override

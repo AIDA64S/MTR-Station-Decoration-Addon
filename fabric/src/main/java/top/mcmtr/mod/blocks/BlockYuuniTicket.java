@@ -1,8 +1,8 @@
 package top.mcmtr.mod.blocks;
 
 import org.mtr.mapping.holder.*;
-import org.mtr.mapping.mapper.BlockHelper;
 import org.mtr.mapping.tool.HolderBase;
+import org.mtr.mod.Blocks;
 import org.mtr.mod.Init;
 import org.mtr.mod.block.BlockDirectionalDoubleBlockBase;
 import org.mtr.mod.block.IBlock;
@@ -14,7 +14,7 @@ import java.util.List;
 public final class BlockYuuniTicket extends BlockDirectionalDoubleBlockBase {
 
     public BlockYuuniTicket() {
-        super(BlockHelper.createBlockSettings(true, blockState -> 5));
+        super(Blocks.createDefaultBlockSettings(true, blockState -> 5));
     }
 
     @Override

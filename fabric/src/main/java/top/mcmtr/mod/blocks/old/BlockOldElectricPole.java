@@ -2,7 +2,6 @@ package top.mcmtr.mod.blocks.old;
 
 import org.mtr.mapping.holder.*;
 import org.mtr.mapping.mapper.BlockExtension;
-import org.mtr.mapping.mapper.BlockHelper;
 import org.mtr.mapping.mapper.DirectionHelper;
 import org.mtr.mapping.mapper.TextHelper;
 import org.mtr.mapping.tool.HolderBase;
@@ -16,7 +15,7 @@ public class BlockOldElectricPole extends BlockExtension implements DirectionHel
     private final boolean hasAnother;
 
     public BlockOldElectricPole(boolean hasAnother) {
-        super(BlockHelper.createBlockSettings(false).nonOpaque());
+        super(org.mtr.mod.Blocks.createDefaultBlockSettings(false).nonOpaque());
         this.hasAnother = hasAnother;
         getDefaultState2().with(new Property<>(IS_LONG.data), false);
     }

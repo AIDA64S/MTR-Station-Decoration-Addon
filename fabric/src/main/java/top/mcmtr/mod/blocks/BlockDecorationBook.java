@@ -1,12 +1,12 @@
 package top.mcmtr.mod.blocks;
 
 import org.mtr.mapping.holder.*;
-import org.mtr.mapping.mapper.BlockHelper;
+import org.mtr.mod.Blocks;
 import org.mtr.mod.block.IBlock;
 
 public final class BlockDecorationBook extends BlockChangeModelBase {
     public BlockDecorationBook() {
-        super(BlockHelper.createBlockSettings(true, blockState -> 2).nonOpaque(), 2);
+        super(Blocks.createDefaultBlockSettings(true, blockState -> 2).nonOpaque(), 2);
     }
 
     @Override

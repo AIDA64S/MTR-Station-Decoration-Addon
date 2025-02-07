@@ -1,8 +1,8 @@
 package top.mcmtr.mod.blocks;
 
 import org.mtr.mapping.holder.*;
-import org.mtr.mapping.mapper.BlockHelper;
 import org.mtr.mapping.mapper.TextHelper;
+import org.mtr.mod.Blocks;
 import org.mtr.mod.block.IBlock;
 
 import javax.annotation.Nullable;
@@ -12,7 +12,7 @@ public final class BlockRailingStair extends BlockChangeModelBase {
     private final boolean isMirror;
 
     public BlockRailingStair(boolean isMirror) {
-        super(BlockHelper.createBlockSettings(true).nonOpaque(), 5);
+        super(Blocks.createDefaultBlockSettings(true).nonOpaque(), 5);
         this.isMirror = isMirror;
     }
 

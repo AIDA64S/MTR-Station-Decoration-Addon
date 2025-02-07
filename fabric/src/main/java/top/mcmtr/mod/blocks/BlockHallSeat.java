@@ -1,12 +1,12 @@
 package top.mcmtr.mod.blocks;
 
 import org.mtr.mapping.holder.*;
-import org.mtr.mapping.mapper.BlockHelper;
+import org.mtr.mod.Blocks;
 import org.mtr.mod.block.IBlock;
 
 public final class BlockHallSeat extends BlockChangeModelBase {
     public BlockHallSeat() {
-        super(BlockHelper.createBlockSettings(false), 3);
+        super(Blocks.createDefaultBlockSettings(false), 3);
     }
 
     @Override

@@ -1,9 +1,9 @@
 package top.mcmtr.mod.blocks;
 
 import org.mtr.mapping.holder.*;
-import org.mtr.mapping.mapper.BlockHelper;
 import org.mtr.mapping.mapper.TextHelper;
 import org.mtr.mapping.tool.HolderBase;
+import org.mtr.mod.Blocks;
 import org.mtr.mod.block.BlockPoleCheckBase;
 import org.mtr.mod.block.IBlock;
 
@@ -14,7 +14,7 @@ public final class BlockYamanoteRailwaySignPole extends BlockPoleCheckBase {
     public static final IntegerProperty TYPE = IntegerProperty.of("type", 0, 3);
 
     public BlockYamanoteRailwaySignPole() {
-        super(BlockHelper.createBlockSettings(true));
+        super(Blocks.createDefaultBlockSettings(true));
     }
 
     @Nonnull

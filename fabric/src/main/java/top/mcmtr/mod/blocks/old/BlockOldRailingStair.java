@@ -2,10 +2,10 @@ package top.mcmtr.mod.blocks.old;
 
 import org.mtr.mapping.holder.*;
 import org.mtr.mapping.mapper.BlockExtension;
-import org.mtr.mapping.mapper.BlockHelper;
 import org.mtr.mapping.mapper.DirectionHelper;
 import org.mtr.mapping.mapper.TextHelper;
 import org.mtr.mapping.tool.HolderBase;
+import org.mtr.mod.Blocks;
 import org.mtr.mod.block.IBlock;
 
 import java.util.List;
@@ -17,7 +17,7 @@ public class BlockOldRailingStair extends BlockExtension implements DirectionHel
     private final int metal;
 
     public BlockOldRailingStair(boolean isMirror, int index, int metal) {
-        super(BlockHelper.createBlockSettings(true).nonOpaque());
+        super(Blocks.createDefaultBlockSettings(true).nonOpaque());
         this.isMirror = isMirror;
         this.index = index;
         this.metal = metal;

@@ -2,16 +2,16 @@ package top.mcmtr.mod.blocks.old;
 
 import org.mtr.mapping.holder.*;
 import org.mtr.mapping.mapper.BlockExtension;
-import org.mtr.mapping.mapper.BlockHelper;
 import org.mtr.mapping.mapper.DirectionHelper;
 import org.mtr.mapping.mapper.TextHelper;
 import org.mtr.mapping.tool.HolderBase;
+import org.mtr.mod.Blocks;
 
 import java.util.List;
 
 public final class BlockOldDecorationRack extends BlockExtension implements DirectionHelper {
     public BlockOldDecorationRack() {
-        super(BlockHelper.createBlockSettings(true).nonOpaque());
+        super(Blocks.createDefaultBlockSettings(true).nonOpaque());
     }
 
     @Override

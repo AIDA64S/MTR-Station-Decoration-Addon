@@ -3,16 +3,16 @@ package top.mcmtr.mod.blocks;
 import org.mtr.mapping.holder.*;
 import org.mtr.mapping.mapper.BlockEntityExtension;
 import org.mtr.mapping.mapper.BlockExtension;
-import org.mtr.mapping.mapper.BlockHelper;
 import org.mtr.mapping.mapper.BlockWithEntity;
 import org.mtr.mapping.tool.HolderBase;
+import org.mtr.mod.Blocks;
 import top.mcmtr.core.data.OffsetPosition;
 
 import java.util.List;
 
 public abstract class BlockNodeBase extends BlockExtension implements BlockWithEntity {
     public BlockNodeBase() {
-        super(BlockHelper.createBlockSettings(true).nonOpaque());
+        super(Blocks.createDefaultBlockSettings(true).nonOpaque());
     }
 
     public static final BooleanProperty IS_CONNECTED = BooleanProperty.of("is_connected");

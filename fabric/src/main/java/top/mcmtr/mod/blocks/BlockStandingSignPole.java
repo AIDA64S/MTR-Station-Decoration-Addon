@@ -1,13 +1,13 @@
 package top.mcmtr.mod.blocks;
 
 import org.mtr.mapping.holder.*;
-import org.mtr.mapping.mapper.BlockHelper;
+import org.mtr.mod.Blocks;
 import org.mtr.mod.block.IBlock;
 
 public final class BlockStandingSignPole extends BlockChangeModelBase {
 
     public BlockStandingSignPole() {
-        super(BlockHelper.createBlockSettings(true), 2);
+        super(Blocks.createDefaultBlockSettings(true), 2);
     }
 
     @Override

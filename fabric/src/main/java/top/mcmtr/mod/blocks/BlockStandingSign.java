@@ -2,13 +2,13 @@ package top.mcmtr.mod.blocks;
 
 import org.mtr.mapping.holder.*;
 import org.mtr.mapping.mapper.BlockEntityExtension;
-import org.mtr.mapping.mapper.BlockHelper;
+import org.mtr.mod.Blocks;
 import org.mtr.mod.block.IBlock;
 import top.mcmtr.mod.BlockEntityTypes;
 
 public final class BlockStandingSign extends BlockCustomTextBase {
     public BlockStandingSign() {
-        super(BlockHelper.createBlockSettings(true, blockState -> 8), 3, 2);
+        super(Blocks.createDefaultBlockSettings(true, blockState -> 8), 3, 2);
     }
 
     @Override

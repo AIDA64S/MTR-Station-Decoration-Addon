@@ -1,9 +1,9 @@
 package top.mcmtr.mod.blocks;
 
 import org.mtr.mapping.holder.*;
-import org.mtr.mapping.mapper.BlockHelper;
 import org.mtr.mapping.mapper.TextHelper;
 import org.mtr.mapping.tool.HolderBase;
+import org.mtr.mod.Blocks;
 import org.mtr.mod.block.BlockPIDSHorizontalBase;
 import org.mtr.mod.block.BlockPoleCheckBase;
 import org.mtr.mod.block.IBlock;
@@ -12,7 +12,7 @@ import java.util.List;
 
 public final class BlockYuuniPIDSPole extends BlockPoleCheckBase {
     public BlockYuuniPIDSPole() {
-        super(BlockHelper.createBlockSettings(true));
+        super(Blocks.createDefaultBlockSettings(true));
     }
 
     @Override

@@ -1,13 +1,13 @@
 package top.mcmtr.mod.blocks;
 
 import org.mtr.mapping.holder.*;
-import org.mtr.mapping.mapper.BlockHelper;
+import org.mtr.mod.Blocks;
 import org.mtr.mod.block.IBlock;
 
 public final class BlockDisplayBoardHorizontally extends BlockChangeModelBase {
 
     public BlockDisplayBoardHorizontally() {
-        super(BlockHelper.createBlockSettings(true, blockState -> 5), 6);
+        super(Blocks.createDefaultBlockSettings(true, blockState -> 5), 6);
     }
 
     @Override
