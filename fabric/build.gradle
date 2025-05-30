@@ -2,7 +2,7 @@ import org.apache.tools.ant.filters.ReplaceTokens
 import org.mtr.mod.BuildTools
 
 plugins {
-    id "fabric-loom" version "+"
+    id "fabric-loom" version "1.10-SNAPSHOT"
 }
 
 final BuildTools buildTools = new BuildTools(minecraftVersion, "fabric", mtrVersion, project)
